@@ -36,7 +36,7 @@ public class LockUnlockUser {
         //Set window --> maximize
         driver.manage().window().maximize();
         //Set timeout 20 sec
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @Test(priority = 1)
