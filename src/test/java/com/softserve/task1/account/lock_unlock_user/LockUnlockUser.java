@@ -47,7 +47,6 @@ public class LockUnlockUser {
 
     @Test(priority = 2)
     public void loginIntoAdminPanel() {
-        //
         //Input login
         driver.findElement(By.id("input-username")).click();
         driver.findElement(By.id("input-username")).clear();
@@ -64,7 +63,6 @@ public class LockUnlockUser {
 
     @Test(priority = 3)
     public void openCustomersList() {
-        //
         //Create action
         Actions builder = new Actions(driver);
         //
@@ -77,7 +75,6 @@ public class LockUnlockUser {
 
     @Test(priority = 4)
     public void editCustomerStatus() {
-        //
         //Click on Edit button
         driver.findElement(By.cssSelector("i[class*='fa-pencil']")).click();
         //
@@ -93,7 +90,6 @@ public class LockUnlockUser {
 
     @Test(priority = 5)
     public void openNewTab() {
-        //
         //Open new empty tab using javascript
         ((JavascriptExecutor) driver).executeScript("window.open(\"http://192.168.227.129/opencart/upload/index.php?route=account/login\")");
         //
@@ -106,7 +102,6 @@ public class LockUnlockUser {
 
     @Test(priority = 6)
     public void tryToLoginWithLockedUser() {
-        //
         //Input correct Login
         driver.findElement(By.id("input-email")).click();
         driver.findElement(By.id("input-email")).clear();
@@ -132,7 +127,6 @@ public class LockUnlockUser {
 
     @Test(priority = 7)
     public void closeTab() {
-        //
         //Close current tab using javascript
         ((JavascriptExecutor) driver).executeScript("window.close()");
         //
@@ -142,7 +136,6 @@ public class LockUnlockUser {
 
     @Test(priority = 8)
     public void rollbackCustomerStatus() {
-        //
         //Click on Edit button
         driver.findElement(By.cssSelector("i[class*='fa-pencil']")).click();
         //
@@ -159,7 +152,6 @@ public class LockUnlockUser {
 
     @Test(priority = 9)
     public void openNewTab2() {
-        //
         //Open new empty tab using javascript
         ((JavascriptExecutor) driver).executeScript("window.open(\"http://192.168.227.129/opencart/upload/index.php?route=account/login\")");
         //
@@ -172,7 +164,6 @@ public class LockUnlockUser {
 
     @Test(priority = 10)
     public void tryToLoginWithUnlockedUser() {
-        //
         //Input correct Login
         driver.findElement(By.id("input-email")).click();
         driver.findElement(By.id("input-email")).clear();
@@ -207,5 +198,4 @@ public class LockUnlockUser {
     public void exit() {
         driver.quit();
     }
-
 }
