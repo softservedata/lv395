@@ -29,8 +29,8 @@ public class LockUnlockUser {
     @BeforeClass
     public void openBrowser() {
         //Set Properties
-        System.setProperty("webdriver.chrome.driver",
-                this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
+        System.setProperty("webdriver.chrome.driver", "./lib/drivers/chromedriver.exe");
+        System.getProperty("webdriver.chrome.driver");
         //Create new WebDriver object
         driver = new ChromeDriver();
         //Set window --> maximize
