@@ -210,6 +210,9 @@
     </dependencies>
 
     <build>
+        <!--Goals-->
+        <defaultGoal>test</defaultGoal>
+
         <extensions>
             <extension>
                 <groupId>kr.motd.maven</groupId>
@@ -278,6 +281,7 @@
                 <version>${maven.surefire.plugin.version}</version>
                 <configuration>
                     <argLine>-Xms512m -Xmx1024m</argLine>
+                    <testFailureIgnore>true</testFailureIgnore>
                     <!-- <argLine>-Xms256m -Xmx512m</argLine> -->
                     <systemPropertyVariables>
                         <surefire.reports.directory>
@@ -288,7 +292,7 @@
                         </selenium.version>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
-                        <suiteXmlFile>testng1.xml</suiteXmlFile>
+                        <suiteXmlFile>CartTest.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <reportsDirectory>${testng.reports.directory}</reportsDirectory>
                     <!-- <argLine> -->

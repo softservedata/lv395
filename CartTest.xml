@@ -2,10 +2,12 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite1">
 
-	<test name="Test1">
+	<test name="CartTest">
 		<classes>
-			<class name="com.softserve.edu.AppTest" />
-			<class name="com.softserve.edu.SimpleTest" />
+			<class name="com.softserve.edu.GoodsListTest" />
+			<class name="com.softserve.edu.CartFunctionalityTest" />
+			<class name="com.softserve.edu.OrderInfoTest" />
+			<class name="com.softserve.edu.OtherFunctionalityTest" />
 		</classes>
 	</test> <!-- Test -->
 

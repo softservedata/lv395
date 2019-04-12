@@ -11,10 +11,9 @@ import org.testng.annotations.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class CartTest {
+public class GoodsListTest {
 
     private WebDriver driver;
-    WebDriverWait wait;
 
     @BeforeClass
     public void beforeClass() {
@@ -43,7 +42,7 @@ public class CartTest {
 
     @Test
     public void addOneItemTest() {
-        //Control elements finding
+        //Adding goods to the cart
         driver.findElement(By.cssSelector("div[id='content'] > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(3) > button:nth-of-type(1)")).click();
         driver.navigate().refresh();
         driver.findElement(By.id("cart")).click();
@@ -52,13 +51,14 @@ public class CartTest {
         String actualGoodPlate = goodPlate.getText();
         //Printing results
         System.out.println(actualGoodPlate);
-        //Asserting
+        //Asserting results
         Assert.assertTrue(actualGoodPlate.contains("MacBook" + " " + "x 1" + " " + "$602.00"));
     }
 
     @Test
     public void increaseQuantityOfItemsTest() {
         List<WebElement> cartElementsTableRows;
+        //Adding goods to the cart
         for(int i = 0; i < 3; i++) {
             driver.findElement(By.cssSelector("div[id='content'] > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(3) > button:nth-of-type(1)")).click();
             driver.navigate().refresh();
@@ -66,36 +66,16 @@ public class CartTest {
             driver.navigate().refresh();
         }
         driver.findElement(By.id("cart")).click();
+        //WebElements initialization
         WebElement cartElementsTable = driver.findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody"));
         cartElementsTableRows = cartElementsTable.findElements(By.tagName("tr"));
+        //Printing results
         for (WebElement e: cartElementsTableRows) {
             System.out.println(e.getText());
         }
+        //Asserting results
         Assert.assertTrue(cartElementsTableRows.get(0).getText().contains("iPhone" + " " + "x 3" + " " + "$369.60"));
         Assert.assertTrue(cartElementsTableRows.get(1).getText().contains("MacBook" + " " + "x 3" + " " + "$1,806.00"));
-    }
-
-
-    @Test
-    public void checkPriceTextButton() {
-        driver.findElement(By.cssSelector("a[href*='http://taqc-opencart.epizy.com/index.php?route=product/product&product_id=43']")).click();
-        driver.findElement(By.id("button-cart")).click();
-        driver.navigate().refresh();
-        WebElement priceTextButton = driver.findElement(By.id("cart-total"));
-        String actual = priceTextButton.getText();
-        Assert.assertTrue(actual.contains("1 item(s) - $602.00"));
-    }
-
-    @Test
-    public void checkPriceTextButtonFourElements() {
-        driver.findElement(By.cssSelector("div[id='content'] > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(3) > button:nth-of-type(1)")).click();
-        driver.findElement(By.cssSelector("div[id='content'] > div:nth-of-type(2) > div:nth-of-type(2) > div > div:nth-of-type(3) > button:nth-of-type(1)")).click();
-        driver.findElement(By.cssSelector("div[id='content'] > div:nth-of-type(2) > div:nth-of-type(3) > div > div:nth-of-type(3) > button:nth-of-type(1)")).click();
-        driver.findElement(By.cssSelector("div[id='content'] > div:nth-of-type(2) > div:nth-of-type(4) > div > div:nth-of-type(3) > button:nth-of-type(1)")).click();
-        driver.navigate().refresh();
-        WebElement priceTextButton = driver.findElement(By.id("cart-total"));
-        String actual = priceTextButton.getText();
-        Assert.assertTrue(actual.contains("4 item(s) - $933.20"));
     }
 
 }
