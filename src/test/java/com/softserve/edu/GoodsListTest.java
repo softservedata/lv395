@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -16,7 +15,7 @@ public class GoodsListTest {
     private WebDriver driver;
 
     @BeforeClass
-    public void beforeClass() {
+    public void initializeDriver() {
         System.setProperty("webdriver.chrome.driver",
                 "./lib/chromedriver.exe");
         driver = new ChromeDriver();
@@ -24,21 +23,30 @@ public class GoodsListTest {
     }
 
     @AfterClass
-    public void afterClass() {
+    public void driverQuite() {
         driver.quit();
     }
 
     @BeforeMethod
-    public void beforeMethod() {
+    public void webServiceStart() {
         driver.get("http://192.168.239.129/opencart/upload/");
     }
 
-/*    @AfterMethod
-    public void afterMethod() {
-        driver.findElement(By.cssSelector("button[class*='btn-inverse']")).click();
-        driver.findElement(By.cssSelector("button[class*='btn-danger']")).click();
-        driver.navigate().refresh();
-    }*/
+    @AfterMethod
+    public void cleanCart() {
+        //WebElements initialization
+        List<WebElement> cartElementsTableRows;
+        WebElement cartElementsTable = driver.findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody"));
+        cartElementsTableRows = cartElementsTable.findElements(By.tagName("tr"));
+        //Cycle which deleting elements from cart
+        for(int countOfElements = cartElementsTableRows.size(); countOfElements > 0 ; countOfElements--) {
+            driver.findElement(By.id("cart")).click();
+            System.out.println(cartElementsTableRows.size());
+            driver.findElement(By.cssSelector("button[class*='btn-danger']")).click();
+            cartElementsTableRows.remove(--countOfElements);
+            driver.navigate().refresh();
+        }
+    }
 
     @Test
     public void addOneItemTest() {
@@ -53,6 +61,7 @@ public class GoodsListTest {
         System.out.println(actualGoodPlate);
         //Asserting results
         Assert.assertTrue(actualGoodPlate.contains("MacBook" + " " + "x 1" + " " + "$602.00"));
+        driver.navigate().refresh();
     }
 
     @Test
@@ -76,6 +85,7 @@ public class GoodsListTest {
         //Asserting results
         Assert.assertTrue(cartElementsTableRows.get(0).getText().contains("iPhone" + " " + "x 3" + " " + "$369.60"));
         Assert.assertTrue(cartElementsTableRows.get(1).getText().contains("MacBook" + " " + "x 3" + " " + "$1,806.00"));
+        driver.navigate().refresh();
     }
 
 }
