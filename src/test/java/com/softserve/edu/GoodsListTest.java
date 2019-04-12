@@ -105,4 +105,21 @@ public class GoodsListTest {
         driver.navigate().refresh();
     }
 
+    @Test(priority = 4)
+    public void addItemFromProductPageTest() {
+        //Adding goods to the cart
+        driver.findElement(By.cssSelector("a[href='http://192.168.239.129/opencart/upload/index.php?route=product/product&product_id=43']")).click();
+        driver.findElement(By.id("button-cart")).click();
+        driver.findElement(By.id("logo")).click();
+        driver.findElement(By.id("cart")).click();
+        //WebElements initialization
+        WebElement goodPlate = driver.findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody/tr"));
+        String actualGoodPlate = goodPlate.getText();
+        //Printing results
+        System.out.println("Test 4 actual result: " + actualGoodPlate);
+        //Asserting results
+        Assert.assertTrue(actualGoodPlate.contains("MacBook" + " " + "x 1" + " " + "$602.00"));
+        driver.navigate().refresh();
+    }
+
 }
