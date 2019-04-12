@@ -12,9 +12,9 @@ import java.util.concurrent.TimeUnit;
 public class CheckLoginWithCorrectCredentials {
     private WebDriver driver;
 
-    private static final String URL = "http://192.168.227.129/opencart/upload";
-    private static final String correctEmail = "john.wick.test@ukr.net";
-    private static final String correctPassword = "qwerty";
+    private final String URL = "http://192.168.227.129/opencart/upload";
+    private final String correctEmail = "john.wick.test@ukr.net";
+    private final String correctPassword = "qwerty";
 
     @DataProvider
     public Object[][] credentials() {

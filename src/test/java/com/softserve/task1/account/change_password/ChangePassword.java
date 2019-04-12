@@ -12,11 +12,11 @@ import java.util.concurrent.TimeUnit;
 public class ChangePassword {
     private WebDriver driver;
 
-    private static final String URL = "http://10.10.0.120/opencart/upload/";
-    private static final String message = "Success: Your password has been successfully updated.";
-    private static final String correctEmail = "john.wick.test@ukr.net";
-    private static final String mainPassword = "qwerty";
-    private static final String changedPassword = "qwerty123";
+    private final String URL = "http://10.10.0.120/opencart/upload/";
+    private final String message = "Success: Your password has been successfully updated.";
+    private final String correctEmail = "john.wick.test@ukr.net";
+    private final String mainPassword = "qwerty";
+    private final String changedPassword = "qwerty123";
 
     @DataProvider
     public Object[][] password() {

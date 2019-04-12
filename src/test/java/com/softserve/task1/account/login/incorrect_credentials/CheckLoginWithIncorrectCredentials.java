@@ -12,17 +12,17 @@ import java.util.concurrent.TimeUnit;
 public class CheckLoginWithIncorrectCredentials {
     private WebDriver driver;
 
-    private static final String failureMessage = "Warning: No match for E-Mail Address and/or Password.";
-    private static final String tooMuchRequestsMessage = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
+    private final String failureMessage = "Warning: No match for E-Mail Address and/or Password.";
+    private final String tooMuchRequestsMessage = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
 
 
-    private static final String URL = "http://192.168.227.129/opencart/upload";
-    private static final String correctEmail = "john.wick.test@ukr.net";
-    private static final String correctPassword = "qwerty";
-    private static final String incorrectEmail = "not.john.wick.test@ukr.net";
-    private static final String incorrectPassword = "notqwerty";
-    private static final String emptyEmail = "";
-    private static final String emptyPassword = "";
+    private final String URL = "http://192.168.227.129/opencart/upload";
+    private final String correctEmail = "john.wick.test@ukr.net";
+    private final String correctPassword = "qwerty";
+    private final String incorrectEmail = "not.john.wick.test@ukr.net";
+    private final String incorrectPassword = "notqwerty";
+    private final String emptyEmail = "";
+    private final String emptyPassword = "";
 
     @DataProvider
     public Object[][] credentials() {

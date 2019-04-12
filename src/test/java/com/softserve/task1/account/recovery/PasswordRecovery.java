@@ -10,14 +10,12 @@ import java.util.concurrent.TimeUnit;
 public class PasswordRecovery {
     private WebDriver driver;
 
-    private static final String URL = "http://192.168.227.129/opencart/upload";
-
-    private static final String correctEmail = "john.wick.test@ukr.net";
-    private static final String incorrectEmail = "not.john.wick.test@ukr.net";
-    private static final String emptyEmail = "";
-
-    private static final String successMessage = "An email with a confirmation link has been sent your email address.";
-    private static final String failMessage = "Warning: The E-Mail Address was not found in our records, please try again!";
+    private final String URL = "http://192.168.227.129/opencart/up";
+    private final String correctEmail = "john.wick.test@ukr.net";
+    private final String incorrectEmail = "not.john.wick.test@ukr.net";
+    private final String emptyEmail = "";
+    private final String successMessage = "An email with a confirmation link has been sent your email address.";
+    private final String failMessage = "Warning: The E-Mail Address was not found in our records, please try again!";
 
 
     @DataProvider
