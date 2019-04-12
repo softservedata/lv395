@@ -39,10 +39,7 @@ public class ChangePassword {
     public void openBrowser(){
         driver.get(URL);
     }
-    @AfterClass
-    public void closeDriver(){
-        driver.quit();
-    }
+
 
     @BeforeMethod
     public void login(){
@@ -92,5 +89,11 @@ public class ChangePassword {
 
         String actual = "You have been logged off your account. It is now safe to leave the computer.";
         Assert.assertEquals(actual, elem.getText());
+    }
+
+
+    @AfterClass
+    public void closeDriver(){
+        driver.quit();
     }
 }
