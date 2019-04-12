@@ -41,14 +41,13 @@ public class GoodsListTest {
         //Cycle which deleting elements from cart
         for(int countOfElements = cartElementsTableRows.size(); countOfElements > 0 ; countOfElements--) {
             driver.findElement(By.id("cart")).click();
-            System.out.println(cartElementsTableRows.size());
             driver.findElement(By.cssSelector("button[class*='btn-danger']")).click();
-            cartElementsTableRows.remove(--countOfElements);
+            cartElementsTableRows.remove(countOfElements-1);
             driver.navigate().refresh();
         }
     }
 
-    @Test
+    @Test(priority = 1)
     public void addOneItemTest() {
         //Adding goods to the cart
         driver.findElement(By.cssSelector("div[id='content'] > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(3) > button:nth-of-type(1)")).click();
@@ -58,13 +57,13 @@ public class GoodsListTest {
         WebElement goodPlate = driver.findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody/tr"));
         String actualGoodPlate = goodPlate.getText();
         //Printing results
-        System.out.println(actualGoodPlate);
+        System.out.println("Test 1 actual result: " + actualGoodPlate);
         //Asserting results
         Assert.assertTrue(actualGoodPlate.contains("MacBook" + " " + "x 1" + " " + "$602.00"));
         driver.navigate().refresh();
     }
 
-    @Test
+    @Test(priority = 2)
     public void increaseQuantityOfItemsTest() {
         List<WebElement> cartElementsTableRows;
         //Adding goods to the cart
@@ -80,11 +79,29 @@ public class GoodsListTest {
         cartElementsTableRows = cartElementsTable.findElements(By.tagName("tr"));
         //Printing results
         for (WebElement e: cartElementsTableRows) {
-            System.out.println(e.getText());
+            System.out.println("Test 2 actual result: " + e.getText());
         }
         //Asserting results
         Assert.assertTrue(cartElementsTableRows.get(0).getText().contains("iPhone" + " " + "x 3" + " " + "$369.60"));
         Assert.assertTrue(cartElementsTableRows.get(1).getText().contains("MacBook" + " " + "x 3" + " " + "$1,806.00"));
+        driver.navigate().refresh();
+    }
+
+    @Test(priority = 3)
+    public void addSameItemMultipleTimesTest() {
+        //Adding goods to the cart
+        for (int i = 0; i < 5; i++) {
+            driver.findElement(By.cssSelector("div[id='content'] > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(3) > button:nth-of-type(1)")).click();
+            driver.navigate().refresh();
+        }
+        driver.findElement(By.id("cart")).click();
+        //WebElements initialization
+        WebElement goodPlate = driver.findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody/tr"));
+        String actualGoodPlate = goodPlate.getText();
+        //Printing results
+        System.out.println("Test 3 actual result: " + actualGoodPlate);
+        //Asserting results
+        Assert.assertTrue(actualGoodPlate.contains("MacBook" + " " + "x 5" + " " + "$3,010.00"));
         driver.navigate().refresh();
     }
 
