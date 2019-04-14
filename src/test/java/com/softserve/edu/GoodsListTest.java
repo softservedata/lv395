@@ -34,6 +34,7 @@ public class GoodsListTest {
 
     @AfterMethod
     public void cleanCart() {
+        driver.findElement(By.id("logo")).click();
         //WebElements initialization
         List<WebElement> cartElementsTableRows;
         WebElement cartElementsTable = driver.findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody"));
@@ -119,6 +120,54 @@ public class GoodsListTest {
         System.out.println("Test 4 actual result: " + actualGoodPlate);
         //Asserting results
         Assert.assertTrue(actualGoodPlate.contains("MacBook" + " " + "x 1" + " " + "$602.00"));
+        driver.navigate().refresh();
+    }
+
+    @Test(priority = 5)
+    public void addMoreItemsThenInStockTest() {
+        int valueInStack;
+        driver.get("http://192.168.239.129/opencart/upload/admin/");
+        driver.findElement(By.id("input-username")).sendKeys("admin");
+        driver.findElement(By.id("input-password")).sendKeys("admin");
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+        driver.findElement(By.id("button-menu")).click();
+        driver.findElement(By.linkText("Catalog")).click();
+        driver.findElement(By.xpath("(//a[contains(text(),'Products')])[1]")).click();
+        WebElement itemsInStack = driver.findElement(By.cssSelector("#form-product > div > table > tbody > tr:nth-child(11) > td:nth-child(6) > span"));
+        valueInStack = Integer.parseInt(itemsInStack.getText()) + 100;
+        driver.get("http://192.168.239.129/opencart/upload/");
+        driver.findElement(By.cssSelector("a[href='http://192.168.239.129/opencart/upload/index.php?route=product/product&product_id=43']")).click();
+        WebElement inputField = driver.findElement(By.cssSelector("input[name='quantity']"));
+        inputField.clear();
+        inputField.sendKeys(Integer.toString(valueInStack));
+        driver.findElement(By.id("button-cart")).click();
+        driver.findElement(By.id("logo")).click();
+        driver.findElement(By.id("cart")).click();
+        WebElement goodPlate = driver.findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody/tr"));
+        String actualGoodPlate = goodPlate.getText();
+        System.out.println("Test 5 actual result: " + actualGoodPlate);
+        Assert.assertFalse(actualGoodPlate.contains("MacBook" + " " + "x " + valueInStack + " " + "$619,458.00"));
+        driver.navigate().refresh();
+    }
+
+    @Test(priority = 6)
+    public void addItemsWithAdditionalParametersTest() {
+        //Adding goods to the cart
+        driver.findElement(By.xpath("//*[@id=\"content\"]/div[2]/div[4]/div/div[3]/button[1]")).click();
+        driver.findElement(By.id("input-option226")).click();
+        driver.findElement(By.cssSelector("#input-option226 > option:nth-child(2)")).click();
+        driver.findElement(By.id("button-cart")).click();
+        driver.findElement(By.id("logo")).click();
+        driver.navigate().refresh();
+        driver.findElement(By.id("cart")).click();
+        //WebElements initialization
+        WebElement goodPlate = driver.findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody/tr"));
+        String actualGoodPlate = goodPlate.getText();
+        System.out.println("Test 6 actual result: " + actualGoodPlate);
+        //Printing results
+        //Asserting results
+        Assert.assertTrue(actualGoodPlate.contains("Canon EOS 5D\n" +
+                "- Select Red x 1 $98.00"));
         driver.navigate().refresh();
     }
 
