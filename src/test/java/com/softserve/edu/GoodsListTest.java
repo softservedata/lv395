@@ -4,22 +4,25 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class GoodsListTest {
+public class GoodsListTest extends AddFunctionality {
 
     private WebDriver driver;
+    private final String URL = "192.168.239.129";
 
     @BeforeClass
-    public void initializeDriver() {
+    public void initDriver() {
         System.setProperty("webdriver.chrome.driver",
                 "./lib/chromedriver.exe");
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @AfterClass
@@ -29,23 +32,12 @@ public class GoodsListTest {
 
     @BeforeMethod
     public void webServiceStart() {
-        driver.get("http://192.168.239.129/opencart/upload/");
+        driver.get("http://" + URL + "/opencart/upload/");
     }
 
     @AfterMethod
     public void cleanCart() {
-        driver.findElement(By.id("logo")).click();
-        //WebElements initialization
-        List<WebElement> cartElementsTableRows;
-        WebElement cartElementsTable = driver.findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody"));
-        cartElementsTableRows = cartElementsTable.findElements(By.tagName("tr"));
-        //Cycle which deleting elements from cart
-        for(int countOfElements = cartElementsTableRows.size(); countOfElements > 0 ; countOfElements--) {
-            driver.findElement(By.id("cart")).click();
-            driver.findElement(By.cssSelector("button[class*='btn-danger']")).click();
-            cartElementsTableRows.remove(countOfElements-1);
-            driver.navigate().refresh();
-        }
+        getCartCleaner(driver, URL);
     }
 
     @Test(priority = 1)
@@ -109,7 +101,7 @@ public class GoodsListTest {
     @Test(priority = 4)
     public void addItemFromProductPageTest() {
         //Adding goods to the cart
-        driver.findElement(By.cssSelector("a[href='http://192.168.239.129/opencart/upload/index.php?route=product/product&product_id=43']")).click();
+        driver.findElement(By.cssSelector("a[href='http://" + URL + "/opencart/upload/index.php?route=product/product&product_id=43']")).click();
         driver.findElement(By.id("button-cart")).click();
         driver.findElement(By.id("logo")).click();
         driver.findElement(By.id("cart")).click();
@@ -157,6 +149,10 @@ public class GoodsListTest {
         driver.findElement(By.id("input-option226")).click();
         driver.findElement(By.cssSelector("#input-option226 > option:nth-child(2)")).click();
         driver.findElement(By.id("button-cart")).click();
+        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("logo")));
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.findElement(By.id("logo")).click();
         driver.navigate().refresh();
         driver.findElement(By.id("cart")).click();

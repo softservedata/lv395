@@ -5,19 +5,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
-public class OtherFunctionalityTest {
+public class OtherFunctionalityTest extends AddFunctionality{
 
     private WebDriver driver;
+    private final String URL = "192.168.239.129";
 
     @BeforeClass
-    public void beforeClass() {
+    public void initDriver() {
         System.setProperty("webdriver.chrome.driver",
                 "./lib/chromedriver.exe");
         driver = new ChromeDriver();
@@ -25,13 +23,18 @@ public class OtherFunctionalityTest {
     }
 
     @AfterClass
-    public void afterClass() {
+    public void driverQuite() {
         driver.quit();
     }
 
     @BeforeMethod
-    public void beforeMethod() {
+    public void webServiceStart() {
         driver.get("http://192.168.239.129/opencart/upload/");
+    }
+
+    @AfterMethod
+    public void cleanCart() {
+        getCartCleaner(driver, URL);
     }
 
     @Test
