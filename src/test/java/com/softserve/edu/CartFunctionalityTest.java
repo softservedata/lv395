@@ -57,6 +57,7 @@ public class CartFunctionalityTest extends AddFunctionality {
         driver.findElement(By.partialLinkText("Checkout")).click();
         int checkoutValidElement = driver.findElements(By.id("accordion")).size();
         boolean isElementPresent = checkoutValidElement > 0;
+        System.out.println("Test 2 actual result: " + isElementPresent);
         Assert.assertTrue(isElementPresent);
         driver.navigate().refresh();
     }
