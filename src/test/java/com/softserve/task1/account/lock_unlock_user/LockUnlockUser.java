@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -57,7 +58,7 @@ public class LockUnlockUser {
         driver.findElement(By.id("input-password")).clear();
         driver.findElement(By.id("input-password")).sendKeys(adminPassword);
         //
-        //Clock 'Login' button
+        //Click 'Login' button
         driver.findElement(By.cssSelector("button[class*='btn']")).click();
     }
 
@@ -78,18 +79,15 @@ public class LockUnlockUser {
         //Click on Edit button
         driver.findElement(By.cssSelector("i[class*='fa-pencil']")).click();
         //
-        //Click on Status button
-        driver.findElement(By.id("input-status")).click();
+        //Change user status to 'Disabled'
+        new Select(driver.findElement(By.id("input-status"))).selectByVisibleText("Disabled");
         //
-        //Change status to disabled
-        driver.findElement(By.cssSelector("#input-status > option:nth-child(2)")).click();
-        //
-        //Save
+        //Save changes
         driver.findElement(By.cssSelector("i[class*='fa-save']")).click();
     }
 
     @Test(priority = 5)
-    public void openNewTab() {
+    public void openLoginPage() {
         //Open new empty tab using javascript
         ((JavascriptExecutor) driver).executeScript("window.open(\"http://192.168.227.129/opencart/upload/index.php?route=account/login\")");
         //
@@ -126,10 +124,7 @@ public class LockUnlockUser {
     }
 
     @Test(priority = 7)
-    public void closeTab() {
-        //Close current tab using javascript
-        ((JavascriptExecutor) driver).executeScript("window.close()");
-        //
+    public void switchToAdminPanel() {
         //Switch to first tab
         driver.switchTo().window(tabs.get(0));
     }
@@ -139,26 +134,16 @@ public class LockUnlockUser {
         //Click on Edit button
         driver.findElement(By.cssSelector("i[class*='fa-pencil']")).click();
         //
-        //Click on Status button
-        driver.findElement(By.id("input-status")).click();
+        //Change user status to 'Enabled'
+        new Select(driver.findElement(By.id("input-status"))).selectByVisibleText("Enabled");
         //
-        //Change status to disabled
-        driver.findElement(By.cssSelector("#input-status > option:nth-child(1)")).click();
-        //
-        //Save
+        //Save changes
         driver.findElement(By.cssSelector("i[class*='fa-save']")).click();
-
     }
 
     @Test(priority = 9)
-    public void openNewTab2() {
-        //Open new empty tab using javascript
-        ((JavascriptExecutor) driver).executeScript("window.open(\"http://192.168.227.129/opencart/upload/index.php?route=account/login\")");
-        //
-        //Create array of tabs
-        tabs = new ArrayList<>(driver.getWindowHandles());
-        //
-        //Switches to new tab
+    public void switchToLoginPage() {
+        //Switches to login page
         driver.switchTo().window(tabs.get(1));
     }
 
@@ -188,14 +173,14 @@ public class LockUnlockUser {
     }
 
     @Test(priority = 11)
-    public void closeTab2() {
-        //
-        //Close current tab using javascript
+    public void closeTab() {
+        //Close second tab using javascript
         ((JavascriptExecutor) driver).executeScript("window.close()");
     }
 
     @AfterClass
     public void exit() {
+        //Close driver
         driver.quit();
     }
 }

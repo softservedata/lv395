@@ -2,15 +2,18 @@ package com.softserve.task1.account.recovery;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.firefox.ProfilesIni;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class PasswordRecovery {
     private WebDriver driver;
 
-    private final String URL = "http://192.168.227.129/opencart/up";
+    private final String URL = "http://192.168.227.129/opencart/upload";
     private final String correctEmail = "john.wick.test@ukr.net";
     private final String incorrectEmail = "not.john.wick.test@ukr.net";
     private final String emptyEmail = "";
@@ -100,14 +103,21 @@ public class PasswordRecovery {
     }
 
     @Test(priority = 4)
-    public void checkEmail() throws InterruptedException {
+    public void getListOfMails() throws InterruptedException {
         //TODO add real assert with real parameters
         driver.findElement(By.xpath("//tr[1]/td[3]/a")).click();
         Thread.sleep(2000);
 
-        String text = driver.findElement(By.linkText("https://somelink.com/")).getText();
+        List<WebElement> mails = driver.findElements(By.linkText("Your Store"));
 
-        Assert.assertEquals(text, "https://somelink.com/");
+        mails.get(0).click();
+//        Thread.sleep(3000);
+
+        String text = driver.findElement(By.cssSelector(".readmsg__body > pre:nth-child(1)")).getText();
+
+        driver.get(text);
+        Thread.sleep(3000);
+
     }
 
     @Test(priority = 5)

@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name = "Suite1">
-    <test name = "login-test">
+<suite name="Opencart Tests" thread-count="1" verbose="1" annotations="JDL" parallel="tests">
+    <test name="login">
         <classes>
-            <class name = "com.softserve.task1.account.login.correct_credentials.CheckLoginWithCorrectCredentials"/>
-            <class name = "com.softserve.task1.account.login.incorrect_credentials.CheckLoginWithIncorrectCredentials"/>
+            <class name="com.softserve.task1.account.login.incorrect_credentials.CheckLoginWithIncorrectCredentials"/>
+            <class name="com.softserve.task1.account.login.correct_credentials.CheckLoginWithCorrectCredentials"/>
         </classes>
     </test>
+    
+    <test name="lock\unlock user">
+        <classes>
+            <class name="com.softserve.task1.account.lock_unlock_user.LockUnlockUser"/>
+        </classes>
+    </test>
+    
+    <test name="password recovery">
+        <classes>
+            <class name="com.softserve.task1.account.recovery.PasswordRecovery"/>
+        </classes>
+    </test>
+
 </suite>
