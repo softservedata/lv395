@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 18, 2016 1:29:07 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.softserve.edu.entities.Product" table="oc_product">
+        <id name="product_id" type="int">
+            <column name="product_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="model" type="java.lang.String">
+            <column name="model" />
+        </property>
+        <property name="quantity" type="int">
+            <column name="quantity" />
+        </property>
+    </class>
+</hibernate-mapping>

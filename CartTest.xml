@@ -35,6 +35,7 @@
             <class name="com.softserve.edu.OtherFunctionalityTest">
                 <methods>
                     <include name="checkPriceTextButton"/>
+                    <include name="isItemsInDbTest"/>
                 </methods>
             </class>
 

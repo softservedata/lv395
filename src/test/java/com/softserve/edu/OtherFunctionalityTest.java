@@ -23,4 +23,22 @@ public class OtherFunctionalityTest extends AddFunctionality{
         driver.navigate().refresh();
     }
 
+    @Test
+    public void isItemsInDbTest(){
+        dbConnect();
+        int valueInStack;
+        driver.get("http://192.168.239.129/opencart/upload/admin/");
+        driver.findElement(By.id("input-username")).sendKeys("admin");
+        driver.findElement(By.id("input-password")).sendKeys("admin");
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+        driver.findElement(By.id("button-menu")).click();
+        driver.findElement(By.linkText("Catalog")).click();
+        driver.findElement(By.xpath("(//a[contains(text(),'Products')])[1]")).click();
+        WebElement itemsInStack = driver.findElement(By.xpath("//*[@id='form-product']/div/table/tbody/tr[11]/td[6]"));
+        valueInStack = Integer.parseInt(itemsInStack.getText());
+        driver.get("http://192.168.239.129/opencart/upload/");
+        Assert.assertEquals(valueInStack, getProductQuantity(43));
+        driver.navigate().refresh();
+    }
+
 }

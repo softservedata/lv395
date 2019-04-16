@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import javax.persistence.Table;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 

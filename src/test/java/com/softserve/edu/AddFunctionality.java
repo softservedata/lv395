@@ -12,7 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class AddFunctionality {
+public class AddFunctionality extends DatabaseConnector {
 
     protected WebDriver driver;
     private final String URL = "192.168.239.129";
