@@ -261,12 +261,13 @@
 					<keepDownloadedWebdrivers>true</keepDownloadedWebdrivers>
 					<drivers>
 						<driver>
-							<name>chromedriver</name>
+							<name>chromeDriver</name>
 							<platform>${os.detected.name}</platform>
-							<!-- <platform>windows</platform> -->
-							<!-- <bit>32</bit> -->
-							<!-- <version>2.45</version> -->
-							<!-- <url>https://chromedriver.storage.googleapis.com/2.42/chromedriver_win32.zip</url> -->
+							 <!--<platform>windows</platform>-->
+							 <!--<bit>32</bit>-->
+							 <!--<version>2.45</version>-->
+							 <url>https://chromedriver.storage.googleapis.com/2.42/chromedriver_win32.zip</url>
+							<!--<url>https://chromedriver.storage.googleapis.com/73.0.3683.68/chromedriver_win32.zip</url>-->
 						</driver>
 					</drivers>
 				</configuration>
@@ -316,6 +317,7 @@
 						</goals>
 						<configuration>
 							<!-- <message>+++++Project.Build.Directory: ${project.build.directory}</message> -->
+							<!--suppress UnresolvedMavenProperty -->
 							<message>+++++Operation System: ${os.detected.name}</message>
 							<!-- <message>+++++Build Directory: ${project.build.directory}</message> -->
 							<!-- <message>+++++Operation System: ${os.detected.classifier}</message> -->

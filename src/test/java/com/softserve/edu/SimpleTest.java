@@ -15,9 +15,8 @@ public class SimpleTest {
     @Test
     public void checkSelenium() throws Exception {
         // Precondition
-        System.out.println("PATH to WebDriver + " + this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
-        System.setProperty("webdriver.chrome.driver",
-                this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
+        //System.out.println("PATH to WebDriver + " + this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
+        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://www.google.com/");
