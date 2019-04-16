@@ -17,17 +17,19 @@ public class TestForSearchFieldAndButton {
 
     @BeforeClass
     public void beforeClass() throws InterruptedException {
-//        System.out.println("PATH to WebDriver + " + this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
-//        System.setProperty("webdriver.chrome.driver",
-//                this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
-//        WebDriver driver = new ChromeDriver();
-//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//        driver.get("http://192.168.36.130/opencart/upload/");
-//        Thread.sleep(1000); // For Presentation Only
-        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        driver.get("http://192.168.36.131/opencart/upload/");
+        System.out.println("PATH to WebDriver + " + this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
+        System.setProperty("webdriver.chrome.driver",
+                this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
+        WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.get("http://192.168.36.129/opencart/upload/");
+        Thread.sleep(1000); // For Presentation Only
+
+
+//        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
+//        driver = new ChromeDriver();
+//        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+//        driver.get("http://192.168.36.131/opencart/upload/");
     }
 
     @AfterClass
@@ -58,11 +60,11 @@ public class TestForSearchFieldAndButton {
                 {"sh7483274hdsfj", ".//div[@id='content']/p[2]", "There is no product that matches the search criteria."},
                 //positive testing
                 //full name of element we want to find in lower case
-                {"iphone", ".//div[@class='caption']/h4/a[contains(@href,'192.168.36.131/opencart/upload/index.php?route=product/product&product_id=40&search=iphone')]", "iPhone"},
+                {"iphone", ".//div[@class='caption']/h4/a[contains(@href,'192.168.36.129/opencart/upload/index.php?route=product/product&product_id=40&search=iphone')]", "iPhone"},
                 //full name of element we want to find in
-                {"iPhone", ".//div[@class='caption']/h4/a[contains(@href,'192.168.36.131/opencart/upload/index.php?route=product/product&product_id=40&search=iPhone')]", "iPhone"},
+                {"iPhone", ".//div[@class='caption']/h4/a[contains(@href,'192.168.36.129/opencart/upload/index.php?route=product/product&product_id=40&search=iPhone')]", "iPhone"},
                 //full name of element we want to find in upper case
-                {"IPHONE", ".//div[@class='caption']/h4/a[contains(@href,'192.168.36.131/opencart/upload/index.php?route=product/product&product_id=40&search=IPHONE')]", "iPhone"},
+                {"IPHONE", ".//div[@class='caption']/h4/a[contains(@href,'192.168.36.129/opencart/upload/index.php?route=product/product&product_id=40&search=IPHONE')]", "iPhone"},
         };
 
 
