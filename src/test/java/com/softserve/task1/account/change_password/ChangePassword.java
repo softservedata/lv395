@@ -16,7 +16,7 @@ public class ChangePassword {
 
     private final String URL = "http://192.168.227.129/opencart/upload/index.php?route=account/login";
     private final String message = "Success: Your password has been successfully updated.";
-    private final String correctEmail = "john.wick.test@ukr.net";
+    private final String correctEmail = "opencart.testuser@gmail.com";
     private final String mainPassword = "qwerty";
     private final String changedPassword = "qwerty123";
 

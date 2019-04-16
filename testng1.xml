@@ -3,10 +3,7 @@
 
 <suite name="Opencart Tests" thread-count="1" verbose="1" annotations="JDL" parallel="tests">
     <test name="login">
-        <classes>
-            <class name="com.softserve.task1.account.login.incorrect_credentials.CheckLoginWithIncorrectCredentials"/>
-            <class name="com.softserve.task1.account.login.correct_credentials.CheckLoginWithCorrectCredentials"/>
-        </classes>
+        <method-selectors></method-selectors>
     </test>
     
     <test name="lock\unlock user">

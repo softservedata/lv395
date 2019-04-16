@@ -8,9 +8,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 public class SimpleTest {
+    WebDriver driver;
 
     @Test
     public void checkSelenium() throws Exception {
@@ -18,7 +20,7 @@ public class SimpleTest {
         System.out.println("PATH to WebDriver + " + this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
         System.setProperty("webdriver.chrome.driver",
                 this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
-        WebDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://www.google.com/");
         Thread.sleep(1000); // For Presentation Only
@@ -43,9 +45,10 @@ public class SimpleTest {
         // Check
         Assert.assertTrue(actual.contains("141.59"));
         Thread.sleep(1000); // For Presentation Only
-        //
-        // Return to Previous State
-        //
+
+    }
+    @AfterClass
+    public void quit(){
         driver.quit();
     }
 

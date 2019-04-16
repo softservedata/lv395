@@ -2,8 +2,6 @@ package com.softserve.task1.account.recovery;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.firefox.ProfilesIni;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import java.util.ArrayList;
@@ -14,11 +12,15 @@ public class PasswordRecovery {
     private WebDriver driver;
 
     private final String URL = "http://192.168.227.129/opencart/upload";
+
     private final String correctEmail = "john.wick.test@ukr.net";
     private final String incorrectEmail = "not.john.wick.test@ukr.net";
     private final String emptyEmail = "";
+
+    private final String password = "qwerty";
     private final String successMessage = "An email with a confirmation link has been sent your email address.";
     private final String failMessage = "Warning: The E-Mail Address was not found in our records, please try again!";
+    private final String changePasswordMessage = "Success: Your password has been successfully updated.";
 
 
     @DataProvider
@@ -48,14 +50,16 @@ public class PasswordRecovery {
     public void openLoginPage() {
         //Open url --> opencart
         driver.get(URL);
+        //
         //Open login page
         driver.findElement(By.xpath("//a[contains(text(),'My Account')]")).click();
+        //
+        //Click "Login" button
         driver.findElement(By.linkText("Login")).click();
     }
 
     @Test(dataProvider = "email", priority = 2)
     public void sendEmailAndCheckMessage(String email, String message) {
-        //
         //Click on "Forgotten Password" button
         driver.findElement(By.xpath("(//a[contains(text(),'Forgotten Password')])[1]")).click();
         //
@@ -79,7 +83,6 @@ public class PasswordRecovery {
 
     @Test(priority = 3)
     public void openEmail() {
-        //
         //Open new empty tab using javascript
         ((JavascriptExecutor) driver).executeScript("window.open(\"https://accounts.ukr.net/login\")");
         //
@@ -104,20 +107,44 @@ public class PasswordRecovery {
 
     @Test(priority = 4)
     public void getListOfMails() throws InterruptedException {
-        //TODO add real assert with real parameters
-        driver.findElement(By.xpath("//tr[1]/td[3]/a")).click();
-        Thread.sleep(2000);
+        List<WebElement> messages = driver.findElements(By.partialLinkText("Your Store"));
 
-        List<WebElement> mails = driver.findElements(By.linkText("Your Store"));
+        messages.get(0).click();
 
-        mails.get(0).click();
-//        Thread.sleep(3000);
+        Thread.sleep(3000);
 
-        String text = driver.findElement(By.cssSelector(".readmsg__body > pre:nth-child(1)")).getText();
+        String text = driver.findElement(By.xpath("//a[contains(text(),"
+                + "'http://192.168.227.129/opencart/upload/index.php?route=account/reset')]")).getText();
 
         driver.get(text);
         Thread.sleep(3000);
+    }
 
+//    @Test
+//    public void changePassword(){
+//        //Input new password
+//        driver.findElement(By.id("input-password")).click();
+//        driver.findElement(By.id("input-password")).clear();
+//        driver.findElement(By.id("input-password")).sendKeys(password);
+//        //
+//        //Confirm new password
+//        driver.findElement(By.id("input-confirm")).click();
+//        driver.findElement(By.id("input-confirm")).clear();
+//        driver.findElement(By.id("input-confirm")).sendKeys(password);
+//        //
+//        //Click on 'Continue' button
+//        driver.findElement(By.cssSelector("button[class*='btn-primary']")).click();
+//        //
+//        //Get message
+//        String text = driver.findElement(By.cssSelector("div[class*='alert']")).getText();
+//        //
+//        //Assert
+//        Assert.assertEquals(changePasswordMessage, text);
+//    }
+
+    @Test
+    public void login(){
+        //TODO add login logic
     }
 
     @Test(priority = 5)

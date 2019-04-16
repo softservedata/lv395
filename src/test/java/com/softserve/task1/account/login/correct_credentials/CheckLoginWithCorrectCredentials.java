@@ -13,7 +13,7 @@ public class CheckLoginWithCorrectCredentials {
     private WebDriver driver;
 
     private final String URL = "http://192.168.227.129/opencart/upload";
-    private final String correctEmail = "john.wick.test@ukr.net";
+    private final String correctEmail = "opencart.testuser@gmail.com";
     private final String correctPassword = "qwerty";
 
     @DataProvider

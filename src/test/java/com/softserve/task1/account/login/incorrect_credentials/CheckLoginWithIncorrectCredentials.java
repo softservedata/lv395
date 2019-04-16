@@ -17,9 +17,9 @@ public class CheckLoginWithIncorrectCredentials {
 
 
     private final String URL = "http://192.168.227.129/opencart/upload";
-    private final String correctEmail = "john.wick.test@ukr.net";
+    private final String correctEmail = "opencart.testuser@gmail.com";
     private final String correctPassword = "qwerty";
-    private final String incorrectEmail = "not.john.wick.test@ukr.net";
+    private final String incorrectEmail = "not.opencart.testuser@gmail.com";
     private final String incorrectPassword = "notqwerty";
     private final String emptyEmail = "";
     private final String emptyPassword = "";

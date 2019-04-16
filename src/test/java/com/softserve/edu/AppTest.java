@@ -16,6 +16,7 @@ public class AppTest {
         System.out.println("System.getenv().database.password = " + System.getenv().get("DATABASE_PASSWORD"));
         System.out.println("is_continues_integration = " + System.getenv().get("IS_CONTINUES_INTEGRATION"));
         Assert.assertTrue(true);
+
     }
     
 }
