@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Suite1">
+<suite name="FirstSuite">
 
-	<test name="CartTest">
-		<classes>
-			<class name="com.softserve.edu.GoodsListTest" />
-			<class name="com.softserve.edu.CartFunctionalityTest" />
-			<class name="com.softserve.edu.OrderInfoTest" />
-			<class name="com.softserve.edu.OtherFunctionalityTest" />
-		</classes>
-	</test> <!-- Test -->
+    <test name="CartTest">
+        <classes>
+
+            <class name="com.softserve.edu.GoodsListTest">
+                <methods>
+                    <include name="addOneItemTest"/>
+                    <include name="increaseQuantityOfItemsTest"/>
+                    <include name="addSameItemMultipleTimesTest"/>
+                    <include name="addItemFromProductPageTest"/>
+                    <include name="addMoreItemsThenInStockTest"/>
+                    <include name="addItemsWithAdditionalParametersTest"/>
+                </methods>
+            </class>
+
+            <class name="com.softserve.edu.CartFunctionalityTest">
+                <methods>
+                    <include name="viewCartButtonTest"/>
+                    <include name="checkoutButtonTest"/>
+                    <include name="removeOneItemTest"/>
+                    <include name="removeAllItemsTest"/>
+                    <include name="clickOnItemTest"/>
+                </methods>
+            </class>
+
+            <class name="com.softserve.edu.OrderInfoTest">
+                <methods>
+                    <include name="checkCartTableBoxes"/>
+                </methods>
+            </class>
+
+            <class name="com.softserve.edu.OtherFunctionalityTest">
+                <methods>
+                    <include name="checkPriceTextButton"/>
+                </methods>
+            </class>
+
+        </classes>
+    </test> <!-- Test -->
 
 </suite> <!-- Suite -->

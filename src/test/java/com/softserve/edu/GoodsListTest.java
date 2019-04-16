@@ -1,10 +1,9 @@
 package com.softserve.edu;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -14,41 +13,19 @@ import java.util.concurrent.TimeUnit;
 
 public class GoodsListTest extends AddFunctionality {
 
-    private WebDriver driver;
-    private final String URL = "192.168.239.129";
-
-    @BeforeClass
-    public void initDriver() {
-        System.setProperty("webdriver.chrome.driver",
-                "./lib/chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    }
-
-    @AfterClass
-    public void driverQuite() {
-        driver.quit();
-    }
-
-    @BeforeMethod
-    public void webServiceStart() {
-        driver.get("http://" + URL + "/opencart/upload/");
-    }
-
     @AfterMethod
     public void cleanCart() {
-        getCartCleaner(driver, URL);
+        cartCleaner(driver, getURL());
     }
 
-    @Test(priority = 1)
+    @Test
     public void addOneItemTest() {
         //Adding goods to the cart
-        driver.findElement(By.cssSelector("div[id='content'] > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(3) > button:nth-of-type(1)")).click();
+        getAddButtons(0).click();
         driver.navigate().refresh();
-        driver.findElement(By.id("cart")).click();
+        openCart();
         //WebElements initialization
-        WebElement goodPlate = driver.findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody/tr"));
-        String actualGoodPlate = goodPlate.getText();
+        String actualGoodPlate = getGoodPlate().getText();
         //Printing results
         System.out.println("Test 1 actual result: " + actualGoodPlate);
         //Asserting results
@@ -56,17 +33,17 @@ public class GoodsListTest extends AddFunctionality {
         driver.navigate().refresh();
     }
 
-    @Test(priority = 2)
+    @Test
     public void increaseQuantityOfItemsTest() {
         List<WebElement> cartElementsTableRows;
         //Adding goods to the cart
         for(int i = 0; i < 3; i++) {
-            driver.findElement(By.cssSelector("div[id='content'] > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(3) > button:nth-of-type(1)")).click();
+            getAddButtons(0).click();
             driver.navigate().refresh();
-            driver.findElement(By.cssSelector("div[id='content'] > div:nth-of-type(2) > div:nth-of-type(2) > div > div:nth-of-type(3) > button:nth-of-type(1)")).click();
+            getAddButtons(1).click();
             driver.navigate().refresh();
         }
-        driver.findElement(By.id("cart")).click();
+        openCart();
         //WebElements initialization
         WebElement cartElementsTable = driver.findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody"));
         cartElementsTableRows = cartElementsTable.findElements(By.tagName("tr"));
@@ -80,17 +57,16 @@ public class GoodsListTest extends AddFunctionality {
         driver.navigate().refresh();
     }
 
-    @Test(priority = 3)
+    @Test
     public void addSameItemMultipleTimesTest() {
         //Adding goods to the cart
         for (int i = 0; i < 5; i++) {
-            driver.findElement(By.cssSelector("div[id='content'] > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(3) > button:nth-of-type(1)")).click();
+            getAddButtons(0).click();
             driver.navigate().refresh();
         }
-        driver.findElement(By.id("cart")).click();
+        openCart();
         //WebElements initialization
-        WebElement goodPlate = driver.findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody/tr"));
-        String actualGoodPlate = goodPlate.getText();
+        String actualGoodPlate = getGoodPlate().getText();
         //Printing results
         System.out.println("Test 3 actual result: " + actualGoodPlate);
         //Asserting results
@@ -98,16 +74,15 @@ public class GoodsListTest extends AddFunctionality {
         driver.navigate().refresh();
     }
 
-    @Test(priority = 4)
+    @Test
     public void addItemFromProductPageTest() {
         //Adding goods to the cart
-        driver.findElement(By.cssSelector("a[href='http://" + URL + "/opencart/upload/index.php?route=product/product&product_id=43']")).click();
+        driver.findElement(By.cssSelector("a[href='http://" + getURL() + "/opencart/upload/index.php?route=product/product&product_id=43']")).click();
         driver.findElement(By.id("button-cart")).click();
         driver.findElement(By.id("logo")).click();
-        driver.findElement(By.id("cart")).click();
+        openCart();
         //WebElements initialization
-        WebElement goodPlate = driver.findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody/tr"));
-        String actualGoodPlate = goodPlate.getText();
+        String actualGoodPlate = getGoodPlate().getText();
         //Printing results
         System.out.println("Test 4 actual result: " + actualGoodPlate);
         //Asserting results
@@ -115,7 +90,7 @@ public class GoodsListTest extends AddFunctionality {
         driver.navigate().refresh();
     }
 
-    @Test(priority = 5)
+    @Test
     public void addMoreItemsThenInStockTest() {
         int valueInStack;
         driver.get("http://192.168.239.129/opencart/upload/admin/");
@@ -125,40 +100,39 @@ public class GoodsListTest extends AddFunctionality {
         driver.findElement(By.id("button-menu")).click();
         driver.findElement(By.linkText("Catalog")).click();
         driver.findElement(By.xpath("(//a[contains(text(),'Products')])[1]")).click();
-        WebElement itemsInStack = driver.findElement(By.cssSelector("#form-product > div > table > tbody > tr:nth-child(11) > td:nth-child(6) > span"));
+        WebElement itemsInStack = driver.findElement(By.xpath("//*[@id='form-product']/div/table/tbody/tr[11]/td[6]"));
         valueInStack = Integer.parseInt(itemsInStack.getText()) + 100;
         driver.get("http://192.168.239.129/opencart/upload/");
-        driver.findElement(By.cssSelector("a[href='http://192.168.239.129/opencart/upload/index.php?route=product/product&product_id=43']")).click();
+        driver.findElement(By.cssSelector("a[href*='product_id=43']")).click();
         WebElement inputField = driver.findElement(By.cssSelector("input[name='quantity']"));
         inputField.clear();
         inputField.sendKeys(Integer.toString(valueInStack));
         driver.findElement(By.id("button-cart")).click();
         driver.findElement(By.id("logo")).click();
-        driver.findElement(By.id("cart")).click();
-        WebElement goodPlate = driver.findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody/tr"));
-        String actualGoodPlate = goodPlate.getText();
+        openCart();
+        String actualGoodPlate = getGoodPlate().getText();
         System.out.println("Test 5 actual result: " + actualGoodPlate);
         Assert.assertFalse(actualGoodPlate.contains("MacBook" + " " + "x " + valueInStack + " " + "$619,458.00"));
         driver.navigate().refresh();
     }
 
-    @Test(priority = 6)
+    @Test
     public void addItemsWithAdditionalParametersTest() {
         //Adding goods to the cart
-        driver.findElement(By.xpath("//*[@id=\"content\"]/div[2]/div[4]/div/div[3]/button[1]")).click();
+        getAddButtons(3).click();
         driver.findElement(By.id("input-option226")).click();
-        driver.findElement(By.cssSelector("#input-option226 > option:nth-child(2)")).click();
+        Select cameraColor = new Select(driver.findElement(By.id("input-option226")));
+        cameraColor.selectByIndex(1);
         driver.findElement(By.id("button-cart")).click();
+        driver.navigate().refresh();
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.elementToBeClickable(By.id("logo")));
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.findElement(By.id("logo")).click();
-        driver.navigate().refresh();
-        driver.findElement(By.id("cart")).click();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        openCart();
         //WebElements initialization
-        WebElement goodPlate = driver.findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody/tr"));
-        String actualGoodPlate = goodPlate.getText();
+        String actualGoodPlate = getGoodPlate().getText();
         System.out.println("Test 6 actual result: " + actualGoodPlate);
         //Printing results
         //Asserting results
