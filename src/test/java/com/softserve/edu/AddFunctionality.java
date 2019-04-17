@@ -1,5 +1,9 @@
 package com.softserve.edu;
 
+import com.softserve.edu.entity.Product;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -77,6 +81,15 @@ public class AddFunctionality extends DatabaseConnector {
     public WebElement getGoodPlate() {
        WebElement goodPlate = driver.findElement(By.xpath("//*[@id='cart']/ul/li[1]/table/tbody/tr"));
        return goodPlate;
+    }
+
+    public int getProductQuantity(int product_id) {
+        Session session = getFactory().openSession();
+        Criteria userCriteria = session.createCriteria(Product.class);
+        userCriteria.add(Restrictions.eq("product_id", product_id));
+        Product product = (Product) userCriteria.uniqueResult();
+        session.close();
+        return product.getQuantity();
     }
 
 }

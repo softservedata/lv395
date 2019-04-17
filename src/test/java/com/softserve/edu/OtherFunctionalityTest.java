@@ -1,9 +1,16 @@
 package com.softserve.edu;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
+
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class OtherFunctionalityTest extends AddFunctionality{
 
@@ -38,6 +45,23 @@ public class OtherFunctionalityTest extends AddFunctionality{
         valueInStack = Integer.parseInt(itemsInStack.getText());
         driver.get("http://192.168.239.129/opencart/upload/");
         Assert.assertEquals(valueInStack, getProductQuantity(43));
+        driver.navigate().refresh();
+    }
+
+    @Test
+    public void openNewTabTest() {
+        getAddButtons(0).click();
+        driver.navigate().refresh();
+        openCart();
+        String cartOnFirstTab = driver.findElement(By.cssSelector("div[id*='cart'] > ul > li:first-child > table > tbody > tr")).getText();
+        String cartOnSecondTab;
+        ((JavascriptExecutor)driver).executeScript("window.open()");
+        ArrayList<String> allTabs = new ArrayList(driver.getWindowHandles());
+        driver.switchTo().window(allTabs.get(1));
+        driver.get("http://" + getURL() + "/opencart/upload/");
+        openCart();
+        cartOnSecondTab = driver.findElement(By.cssSelector("div[id*='cart'] > ul > li:first-child > table > tbody > tr")).getText();
+        Assert.assertEquals(cartOnFirstTab, cartOnSecondTab);
         driver.navigate().refresh();
     }
 

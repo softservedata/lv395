@@ -3,7 +3,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Jun 18, 2016 1:29:07 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.softserve.edu.entities.Product" table="oc_product">
+    <class name="com.softserve.edu.entity.Product" table="oc_product">
         <id name="product_id" type="int">
             <column name="product_id" />
             <generator class="assigned" />
