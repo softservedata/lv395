@@ -12,12 +12,14 @@
                     <include name="addSameItemMultipleTimesTest"/>
                     <include name="addItemFromProductPageTest"/>
                     <include name="addMoreItemsThenInStockTest"/>
+                    <include name="addMoreItemsThenInDbTest"/>
                     <include name="addItemsWithAdditionalParametersTest"/>
                 </methods>
             </class>
 
             <class name="com.softserve.edu.CartFunctionalityTest">
                 <methods>
+                    <include name="openCartTest"/>
                     <include name="viewCartButtonTest"/>
                     <include name="checkoutButtonTest"/>
                     <include name="removeOneItemTest"/>

@@ -117,6 +117,23 @@ public class GoodsListTest extends AddFunctionality {
     }
 
     @Test
+    public void addMoreItemsThenInDbTest() {
+        dbConnect();
+        int moreItemThenInDb = getProductQuantity(43) + 100;
+        driver.findElement(By.cssSelector("a[href*='product_id=43']")).click();
+        WebElement inputField = driver.findElement(By.cssSelector("input[name='quantity']"));
+        inputField.clear();
+        inputField.sendKeys(Integer.toString(moreItemThenInDb));
+        driver.findElement(By.id("button-cart")).click();
+        driver.findElement(By.id("logo")).click();
+        openCart();
+        String actualGoodPlate = getGoodPlate().getText();
+        System.out.println("Test 5 actual result: " + actualGoodPlate);
+        Assert.assertFalse(actualGoodPlate.contains("MacBook" + " " + "x " + moreItemThenInDb + " " + "$619,458.00"));
+        driver.navigate().refresh();
+    }
+
+    @Test
     public void addItemsWithAdditionalParametersTest() {
         //Adding goods to the cart
         getAddButtons(3).click();

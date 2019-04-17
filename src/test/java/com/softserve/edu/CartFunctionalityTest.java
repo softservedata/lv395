@@ -19,6 +19,14 @@ public class CartFunctionalityTest extends AddFunctionality {
     }
 
     @Test
+    public void openCartTest() {
+        openCart();
+        boolean isCartOpened = driver.findElement(By.cssSelector("ul[class*='dropdown-menu pull-right']")).isDisplayed();
+        Assert.assertTrue(isCartOpened);
+        driver.navigate().refresh();
+    }
+
+    @Test
     public void viewCartButtonTest() {
         getAddButtons(0).click();
         driver.navigate().refresh();
