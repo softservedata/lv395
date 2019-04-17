@@ -3,8 +3,10 @@ package com.softserve.createuserpage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.*;
 
+import java.sql.*;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
@@ -33,8 +35,8 @@ public class InputCorrectDataTest {
      */
     @BeforeClass
     public void atStart() {
-        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
-        System.getProperty("webdriver.chrome.driver");
+        System.setProperty("webdriver.chrome.driver",
+                this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -59,12 +61,12 @@ public class InputCorrectDataTest {
     public static Object[][] correctTestData() {
         return new Object[][]{
                 {new TestData("L", "V",
-                        "nazar.bakuko.kn.2016@lpnu.ua", "456",
+                        "nazar.bako.kn.2016@lpnu.ua", "456",
                         "Var", "Lv", "48",
                         "qwer", "qwer")},
                 {new TestData("iamlordvoldemortiamlordvoldemort",
                         "iamlordvoldemortiamlordvoldemort",
-                        "naz.bakusko.kn.2016@lpnu.ua",
+                        "naz.bibasko.kn.2016@lpnu.ua",
                         "56698765645669876564566987656445",
                         "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                                 + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -100,8 +102,10 @@ public class InputCorrectDataTest {
         driver.findElement(By.cssSelector("#input-country "
                 + "> option:nth-child(8)")).click();
         driver.findElement(By.id("input-zone")).click();
-        driver.findElement(By.cssSelector("#input-zone "
-                + "> option:nth-child(11)")).click();
+        Select sel = new Select(driver.findElement(By
+                .cssSelector("select[id*='input-zone']")));
+        sel.selectByIndex(4);
+        //driver.findElement(By.cssSelector("select[id*='input-zone'] > option[value*='3519']")).click();
         driver.findElement(By.id("input-password")).sendKeys(data.get(7));
         driver.findElement(By.id("input-confirm")).sendKeys(data.get(8));
         driver.findElement(By.cssSelector("input[type='checkbox']")).click();
@@ -133,8 +137,55 @@ public class InputCorrectDataTest {
      * closes driver.
      */
     @AfterClass
-    public void closeDriver() {
+    public void closeDriver() throws ClassNotFoundException, SQLException {
+
+        String connectionUrl = "jdbc:mysql://192.168.11.129:3306/opencart";
+        String userName = "lv395";
+        String password = "Lv395_Taqc";
+        Class.forName("com.mysql.jdbc.Driver");
+        try (Connection conn = DriverManager
+                .getConnection(connectionUrl, userName, password);
+             Statement statement = conn.createStatement(ResultSet
+                             .TYPE_SCROLL_INSENSITIVE,
+                     ResultSet.CONCUR_UPDATABLE)) {
+            System.out.println("Connection success!");
+            String selectFirstUserSQL = "SELECT * FROM opencart.oc_customer\n"
+                    + "WHERE email LIKE 'nazar.bako.kn.2016@lpnu.ua';";
+
+            ResultSet rs1 = statement.executeQuery(selectFirstUserSQL);
+            ////we check if customer is registered in db and remove him
+            while (rs1.next()) {
+                String firstName = rs1.getString("firstname");
+                String email = rs1.getString("email");
+                System.out.println("firstName : " + firstName);
+                System.out.println("email : " + email);
+                assertEquals(firstName, "L");
+                assertEquals(email, "nazar.bako.kn.2016@lpnu.ua");
+                rs1.absolute(1);
+                rs1.deleteRow();
+                System.out.println("Deleted!");
+            }
+
+            String selectSecondUserSQL = "SELECT * FROM opencart.oc_customer\n"
+                    + "WHERE email LIKE 'naz.bibasko.kn.2016@lpnu.ua';";
+
+            ResultSet rs2 = statement.executeQuery(selectSecondUserSQL);
+            ////we check if customer is registered in db and remove him
+            while (rs2.next()) {
+                String firstName = rs2.getString("firstname");
+                String email = rs2.getString("email");
+                System.out.println("firstName : " + firstName);
+                System.out.println("email : " + email);
+                assertEquals(firstName, "iamlordvoldemortiamlordvoldemort");
+                assertEquals(email, "naz.bibasko.kn.2016@lpnu.ua");
+                rs2.absolute(1);
+                rs2.deleteRow();
+                System.out.println("Deleted!");
+            }
+
+        }
+
+        //////////////////////////////
         driver.quit();
     }
-
 }

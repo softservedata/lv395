@@ -207,6 +207,14 @@
 			<artifactId>gson</artifactId>
 			<version>${google.gson.version}</version>
 		</dependency>
+
+		<!-- - - - - - MySQL Connector - - - - - -->
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.47</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -266,7 +274,7 @@
 							 <!--<platform>windows</platform>-->
 							 <!--<bit>32</bit>-->
 							 <!--<version>2.45</version>-->
-							 <url>https://chromedriver.storage.googleapis.com/2.42/chromedriver_win32.zip</url>
+							 <!--<url>https://chromedriver.storage.googleapis.com/2.42/chromedriver_win32.zip</url>-->
 							<!--<url>https://chromedriver.storage.googleapis.com/73.0.3683.68/chromedriver_win32.zip</url>-->
 						</driver>
 					</drivers>

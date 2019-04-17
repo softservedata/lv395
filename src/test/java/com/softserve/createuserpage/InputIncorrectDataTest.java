@@ -5,9 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
 
+import java.sql.*;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.expectThrows;
 
 /**
  * In this class we have one test
@@ -33,8 +35,8 @@ public class InputIncorrectDataTest {
      */
     @BeforeClass
     public void atStart() {
-        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
-        System.getProperty("webdriver.chrome.driver");
+        System.setProperty("webdriver.chrome.driver",
+                this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -59,12 +61,12 @@ public class InputIncorrectDataTest {
     public static Object[][] incorrectTestData() {
         return new Object[][]{
                 {new TestData("", "",
-                        "nazarii.bakusko.kn.2016@lpnuua", "45",
+                        "lopata@lpnuua", "45",
                         "St", "L", "1",
                         "qwe", "qwe")},
                 {new TestData("iamlordvoldemortiamlordvoldemort!",
                         "iamlordvoldemortiamlordvoldemort!",
-                        "nazarii.bakusko.kn.2016l@pnuua",
+                        "grabli2016l@pnuua",
                         "123456789012345678901234567890123",
                         "alqqqqqqqqalqqqqqqqqalqqqqqqqqalqqqqqqqqalqqqqqqqqa"
                                 + "lqqqqqqqqalqqqqqqqqalqqqqqqqqalqqqqqqqqa"
@@ -199,8 +201,28 @@ public class InputIncorrectDataTest {
      * closes driver.
      */
     @AfterClass
-    public void closeDriver() {
+    public void closeDriver() throws ClassNotFoundException, SQLException {
+
+        String connectionUrl = "jdbc:mysql://192.168.11.129:3306/opencart";
+        String userName = "lv395";
+        String password = "Lv395_Taqc";
+        Class.forName("com.mysql.jdbc.Driver");
+        try (Connection conn = DriverManager
+                .getConnection(connectionUrl, userName, password);
+             Statement statement = conn.createStatement(ResultSet
+                             .TYPE_SCROLL_INSENSITIVE,
+                     ResultSet.CONCUR_UPDATABLE)) {
+            System.out.println("Connection success!");
+            String selectTwoUsersSQL = "SELECT * FROM opencart.oc_customer\n"
+                    + "WHERE email IN ('lopata@lpnuua', 'grabli2016l@pnuua');";
+            ResultSet res = statement.executeQuery(selectTwoUsersSQL);
+            if (res.next()) {
+                System.out.println("Error");
+            } else {
+                System.out.println("Users do not created");
+            }
+
+        }
         driver.quit();
     }
-
 }
