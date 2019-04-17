@@ -17,19 +17,19 @@ public class TestForSearchFieldAndButton {
 
     @BeforeClass
     public void beforeClass() throws InterruptedException {
-        System.out.println("PATH to WebDriver + " + this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
-        System.setProperty("webdriver.chrome.driver",
-                this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//        System.out.println("PATH to WebDriver + " + this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
+//        System.setProperty("webdriver.chrome.driver",
+//                this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
+//        WebDriver driver = new ChromeDriver();
+//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//        driver.get("http://192.168.36.129/opencart/upload/");
+//        Thread.sleep(1000); // For Presentation Only
+
+
+        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.get("http://192.168.36.129/opencart/upload/");
-        Thread.sleep(1000); // For Presentation Only
-
-
-//        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
-//        driver = new ChromeDriver();
-//        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-//        driver.get("http://192.168.36.131/opencart/upload/");
     }
 
     @AfterClass
@@ -41,6 +41,7 @@ public class TestForSearchFieldAndButton {
     public void beforeMethod() throws InterruptedException {
         driver.findElement(By.name("search")).click();
         driver.findElement(By.name("search")).clear();
+
     }
 
     @AfterMethod
@@ -48,8 +49,9 @@ public class TestForSearchFieldAndButton {
 
     }
 
+
     @DataProvider
-    public Object[][] dataForTestForSearchField() {
+    public Object[][] dataForTestForSearchFieldNegativeTesting() {
         return new Object[][]{
                 //EP
                 //first argument is text we want to input in search field and second is way to the element we will use to check test and third - text we expect to see
@@ -58,38 +60,24 @@ public class TestForSearchFieldAndButton {
                 {"", ".//div[@id='content']/p[2]", "There is no product that matches the search criteria."},
                 //incorrect data
                 {"sh7483274hdsfj", ".//div[@id='content']/p[2]", "There is no product that matches the search criteria."},
-                //positive testing
-                //full name of element we want to find in lower case
-                {"iphone", ".//div[@class='caption']/h4/a[contains(@href,'192.168.36.129/opencart/upload/index.php?route=product/product&product_id=40&search=iphone')]", "iPhone"},
-                //full name of element we want to find in
-                {"iPhone", ".//div[@class='caption']/h4/a[contains(@href,'192.168.36.129/opencart/upload/index.php?route=product/product&product_id=40&search=iPhone')]", "iPhone"},
-                //full name of element we want to find in upper case
-                {"IPHONE", ".//div[@class='caption']/h4/a[contains(@href,'192.168.36.129/opencart/upload/index.php?route=product/product&product_id=40&search=IPHONE')]", "iPhone"},
+                //incorrect data
+                {"&*<>)))_+!@", ".//div[@id='content']/p[2]", "There is no product that matches the search criteria."},
         };
 
 
     }
 
-    //search field plus enter
-    @Test(dataProvider = "dataForTestForSearchField")
-    public void checkSearchField(String valueWeInputInSearchField, String wayToElement, String textWeExpectToSee) throws Exception {
-        //Write in the search field something we want to find
-        driver.findElement(By.name("search")).sendKeys(valueWeInputInSearchField + Keys.ENTER);
-        //Find element we are looking for
-        WebElement isElementOnThePage = driver.findElement(By.xpath(wayToElement));
-        //Get text from element, what were found
-        String actual = isElementOnThePage.getText();
-        System.out.println(actual);
-        // Check
-        System.out.println(actual.toLowerCase() + textWeExpectToSee.toLowerCase());
-        Assert.assertEquals(actual.toLowerCase(), textWeExpectToSee.toLowerCase());
-    }
-
     //positive testing
     @DataProvider
-    public Object[][] dataForTestingSearchFieldResultIsArray() {
+    public Object[][] dataForTestingSearchFieldPositiveTesting() {
         return new Object[][]{
                 //positive testing
+                //full name of element we want to find in lower case
+                {"iphone"},
+                //full name of element we want to find in
+                {"iPhone"},
+                //full name of element we want to find in upper case
+                {"IPHONE"},
                 //word, what we are looking for, begin with this characters
                 {"ip"},
                 //word, what we are looking for, includes with this characters
@@ -99,16 +87,31 @@ public class TestForSearchFieldAndButton {
                 //word, what we are looking for, begin with this characters and before this we have too many spaces
                 {"    ip"},
                 //word, what we are looking for, end with this characters and before this we have too many spaces
-                {"n     "}
+                {"n     "},
+
         };
 
     }
 
-    @Test(dataProvider = "dataForTestingSearchFieldResultIsArray")
+    //----------------------------------------TestingSearchField--------------------------------------------------------
+    //search field plus enter
+    @Test(dataProvider = "dataForTestForSearchFieldNegativeTesting")
+    public void checkSearchField(String valueWeInputInSearchField, String wayToElement, String textWeExpectToSee) throws Exception {
+        //Write in the search field something we want to find
+        driver.findElement(By.name("search")).sendKeys(valueWeInputInSearchField + Keys.ENTER);
+        //Find element we are looking for
+        WebElement isElementOnThePage = driver.findElement(By.xpath(wayToElement));
+        //Get text from element, what were found
+        String actual = isElementOnThePage.getText();
+        // Check
+        Assert.assertEquals(actual.toLowerCase(), textWeExpectToSee.toLowerCase());
+    }
+
+
+    @Test(dataProvider = "dataForTestingSearchFieldPositiveTesting")
     public void chekSearchFieldResultArrayOfElement(String whatWeAreLookingFor) {
         driver.findElement(By.name("search")).sendKeys(whatWeAreLookingFor + Keys.ENTER);
         List<WebElement> webElements = driver.findElements(By.xpath(".//div[@class='row']/div/div/div/div[@class='caption']/h4/a"));
-        System.out.println(webElements.size());
         for (int i = 0; i < webElements.size(); i++) {
             Assert.assertTrue(webElements.get(i).getText().toLowerCase().contains(whatWeAreLookingFor.trim().toLowerCase()));
         }
@@ -118,18 +121,47 @@ public class TestForSearchFieldAndButton {
     //positive testing
     //word, what we are looking for, includes with this characters and before this we have too many spaces
     @Test
-    public void chekSearchFieldResultArrayOfElementSpaceBetweenCharacters() {
+    public void checkSearchFieldResultArrayOfElementSpaceBetweenCharacters() {
         driver.findElement(By.name("search")).sendKeys("ip   h o n     e" + Keys.ENTER);
         List<WebElement> webElements = driver.findElements(By.xpath(".//div[@class='row']/div/div/div/div[@class='caption']/h4/a"));
-        System.out.println(webElements.size());
         for (int i = 0; i < webElements.size(); i++) {
             Assert.assertTrue(webElements.get(i).getText().contains("iPhone"));
         }
     }
 
+    //positive testing
+    //%-to see all products
+    @Test
+    public void checkSearchFieldToSeeAllProducts() {
+        driver.findElement(By.name("search")).sendKeys("%" + Keys.ENTER);
+        List<WebElement> webElements = driver.findElements(By.xpath(".//div[@class='row']/div/div/div/div[@class='caption']/h4/a"));
+        FindAllProductsAndTheirCategories findAllProductsAndTheirCategories = new FindAllProductsAndTheirCategories();
+        List<Product> products=findAllProductsAndTheirCategories.findAllProducts();
+        for (int i = 0; i < webElements.size(); i++) {
+            Assert.assertTrue(products.get(i).getName().equals(webElements.get(i).getText()));
+        }
+    }
+
+    //----------------------------------------TestingButtonForKeywordsField---------------------------------------------
+    //check button
+    @DataProvider
+    public Object[][] dataForCheckButtonTest() {
+        return new Object[][]{
+                //negative testing
+                //empty field
+                {"", ".//div[@id='content']/p[2]", "There is no product that matches the search criteria."},
+                //incorrect data
+                {"sh7483274hdsfj", ".//div[@id='content']/p[2]", "There is no product that matches the search criteria."},
+                //incorrect data
+                {"*&&(*^", ".//div[@id='content']/p[2]", "There is no product that matches the search criteria."},
+                //positive testing
+                //full name of element we want to find in lower case
+                {"iphone", ".//div[@class='caption']/h4/a", "iPhone"},
+        };
+    }
 
     //search field plus button
-    @Test(dataProvider = "dataForTestForSearchField")
+    @Test(dataProvider = "dataForCheckButtonTest")
     public void checkSearchFieldPlusButton(String valueWeInputInSearchField, String wayToElement, String textWeExpectToSee) throws Exception {
         //Write in the search field something we want to find
         driver.findElement(By.name("search")).sendKeys(valueWeInputInSearchField);
@@ -139,9 +171,69 @@ public class TestForSearchFieldAndButton {
         WebElement isElementOnThePage = driver.findElement(By.xpath(wayToElement));
         //Get text from element, what were found
         String actual = isElementOnThePage.getText();
-        System.out.println(actual);
         // Check
         Assert.assertTrue(actual.contains(textWeExpectToSee));
+    }
+
+
+    //----------------------------------------TestingKeywordsField------------------------------------------------------
+    //negative testing
+    @Test(dataProvider = "dataForTestForSearchFieldNegativeTesting")
+    public void keywordsNegativeTest(String inputValue, String wayToValueWeExpectToSee, String expectedResult) {
+        driver.findElement(By.name("search")).sendKeys(Keys.ENTER);
+        driver.findElement(By.id("input-search")).sendKeys(inputValue + Keys.ENTER);
+        WebElement webElement = driver.findElement(By.xpath(wayToValueWeExpectToSee));
+        String actual = webElement.getText();
+        Assert.assertEquals(actual, expectedResult);
+    }
+
+
+    //positive testing
+    @Test(dataProvider = "dataForTestingSearchFieldPositiveTesting")
+    public void keywordsPositiveTest(String whatWeAreLookingFor) {
+        driver.findElement(By.name("search")).sendKeys(Keys.ENTER);
+        driver.findElement(By.id("input-search")).sendKeys(whatWeAreLookingFor + Keys.ENTER);
+        List<WebElement> webElements = driver.findElements(By.xpath(".//div[@class='row']/div/div/div/div[@class='caption']/h4/a"));
+        for (int i = 0; i < webElements.size(); i++) {
+            Assert.assertTrue(webElements.get(i).getText().toLowerCase().contains(whatWeAreLookingFor.trim().toLowerCase()));
+        }
+        ;
+    }
+
+    //positive testing
+    //word, what we are looking for, includes with this characters and before this we have too many spaces
+    @Test
+    public void checkKeywordsFieldResultArrayOfElementSpaceBetweenCharacters() {
+        driver.findElement(By.name("search")).sendKeys(Keys.ENTER);
+        driver.findElement(By.id("input-search")).sendKeys("ip   h o n     e" + Keys.ENTER);
+        List<WebElement> webElements = driver.findElements(By.xpath(".//div[@class='row']/div/div/div/div[@class='caption']/h4/a"));
+        for (int i = 0; i < webElements.size(); i++) {
+            Assert.assertTrue(webElements.get(i).getText().contains("iPhone"));
+        }
+    }
+    //positive testing
+    //%-to see all products
+    @Test
+    public void checkKeywordsFieldToSeeAllProducts() {
+        driver.findElement(By.name("search")).sendKeys(Keys.ENTER);
+        driver.findElement(By.id("input-search")).sendKeys("%" + Keys.ENTER);
+        List<WebElement> webElements = driver.findElements(By.xpath(".//div[@class='row']/div/div/div/div[@class='caption']/h4/a"));
+        FindAllProductsAndTheirCategories findAllProductsAndTheirCategories = new FindAllProductsAndTheirCategories();
+        List<Product> products=findAllProductsAndTheirCategories.findAllProducts();
+        for (int i = 0; i < webElements.size(); i++) {
+            Assert.assertTrue(products.get(i).getName().equals(webElements.get(i).getText()));
+        }
+    }
+    //---------------------------------------------CheckButtonForKeywordsTest-------------------------------------------
+
+    //check button
+    @Test(dataProvider = "dataForCheckButtonTest")
+    public void CheckButtonForKeywordsTest(String valueForSearchField, String wayToWebElement, String expectedResult) {
+        driver.findElement(By.name("search")).sendKeys(Keys.ENTER);
+        driver.findElement(By.id("input-search")).sendKeys(valueForSearchField);
+        driver.findElement(By.id("button-search")).click();
+        String actual = driver.findElement(By.xpath(wayToWebElement)).getText();
+        Assert.assertEquals(actual, expectedResult);
     }
 
 
