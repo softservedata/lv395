@@ -3,11 +3,8 @@ package com.softserve.edu;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.Assert;
 import org.testng.annotations.*;
-
-import java.util.concurrent.TimeUnit;
 
 public class OrderInfoTest extends AddFunctionality{
 
