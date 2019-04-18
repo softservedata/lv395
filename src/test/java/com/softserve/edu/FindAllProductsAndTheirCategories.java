@@ -12,13 +12,14 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class FindAllProductsAndTheirCategories {
+    private final String ip = "http://192.168.36.134/opencart/upload/";
 
-    public List<Product> findAllProducts() {
+    final public List<Product> findAllProducts() {
         System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        driver.get("http://192.168.36.129/opencart/upload/");
-        driver.get("http://192.168.36.129/opencart/upload/admin/");
+        driver.get(ip);
+        driver.get(ip + "admin/");
         driver.findElement(By.name("username")).click();
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).click();
@@ -38,13 +39,12 @@ public class FindAllProductsAndTheirCategories {
     }
 
 
-
-    public List<Product> findingAllProductsAndTheirCategories() {
+    final public List<Product> findingAllProductsAndTheirCategories() {
         System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        driver.get("http://192.168.36.129/opencart/upload/");
-        driver.get("http://192.168.36.129/opencart/upload/admin/");
+        driver.get(ip);
+        driver.get(ip + "admin/");
         driver.findElement(By.name("username")).click();
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).click();
@@ -60,7 +60,7 @@ public class FindAllProductsAndTheirCategories {
         }
 
         for (int i = 1; i < productsFromWeb.size(); i++) {
-            System.out.println(i);
+
             List<WebElement> edit = driver.findElements(By.xpath(".//tr/td[8]"));
             edit.get(i).click();
             driver.findElement(By.xpath(".//ul[@class='nav nav-tabs']/li[3]")).click();
@@ -68,13 +68,8 @@ public class FindAllProductsAndTheirCategories {
             List<String> productCateggry = new ArrayList<>();
             for (int j = 0; j < productCategoryWeb.size(); j++) {
                 productCateggry.add(productCategoryWeb.get(j).getText());
-
             }
-            System.out.println(productCateggry.toString());
-
             products.get(i - 1).setCategory(productCateggry);
-
-            System.out.println(products.get(i - 1).toString());
             driver.findElement(By.id("menu-catalog")).click();
             driver.findElement(By.xpath(".//li[@id='menu-catalog']/ul/li[2]")).click();
 
