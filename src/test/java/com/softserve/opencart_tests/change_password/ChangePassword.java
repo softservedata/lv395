@@ -5,10 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +14,24 @@ public class ChangePassword {
 
     private final String URL = "http://192.168.227.130/opencart/upload/index.php?route=account/login";
     private final String message = "Success: Your password has been successfully updated.";
+
+
+    @DataProvider
+    @Parameters({"newPassword"})
+
+    public Object[][] password(String actualPassword) {
+        return new Object[][]{
+                {}, //
+                {}, //
+                {},
+                {},
+                {},
+                {},
+                {},
+                {actualPassword}
+        };
+    }
+
 
     @BeforeClass
     public void openBrowser() {
@@ -52,9 +67,8 @@ public class ChangePassword {
         driver.findElement(By.cssSelector("input[value*='Login']")).click();
     }
 
-    @Test
-    @Parameters({"newPassword"})
-    public void setNewPassword(String newPassword) {
+    @Test(dataProvider = "password")
+    public void setNewPassword(String newPassword, String confirmPassword) {
         //Click on 'Change your password' button
         driver.findElement(By.linkText("Change your password")).click();
         //Input password
@@ -62,7 +76,7 @@ public class ChangePassword {
         driver.findElement(By.id("input-password")).sendKeys(newPassword);
         //Confirm password
         driver.findElement(By.id("input-confirm")).click();
-        driver.findElement(By.id("input-confirm")).sendKeys(newPassword);
+        driver.findElement(By.id("input-confirm")).sendKeys(confirmPassword);
         //Click on '' button
         driver.findElement(By.cssSelector("input[class*='btn-primary']")).click();
         //Get web element
