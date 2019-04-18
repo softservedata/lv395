@@ -25,4 +25,8 @@ public class DatabaseConnector {
         return factory;
     }
 
+    public void dbClose() {
+        factory.close();
+    }
+
 }

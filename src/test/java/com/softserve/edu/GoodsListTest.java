@@ -21,7 +21,7 @@ public class GoodsListTest extends AddFunctionality {
     @Test
     public void addOneItemTest() {
         //Adding goods to the cart
-        getAddButtons(0).click();
+        addProduct(0).click();
         driver.navigate().refresh();
         openCart();
         //WebElements initialization
@@ -38,9 +38,9 @@ public class GoodsListTest extends AddFunctionality {
         List<WebElement> cartElementsTableRows;
         //Adding goods to the cart
         for(int i = 0; i < 3; i++) {
-            getAddButtons(0).click();
+            addProduct(0).click();
             driver.navigate().refresh();
-            getAddButtons(1).click();
+            addProduct(1).click();
             driver.navigate().refresh();
         }
         openCart();
@@ -61,7 +61,7 @@ public class GoodsListTest extends AddFunctionality {
     public void addSameItemMultipleTimesTest() {
         //Adding goods to the cart
         for (int i = 0; i < 5; i++) {
-            getAddButtons(0).click();
+            addProduct(0).click();
             driver.navigate().refresh();
         }
         openCart();
@@ -118,7 +118,6 @@ public class GoodsListTest extends AddFunctionality {
 
     @Test
     public void addMoreItemsThenInDbTest() {
-        dbConnect();
         int moreItemThenInDb = getProductQuantity(43) + 100;
         driver.findElement(By.cssSelector("a[href*='product_id=43']")).click();
         WebElement inputField = driver.findElement(By.cssSelector("input[name='quantity']"));
@@ -136,7 +135,7 @@ public class GoodsListTest extends AddFunctionality {
     @Test
     public void addItemsWithAdditionalParametersTest() {
         //Adding goods to the cart
-        getAddButtons(3).click();
+        addProduct(3).click();
         driver.findElement(By.id("input-option226")).click();
         Select cameraColor = new Select(driver.findElement(By.id("input-option226")));
         cameraColor.selectByIndex(1);

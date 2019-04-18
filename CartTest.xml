@@ -38,6 +38,8 @@
                 <methods>
                     <include name="checkPriceTextButton"/>
                     <include name="isItemsInDbTest"/>
+                    <include name="logoutUserCartTest"/>
+                    <include name="differentLoggedUsersCartTest"/>
                     <include name="openNewTabTest"/>
                 </methods>
             </class>

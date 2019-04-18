@@ -30,9 +30,9 @@ public class OrderInfoTest extends AddFunctionality{
 
     @Test(dataProvider = "CheckCartTableBoxes")
     public void checkCartTableBoxes(String xpath, double expectedValue) {
-        getAddButtons(0).click();
+        addProduct(0).click();
         driver.navigate().refresh();
-        getAddButtons(1).click();
+        addProduct(1).click();
         driver.navigate().refresh();
         openCart();
         WebElement dataInBox = driver.findElement(By.xpath(xpath));

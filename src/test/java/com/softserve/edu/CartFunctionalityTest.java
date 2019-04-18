@@ -26,7 +26,7 @@ public class CartFunctionalityTest extends AddFunctionality {
 
     @Test
     public void viewCartButtonTest() {
-        getAddButtons(0).click();
+        addProduct(0).click();
         driver.navigate().refresh();
         openCart();
         driver.findElement(By.partialLinkText("View Cart")).click();
@@ -37,7 +37,7 @@ public class CartFunctionalityTest extends AddFunctionality {
 
     @Test
     public void checkoutButtonTest() {
-        getAddButtons(0).click();
+        addProduct(0).click();
         driver.navigate().refresh();
         openCart();
         driver.findElement(By.partialLinkText("Checkout")).click();
@@ -67,8 +67,8 @@ public class CartFunctionalityTest extends AddFunctionality {
 
     @Test
     public void removeAllItemsTest() {
-        getAddButtons(0).click();
-        getAddButtons(1).click();
+        addProduct(0).click();
+        addProduct(1).click();
         driver.navigate().refresh();
         openCart();
         List<WebElement> removeButtons = driver.findElements(By.cssSelector("[title^='Remove'"));
@@ -83,7 +83,7 @@ public class CartFunctionalityTest extends AddFunctionality {
 
     @Test
     public void clickOnItemTest() {
-        getAddButtons(0).click();
+        addProduct(0).click();
         driver.navigate().refresh();
         openCart();
         WebElement namePlate = driver.findElement(By.className("text-left"));

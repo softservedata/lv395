@@ -5,6 +5,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class AddFunctionality extends DatabaseConnector {
 
     protected WebDriver driver;
+    Session session;
     private final String URL = "192.168.239.129";
 
     @BeforeClass
@@ -29,11 +31,13 @@ public class AddFunctionality extends DatabaseConnector {
                 webDriverPath + "chromedriver-windows-32bit.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        dbConnect();
     }
 
     @AfterClass
     public void tearDown() {
         driver.quit();
+        dbClose();
     }
 
     @BeforeMethod
@@ -67,7 +71,7 @@ public class AddFunctionality extends DatabaseConnector {
         return URL;
     }
 
-    public WebElement getAddButtons(int index){
+    public WebElement addProduct(int index){
     List<WebElement> addButtons = driver
             .findElements(By.cssSelector("div[class*='button-group']"
                     + " button[onclick*='cart.add']"));
@@ -83,8 +87,26 @@ public class AddFunctionality extends DatabaseConnector {
        return goodPlate;
     }
 
+    public void logIn(String email, String password) {
+        driver.findElement(By.cssSelector("li[class*='dropdown'] a[title*='My Account']")).click();
+        driver.findElement(By.cssSelector("ul[class^='dropdown-menu'] li:last-child a")).click();
+        WebElement loginField = driver.findElement(By.cssSelector("input[name='email']"));
+        loginField.clear();
+        loginField.sendKeys(email);
+        WebElement passField = driver.findElement(By.cssSelector("input[name='password']"));
+        passField.clear();
+        passField.sendKeys(password + Keys.RETURN);
+        driver.findElement(By.id("logo")).click();
+    }
+
+    public void logOut() {
+        driver.findElement(By.cssSelector("li[class*='dropdown'] a[title*='My Account']")).click();
+        driver.findElement(By.cssSelector("ul[class^='dropdown-menu'] li:last-child a")).click();
+        driver.findElement(By.id("logo")).click();
+    }
+
     public int getProductQuantity(int product_id) {
-        Session session = getFactory().openSession();
+        session = getFactory().openSession();
         Criteria userCriteria = session.createCriteria(Product.class);
         userCriteria.add(Restrictions.eq("product_id", product_id));
         Product product = (Product) userCriteria.uniqueResult();

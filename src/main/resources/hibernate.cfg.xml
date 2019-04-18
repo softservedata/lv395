@@ -5,7 +5,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://192.168.239.129:3306/opencart?useTimezone=true&amp;serverTimezone=UTC</property>
+        <property name="hibernate.connection.url">jdbc:mysql://192.168.239.129:3306/opencart?useTimezone=true&amp;serverTimezone=UTC&amp;useSSL=false</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.username">lv395</property>
         <property name="hibernate.connection.password">Lv395_Taqc</property>
