@@ -2,7 +2,9 @@ package com.softserve.edu;
 
 import com.softserve.edu.entity.Product;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -10,9 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -20,8 +20,26 @@ import java.util.concurrent.TimeUnit;
 public class AddFunctionality extends DatabaseConnector {
 
     protected WebDriver driver;
-    Session session;
+    private Session session;
+    /*private DatabaseOperator operator;*/
+
     private final String URL = "192.168.239.129";
+
+/*    @BeforeSuite
+    public void dumpDb() {
+        operator = new DatabaseOperator();
+        operator.remoteServerConnect();
+        operator.dumpDatabase();
+        operator.remoteServerDisconnect();
+    }*/
+
+/*    @AfterSuite
+    public void restoreDb() {
+        operator.remoteServerConnect();
+        dropDatabase();
+        operator.restoreDatabase();
+        operator.remoteServerDisconnect();
+    }*/
 
     @BeforeClass
     public void setUp() {
@@ -30,6 +48,7 @@ public class AddFunctionality extends DatabaseConnector {
         System.setProperty("webdriver.chrome.driver",
                 webDriverPath + "chromedriver-windows-32bit.exe");
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         dbConnect();
     }
@@ -112,6 +131,25 @@ public class AddFunctionality extends DatabaseConnector {
         Product product = (Product) userCriteria.uniqueResult();
         session.close();
         return product.getQuantity();
+    }
+
+    public void dropDatabase() {
+        session = getFactory().openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            session.createSQLQuery("SET FOREIGN_KEY_CHECKS = 0").executeUpdate();
+            session.createSQLQuery("DROP DATABASE restaurantapp").executeUpdate();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
 }

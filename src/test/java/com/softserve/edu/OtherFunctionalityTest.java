@@ -75,6 +75,22 @@ public class OtherFunctionalityTest extends AddFunctionality{
     }
 
     @Test
+    public void relogCartTest() {
+        logIn("qwerty@gmail.com", "qwerty");
+        addProduct(0).click();
+        driver.navigate().refresh();
+        String firstLoginCart = driver.findElement(By.id("cart-total")).getText();
+        System.out.println(firstLoginCart);
+        logOut();
+        logIn("qwerty@gmail.com", "qwerty");
+        String secondLoginCart = driver.findElement(By.id("cart-total")).getText();
+        System.out.println(secondLoginCart);
+        logOut();
+        Assert.assertEquals(secondLoginCart, firstLoginCart);
+        driver.navigate().refresh();
+    }
+
+    @Test
     public void openNewTabTest() {
         addProduct(0).click();
         driver.navigate().refresh();
