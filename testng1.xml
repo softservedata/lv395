@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="Opencart Tests" thread-count="1" verbose="1" annotations="JDL" parallel="tests">
-    <test name="login">
-        <method-selectors></method-selectors>
-    </test>
-    
-    <test name="lock\unlock user">
+<suite name="Opencart Tests" thread-count="1" verbose="1" annotations="JDK" parallel="tests">
+
+    <test name="verify login page">
         <classes>
-            <class name="com.softserve.task1.account.lock_unlock_user.LockUnlockUser"/>
-        </classes>
-    </test>
-    
-    <test name="password recovery">
-        <classes>
-            <class name="com.softserve.task1.account.recovery.PasswordRecovery"/>
+            <class name="com.softserve.edu.AppTest">
+                <parameter name="arg0" value="One argument"/>
+                <parameter name="arg1" value="First argument"/>
+                <parameter name="arg3" value="Second argument"/>
+                <methods>
+                    <include name="testApp1" />
+
+                    <include name="testApp2"/>
+
+                    <include name="testApp3"/>
+                </methods>
+            </class>
         </classes>
     </test>
 

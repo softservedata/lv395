@@ -1,5 +1,6 @@
 package com.softserve.task1.account.recovery;
 
+import com.softserve.edu.Customer;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -11,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class PasswordRecovery {
     private WebDriver driver;
 
-    private final String URL = "http://192.168.227.129/opencart/upload";
+    private final String URL = "http://192.168.227.130/opencart/upload";
 
     private final String correctEmail = "john.wick.test@ukr.net";
     private final String incorrectEmail = "not.john.wick.test@ukr.net";
@@ -107,7 +108,7 @@ public class PasswordRecovery {
 
     @Test(priority = 4)
     public void getListOfMails() throws InterruptedException {
-        List<WebElement> messages = driver.findElements(By.partialLinkText("Your Store"));
+        List<WebElement> messages = driver.findElements(By.partialLinkText("Password reset request"));
 
         messages.get(0).click();
 
@@ -120,27 +121,27 @@ public class PasswordRecovery {
         Thread.sleep(3000);
     }
 
-//    @Test
-//    public void changePassword(){
-//        //Input new password
-//        driver.findElement(By.id("input-password")).click();
-//        driver.findElement(By.id("input-password")).clear();
-//        driver.findElement(By.id("input-password")).sendKeys(password);
-//        //
-//        //Confirm new password
-//        driver.findElement(By.id("input-confirm")).click();
-//        driver.findElement(By.id("input-confirm")).clear();
-//        driver.findElement(By.id("input-confirm")).sendKeys(password);
-//        //
-//        //Click on 'Continue' button
-//        driver.findElement(By.cssSelector("button[class*='btn-primary']")).click();
-//        //
-//        //Get message
-//        String text = driver.findElement(By.cssSelector("div[class*='alert']")).getText();
-//        //
-//        //Assert
-//        Assert.assertEquals(changePasswordMessage, text);
-//    }
+    @Test
+    public void changePassword(){
+        //Input new password
+        driver.findElement(By.id("input-password")).click();
+        driver.findElement(By.id("input-password")).clear();
+        driver.findElement(By.id("input-password")).sendKeys(password);
+        //
+        //Confirm new password
+        driver.findElement(By.id("input-confirm")).click();
+        driver.findElement(By.id("input-confirm")).clear();
+        driver.findElement(By.id("input-confirm")).sendKeys(password);
+        //
+        //Click on 'Continue' button
+        driver.findElement(By.cssSelector("button[class*='btn-primary']")).click();
+        //
+        //Get message
+        String text = driver.findElement(By.cssSelector("div[class*='alert']")).getText();
+        //
+        //Assert
+        Assert.assertEquals(changePasswordMessage, text);
+    }
 
     @Test
     public void login(){

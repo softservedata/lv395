@@ -14,9 +14,11 @@ import java.util.concurrent.TimeUnit;
 public class ChangePassword {
     private WebDriver driver;
 
-    private final String URL = "http://192.168.227.129/opencart/upload/index.php?route=account/login";
+    private final String URL = "http://192.168.227.130/opencart/upload/index.php?route=account/login";
+
     private final String message = "Success: Your password has been successfully updated.";
-    private final String correctEmail = "opencart.testuser@gmail.com";
+
+    private final String correctEmail = "john.wick.test@ukr.net";
     private final String mainPassword = "qwerty";
     private final String changedPassword = "qwerty123";
 
@@ -81,8 +83,9 @@ public class ChangePassword {
         driver.findElement(By.xpath("(//a[contains(text(),'Logout')])[1]")).click();
         //Get element
         WebElement elem = driver.findElement(By.cssSelector("div[id='content'] > h1"));
-        //Get text from element
+        //Get actual from element
         String actual = elem.getText();
+        //Get expected
         String expected = "Account Logout";
         //Click 'Continue' button
         driver.findElement(By.linkText("Continue")).click();

@@ -151,6 +151,12 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.15</version>
+		</dependency>
+
 		<!-- - - - DB Access - - - -->
 		<!-- <dependency> -->
 		<!-- <groupId>com.microsoft.sqlserver</groupId> -->
