@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 public class LoginAndAddProductsTest {
 
     protected ChromeDriver driver;
-    protected final String OPEN_CART_URL = "http://192.168.234.129/opencart/upload/";
+    protected final String OPEN_CART_URL = "http://192.168.234.130/opencart/upload/";
 
 
     @BeforeClass
@@ -32,7 +32,6 @@ public class LoginAndAddProductsTest {
 
     @AfterClass
     public void afterClass() throws Exception {
-        logIn();
         driver.findElement(By.cssSelector("i[class='fa fa-shopping-cart']")).click();
         while (driver.findElements(By.cssSelector("#content > form")).size() > 0){
             driver.findElement(By.cssSelector("#content > form > div > table > tbody > tr:nth-child(1) > td:nth-child(4) > div > span > button.btn.btn-danger")).click();
