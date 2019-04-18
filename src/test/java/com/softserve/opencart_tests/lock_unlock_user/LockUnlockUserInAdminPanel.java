@@ -1,4 +1,4 @@
-package com.softserve.task1.account.lock_unlock_user;
+package com.softserve.opencart_tests.lock_unlock_user;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -20,12 +21,6 @@ public class LockUnlockUserInAdminPanel {
     private ArrayList<String> tabs;
 
     private final String URL = "http://192.168.227.130/opencart/upload/admin/";
-
-    private final String adminLogin = "admin";
-    private final String adminPassword = "admin";
-
-    private final String userMail = "john.wick.test@ukr.net";
-    private final String userPassword = "qwerty";
 
     private final String failureMessage = "Warning: No match for E-Mail Address and/or Password.";
     private final String successMessage = "My Account";
@@ -43,14 +38,15 @@ public class LockUnlockUserInAdminPanel {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    @Test(priority = 1)
+    @Test
     public void openAdminLoginPage() {
         //Open url --> opencart
         driver.get(URL);
     }
 
-    @Test(priority = 2)
-    public void loginIntoAdminPanel() {
+    @Test
+    @Parameters({"adminLogin", "adminPassword"})
+    public void loginIntoAdminPanel(String adminLogin, String adminPassword) {
         //Input login
         driver.findElement(By.id("input-username")).click();
         driver.findElement(By.id("input-username")).clear();
@@ -65,7 +61,7 @@ public class LockUnlockUserInAdminPanel {
         driver.findElement(By.cssSelector("button[class*='btn']")).click();
     }
 
-    @Test(priority = 3)
+    @Test
     public void openCustomersList() {
         //Create action
         Actions builder = new Actions(driver);
@@ -77,7 +73,7 @@ public class LockUnlockUserInAdminPanel {
         builder.moveToElement(driver.findElement(By.xpath("(//a[contains(text(),'Customers')])[2]"))).click().perform();
     }
 
-    @Test(priority = 4)
+    @Test
     public void editCustomerStatus() {
         //Click on Edit button
         driver.findElement(By.cssSelector("i[class*='fa-pencil']")).click();
@@ -89,10 +85,10 @@ public class LockUnlockUserInAdminPanel {
         driver.findElement(By.cssSelector("i[class*='fa-save']")).click();
     }
 
-    @Test(priority = 5)
+    @Test
     public void openLoginPage() {
         //Open new empty tab using javascript
-        ((JavascriptExecutor) driver).executeScript("window.open(\"http://192.168.227.129/opencart/upload/index.php?route=account/login\")");
+        ((JavascriptExecutor) driver).executeScript("window.open(\"http://192.168.227.130/opencart/upload/index.php?route=account/login\")");
         //
         //Create array of tabs
         tabs = new ArrayList<>(driver.getWindowHandles());
@@ -101,8 +97,9 @@ public class LockUnlockUserInAdminPanel {
         driver.switchTo().window(tabs.get(1));
     }
 
-    @Test(priority = 6)
-    public void tryToLoginWithLockedUser() {
+    @Test
+    @Parameters({"userMail","userPassword"})
+    public void tryToLoginWithLockedUser(String userMail, String userPassword) {
         //Input correct Login
         driver.findElement(By.id("input-email")).click();
         driver.findElement(By.id("input-email")).clear();
@@ -126,13 +123,13 @@ public class LockUnlockUserInAdminPanel {
         Assert.assertEquals(actual, failureMessage);
     }
 
-    @Test(priority = 7)
+    @Test
     public void switchToAdminPanel() {
         //Switch to first tab
         driver.switchTo().window(tabs.get(0));
     }
 
-    @Test(priority = 8)
+    @Test
     public void rollbackCustomerStatus() {
         //Click on Edit button
         driver.findElement(By.cssSelector("i[class*='fa-pencil']")).click();
@@ -144,41 +141,10 @@ public class LockUnlockUserInAdminPanel {
         driver.findElement(By.cssSelector("i[class*='fa-save']")).click();
     }
 
-    @Test(priority = 9)
+    @Test
     public void switchToLoginPage() {
         //Switches to login page
         driver.switchTo().window(tabs.get(1));
-    }
-
-    @Test(priority = 10)
-    public void tryToLoginWithUnlockedUser() {
-        //Input correct Login
-        driver.findElement(By.id("input-email")).click();
-        driver.findElement(By.id("input-email")).clear();
-        driver.findElement(By.id("input-email")).sendKeys(userMail);
-        //
-        //Input correct Password
-        driver.findElement(By.id("input-password")).click();
-        driver.findElement(By.id("input-password")).clear();
-        driver.findElement(By.id("input-password")).sendKeys(userPassword);
-        //
-        //Click Login button
-        driver.findElement(By.cssSelector("input[value*='Login']")).click();
-        //
-        //Get WebElement object
-        WebElement seleniumServerVersion = driver.findElement(By.cssSelector("div[id='content'] > h2:nth-of-type(1)"));
-        //
-        //Get text from WebElement
-        String actual = seleniumServerVersion.getText();
-        //
-        //Assert message
-        Assert.assertEquals(actual, successMessage);
-    }
-
-    @Test(priority = 11)
-    public void closeTab() {
-        //Close second tab using javascript
-        ((JavascriptExecutor) driver).executeScript("window.close()");
     }
 
     @AfterClass

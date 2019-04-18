@@ -1,4 +1,4 @@
-package com.softserve.task1.account.lock_unlock_user;
+package com.softserve.opencart_tests.lock_unlock_user;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.sql.Connection;
@@ -15,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
-public class LockUnlockUser {
+public class LockUnlockUserInDatabase {
     private WebDriver driver;
     private Connection connection;
 
@@ -23,9 +24,6 @@ public class LockUnlockUser {
 
     private final String setStatusDisabled = "UPDATE opencart.oc_customer SET status = '0' WHERE email like 'john.wick.test%'";
     private final String setStatusEnabled = "UPDATE opencart.oc_customer SET status = '1' WHERE email like 'john.wick.test%'";
-
-    private final String userMail = "john.wick.test@ukr.net";
-    private final String userPassword = "qwerty";
 
     private final String failureMessage = "Warning: No match for E-Mail Address and/or Password.";
     private final String successMessage = "My Account";
@@ -45,7 +43,7 @@ public class LockUnlockUser {
         driver.get("http://192.168.227.130/opencart/upload/index.php?route=account/login");
     }
 
-    @Test(priority = 1)
+    @Test
     public void getConnection() {
         try {
             connection = DriverManager.getConnection(db_url, "lv395", "Lv395_Taqc");
@@ -68,7 +66,8 @@ public class LockUnlockUser {
     }
 
     @Test(priority = 6)
-    public void tryToLoginWithLockedUser() {
+    @Parameters({"userMail","userPassword"})
+    public void tryToLoginWithLockedUser(String userMail, String userPassword) {
         //Input correct Login
         driver.findElement(By.id("input-email")).click();
         driver.findElement(By.id("input-email")).clear();
@@ -105,11 +104,12 @@ public class LockUnlockUser {
     }
 
     @Test(priority = 10)
-    public void tryToLoginWithUnlockedUser() {
+    @Parameters({"userMail","userPassword"})
+    public void tryToLoginWithUnlockedUser(String userEmail, String userPassword) {
         //Input correct Login
         driver.findElement(By.id("input-email")).click();
         driver.findElement(By.id("input-email")).clear();
-        driver.findElement(By.id("input-email")).sendKeys(userMail);
+        driver.findElement(By.id("input-email")).sendKeys(userEmail);
         //
         //Input correct Password
         driver.findElement(By.id("input-password")).click();

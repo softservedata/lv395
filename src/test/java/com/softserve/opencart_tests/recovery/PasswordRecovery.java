@@ -1,6 +1,5 @@
-package com.softserve.task1.account.recovery;
+package com.softserve.opencart_tests.recovery;
 
-import com.softserve.edu.Customer;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;

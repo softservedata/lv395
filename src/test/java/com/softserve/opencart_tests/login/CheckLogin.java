@@ -1,4 +1,4 @@
-package com.softserve.task1.account.login;
+package com.softserve.opencart_tests.login;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

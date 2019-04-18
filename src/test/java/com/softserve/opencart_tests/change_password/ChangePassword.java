@@ -1,4 +1,4 @@
-package com.softserve.task1.account.change_password;
+package com.softserve.opencart_tests.change_password;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
