@@ -1,14 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Lock Unlock User" thread-count="1" verbose="1" annotations="JDK" parallel="tests">
+<suite name="Login form" thread-count="1" verbose="1" annotations="JDK" parallel="tests">
 
-    <test name="verify login page">
+    <test name="Login">
         <classes>
-            <class name="CheckLogin">
-                <methods>
-                    <include name="login"/>
-                </methods>
-            </class>
+            <class name="com.softserve.opencart_tests.login.CheckLogin"/>
         </classes>
     </test>
 

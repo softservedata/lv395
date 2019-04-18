@@ -19,7 +19,7 @@ public class CheckLogin {
     private final String tooMuchRequestsMessage = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
     private final String successMessage = "Your account";
 
-    private final String URL = "http://192.168.227.129/opencart/upload";
+    private final String URL = "http://192.168.227.130/opencart/upload";
     private final String correctEmail = "opencart.testuser@gmail.com";
     private final String correctPassword = "qwerty";
     private final String incorrectEmail = "not.opencart.testuser@gmail.com";

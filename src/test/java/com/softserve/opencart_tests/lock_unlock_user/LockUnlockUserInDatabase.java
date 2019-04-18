@@ -46,22 +46,20 @@ public class LockUnlockUserInDatabase {
     @Test
     public void getConnection() {
         try {
+            //Open jdbc connection
             connection = DriverManager.getConnection(db_url, "lv395", "Lv395_Taqc");
-            System.out.println("Successfully connected to db");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
     @Test(priority = 4)
     public void editCustomerStatus() {
         try(PreparedStatement ps = connection.prepareStatement(setStatusDisabled)) {
-
+            //Execute prepared statement
             ps.executeUpdate();
-
-            System.out.println("Status changed to Disabled");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -94,12 +92,10 @@ public class LockUnlockUserInDatabase {
     @Test(priority = 8)
     public void rollbackCustomerStatus() {
         try (PreparedStatement ps = connection.prepareStatement(setStatusEnabled)){
-
+            //Execute prepared statement
             ps.executeUpdate();
-
-            System.out.println("Status changed to Enabled");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -133,10 +129,12 @@ public class LockUnlockUserInDatabase {
     public void exit() {
         //Close driver
         driver.quit();
+
         try {
+            //Close jdbc connection
             connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 }

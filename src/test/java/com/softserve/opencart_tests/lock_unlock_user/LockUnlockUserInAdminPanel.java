@@ -74,6 +74,18 @@ public class LockUnlockUserInAdminPanel {
     }
 
     @Test
+    @Parameters({"userMail"})
+    public void findUserByEmail(String userMail){
+        //Input user mail into field 'E-Mail'
+        driver.findElement(By.id("input-email")).click();
+        driver.findElement(By.id("input-email")).clear();
+        driver.findElement(By.id("input-email")).sendKeys(userMail);
+        //
+        //Click Filter button
+        driver.findElement(By.id("button-filter")).click();
+    }
+
+    @Test
     public void editCustomerStatus() {
         //Click on Edit button
         driver.findElement(By.cssSelector("i[class*='fa-pencil']")).click();

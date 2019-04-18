@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -15,12 +16,7 @@ public class ChangePassword {
     private WebDriver driver;
 
     private final String URL = "http://192.168.227.130/opencart/upload/index.php?route=account/login";
-
     private final String message = "Success: Your password has been successfully updated.";
-
-    private final String correctEmail = "john.wick.test@ukr.net";
-    private final String mainPassword = "qwerty";
-    private final String changedPassword = "qwerty123";
 
     @BeforeClass
     public void openBrowser() {
@@ -35,36 +31,38 @@ public class ChangePassword {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    @Test(priority = 1)
+    @Test
     public void openLoginPage() {
         //Open url --> opencart
         driver.get(URL);
     }
 
-    @Test(priority = 2)
-    public void login() {
+    @Test
+    @Parameters({"email", "oldPassword"})
+    public void login(String email, String password) {
         //Input correct Login
         driver.findElement(By.id("input-email")).click();
         driver.findElement(By.id("input-email")).clear();
-        driver.findElement(By.id("input-email")).sendKeys(correctEmail);
+        driver.findElement(By.id("input-email")).sendKeys(email);
         //Input correct Password
         driver.findElement(By.id("input-password")).click();
         driver.findElement(By.id("input-password")).clear();
-        driver.findElement(By.id("input-password")).sendKeys(mainPassword);
+        driver.findElement(By.id("input-password")).sendKeys(password);
         //Click Login button
         driver.findElement(By.cssSelector("input[value*='Login']")).click();
     }
 
-    @Test(priority = 3)
-    public void setNewPassword() {
+    @Test
+    @Parameters({"newPassword"})
+    public void setNewPassword(String newPassword) {
         //Click on 'Change your password' button
         driver.findElement(By.linkText("Change your password")).click();
         //Input password
         driver.findElement(By.id("input-password")).click();
-        driver.findElement(By.id("input-password")).sendKeys(changedPassword);
+        driver.findElement(By.id("input-password")).sendKeys(newPassword);
         //Confirm password
         driver.findElement(By.id("input-confirm")).click();
-        driver.findElement(By.id("input-confirm")).sendKeys(changedPassword);
+        driver.findElement(By.id("input-confirm")).sendKeys(newPassword);
         //Click on '' button
         driver.findElement(By.cssSelector("input[class*='btn-primary']")).click();
         //Get web element
@@ -72,10 +70,10 @@ public class ChangePassword {
         //Get text of the element
         String actual = seleniumServerVersion.getText();
         //Assert
-        Assert.assertTrue(actual.contains(message));
+        Assert.assertEquals(message, actual);
     }
 
-    @Test(priority = 4)
+    @Test
     public void logout() {
         //Click on My Account tab
         driver.findElement(By.xpath("//li[2]/a/span[1]")).click();
@@ -93,8 +91,9 @@ public class ChangePassword {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test(priority = 5)
-    public void tryToLoginWithNewPassword() {
+    @Test
+    @Parameters({"email", "newPassword"})
+    public void tryToLoginWithNewPassword(String email, String newPassword) {
         //Click on 'My Account' button
         driver.findElement(By.xpath("//li[2]/a/span[1]")).click();
         //Click on 'Login' button
@@ -102,33 +101,19 @@ public class ChangePassword {
         //Input correct Login
         driver.findElement(By.id("input-email")).click();
         driver.findElement(By.id("input-email")).clear();
-        driver.findElement(By.id("input-email")).sendKeys(correctEmail);
+        driver.findElement(By.id("input-email")).sendKeys(email);
         //Input correct Password
         driver.findElement(By.id("input-password")).click();
         driver.findElement(By.id("input-password")).clear();
-        driver.findElement(By.id("input-password")).sendKeys(changedPassword);
+        driver.findElement(By.id("input-password")).sendKeys(newPassword);
         //Click Login button
         driver.findElement(By.cssSelector("input[value*='Login']")).click();
-    }
-
-    @Test(priority = 6)
-    public void setMainPassword() {
-        //Click on 'Change your password' button
-        driver.findElement(By.linkText("Change your password")).click();
-        //Input password
-        driver.findElement(By.id("input-password")).click();
-        driver.findElement(By.id("input-password")).sendKeys(mainPassword);
-        //Confirm password
-        driver.findElement(By.id("input-confirm")).click();
-        driver.findElement(By.id("input-confirm")).sendKeys(mainPassword);
-        //Click on '' button
-        driver.findElement(By.cssSelector("input[class*='btn-primary']")).click();
-        //Get web element
-        WebElement seleniumServerVersion = driver.findElement(By.cssSelector("div[class*='alert']"));
-        //Get text of the element
+        //Verify if user is successfully logged in
+        WebElement seleniumServerVersion = driver.findElement(By.cssSelector("div[id='content'] > h2:nth-of-type(1)"));
+        //
         String actual = seleniumServerVersion.getText();
-        //Assert
-        Assert.assertTrue(actual.contains(message));
+        // Check
+        Assert.assertEquals("My Account", actual);
     }
 
     @AfterClass

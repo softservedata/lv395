@@ -64,7 +64,6 @@ public class CheckLoginWithCorrectCredentials {
         WebElement seleniumServerVersion = driver.findElement(By.cssSelector("div[id='content'] > h2:nth-of-type(1)"));
         //
         String actual = seleniumServerVersion.getText();
-        //
         // Check
         Assert.assertTrue(actual.contains("My Account"));
     }
