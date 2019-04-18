@@ -57,9 +57,10 @@ public class LockUnlockUser {
 
     @Test(priority = 4)
     public void editCustomerStatus() {
-        try {
-            PreparedStatement ps = connection.prepareStatement(setStatusDisabled);
+        try(PreparedStatement ps = connection.prepareStatement(setStatusDisabled)) {
+
             ps.executeUpdate();
+
             System.out.println("Status changed to Disabled");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,9 +94,10 @@ public class LockUnlockUser {
 
     @Test(priority = 8)
     public void rollbackCustomerStatus() {
-        try {
-            PreparedStatement ps = connection.prepareStatement(setStatusEnabled);
+        try (PreparedStatement ps = connection.prepareStatement(setStatusEnabled)){
+
             ps.executeUpdate();
+
             System.out.println("Status changed to Enabled");
         } catch (SQLException e) {
             e.printStackTrace();
