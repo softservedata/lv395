@@ -18,18 +18,28 @@ public class PasswordRecovery {
     private final String emptyEmail = "";
 
     private final String password = "qwerty";
-    private final String successMessage = "An email with a confirmation link has been sent your email address.";
+    private final String successMessageForMail = "An email with a confirmation link has been sent your email address.";
     private final String failMessage = "Warning: The E-Mail Address was not found in our records, please try again!";
-    private final String changePasswordMessage = "Success: Your password has been successfully updated.";
-
+    private final String successMessage = "Success: Your password has been successfully updated.";
 
     @DataProvider
     public Object[][] email() {
         return new Object[][]{
-                //TODO add verification for null
-                {correctEmail, successMessage}, // correct Email --> Success Message
+                {correctEmail, successMessageForMail}, // correct Email --> Success Message
                 {emptyEmail, failMessage}, // empty Email --> Error Message
                 {incorrectEmail, failMessage} // incorrect Email --> Error Message
+        };
+    }
+
+    @DataProvider
+    public Object[][] password() {
+        return new Object[][]{
+                {"111", "111", "Failed"},
+                {"123456789123456789123", "123456789123456789123", "Failed"},
+                {"1234", "4321", "Failed"},
+                {"", "1111", "Failed"},
+                {"1111", "", "Failed"},
+                {"qwerty", "qwerty", "Success"},
         };
     }
 
@@ -106,22 +116,18 @@ public class PasswordRecovery {
     }
 
     @Test(priority = 4)
-    public void getListOfMails() throws InterruptedException {
+    public void getListOfMails() {
         List<WebElement> messages = driver.findElements(By.partialLinkText("Password reset request"));
 
         messages.get(0).click();
 
-        Thread.sleep(3000);
-
-        String text = driver.findElement(By.xpath("//a[contains(text(),"
-                + "'http://192.168.227.129/opencart/upload/index.php?route=account/reset')]")).getText();
+        String text = driver.findElement(By.xpath("//a[contains(text(),'http://192.168.227.130/opencart/upload/index.php?route=account/reset')]")).getText();
 
         driver.get(text);
-        Thread.sleep(3000);
     }
 
-    @Test
-    public void changePassword(){
+    @Test(dataProvider = "password", priority = 5)
+    public void changePassword(String password, String confirmPassword, String messageType){
         //Input new password
         driver.findElement(By.id("input-password")).click();
         driver.findElement(By.id("input-password")).clear();
@@ -130,37 +136,49 @@ public class PasswordRecovery {
         //Confirm new password
         driver.findElement(By.id("input-confirm")).click();
         driver.findElement(By.id("input-confirm")).clear();
-        driver.findElement(By.id("input-confirm")).sendKeys(password);
+        driver.findElement(By.id("input-confirm")).sendKeys(confirmPassword);
         //
         //Click on 'Continue' button
         driver.findElement(By.cssSelector("button[class*='btn-primary']")).click();
-        //
-        //Get message
-        String text = driver.findElement(By.cssSelector("div[class*='alert']")).getText();
-        //
-        //Assert
-        Assert.assertEquals(changePasswordMessage, text);
-    }
-
-    @Test
-    public void login(){
-        //TODO add login logic
-    }
-
-    @Test(priority = 5)
-    public void closeMailTab() {
-        //
-        //Close current tab using javascript
-        ((JavascriptExecutor) driver).executeScript("window.close()");
+        if(messageType == "Failed"){
+            //
+            //Get message
+            String errorMessage = driver.findElement(By.className("text-danger")).getText();
+            //
+            //Assert
+            Assert.assertTrue(errorMessage.contains("Password"));
+        } else {
+            //Get message
+            String text = driver.findElement(By.cssSelector("div[class*='alert']")).getText();
+            //
+            //Assert
+            Assert.assertEquals(text,successMessage);
+        }
     }
 
     @Test(priority = 6)
-    public void loginWithNewCredentials() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public void login(){
+        //Input to email field
+        driver.findElement(By.id("input-email")).click();
+        driver.findElement(By.id("input-email")).clear();
+        driver.findElement(By.id("input-email")).sendKeys(correctEmail);
+        //
+        //Input to password field
+        driver.findElement(By.id("input-password")).click();
+        driver.findElement(By.id("input-password")).clear();
+        driver.findElement(By.id("input-password")).sendKeys(password);
+        //
+        //Click Login button
+        driver.findElement(By.cssSelector("input[value*='Login']")).click();
+        //
+        //Get WebElement object
+        WebElement seleniumServerVersion = driver.findElement(By.xpath("//div[@id='content']/h2[1]"));
+        //
+        //Get text from WebElement
+        String actual = seleniumServerVersion.getText();
+        //
+        // Check message
+        Assert.assertEquals(actual,"My Account");
     }
 
     @AfterClass

@@ -16,10 +16,10 @@ public class CheckLoginWithIncorrectCredentials {
     private final String tooMuchRequestsMessage = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
 
 
-    private final String URL = "http://192.168.227.129/opencart/upload";
-    private final String correctEmail = "opencart.testuser@gmail.com";
+    private final String URL = "http://192.168.227.130/opencart/upload";
+    private final String correctEmail = "john.wick.test@ukt.ner";
     private final String correctPassword = "qwerty";
-    private final String incorrectEmail = "not.opencart.testuser@gmail.com";
+    private final String incorrectEmail = "not.john.wick.test@ukt.ner";
     private final String incorrectPassword = "notqwerty";
     private final String emptyEmail = "";
     private final String emptyPassword = "";
@@ -45,17 +45,12 @@ public class CheckLoginWithIncorrectCredentials {
         //Set window --> maximize
         driver.manage().window().maximize();
         //Set timeout 20 sec
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //Open url --> opencart
         driver.get(URL);
         //Open login page
         driver.findElement(By.xpath("//a[contains(text(),'My Account')]")).click();
         driver.findElement(By.linkText("Login")).click();
-    }
-
-    @AfterClass
-    public void closeDriver() {
-        driver.quit();
     }
 
     @Test(dataProvider = "credentials")
@@ -85,5 +80,10 @@ public class CheckLoginWithIncorrectCredentials {
         } else {
             Assert.assertTrue(actual.contains(failureMessage));
         }
+    }
+
+    @AfterClass
+    public void closeDriver() {
+        driver.quit();
     }
 }

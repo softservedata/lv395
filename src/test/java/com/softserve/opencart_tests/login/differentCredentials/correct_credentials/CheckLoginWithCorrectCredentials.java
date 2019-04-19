@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit;
 public class CheckLoginWithCorrectCredentials {
     private WebDriver driver;
 
-    private final String URL = "http://192.168.227.129/opencart/upload";
-    private final String correctEmail = "opencart.testuser@gmail.com";
+    private final String URL = "http://192.168.227.130/opencart/upload";
+    private final String correctEmail = "john.wick.test@ukr.net";
     private final String correctPassword = "qwerty";
 
     @DataProvider
@@ -33,17 +33,12 @@ public class CheckLoginWithCorrectCredentials {
         //Set window --> maximize
         driver.manage().window().maximize();
         //Set timeout 20 sec
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //Open url --> opencart
         driver.get(URL);
         //Open login page
         driver.findElement(By.xpath("//a[contains(text(),'My Account')]")).click();
         driver.findElement(By.linkText("Login")).click();
-    }
-
-    @AfterClass
-    public void closeDriver() {
-        driver.quit();
     }
 
     @Test(dataProvider = "credentials")
@@ -66,5 +61,10 @@ public class CheckLoginWithCorrectCredentials {
         String actual = seleniumServerVersion.getText();
         // Check
         Assert.assertTrue(actual.contains("My Account"));
+    }
+
+    @AfterClass
+    public void closeDriver() {
+        driver.quit();
     }
 }

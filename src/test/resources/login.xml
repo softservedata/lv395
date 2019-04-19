@@ -4,7 +4,8 @@
 
     <test name="Login">
         <classes>
-            <class name="com.softserve.opencart_tests.login.CheckLogin"/>
+            <class name="com.softserve.opencart_tests.login.differentCredentials.incorrect_credentials.CheckLoginWithIncorrectCredentials"/>
+            <class name="com.softserve.opencart_tests.login.differentCredentials.correct_credentials.CheckLoginWithCorrectCredentials"/>
         </classes>
     </test>
 
