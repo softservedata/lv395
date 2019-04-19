@@ -17,7 +17,6 @@ public class PasswordRecovery {
     private final String incorrectEmail = "not.john.wick.test@ukr.net";
     private final String emptyEmail = "";
 
-    private final String password = "qwerty";
     private final String successMessageForMail = "An email with a confirmation link has been sent your email address.";
     private final String failMessage = "Warning: The E-Mail Address was not found in our records, please try again!";
     private final String successMessage = "Success: Your password has been successfully updated.";
@@ -53,10 +52,10 @@ public class PasswordRecovery {
         //Set window --> maximize
         driver.manage().window().maximize();
         //Set timeout 20 sec
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    @Test(priority = 1)
+    @Test
     public void openLoginPage() {
         //Open url --> opencart
         driver.get(URL);
@@ -68,7 +67,7 @@ public class PasswordRecovery {
         driver.findElement(By.linkText("Login")).click();
     }
 
-    @Test(dataProvider = "email", priority = 2)
+    @Test(dataProvider = "email")
     public void sendEmailAndCheckMessage(String email, String message) {
         //Click on "Forgotten Password" button
         driver.findElement(By.xpath("(//a[contains(text(),'Forgotten Password')])[1]")).click();
@@ -91,7 +90,7 @@ public class PasswordRecovery {
         Assert.assertEquals(actual, message);
     }
 
-    @Test(priority = 3)
+    @Test
     public void openEmail() {
         //Open new empty tab using javascript
         ((JavascriptExecutor) driver).executeScript("window.open(\"https://accounts.ukr.net/login\")");
@@ -115,7 +114,7 @@ public class PasswordRecovery {
         driver.findElement(By.cssSelector("button[class*='button']")).click();
     }
 
-    @Test(priority = 4)
+    @Test
     public void getListOfMails() {
         List<WebElement> messages = driver.findElements(By.partialLinkText("Password reset request"));
 
@@ -126,8 +125,8 @@ public class PasswordRecovery {
         driver.get(text);
     }
 
-    @Test(dataProvider = "password", priority = 5)
-    public void changePassword(String password, String confirmPassword, String messageType){
+    @Test(dataProvider = "password")
+    public void changePassword(String password, String confirmPassword, String messageType) {
         //Input new password
         driver.findElement(By.id("input-password")).click();
         driver.findElement(By.id("input-password")).clear();
@@ -140,7 +139,7 @@ public class PasswordRecovery {
         //
         //Click on 'Continue' button
         driver.findElement(By.cssSelector("button[class*='btn-primary']")).click();
-        if(messageType == "Failed"){
+        if (messageType == "Failed") {
             //
             //Get message
             String errorMessage = driver.findElement(By.className("text-danger")).getText();
@@ -152,16 +151,17 @@ public class PasswordRecovery {
             String text = driver.findElement(By.cssSelector("div[class*='alert']")).getText();
             //
             //Assert
-            Assert.assertEquals(text,successMessage);
+            Assert.assertEquals(text, successMessage);
         }
     }
 
-    @Test(priority = 6)
-    public void login(){
+    @Test
+    @Parameters({"email", "password"})
+    public void login(String email, String password) {
         //Input to email field
         driver.findElement(By.id("input-email")).click();
         driver.findElement(By.id("input-email")).clear();
-        driver.findElement(By.id("input-email")).sendKeys(correctEmail);
+        driver.findElement(By.id("input-email")).sendKeys(email);
         //
         //Input to password field
         driver.findElement(By.id("input-password")).click();
@@ -178,7 +178,7 @@ public class PasswordRecovery {
         String actual = seleniumServerVersion.getText();
         //
         // Check message
-        Assert.assertEquals(actual,"My Account");
+        Assert.assertEquals(actual, "My Account");
     }
 
     @AfterClass
