@@ -11,21 +11,16 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 
-/**
- * In this class we have one test
- * which check that we can create
- * user with all entered correct data.
- */
-public class CheckEmailTest {
-    /**
-     * Url of home page.
-     */
-    private final String URL = "http://192.168.11.129/opencart/upload/";
+public class SpecialSymbolsTest {
     /**
      * Simple webdriver.
      */
     private WebDriver driver;
 
+    /**
+     * Url of home page.
+     */
+    private final String URL = "http://192.168.11.129/opencart/upload/";
 
     /**
      * In this @BeforeClass we
@@ -35,8 +30,8 @@ public class CheckEmailTest {
      */
     @BeforeClass
     public void atStart() {
-        System.setProperty("webdriver.chrome.driver", this.getClass()
-                .getResource("/chromedriver-windows-32bit.exe").getPath());
+        System.setProperty("webdriver.chrome.driver",
+                this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -60,10 +55,10 @@ public class CheckEmailTest {
     @DataProvider(name = "correctTestData")
     public static Object[][] correctTestData() {
         return new Object[][]{
-                {new TestData("Nazar", "Baks",
-                        "testuser395lv@gmail.com", "45655654",
-                        "Varshavska", "Lviv", "485468",
-                        "qwerty", "qwerty")}
+                {new TestData("/*-+@#$%^&", "/*-+@#$%^&",
+                        "nazar.bako.kn.2016@lpnu.ua", "/*-+@#$%^&",
+                        "/*-+@#$%^&", "/*-+@#$%^&", "/*-+@#$%^&",
+                        "/*-+@#$%^&", "/*-+@#$%^&")}
         };
     }
 
@@ -73,7 +68,7 @@ public class CheckEmailTest {
      * @param data data;
      */
     @Test(dataProvider = "correctTestData")
-    public void checkEmail(TestData data)
+    public void checkEnterCorrectData(TestData data)
             throws InterruptedException {
         driver.get("http://192.168.11.129/opencart/upload/");
         driver.findElement(By.linkText("My Account")).click();
@@ -93,6 +88,7 @@ public class CheckEmailTest {
         Select sel = new Select(driver.findElement(By
                 .cssSelector("select[id*='input-zone']")));
         sel.selectByIndex(4);
+        //driver.findElement(By.cssSelector("select[id*='input-zone'] > option[value*='3519']")).click();
         driver.findElement(By.id("input-password")).sendKeys(data.get(7));
         driver.findElement(By.id("input-confirm")).sendKeys(data.get(8));
         driver.findElement(By.cssSelector("input[type='checkbox']")).click();
@@ -103,36 +99,29 @@ public class CheckEmailTest {
                 + "> h1")).getText();
         Thread.sleep(5000);
         assertEquals(actualText, "Your Account Has Been Created!");
-        //Check if user received a confirmation letter on his email
-        driver.get("https://accounts.google.com/signin/v2/identifier?continue"
-                + "=https%3A%2F%2Fmail.google.com%2Fmail%2F&service=mail&sacu="
-                + "1&rip=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin");
-        driver.findElement(By.id("identifierId"))
-                .sendKeys("testuser395lv@gmail.com");
-        Thread.sleep(1000);
-        driver.findElement(By.cssSelector("span[class*='RveJvd']")).click();
-        Thread.sleep(1000);
-        driver.findElement(By.name("password"))
-                .sendKeys("lv395testuser");
-        Thread.sleep(1000);
-        driver.findElement(By.cssSelector("div[id='passwordNext'] "
-                + "> content > span")).click();
-        Thread.sleep(1000);
-        //find email with Your store thank you for registering
-        driver.findElement(By.cssSelector("div[class*='y6'] > span"));
-        Thread.sleep(1000);
-        //check if exists if yes - delete
     }
 
+//    /**
+//     * In this @AfterMethod we
+//     * logout from created account.
+//     */
+//    @AfterMethod
+//    public void logOut() throws InterruptedException {
+//        Thread.sleep(1000);
+//        driver.findElement(By.linkText("My Account")).click();
+//        Thread.sleep(1000);
+//        driver.findElement(By.cssSelector("a[href*='opencart"
+//                + "/upload/index.php']:nth-of-type(13)")).click();
+//        Thread.sleep(1000);
+//    }
+
     /**
-     * In this @AfterMethod we
-     * logout from created account.
-     * @throws ClassNotFoundException, SQLException
-     *                                 if there is no connection.
+     * This @AfterClass
+     * closes driver.
      */
-    @AfterMethod
-    public void deleteUserFromDb()
-            throws ClassNotFoundException, SQLException {
+    @AfterClass
+    public void closeDriver() throws ClassNotFoundException, SQLException {
+
         String connectionUrl = "jdbc:mysql://192.168.11.129:3306/opencart";
         String userName = "lv395";
         String password = "Lv395_Taqc";
@@ -143,26 +132,25 @@ public class CheckEmailTest {
                              .TYPE_SCROLL_INSENSITIVE,
                      ResultSet.CONCUR_UPDATABLE)) {
             System.out.println("Connection success!");
-            String selectUserSQL = "SELECT * FROM opencart.oc_customer \n"
-                    + "WHERE email LIKE 'testuser395lv@gmail.com';";
-            ResultSet rs = statement.executeQuery(selectUserSQL);
-            while (rs.next()) {
-                String email = rs.getString("email");
+            String selectFirstUserSQL = "SELECT * FROM opencart.oc_customer\n"
+                    + "WHERE email LIKE 'nazar.bako.kn.2016@lpnu.ua';";
+
+            ResultSet rs1 = statement.executeQuery(selectFirstUserSQL);
+            ////we check if customer is registered in db and remove him
+            while (rs1.next()) {
+                String firstName = rs1.getString("firstname");
+                String email = rs1.getString("email");
+                System.out.println("firstName : " + firstName);
                 System.out.println("email : " + email);
-                rs.absolute(1);
-                rs.deleteRow();
-                //rs.close();
+                assertEquals(firstName, "/*-+@#$%^&amp;");
+                assertEquals(email, "nazar.bako.kn.2016@lpnu.ua");
+                rs1.absolute(1);
+                rs1.deleteRow();
                 System.out.println("Deleted!");
             }
         }
-    }
 
-    /**
-     * This @AfterClass
-     * closes driver.
-     */
-    @AfterClass
-    public void closeDriver() {
+        //////////////////////////////
         driver.quit();
     }
 }
