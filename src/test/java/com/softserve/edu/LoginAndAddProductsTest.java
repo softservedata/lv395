@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 public class LoginAndAddProductsTest {
 
     protected ChromeDriver driver;
+    protected ChromeDriver driverAdmin;
     protected final String OPEN_CART_URL = "http://192.168.234.130/opencart/upload/";
 
 
