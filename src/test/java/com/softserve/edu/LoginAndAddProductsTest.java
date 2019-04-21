@@ -1,25 +1,13 @@
 package com.softserve.edu;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import java.lang.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
-
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 
-public class LoginAndAddProductsTest {
-
-    protected ChromeDriver driver;
-    protected ChromeDriver driverAdmin;
-    protected final String OPEN_CART_URL = "http://192.168.234.130/opencart/upload/";
-
+public class LoginAndAddProductsTest extends Helper {
 
     @BeforeClass
     public void beforeClass() {
@@ -33,6 +21,7 @@ public class LoginAndAddProductsTest {
 
     @AfterClass
     public void afterClass() throws Exception {
+        logIn();
         driver.findElement(By.cssSelector("i[class='fa fa-shopping-cart']")).click();
         while (driver.findElements(By.cssSelector("#content > form")).size() > 0){
             driver.findElement(By.cssSelector("#content > form > div > table > tbody > tr:nth-child(1) > td:nth-child(4) > div > span > button.btn.btn-danger")).click();
@@ -51,26 +40,13 @@ public class LoginAndAddProductsTest {
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * L O G I N * * * * * * * * * * * * * * * * * * * * * * * * * *
     @Test(priority = 1)
-    public void logIn() {
-        driver.get(OPEN_CART_URL + "index.php?route=account/login");
-        driver.findElement(By.id("input-email")).click();
-        driver.findElement(By.id("input-email")).sendKeys("yuriykril7773@gmail.com");
-        driver.findElement(By.id("input-password")).click();
-        driver.findElement(By.id("input-password")).sendKeys("qwerty" + Keys.ENTER);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    public void verifylogIn() {
+        logIn();
         Assert.assertTrue(driver.findElement(By.xpath("(//a[contains(text(),'Logout')])[1]")).isEnabled());
     }
 
-    // * * * * * * * * * * * * * * * * * * * * * * * * * L O G O U T * * * * * * * * * * * * * * * * * * * * * * * * * *
-    @Test(priority = 5)
-    public void logOut() {
-        driver.findElement(By.cssSelector("#top-links > ul > li.dropdown > a")).click();
-        driver.findElement(By.xpath("//a[contains(text(),'Logout')]")).click();
-        driver.findElement(By.cssSelector("i[class='fa fa-shopping-cart']")).click();
-        Assert.assertTrue(driver.findElements(By.cssSelector("#content > form")).size() == 0);
-    }
-
     // * * * * * * * * * * * * * * * * * * * A D D * T H R E E * P R O D U C T S * * * * * * * * * * * * * * * * * * * *
+
     @Test (priority = 2)
     public void addProductsTest() {
         driver.get(OPEN_CART_URL);
@@ -91,6 +67,17 @@ public class LoginAndAddProductsTest {
         int expectedRowCount = driver.findElements(By.cssSelector("#content > form > div > table > tbody > tr")).size();
         Assert.assertTrue(expectedRowCount > 2);
     }
+
+    // * * * * * * * * * * * * * * * * * * * * * * * * * L O G O U T * * * * * * * * * * * * * * * * * * * * * * * * * *
+    @Test(priority = 8)
+    public void logOut() {
+        driver.findElement(By.cssSelector("#top-links > ul > li.dropdown > a")).click();
+        driver.findElement(By.xpath("//a[contains(text(),'Logout')]")).click();
+        driver.findElement(By.cssSelector("i[class='fa fa-shopping-cart']")).click();
+        Assert.assertTrue(driver.findElements(By.cssSelector("#content > form")).size() == 0);
+    }
+
+
 
 
 }
