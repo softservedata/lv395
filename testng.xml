@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite1">
+
+    <test name="Search Field And Button Test">
+        <classes>
+
+            <class name="com.softserve.edu.SearchFieldAndButtonTest">
+                <methods>
+                    <!--Tests for search field-->
+                    <!--positive tests-->
+                    <include name="chekSearchFieldPositiveTest"/>
+                    <include name="checkSearchFieldFieldSpaceBetweenCharactersTest"/>
+                    <include name="checkSearchFieldToSeeAllProductsPositiveTest"/>
+                    <include name="checkSearchFieldPositiveTest"/>
+                    <!--negative tests-->
+                    <include name="checkSearchFieldNegativeTest"/>
+                    <!--Tests for search button-->
+                    <include name="buttonForSearchFieldTest"/>
+
+                </methods>
+            </class>
+
+        </classes>
+    </test>
+    <test name="Keywords Field And Button Test">
+        <classes>
+            <class name="com.softserve.edu.SearchFieldAndButtonTest">
+                <methods>
+                    <!--positive tets-->
+                    <include name="checkKeywordsFieldFieldSpaceBetweenCharactersTest"/>
+                    <include name="checkKeywordsFieldToSeeAllProductsPositiveTest"/>
+                    <include name="checkKeywordsFieldPositiveTest"/>
+                    <include name="checkKeywordsFieldFieldSpaceBetweenCharactersTest"/>
+                    <!--negative tests-->
+                    <include name="checkKeywordsFieldNegativeTest"/>
+                    <!--Tests for search button-->
+                    <include name="buttonForKeywordsFieldTest"/>
+
+                </methods>
+
+            </class>
+        </classes>
+    </test>
+    <test name="Use checkbox 'search in product description'">
+        <classes>
+            <class name="com.softserve.edu.SearchInProductDescriptionTest">
+                <methods>
+                    <include name="searchInProductDescriptionAllProductsPositiveTesting"/>
+                    <include name="searchInProductDescriptionPositiveTest"/>
+                    <include name="searchInProductDescriptionNegativeTest"/>
+                </methods>
+            </class>
+        </classes>
+
+    </test>
+    <test name="Use element 'choose category'">
+        <classes>
+            <class name="com.softserve.edu.ChooseCategoriesTest">
+                <methods>
+                    <include name="chooseCategoriesPositiveTest"/>
+                    <include name="chooseCategoriesNegativeTest"/>
+                    <include name="searchInSubCategoriesPositiveTest"/>
+                    <include name="searchInSubCategoriesNegativeTest"/>
+                </methods>
+
+
+            </class>
+        </classes>
+    </test>
+
+</suite> <!-- Suite -->
