@@ -5,7 +5,7 @@
  * 2. a) Tests for keywords field
  *    b) Tests for button+keywords field
  * 3. Tests for search in product description checkbox.
- * 4. a) Tests for choose category.
+ * 4. a) Tests for choose category.// use admin page and database
  *    b) Tests for search in subcategory field.
  *
  * @author Iryna Ratushniak.
