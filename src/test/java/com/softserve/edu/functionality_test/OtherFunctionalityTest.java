@@ -44,7 +44,6 @@ public class OtherFunctionalityTest extends AddFunctionality {
      */
     @Test
     public void isItemsInDbTest(){
-        dbConnect();
         int valueInStack;
         driver.get("http://192.168.239.129/opencart/upload/admin/");
         driver.findElement(By.id("input-username")).sendKeys("admin");

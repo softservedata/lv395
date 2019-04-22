@@ -101,12 +101,23 @@ public class DatabaseOperator {
             // Set the command to execute on the channel and execute the command
             channelExec.setCommand("/home/restoredb.sh");
             channelExec.connect();
+
+            InputStream in = channelExec.getInputStream();
+            // Get an InputStream from this channel and read messages, generated
+            // by the executing command, from the remote side.
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
             // Retrieve the exit status of the executed command
             int exitStatus = channelExec.getExitStatus();
             if (exitStatus > 0) {
                 System.out.println("Remote script exec error! " + exitStatus);
             }
         } catch (JSchException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
             e.printStackTrace();
         }
     }

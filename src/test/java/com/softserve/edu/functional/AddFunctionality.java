@@ -8,6 +8,7 @@
 package com.softserve.edu.functional;
 
 import com.softserve.edu.DatabaseConnector;
+import com.softserve.edu.DatabaseOperator;
 import com.softserve.edu.entity.Product;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -33,29 +34,36 @@ public class AddFunctionality extends DatabaseConnector {
 
     protected WebDriver driver; // Selenium WebDriver creation.
     private Session session;    // Hibernate session.
-    /*private DatabaseOperator operator;*/
+    private DatabaseOperator operator = new DatabaseOperator();
 
     private final String URL = "192.168.239.129";   // Opencart URL.
 
-/*    @BeforeSuite
+    /**
+     * Test suite {@link BeforeSuite} method,
+     * which dumps DB and create DB connection
+     */
+    @BeforeSuite
     public void dumpDb() {
-        operator = new DatabaseOperator();
+        dbConnect();
         operator.remoteServerConnect();
         operator.dumpDatabase();
+    }
+
+    /**
+     * Test suite {@link AfterSuite} method,
+     * which drops DB, restore it and closes DB connection.
+     */
+    @AfterSuite
+    public void restoreDb() {
+        dropDatabase();
+        dbClose();
+        operator.restoreDatabase();
         operator.remoteServerDisconnect();
     }
 
-    @AfterSuite
-    public void restoreDb() {
-        operator.remoteServerConnect();
-        dropDatabase();
-        operator.restoreDatabase();
-        operator.remoteServerDisconnect();
-    }*/
-
     /**
      * Test suite {@link BeforeClass} method,
-     * establish WebDriving settings and DB connection.
+     * establish WebDriving settings.
      */
     @BeforeClass
     public void setUp() {
@@ -66,17 +74,15 @@ public class AddFunctionality extends DatabaseConnector {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        dbConnect();
     }
 
     /**
      * Test suite {@link AfterClass}
-     * closes DB connection and quites Selenium.
+     * which quites Selenium.
      */
     @AfterClass
     public void tearDown() {
         driver.quit();
-        dbClose();
     }
 
     /**
