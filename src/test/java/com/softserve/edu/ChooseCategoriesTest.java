@@ -15,6 +15,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.AfterClass;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -42,21 +43,13 @@ public class ChooseCategoriesTest {
      */
     @BeforeClass
     public void beforeClass() {
-        String webDriverPath =  this.getClass().getResource("/").toString();
+        String webDriverPath = this.getClass().getResource("/").toString();
         webDriverPath = webDriverPath.substring(webDriverPath.indexOf("/"));
         System.setProperty("webdriver.chrome.driver",
                 webDriverPath + "chromedriver-windows-32bit.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://" + ip + "/opencart/upload/");
-
-
-
-
-//        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
-//        driver = new ChromeDriver();
-//        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-//        driver.get("http://" + ip + "/opencart/upload/");
     }
 
     /**
@@ -91,14 +84,18 @@ public class ChooseCategoriesTest {
      */
     @DataProvider
     public Object[][] dataForPositiveTestingCategory() {
-
+        FindAllProductsAndTheirCategories productsAndTheirCategories
+                = new FindAllProductsAndTheirCategories();
+        List<Product> productsFromStorage = productsAndTheirCategories.
+                findProductsAndTheirCategories();
         return new Object[][]{
 
-                {"iphone", ".//option[@value='20']", true},
-                {"inch", ".//option[@value='18']", true},
-                {"%", ".//option[@value='20']", false},
-                {"iphone", ".//option[@value='20']", false},
-                {"%", ".//option[@value='20']", true},
+                {"iphone", ".//option[@value='20']", true, productsFromStorage},
+                {"inch", ".//option[@value='18']", true, productsFromStorage},
+                {"%", ".//option[@value='20']", false, productsFromStorage},
+                {"iphone", ".//option[@value='20']", false,
+                        productsFromStorage},
+                {"%", ".//option[@value='20']", true, productsFromStorage},
 
         };
     }
@@ -110,11 +107,13 @@ public class ChooseCategoriesTest {
      * @param category                      category, what will be chosen
      * @param useSearchInProductDescription -will be used search in product
      *                                      description or not
+     * @param productsFromStorage           - products from storage
      */
     @Test(dataProvider = "dataForPositiveTestingCategory")
     public void chooseCategoriesPositiveTest(
             final String inputData, final String category,
-            final boolean useSearchInProductDescription) {
+            final boolean useSearchInProductDescription,
+            final List<Product> productsFromStorage) {
         if (useSearchInProductDescription) {
             driver.findElement(By.id("description")).click();
         }
@@ -125,14 +124,20 @@ public class ChooseCategoriesTest {
 
         List<WebElement> webElements = driver.findElements(By.xpath(
                 ".//div[@class='row']/div/div/div/div[@class='caption']/h4/a"));
-        FindAllProductsAndTheirCategories productsAndTheirCategories
-                = new FindAllProductsAndTheirCategories();
-        List<Product> products = productsAndTheirCategories.
-                findProductsAndTheirCategories(webElements);
+        List<String> productsFromWeb = new ArrayList<>();
+        for (WebElement webElement : webElements) {
+            productsFromWeb.add(webElement.getText());
+        }
+
+        System.out.println(productsFromStorage.toString());
+        System.out.println(productsFromWeb.toString());
         String categoryName = driver.findElement(By.xpath(category)).getText();
 
-        for (Product product : products) {
-            Assert.assertTrue(product.getCategory().contains(categoryName));
+        for (Product product : productsFromStorage) {
+            if (productsFromWeb.contains(product.getName())) {
+                Assert.assertTrue(product.getCategory().contains(categoryName));
+                System.out.println(true);
+            }
         }
 
 
@@ -245,14 +250,21 @@ public class ChooseCategoriesTest {
 
     @DataProvider
     public Object[][] dataForPositiveTestingCategorySearchInSubCategory() {
-
+        FindAllProductsAndTheirCategories productsAndTheirCategories
+                = new FindAllProductsAndTheirCategories();
+        List<Product> productsFromStorage = productsAndTheirCategories.
+                findProductsAndTheirCategories();
         return new Object[][]{
-
-                {"%", ".//option[@value='28']", true, "Monitors"},
-                {"iphone", ".//option[@value='20']", true, "Desktops"},
-                {"inch", ".//option[@value='20']", true, "Desktops"},
-                {"%", ".//option[@value='28']", true, "Monitors"},
-                {"iphone", ".//option[@value='20']", false, "Desktops"},
+                {"%", ".//option[@value='28']",
+                        true, "Monitors", productsFromStorage},
+                {"iphone", ".//option[@value='20']", true,
+                        "Desktops", productsFromStorage},
+                {"inch", ".//option[@value='20']", true,
+                        "Desktops", productsFromStorage},
+                {"%", ".//option[@value='28']", true,
+                        "Monitors", productsFromStorage},
+                {"iphone", ".//option[@value='20']", false,
+                        "Desktops", productsFromStorage},
 
         };
     }
@@ -267,12 +279,14 @@ public class ChooseCategoriesTest {
      * @param categoryWeAreLookingFor       - name of category
      * @param useSearchInProductDescription - search in
      *                                      product description or not
+     * @param productsFromStorage
      */
     @Test(dataProvider = "dataForPositiveTestingCategorySearchInSubCategory")
     public void searchInSubCategoriesPositiveTest(
             final String inputData, final String category,
             final Boolean useSearchInProductDescription,
-            final String categoryWeAreLookingFor) {
+            final String categoryWeAreLookingFor,
+            final List<Product> productsFromStorage) {
         driver.findElement(By.name("category_id")).click();
         driver.findElement(By.xpath(category)).click();
         driver.findElement(By.name("sub_category")).click();
@@ -284,15 +298,20 @@ public class ChooseCategoriesTest {
 
         List<WebElement> webElements = driver.findElements(By.xpath(
                 ".//div[@class='row']/div/div/div/div[@class='caption']/h4/a"));
-
+        List<String> productsFromWeb = new ArrayList<>();
+        for (WebElement webElement : webElements) {
+            productsFromWeb.add(webElement.getText());
+        }
+        List<Product> products = new ArrayList<>();
+        for (Product product : productsFromStorage) {
+            if (productsFromWeb.contains(product.getName())) {
+                products.add(product);
+            }
+        }
         FindAllProductsAndTheirCategories productsAndTheirCategories
                 = new FindAllProductsAndTheirCategories();
-        List<Product> products = productsAndTheirCategories.
-                findProductsAndTheirCategories(webElements);
         List<String> categories = productsAndTheirCategories.
                 findCategories(webElements, categoryWeAreLookingFor);
-        System.out.println(categories.toString());
-        System.out.println(products.toString());
         for (Product product : products) {
             boolean actual = false;
             for (int j = 0; j < product.getCategory().size(); j++) {

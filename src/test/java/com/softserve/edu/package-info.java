@@ -7,7 +7,7 @@
  * 3. Tests for search in product description checkbox.
  * 4. a) Tests for choose category.// use admin page and database
  *    b) Tests for search in subcategory field.
- *
+ * 5. Test for message
  * @author Iryna Ratushniak.
  *
  */

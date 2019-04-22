@@ -40,16 +40,9 @@ public class SearchFieldAndButtonTest {
         System.setProperty("webdriver.chrome.driver",
                 webDriverPath + "chromedriver-windows-32bit.exe");
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://" + ip + "/opencart/upload/");
 
-
-
-
-//        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
-//        driver = new ChromeDriver();
-//        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-//        driver.get("http://" + ip + "/opencart/upload/");
     }
 
     /**
@@ -203,11 +196,9 @@ public class SearchFieldAndButtonTest {
         List<String> products = findAllProductsAndTheirCategories.
                 findAllProductsOnAdminPage();
         System.out.println(products.toString());
-        for (int i = 0; i < webElements.size(); i++) {
-
+        for (WebElement webElement: webElements) {
             Assert.assertTrue(products.contains(
-                    webElements.get(i).getText()));
-            System.out.println(webElements.get(i).getText());
+                    webElement.getText()));
         }
     }
 
@@ -270,7 +261,7 @@ public class SearchFieldAndButtonTest {
      * Use "%" to see all products.
      */
     @Test
-    public void checkKeywordsFieldToSeeAllProductsPositiveTest() throws InterruptedException {
+    public void checkKeywordsFieldToSeeAllProductsPositiveTest() {
         driver.findElement(By.name("search")).sendKeys(Keys.ENTER);
         driver.findElement(By.id("input-search")).sendKeys("%" + Keys.ENTER);
 
@@ -376,53 +367,5 @@ public class SearchFieldAndButtonTest {
     }
 
 
-//    @DataProvider
-//    public Object[][] dataForTestIsMessageAboutWhatWeWantToFindCorrect() {
-//        return new Object[][]{
-//                //first argument is text we want to input in search field and second is way to the element we will use to check test
-//                //full name of element we want to find
-//                {"iphone"},
-//                //first letters of element we want to find
-//                {"ip"},
-//                //incorrect data
-//                {"jhdskksd873493"},
-//                //last letters of element we want to find
-//                {"on"},
-//                //letters from inside word we want to find
-//                {"ph"},
-//                //use small and big letters in different places
-//                {"IpHOne"},
-//                //space before word
-//                {"     iphone"},
-//                //space after  word
-//                {"iphone "},
-//                //space inside word
-//                {"ip      hon   e"}
-//        };
-//    }
-//
-//    @Test(dataProvider = "dataForTestIsMessageAboutWhatWeWantToFindCorrect")
-//    public void isMessageAboutWhatWeWantToFindCorrect(String valueWeInputInSearchField) throws Exception {
-//        driver.findElement(By.name("search")).sendKeys(valueWeInputInSearchField + Keys.ENTER);
-//        //Find message about what are we looking for
-//        WebElement findMessageAboutWhatWeWantToFind = driver.findElement(By.xpath(".//div[@id='content']/h1"));
-//        //To get message
-//        String actual = findMessageAboutWhatWeWantToFind.getText();
-//        // Check
-//        String expected = "Search - " + valueWeInputInSearchField;
-//        Assert.assertEquals(actual, expected);
-//    }
-//
-//    @Test
-//    public void isMessageAboutWhatWeWantToFindCorrectForEmptyField() throws Exception {
-//        driver.findElement(By.name("search")).sendKeys("" + Keys.ENTER);
-//        //Find message about what are we looking for
-//        WebElement findMessageAboutWhatWeWantToFind = driver.findElement(By.xpath(".//div[@id='content']/h1"));
-//        //To get message
-//        String actual = findMessageAboutWhatWeWantToFind.getText();
-//        // Check
-//        String expected = "Search";
-//        Assert.assertEquals(actual, expected);
-//    }
 }
 

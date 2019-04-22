@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  * Here is used database.
  * @author Iryna Ratushniak
  */
-public class UseDatabaseForChooseCategoryTest {
+public class UseDatabaseForCategoryTest {
 
     /**
      * Driver to have accesses to web page.
@@ -45,14 +45,8 @@ public class UseDatabaseForChooseCategoryTest {
         System.setProperty("webdriver.chrome.driver",
                 webDriverPath + "chromedriver-windows-32bit.exe");
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://" + ip + "/opencart/upload/");
-
-
-//        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
-//        driver = new ChromeDriver();
-//        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-//        driver.get("http://" + ip + "/opencart/upload/");
     }
 
     /**

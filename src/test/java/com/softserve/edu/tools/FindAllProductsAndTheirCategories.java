@@ -65,13 +65,9 @@ public class FindAllProductsAndTheirCategories {
      * * will find products and their categories(
      * * not all, just that, what we will need).
      *
-     * @param webElements - products from web page,
-     *                    for what we need to find categories
-     *                    and create list of objects "products"
      * @return list of products and their categories
      */
-    public List<Product> findProductsAndTheirCategories(
-            final List<WebElement> webElements) {
+    public List<Product> findProductsAndTheirCategories() {
         System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -86,36 +82,29 @@ public class FindAllProductsAndTheirCategories {
         List<WebElement> productsOnStorage1 = driver.findElements(By.xpath(
                 ".//tr/td[3]"));
         List<Product> products = new ArrayList<>();
-        List<String> productsFromWebPage = new ArrayList<>();
-        for (WebElement webElement : webElements) {
-            productsFromWebPage.add(webElement.getText());
-        }
-
-        for (int i = 0; i < productsOnStorage1.size(); i++) {
+        for (int i = 1; i < productsOnStorage1.size(); i++) {
             List<WebElement> productsOnStorage = driver.findElements(By.xpath(
                     ".//tr/td[3]"));
             Product product = new Product();
-            if (productsFromWebPage.contains(productsOnStorage.get(i).
-                    getText())) {
-                product.setName(productsOnStorage.get(i).getText());
-                List<WebElement> edit = driver.findElements(By.xpath(
-                        ".//tr/td[8]"));
-                edit.get(i).click();
-                driver.findElement(By.xpath(
-                        ".//ul[@class='nav nav-tabs']/li[3]")).click();
-                List<WebElement> productCategoryWeb = driver.findElements(
-                        By.xpath(".//div[@id='product-category']/div"));
-                List<String> productCategory = new ArrayList<>();
-                for (WebElement webElement : productCategoryWeb) {
-                    productCategory.add(webElement.getText());
-                }
-                product.setCategory(productCategory);
-                products.add(product);
-                driver.findElement(By.id("menu-catalog")).click();
-                driver.findElement(By.xpath(
-                        ".//li[@id='menu-catalog']/ul/li[2]")).click();
+            product.setName(productsOnStorage.get(i).getText());
+            List<WebElement> edit = driver.findElements(By.xpath(
+                    ".//tr/td[8]"));
+            edit.get(i).click();
+            driver.findElement(By.xpath(
+                    ".//ul[@class='nav nav-tabs']/li[3]")).click();
+            System.out.println("done");
+            List<WebElement> productCategoryWeb = driver.findElements(
+                    By.xpath(".//div[@id='product-category']/div"));
+            List<String> productCategory = new ArrayList<>();
+            for (WebElement webElement : productCategoryWeb) {
+                productCategory.add(webElement.getText());
             }
-
+            product.setCategory(productCategory);
+            products.add(product);
+            driver.findElement(By.id("menu-catalog")).click();
+            driver.findElement(By.xpath(
+                    ".//li[@id='menu-catalog']/ul/li[2]")).click();
+            System.out.println("done");
 
         }
         System.out.println(products.toString());
@@ -129,7 +118,7 @@ public class FindAllProductsAndTheirCategories {
      * their subcategories, for products we will need.
      *
      * @param webElements             - products, for what we need to know
-     *                               categories
+     *                                categories
      * @param categoryWeAreLookingFor - category we chose on the web page
      * @return list of categories
      */

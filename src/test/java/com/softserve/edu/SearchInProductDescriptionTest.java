@@ -39,14 +39,8 @@ public class SearchInProductDescriptionTest {
         System.setProperty("webdriver.chrome.driver",
                 webDriverPath + "chromedriver-windows-32bit.exe");
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://" + ip + "/opencart/upload/");
-
-
-//        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
-//        driver = new ChromeDriver();
-//        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-//        driver.get("http://" + ip + "/opencart/upload/");
     }
 
     /**
