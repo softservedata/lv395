@@ -19,11 +19,27 @@ import org.testng.annotations.*;
  */
 public class OrderInfoTest extends AddFunctionality {
 
+    /**
+     * Eco Tax should equal 2$ per item.
+     */
     private static double expectedEcoTax = 4.0;
-    private static double expectedVat = (601.00 * 20)/100;
+
+    /**
+     * Eco Tax should equal (20% from Sub Total) – Eco Tax.
+     */
+    private static double expectedVat = ((601.00 * 20)/100);
+
+    /**
+     * Sub-Total should equal Total – (Eco Tax + VAT)
+     */
     private static double expectedTotal = 725.20;
+
+    /**
+     * Total should be equal to the sum
+     * of the value of all goods in the cart
+     */
     private static double expectedSubTotal =
-            (expectedTotal - expectedVat) - expectedEcoTax;
+            ((expectedTotal - expectedVat) - expectedEcoTax);
 
 
     /**
@@ -33,11 +49,15 @@ public class OrderInfoTest extends AddFunctionality {
      */
     @DataProvider(name = "CheckCartTableBoxes")
     public static Object[][] cartTableBoxesData() {
+        String actualEcoTax = "//*[@id='cart']/ul/li[2]/div/table/tbody/tr[2]/td[2]";
+        String actualVat = "//*[@id='cart']/ul/li[2]/div/table/tbody/tr[3]/td[2]";
+        String actualSubTotal = "//*[@id='cart']/ul/li[2]/div/table/tbody/tr[1]/td[2]";
+        String actualTotal = "//*[@id='cart']/ul/li[2]/div/table/tbody/tr[4]/td[2]";
         return new Object[][]{
-                {"//*[@id=\"cart\"]/ul/li[2]/div/table/tbody/tr[2]/td[2]", expectedEcoTax },
-                {"//*[@id=\"cart\"]/ul/li[2]/div/table/tbody/tr[3]/td[2]", expectedVat},
-                {"//*[@id=\"cart\"]/ul/li[2]/div/table/tbody/tr[1]/td[2]", expectedSubTotal},
-                {"//*[@id=\"cart\"]/ul/li[2]/div/table/tbody/tr[4]/td[2]", expectedTotal}
+                {actualEcoTax, expectedEcoTax },
+                {actualVat, expectedVat},
+                {actualSubTotal, expectedSubTotal},
+                {actualTotal, expectedTotal}
         };
     }
 
@@ -60,7 +80,6 @@ public class OrderInfoTest extends AddFunctionality {
         double actualValue = Double.parseDouble(tmpValue);
         System.out.println("Test actual result: " + actualValue);
         Assert.assertEquals(actualValue, expectedValue);
-        driver.navigate().refresh();
     }
 
 }

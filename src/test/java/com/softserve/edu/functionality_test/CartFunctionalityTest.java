@@ -33,8 +33,8 @@ public class CartFunctionalityTest extends AddFunctionality {
         openCart();
         driver.findElement(By.partialLinkText("View Cart")).click();
         System.out.println("Test 1 actual result: " + driver.getCurrentUrl());
-        Assert.assertEquals(driver.getCurrentUrl(), "http://" + getURL() + "/opencart/upload/index.php?route=checkout/cart");
-        driver.navigate().refresh();
+        Assert.assertEquals(driver.getCurrentUrl(), "http://"
+                + getURL() + "/opencart/upload/index.php?route=checkout/cart");
     }
 
     /**
@@ -53,7 +53,6 @@ public class CartFunctionalityTest extends AddFunctionality {
         boolean isElementPresent = checkoutValidElement > 0;
         System.out.println("Test 2 actual result: " + isElementPresent);
         Assert.assertTrue(isElementPresent);
-        driver.navigate().refresh();
     }
 
     /**
@@ -62,15 +61,16 @@ public class CartFunctionalityTest extends AddFunctionality {
     @Test
     public void removeOneItemTest() {
         driver.findElement(By.cssSelector("a[href*='product_id=43']")).click();
-        WebElement inputField = driver.findElement(By.cssSelector("input[name='quantity']"));
+        WebElement inputField = driver
+                .findElement(By.cssSelector("input[name='quantity']"));
         inputField.clear();
         inputField.sendKeys("5");
         driver.findElement(By.id("button-cart")).click();
         driver.findElement(By.id("logo")).click();
         openCart();
         driver.findElement(By.cssSelector("[title^='Remove'")).click();
-        Assert.assertFalse(driver.findElements(By.xpath("//*[@id='cart']/ul/li[1]/table/tbody")).size() == 0);
-        driver.navigate().refresh();
+        Assert.assertFalse(driver
+                .findElements(By.xpath("//*[@id='cart']/ul/li[1]/table/tbody")).size() == 0);
     }
 
     /**
@@ -90,7 +90,6 @@ public class CartFunctionalityTest extends AddFunctionality {
             removeButtons.remove(i);
         }
         Assert.assertFalse(driver.findElements(By.xpath("//*[@id='cart']/ul/li[1]/table/tbody")).size() == 0);
-        driver.navigate().refresh();
     }
 
     /**
@@ -105,7 +104,6 @@ public class CartFunctionalityTest extends AddFunctionality {
         WebElement namePlate = driver.findElement(By.className("text-left"));
         namePlate.findElement(By.tagName("a")).click();
         Assert.assertEquals(driver.getCurrentUrl(), "http://" + getURL() + "/opencart/upload/index.php?route=product/product&product_id=43");
-        driver.navigate().refresh();
     }
 
 }

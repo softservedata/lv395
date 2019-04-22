@@ -34,7 +34,6 @@ public class OtherFunctionalityTest extends AddFunctionality {
         WebElement priceTextButton = driver.findElement(By.id("cart-total"));
         String actual = priceTextButton.getText();
         Assert.assertTrue(actual.contains("2 item(s) - $725.20"));
-        driver.navigate().refresh();
     }
 
     /**
@@ -52,11 +51,11 @@ public class OtherFunctionalityTest extends AddFunctionality {
         driver.findElement(By.id("button-menu")).click();
         driver.findElement(By.linkText("Catalog")).click();
         driver.findElement(By.xpath("(//a[contains(text(),'Products')])[1]")).click();
-        WebElement itemsInStack = driver.findElement(By.xpath("//*[@id='form-product']/div/table/tbody/tr[11]/td[6]"));
+        WebElement itemsInStack = driver
+                .findElement(By.xpath("//*[@id='form-product']/div/table/tbody/tr[11]/td[6]"));
         valueInStack = Integer.parseInt(itemsInStack.getText());
         driver.get("http://192.168.239.129/opencart/upload/");
         Assert.assertEquals(valueInStack, getProductQuantity(43));
-        driver.navigate().refresh();
     }
 
     /**
@@ -73,7 +72,6 @@ public class OtherFunctionalityTest extends AddFunctionality {
         String logoutUserCart = driver.findElement(By.id("cart-total")).getText();
         Assert.assertTrue(logoutUserCart.contains("0 item(s) - $0.00")
                 && logoutUserCart != firstUserCart);
-        driver.navigate().refresh();
     }
 
     /**
@@ -94,7 +92,6 @@ public class OtherFunctionalityTest extends AddFunctionality {
         logOut();
         Assert.assertTrue(secondUserCart.contains("0 item(s) - $0.00")
                 && secondUserCart != firstUserCart);
-        driver.navigate().refresh();
     }
 
     /**
@@ -125,16 +122,17 @@ public class OtherFunctionalityTest extends AddFunctionality {
         addProduct(0).click();
         driver.navigate().refresh();
         openCart();
-        String cartOnFirstTab = driver.findElement(By.cssSelector("div[id*='cart'] > ul > li:first-child > table > tbody > tr")).getText();
+        String cartOnFirstTab = driver.findElement(By.cssSelector("div[id*='cart']"
+                + "> ul > li:first-child > table > tbody > tr")).getText();
         String cartOnSecondTab;
         ((JavascriptExecutor)driver).executeScript("window.open()");
         ArrayList<String> allTabs = new ArrayList(driver.getWindowHandles());
         driver.switchTo().window(allTabs.get(1));
         driver.get("http://" + getURL() + "/opencart/upload/");
         openCart();
-        cartOnSecondTab = driver.findElement(By.cssSelector("div[id*='cart'] > ul > li:first-child > table > tbody > tr")).getText();
+        cartOnSecondTab = driver.findElement(By.cssSelector("div[id*='cart']"
+                + "> ul > li:first-child > table > tbody > tr")).getText();
         Assert.assertEquals(cartOnFirstTab, cartOnSecondTab);
-        driver.navigate().refresh();
     }
 
 }

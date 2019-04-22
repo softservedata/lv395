@@ -36,7 +36,9 @@ public class AddFunctionality extends DatabaseConnector {
     private Session session;    // Hibernate session.
     private DatabaseOperator operator = new DatabaseOperator(); // Operations with DB
 
-    private final String URL = "192.168.239.129";   // Opencart URL.
+    private final String URL = "192.168.239.129";                   // Opencart URL.
+    private final String DUMP_DATABASE = "/home/backupdb.sh";       // Script for dumping DB.
+    private final String RESTORE_DATABASE = "/home/restoredb.sh";   // Script for restoring DB.
 
     /**
      * Test suite {@link BeforeSuite} method,
@@ -46,7 +48,7 @@ public class AddFunctionality extends DatabaseConnector {
     public void dumpDb() {
         dbConnect();
         operator.remoteServerConnect();
-        operator.dumpDatabase();
+        operator.runShellScript(DUMP_DATABASE);
     }
 
     /**
@@ -57,7 +59,7 @@ public class AddFunctionality extends DatabaseConnector {
     public void restoreDb() {
         dropDatabase();
         dbClose();
-        operator.restoreDatabase();
+        operator.runShellScript(RESTORE_DATABASE);
         operator.remoteServerDisconnect();
     }
 
@@ -117,7 +119,8 @@ public class AddFunctionality extends DatabaseConnector {
         new WebDriverWait(driver, 3);
         if (driver.findElements(By.cssSelector("[title^='Remove'")).size() > 0) {
             List<WebElement> cartElementsTableRows;
-            WebElement cartElementsTable = driver.findElement(By.xpath("//*[@id='cart']/ul/li[1]/table/tbody"));
+            WebElement cartElementsTable = driver
+                    .findElement(By.xpath("//*[@id='cart']/ul/li[1]/table/tbody"));
             cartElementsTableRows = cartElementsTable.findElements(By.tagName("tr"));
             //Cycle which deletes elements from cart
             for (int countOfElements = cartElementsTableRows.size(); countOfElements > 0; countOfElements--) {
@@ -169,7 +172,8 @@ public class AddFunctionality extends DatabaseConnector {
      * @return product plate.
      */
     public WebElement getGoodPlate() {
-       WebElement goodPlate = driver.findElement(By.xpath("//*[@id='cart']/ul/li[1]/table/tbody/tr"));
+       WebElement goodPlate =
+               driver.findElement(By.xpath("//*[@id='cart']/ul/li[1]/table/tbody/tr"));
        return goodPlate;
     }
 

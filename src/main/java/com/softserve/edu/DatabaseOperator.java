@@ -58,14 +58,14 @@ public class DatabaseOperator {
     }
 
     /**
-     * Start Shell script and create database dump.
+     * Start Shell script for dump and restore database.
      */
-    public void dumpDatabase() {
+    public void runShellScript(String script) {
         try {
             // create the execution channel over the session
             ChannelExec channelExec = (ChannelExec) session.openChannel("exec");
             // Set the command to execute on the channel and execute the command
-            channelExec.setCommand("/home/backupdb.sh");
+            channelExec.setCommand(script);
             channelExec.connect();
 
             // Get an InputStream from this channel and read messages, generated
@@ -88,38 +88,6 @@ public class DatabaseOperator {
         } catch (JSchException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Restore database from dump.
-     */
-    public void restoreDatabase() {
-        try {
-            // create the execution channel over the session
-            ChannelExec channelExec = (ChannelExec) session.openChannel("exec");
-            // Set the command to execute on the channel and execute the command
-            channelExec.setCommand("/home/restoredb.sh");
-            channelExec.connect();
-
-            InputStream in = channelExec.getInputStream();
-            // Get an InputStream from this channel and read messages, generated
-            // by the executing command, from the remote side.
-            BufferedReader reader =
-                    new BufferedReader(new InputStreamReader(in));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-            // Retrieve the exit status of the executed command
-            int exitStatus = channelExec.getExitStatus();
-            if (exitStatus > 0) {
-                System.out.println("Remote script exec error! " + exitStatus);
-            }
-        } catch (JSchException e) {
-            e.printStackTrace();
-        }catch (IOException e) {
             e.printStackTrace();
         }
     }

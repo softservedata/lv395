@@ -39,8 +39,8 @@ public class GoodsListTest extends AddFunctionality {
         //Printing results
         System.out.println("Test 1 actual result: " + actualGoodPlate);
         //Asserting results
-        Assert.assertTrue(actualGoodPlate.contains("MacBook" + " " + "x 1" + " " + "$602.00"));
-        driver.navigate().refresh();
+        Assert.assertTrue(actualGoodPlate
+                .contains("MacBook" + " " + "x 1" + " " + "$602.00"));
     }
 
     /**
@@ -60,16 +60,18 @@ public class GoodsListTest extends AddFunctionality {
         }
         openCart();
         //WebElements initialization
-        WebElement cartElementsTable = driver.findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody"));
+        WebElement cartElementsTable = driver
+                .findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody"));
         cartElementsTableRows = cartElementsTable.findElements(By.tagName("tr"));
         //Printing results
         for (WebElement e: cartElementsTableRows) {
             System.out.println("Test 2 actual result: " + e.getText());
         }
         //Asserting results
-        Assert.assertTrue(cartElementsTableRows.get(0).getText().contains("iPhone" + " " + "x 3" + " " + "$369.60"));
-        Assert.assertTrue(cartElementsTableRows.get(1).getText().contains("MacBook" + " " + "x 3" + " " + "$1,806.00"));
-        driver.navigate().refresh();
+        Assert.assertTrue(cartElementsTableRows.get(0).getText()
+                .contains("iPhone" + " " + "x 3" + " " + "$369.60"));
+        Assert.assertTrue(cartElementsTableRows.get(1).getText()
+                .contains("MacBook" + " " + "x 3" + " " + "$1,806.00"));
     }
 
     /**
@@ -90,7 +92,6 @@ public class GoodsListTest extends AddFunctionality {
         System.out.println("Test 3 actual result: " + actualGoodPlate);
         //Asserting results
         Assert.assertTrue(actualGoodPlate.contains("MacBook" + " " + "x 5" + " " + "$3,010.00"));
-        driver.navigate().refresh();
     }
 
     /**
@@ -100,7 +101,8 @@ public class GoodsListTest extends AddFunctionality {
     @Test
     public void addItemFromProductPageTest() {
         //Adding goods to the cart
-        driver.findElement(By.cssSelector("a[href='http://" + getURL() + "/opencart/upload/index.php?route=product/product&product_id=43']")).click();
+        driver.findElement(By.cssSelector("a[href='http://" + getURL()
+                + "/opencart/upload/index.php?route=product/product&product_id=43']")).click();
         driver.findElement(By.id("button-cart")).click();
         driver.findElement(By.id("logo")).click();
         openCart();
@@ -110,7 +112,6 @@ public class GoodsListTest extends AddFunctionality {
         System.out.println("Test 4 actual result: " + actualGoodPlate);
         //Asserting results
         Assert.assertTrue(actualGoodPlate.contains("MacBook" + " " + "x 1" + " " + "$602.00"));
-        driver.navigate().refresh();
     }
 
     /**
@@ -143,7 +144,6 @@ public class GoodsListTest extends AddFunctionality {
         System.out.println("Test 5 actual result: " + actualGoodPlate);
         Assert.assertFalse(actualGoodPlate
                 .contains("MacBook" + " " + "x " + valueInStack + " " + "$619,458.00"));
-        driver.navigate().refresh();
     }
 
     /**
@@ -163,8 +163,8 @@ public class GoodsListTest extends AddFunctionality {
         openCart();
         String actualGoodPlate = getGoodPlate().getText();
         System.out.println("Test 5 actual result: " + actualGoodPlate);
-        Assert.assertFalse(actualGoodPlate.contains("MacBook" + " " + "x " + moreItemThenInDb + " " + "$619,458.00"));
-        driver.navigate().refresh();
+        Assert.assertFalse(actualGoodPlate.contains("MacBook" + " "
+                + "x " + moreItemThenInDb + " " + "$619,458.00"));
     }
 
     /**
@@ -191,9 +191,8 @@ public class GoodsListTest extends AddFunctionality {
         System.out.println("Test 6 actual result: " + actualGoodPlate);
         //Printing results
         //Asserting results
-        Assert.assertTrue(actualGoodPlate.contains("Canon EOS 5D\n" +
-                "- Select Red x 1 $98.00"));
-        driver.navigate().refresh();
+        Assert.assertTrue(actualGoodPlate.contains("Canon EOS 5D\n"
+                + "- Select Red x 1 $98.00"));
     }
 
 }
