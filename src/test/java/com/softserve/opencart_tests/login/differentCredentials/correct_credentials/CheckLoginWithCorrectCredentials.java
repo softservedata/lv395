@@ -5,32 +5,39 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
 public class CheckLoginWithCorrectCredentials {
+    /**
+     * Web driver.
+     */
     private WebDriver driver;
 
+    /**
+     * URL to opencart home page.
+     */
     private final String URL = "http://192.168.227.130/opencart/upload";
+    /**
+     * User email address.
+     */
     private final String correctEmail = "john.wick.test@ukr.net";
+    /**
+     * User password.
+     */
     private final String correctPassword = "qwerty";
 
-    @DataProvider
-    public Object[][] credentials() {
-        return new Object[][]{
-                {correctEmail, correctPassword} // correct email | correct password --> Logged in
-        };
-    }
-
+    /**
+     * <code>@BeforeClass</code> method to set properties and create driver.
+     */
     @BeforeClass
-    public void atStart() {
+    public void setPropertiesAndInitializeDriver() {
         //Set Properties
-        System.out.println("PATH to WebDriver + " + this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
         System.setProperty("webdriver.chrome.driver",
                 this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
-//        System.setProperty("webdriver.chrome.driver", "./lib/drivers/chromedriver.exe");
-//        System.getProperty("webdriver.chrome.driver");
         //Create new WebDriver object
         driver = new ChromeDriver();
         //Set window --> maximize
@@ -44,30 +51,39 @@ public class CheckLoginWithCorrectCredentials {
         driver.findElement(By.linkText("Login")).click();
     }
 
-    @Test(dataProvider = "credentials")
-    public void login(String email, String password) {
-        // Steps
+    /**
+     * Attempt to login with correct credentials.
+     */
+    @Test()
+    public void login() {
+        // Click on 'My Account' tab
         driver.findElement(By.xpath("//a[contains(text(),'My Account')]")).click();
-        //
+        //Choose 'Login' button
         driver.findElement(By.linkText("Login")).click();
-        //
+        //Input email address
         driver.findElement(By.id("input-email")).click();
-        driver.findElement(By.id("input-email")).sendKeys(email);
-        //
+        driver.findElement(By.id("input-email")).clear();
+        driver.findElement(By.id("input-email")).sendKeys(correctEmail);
+        //Input password
         driver.findElement(By.id("input-password")).click();
-        driver.findElement(By.id("input-password")).sendKeys(password);
-        //
+        driver.findElement(By.id("input-email")).clear();
+        driver.findElement(By.id("input-password")).sendKeys(correctPassword);
+        //Click on 'Login' button
         driver.findElement(By.cssSelector("input[value*='Login']")).click();
-        //
+        //Get WebElement
         WebElement seleniumServerVersion = driver.findElement(By.cssSelector("div[id='content'] > h2:nth-of-type(1)"));
-        //
+        //Get text from WebElement
         String actual = seleniumServerVersion.getText();
-        // Check
-        Assert.assertTrue(actual.contains("My Account"));
+        // Assert actual with 'My account' text
+        Assert.assertEquals(actual,"My Account");
     }
 
+    /**
+     * Close driver and browser.
+     */
     @AfterClass
     public void closeDriver() {
+        //Close driver
         driver.quit();
     }
 }

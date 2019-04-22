@@ -5,37 +5,64 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Verify functionality to change password.
+ * @author Yurii Antokhiv
+ * @version 1.0
+ */
 public class ChangePassword {
+    /**
+     * Web driver.
+     */
     private WebDriver driver;
 
+    /**
+     * Url of the application page.
+     */
     private final String URL = "http://192.168.227.130/opencart/upload/index.php?route=account/login";
+    /**
+     * Message to be displayed when user successfully changed his password.
+     */
     private final String message = "Success: Your password has been successfully updated.";
 
+    /**
+     * Set properties and create driver.
+     */
     @BeforeClass
-    public void openBrowser() {
+    public void setPropertiesAndInitializeDriver() {
         //Set Properties
         System.setProperty("webdriver.chrome.driver",
                 this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
-//        System.setProperty("webdriver.chrome.driver", "./lib/drivers/chromedriver.exe");
-//        System.getProperty("webdriver.chrome.driver");
         //Create new WebDriver object
         driver = new ChromeDriver();
         //Set window --> maximize
         driver.manage().window().maximize();
         //Set timeout 20 sec
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        //Open login page
+        openLoginPage();
     }
 
-    @Test
+    /**
+     * Open url with log in page.
+     */
     public void openLoginPage() {
         //Open url --> opencart
         driver.get(URL);
     }
 
+    /**
+     * Log in into account.
+     * @param email user email
+     * @param password user password
+     */
     @Test
     @Parameters({"email", "oldPassword"})
     public void login(String email, String password) {
@@ -51,6 +78,10 @@ public class ChangePassword {
         driver.findElement(By.cssSelector("input[value*='Login']")).click();
     }
 
+    /**
+     * Set new password for user.
+     * @param newPassword new password
+     */
     @Test
     @Parameters({"newPassword"})
     public void setNewPassword(String newPassword) {
@@ -72,6 +103,9 @@ public class ChangePassword {
         Assert.assertEquals(message, actual);
     }
 
+    /**
+     * Logout from account.
+     */
     @Test
     public void logout() {
         //Click on My Account tab
@@ -90,6 +124,11 @@ public class ChangePassword {
         Assert.assertEquals(expected, actual);
     }
 
+    /**
+     * Login with new credentials.
+     * @param email user email
+     * @param newPassword new password
+     */
     @Test
     @Parameters({"email", "newPassword"})
     public void tryToLoginWithNewPassword(String email, String newPassword) {
@@ -115,6 +154,9 @@ public class ChangePassword {
         Assert.assertEquals("My Account", actual);
     }
 
+    /**
+     * Close driver and browser.
+     */
     @AfterClass
     public void closeDriver() {
         driver.quit();

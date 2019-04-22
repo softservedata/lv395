@@ -68,21 +68,16 @@ public class CheckLogin {
         driver.findElement(By.id("input-email")).click();
         driver.findElement(By.id("input-email")).clear();
         driver.findElement(By.id("input-email")).sendKeys(email);
-        //
         //Input to password field
         driver.findElement(By.id("input-password")).click();
         driver.findElement(By.id("input-password")).clear();
         driver.findElement(By.id("input-password")).sendKeys(password);
-        //
         //Click Login button
         driver.findElement(By.cssSelector("input[value*='Login']")).click();
-        //
         //Get WebElement object
         WebElement seleniumServerVersion = driver.findElement(By.cssSelector("div[class*='alert']"));
-        //
         //Get text from WebElement
         String actual = seleniumServerVersion.getText();
-        //
         // Check message
         if (actual.contains("Your account")) {
             Assert.assertEquals(actual, tooMuchRequestsMessage);

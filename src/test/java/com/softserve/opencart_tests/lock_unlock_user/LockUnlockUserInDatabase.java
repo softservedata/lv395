@@ -17,24 +17,47 @@ import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
 public class LockUnlockUserInDatabase {
+    /**
+     * Web driver.
+     */
     private WebDriver driver;
+    /**
+     * JDBC connection.
+     */
     private Connection connection;
 
+    /**
+     * Database url.
+     */
     private String db_url = "jdbc:mysql://192.168.227.130:3306/opencart?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnect=true&useSSL=false";
 
+    /**
+     * SQL statement to change user status to Disabled.
+     */
     private final String setStatusDisabled = "UPDATE opencart.oc_customer SET status = '0' WHERE email like 'john.wick.test@ukr.net'";
+    /**
+     * SQL statement to change user status to Enabled.
+     */
     private final String setStatusEnabled = "UPDATE opencart.oc_customer SET status = '1' WHERE email like 'john.wick.test@ukr.net'";
 
+    /**
+     * Message shown if user is locked
+     */
     private final String failureMessage = "Warning: No match for E-Mail Address and/or Password.";
+
+    /**
+     * Text, to verify if user is logged in.
+     */
     private final String successMessage = "My Account";
 
+    /**
+     * Set properties and initialize the driver.
+     */
     @BeforeClass
-    public void openBrowser() {
+    public void setPropertiesAndInitializeDriver() {
         //Set Properties
         System.setProperty("webdriver.chrome.driver",
                 this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
-//        System.setProperty("webdriver.chrome.driver", "./lib/drivers/chromedriver.exe");
-//        System.getProperty("webdriver.chrome.driver");
         //Create new WebDriver object
         driver = new ChromeDriver();
         //Set window --> maximize
@@ -45,6 +68,9 @@ public class LockUnlockUserInDatabase {
         driver.get("http://192.168.227.130/opencart/upload/index.php?route=account/login");
     }
 
+    /**
+     * Open JDBC connection using <code>DriverManager</code>.
+     */
     @Test
     public void getConnection() {
         try {
@@ -55,6 +81,9 @@ public class LockUnlockUserInDatabase {
         }
     }
 
+    /**
+     * Using <code>PreparedStatement</code> set user status to Disabled.
+     */
     @Test
     public void editCustomerStatus() {
         try (PreparedStatement ps = connection.prepareStatement(setStatusDisabled)){
@@ -65,6 +94,11 @@ public class LockUnlockUserInDatabase {
         }
     }
 
+    /**
+     * Attempt to login under a locked user.
+     * @param userMail user email address
+     * @param userPassword user password
+     */
     @Test
     @Parameters({"email","userPassword"})
     public void tryToLoginWithLockedUser(String userMail, String userPassword) {
@@ -92,6 +126,9 @@ public class LockUnlockUserInDatabase {
 
     }
 
+    /**
+     * Using <code>PreparedStatement</code> set user status to Enabled.
+     */
     @Test
     public void rollbackCustomerStatus() {
         try (PreparedStatement ps = connection.prepareStatement(setStatusEnabled)){
@@ -102,6 +139,11 @@ public class LockUnlockUserInDatabase {
         }
     }
 
+    /**
+     * Attempt to login under a unlocked user.
+     * @param userEmail user email address
+     * @param userPassword user password
+     */
     @Test
     @Parameters({"email","userPassword"})
     public void tryToLoginWithUnlockedUser(String userEmail, String userPassword) {
@@ -128,6 +170,9 @@ public class LockUnlockUserInDatabase {
         Assert.assertEquals(actual, successMessage);
     }
 
+    /**
+     * Close driver, browser and connection.
+     */
     @AfterClass
     public void exit() {
         //Close driver
