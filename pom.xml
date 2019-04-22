@@ -151,11 +151,11 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.15</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>mysql</groupId>-->
+<!--			<artifactId>mysql-connector-java</artifactId>-->
+<!--			<version>8.0.15</version>-->
+<!--		</dependency>-->
 
 		<!-- - - - DB Access - - - -->
 		<!-- <dependency> -->
@@ -294,7 +294,7 @@
 						</selenium.version>
 					</systemPropertyVariables>
 					<suiteXmlFiles>
-						<suiteXmlFile>testng1.xml</suiteXmlFile>
+						<suiteXmlFile>src/test/resources/first_test.xml</suiteXmlFile>
 					</suiteXmlFiles>
 					<reportsDirectory>${testng.reports.directory}</reportsDirectory>
 					<!-- <argLine> -->

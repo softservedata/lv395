@@ -20,10 +20,10 @@ public class LockUnlockUserInDatabase {
     private WebDriver driver;
     private Connection connection;
 
-    private String db_url = "jdbc:mysql://192.168.227.130:3306/opencart?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private String db_url = "jdbc:mysql://192.168.227.130:3306/opencart?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnect=true&useSSL=false";
 
-    private final String setStatusDisabled = "UPDATE opencart.oc_customer SET status = '0' WHERE email like 'john.wick.test%'";
-    private final String setStatusEnabled = "UPDATE opencart.oc_customer SET status = '1' WHERE email like 'john.wick.test%'";
+    private final String setStatusDisabled = "UPDATE opencart.oc_customer SET status = '0' WHERE email like 'john.wick.test@ukr.net'";
+    private final String setStatusEnabled = "UPDATE opencart.oc_customer SET status = '1' WHERE email like 'john.wick.test@ukr.net'";
 
     private final String failureMessage = "Warning: No match for E-Mail Address and/or Password.";
     private final String successMessage = "My Account";
@@ -31,8 +31,10 @@ public class LockUnlockUserInDatabase {
     @BeforeClass
     public void openBrowser() {
         //Set Properties
-        System.setProperty("webdriver.chrome.driver", "./lib/drivers/chromedriver.exe");
-        System.getProperty("webdriver.chrome.driver");
+        System.setProperty("webdriver.chrome.driver",
+                this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
+//        System.setProperty("webdriver.chrome.driver", "./lib/drivers/chromedriver.exe");
+//        System.getProperty("webdriver.chrome.driver");
         //Create new WebDriver object
         driver = new ChromeDriver();
         //Set window --> maximize
@@ -53,9 +55,9 @@ public class LockUnlockUserInDatabase {
         }
     }
 
-    @Test(priority = 4)
+    @Test
     public void editCustomerStatus() {
-        try(PreparedStatement ps = connection.prepareStatement(setStatusDisabled)) {
+        try (PreparedStatement ps = connection.prepareStatement(setStatusDisabled)){
             //Execute prepared statement
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -63,8 +65,8 @@ public class LockUnlockUserInDatabase {
         }
     }
 
-    @Test(priority = 6)
-    @Parameters({"userMail","userPassword"})
+    @Test
+    @Parameters({"email","userPassword"})
     public void tryToLoginWithLockedUser(String userMail, String userPassword) {
         //Input correct Login
         driver.findElement(By.id("input-email")).click();
@@ -85,11 +87,12 @@ public class LockUnlockUserInDatabase {
         //Get text from WebElement
         String actual = seleniumServerVersion.getText();
         //
-        //Assert message
+        //Assert
         Assert.assertEquals(actual, failureMessage);
+
     }
 
-    @Test(priority = 8)
+    @Test
     public void rollbackCustomerStatus() {
         try (PreparedStatement ps = connection.prepareStatement(setStatusEnabled)){
             //Execute prepared statement
@@ -99,8 +102,8 @@ public class LockUnlockUserInDatabase {
         }
     }
 
-    @Test(priority = 10)
-    @Parameters({"userMail","userPassword"})
+    @Test
+    @Parameters({"email","userPassword"})
     public void tryToLoginWithUnlockedUser(String userEmail, String userPassword) {
         //Input correct Login
         driver.findElement(By.id("input-email")).click();

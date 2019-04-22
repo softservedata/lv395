@@ -28,8 +28,10 @@ public class LockUnlockUserInAdminPanel {
     @BeforeClass
     public void openBrowser() {
         //Set Properties
-        System.setProperty("webdriver.chrome.driver", "./lib/drivers/chromedriver.exe");
-        System.getProperty("webdriver.chrome.driver");
+        System.setProperty("webdriver.chrome.driver",
+                this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
+//        System.setProperty("webdriver.chrome.driver", "./lib/drivers/chromedriver.exe");
+//        System.getProperty("webdriver.chrome.driver");
         //Create new WebDriver object
         driver = new ChromeDriver();
         //Set window --> maximize
@@ -74,7 +76,7 @@ public class LockUnlockUserInAdminPanel {
     }
 
     @Test
-    @Parameters({"userMail"})
+    @Parameters({"email"})
     public void findUserByEmail(String userMail){
         //Input user mail into field 'E-Mail'
         driver.findElement(By.id("input-email")).click();
@@ -110,7 +112,7 @@ public class LockUnlockUserInAdminPanel {
     }
 
     @Test
-    @Parameters({"userMail","userPassword"})
+    @Parameters({"email","userPassword"})
     public void tryToLoginWithLockedUser(String userMail, String userPassword) {
         //Input correct Login
         driver.findElement(By.id("input-email")).click();
@@ -157,6 +159,32 @@ public class LockUnlockUserInAdminPanel {
     public void switchToLoginPage() {
         //Switches to login page
         driver.switchTo().window(tabs.get(1));
+    }
+
+    @Test
+    @Parameters({"email","userPassword"})
+    public void tryToLoginWithUnlockedUser(String userMail, String userPassword) {
+        //Input correct Login
+        driver.findElement(By.id("input-email")).click();
+        driver.findElement(By.id("input-email")).clear();
+        driver.findElement(By.id("input-email")).sendKeys(userMail);
+        //
+        //Input correct Password
+        driver.findElement(By.id("input-password")).click();
+        driver.findElement(By.id("input-password")).clear();
+        driver.findElement(By.id("input-password")).sendKeys(userPassword);
+        //
+        //Click Login button
+        driver.findElement(By.cssSelector("input[value*='Login']")).click();
+        //
+        //Get WebElement object
+        WebElement seleniumServerVersion = driver.findElement(By.cssSelector("div[id='content'] > h2:nth-of-type(1)"));
+        //
+        //Get text from WebElement
+        String actual = seleniumServerVersion.getText();
+        //
+        //Assert message
+        Assert.assertEquals(actual, successMessage);
     }
 
     @AfterClass

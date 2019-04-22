@@ -15,29 +15,13 @@ public class ChangePassword {
     private final String URL = "http://192.168.227.130/opencart/upload/index.php?route=account/login";
     private final String message = "Success: Your password has been successfully updated.";
 
-
-    @DataProvider
-    @Parameters({"newPassword"})
-
-    public Object[][] password(String actualPassword) {
-        return new Object[][]{
-                {}, //
-                {}, //
-                {},
-                {},
-                {},
-                {},
-                {},
-                {actualPassword}
-        };
-    }
-
-
     @BeforeClass
     public void openBrowser() {
         //Set Properties
-        System.setProperty("webdriver.chrome.driver", "./lib/drivers/chromedriver.exe");
-        System.getProperty("webdriver.chrome.driver");
+        System.setProperty("webdriver.chrome.driver",
+                this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
+//        System.setProperty("webdriver.chrome.driver", "./lib/drivers/chromedriver.exe");
+//        System.getProperty("webdriver.chrome.driver");
         //Create new WebDriver object
         driver = new ChromeDriver();
         //Set window --> maximize
@@ -67,8 +51,9 @@ public class ChangePassword {
         driver.findElement(By.cssSelector("input[value*='Login']")).click();
     }
 
-    @Test(dataProvider = "password")
-    public void setNewPassword(String newPassword, String confirmPassword) {
+    @Test
+    @Parameters({"newPassword"})
+    public void setNewPassword(String newPassword) {
         //Click on 'Change your password' button
         driver.findElement(By.linkText("Change your password")).click();
         //Input password
@@ -76,7 +61,7 @@ public class ChangePassword {
         driver.findElement(By.id("input-password")).sendKeys(newPassword);
         //Confirm password
         driver.findElement(By.id("input-confirm")).click();
-        driver.findElement(By.id("input-confirm")).sendKeys(confirmPassword);
+        driver.findElement(By.id("input-confirm")).sendKeys(newPassword);
         //Click on '' button
         driver.findElement(By.cssSelector("input[class*='btn-primary']")).click();
         //Get web element

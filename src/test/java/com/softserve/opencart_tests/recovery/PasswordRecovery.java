@@ -45,8 +45,10 @@ public class PasswordRecovery {
     @BeforeClass
     public void openBrowser() {
         //Set Properties
-        System.setProperty("webdriver.chrome.driver", "./lib/drivers/chromedriver.exe");
-        System.getProperty("webdriver.chrome.driver");
+        System.setProperty("webdriver.chrome.driver",
+                this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
+//        System.setProperty("webdriver.chrome.driver", "./lib/drivers/chromedriver.exe");
+//        System.getProperty("webdriver.chrome.driver");
         //Create new WebDriver object
         driver = new ChromeDriver();
         //Set window --> maximize
@@ -139,7 +141,8 @@ public class PasswordRecovery {
         //
         //Click on 'Continue' button
         driver.findElement(By.cssSelector("button[class*='btn-primary']")).click();
-        if (messageType == "Failed") {
+
+        if (messageType.equals("Failed")) {
             //
             //Get message
             String errorMessage = driver.findElement(By.className("text-danger")).getText();
@@ -156,7 +159,7 @@ public class PasswordRecovery {
     }
 
     @Test
-    @Parameters({"email", "password"})
+    @Parameters({"email", "userPassword"})
     public void login(String email, String password) {
         //Input to email field
         driver.findElement(By.id("input-email")).click();

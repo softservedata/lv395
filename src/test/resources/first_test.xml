@@ -1,0 +1,103 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="First Test Suite" thread-count="1" verbose="1" annotations="JDK" parallel="tests">
+
+    <parameter name="email" value="john.wick.test@ukr.net"/>
+    <parameter name="userPassword" value="qwerty"/>
+
+    <parameter name="adminLogin" value="admin"/>
+    <parameter name="adminPassword" value="admin"/>
+
+    <test name="Change password to new password">
+        <parameter name="oldPassword" value="qwerty"/>
+        <parameter name="newPassword" value="qwerty123"/>
+
+        <classes>
+            <class name="com.softserve.opencart_tests.change_password.ChangePassword">
+                <methods>
+                    <include name="openLoginPage"/>
+                    <include name="login"/>
+                    <include name="setNewPassword"/>
+                    <include name="logout"/>
+                    <include name="tryToLoginWithNewPassword"/>
+
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Change password to previous password">
+
+        <parameter name="oldPassword" value="qwerty123"/>
+        <parameter name="newPassword" value="qwerty"/>
+
+        <classes>
+            <class name="com.softserve.opencart_tests.change_password.ChangePassword">
+                <methods>
+                    <include name="openLoginPage"/>
+                    <include name="login"/>
+                    <include name="setNewPassword"/>
+                    <include name="logout"/>
+                    <include name="tryToLoginWithNewPassword"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Lock \ Unlock User via Admin Panel">
+        <classes>
+            <class name="com.softserve.opencart_tests.lock_unlock_user.LockUnlockUserInAdminPanel">
+                <methods>
+                    <include name="openAdminLoginPage"/>
+                    <include name="loginIntoAdminPanel"/>
+                    <include name="openCustomersList"/>
+                    <include name="findUserByEmail"/>
+                    <include name="editCustomerStatus"/>
+                    <include name="openLoginPage"/>
+                    <include name="tryToLogin"/>
+                    <include name="switchToAdminPanel"/>
+                    <include name="rollbackCustomerStatus"/>
+                    <include name="switchToLoginPage"/>
+                    <include name="tryToLogin"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Lock \ Unlock user via Database">
+        <classes>
+            <class name="com.softserve.opencart_tests.lock_unlock_user.LockUnlockUserInDatabase">
+                <methods>
+                    <include name="getConnection"/>
+                    <include name="editCustomerStatus"/>
+                    <include name="tryToLoginWithLockedUser"/>
+                    <include name="rollbackCustomerStatus"/>
+                    <include name="tryToLoginWithUnlockedUser"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Login">
+        <classes>
+            <class name="com.softserve.opencart_tests.login.differentCredentials.incorrect_credentials.CheckLoginWithIncorrectCredentials"/>
+            <class name="com.softserve.opencart_tests.login.differentCredentials.correct_credentials.CheckLoginWithCorrectCredentials"/>
+        </classes>
+    </test>
+
+    <test name="Password recovery">
+        <classes>
+            <class name="com.softserve.opencart_tests.recovery.PasswordRecovery">
+                <methods>
+                    <include name="openLoginPage"/>
+                    <include name="sendEmailAndCheckMessage"/>
+                    <include name="openEmail"/>
+                    <include name="getListOfMails"/>
+                    <include name="changePassword"/>
+                    <include name="login"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>
