@@ -28,6 +28,8 @@
                     <include name="checkSearchFieldPositiveTest"/>
                     <!--negative tests-->
                     <include name="checkSearchFieldNegativeTest"/>
+                    <!--stress test-->
+                    <include name="stressSearchFieldTest"/>
                     <!--Tests for search button-->
                     <include name="buttonForSearchFieldTest"/>
 
@@ -47,6 +49,8 @@
                     <include name="checkKeywordsFieldFieldSpaceBetweenCharactersTest"/>
                     <!--negative tests-->
                     <include name="checkKeywordsFieldNegativeTest"/>
+                    <!--stress test-->
+                    <include name="stressKeywordFieldTest"/>
                     <!--Tests for search button-->
                     <include name="buttonForKeywordsFieldTest"/>
 
@@ -83,3 +87,5 @@
     </test>
 
 </suite> <!-- Suite -->
+
+

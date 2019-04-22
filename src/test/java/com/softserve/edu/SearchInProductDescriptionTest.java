@@ -61,6 +61,7 @@ public class SearchInProductDescriptionTest {
         driver.findElement(By.name("search")).sendKeys("" + Keys.ENTER);
         driver.findElement(By.id("input-search")).click();
         driver.findElement(By.id("input-search")).clear();
+        driver.findElement(By.id("description")).click();
     }
 
 
@@ -116,7 +117,6 @@ public class SearchInProductDescriptionTest {
                 + inputInTheSearchField + "&description=true";
         driver.findElement(By.id("input-search")).
                 sendKeys(inputInTheSearchField);
-        driver.findElement(By.id("description")).click();
         driver.findElement(By.id("input-search")).sendKeys(Keys.ENTER);
         List<WebElement> webElements = driver.findElements(By.xpath(
                 ".//div[@class='row']/div/div/div/div[@class='caption']/h4/a"));
@@ -141,7 +141,6 @@ public class SearchInProductDescriptionTest {
     @Test
     public void searchInProductDescriptionAllProductsPositiveTesting() {
         driver.findElement(By.id("input-search")).sendKeys("%");
-        driver.findElement(By.id("description")).click();
         driver.findElement(By.id("input-search")).sendKeys(Keys.ENTER);
         driver.findElement(By.id("input-limit")).click();
         driver.findElement(By.xpath(".//select[@id='input-limit']/option[3]")).
@@ -191,7 +190,6 @@ public class SearchInProductDescriptionTest {
     @Test(dataProvider = "negativeDataForSearchInProductDescription")
     public void searchInProductDescriptionNegativeTest(final String inputValue) {
         driver.findElement(By.id("input-search")).sendKeys(inputValue);
-        driver.findElement(By.id("description")).click();
         driver.findElement(By.id("input-search")).sendKeys(Keys.ENTER);
         WebElement webElement = driver.findElement(By.xpath
                 (".//div[@id='content']/p[2]"));

@@ -9,6 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.util.concurrent.TimeUnit;
+
 /**
  * This class is created for
  * testing message about what we want to find
@@ -32,7 +33,7 @@ public class MessageTest {
      */
     @BeforeClass
     public void beforeClass() {
-        String webDriverPath =  this.getClass().getResource("/").toString();
+        String webDriverPath = this.getClass().getResource("/").toString();
         webDriverPath = webDriverPath.substring(webDriverPath.indexOf("/"));
         System.setProperty("webdriver.chrome.driver",
                 webDriverPath + "chromedriver-windows-32bit.exe");
@@ -62,6 +63,7 @@ public class MessageTest {
 
     /**
      * Data for testing message about what are we looking for.
+     *
      * @return - data that we inputinto the search field.
      */
     @DataProvider
@@ -71,26 +73,28 @@ public class MessageTest {
                 // search field and second is way to the
                 // element we will use to check test
                 //full name of element we want to find
-                {"iPhone","iPhone"},
+                {"iPhone", "iPhone"},
                 //incorrect data
-                {"jhdskksd873493","jhdskksd873493"},
+                {"jhdskksd873493", "jhdskksd873493"},
                 //letters from element we want to find
-                {"on","on"},
+                {"on", "on"},
                 //use small and big letters in different places
-                {"IPHONE","IPHONE"},
+                {"IPHONE", "IPHONE"},
                 //space before word
-                {"     iphone","iphone"},
+                {"     iphone", "iphone"},
                 //space after  word
-                {"iphone ","iphone"},
+                {"iphone ", "iphone"},
                 //space inside word
-                {"ip      hon   e","ip hon e"}
+                {"ip      hon   e", "ip hon e"}
         };
     }
 
     /**
      * test for message about what are we looking for.
+     *
      * @param valueWeInputInSearchField - value that we input into
-     *                                 the search  field.
+     *                                  the search  field.
+     * @param valueWeExpectToSee        - value that we expect to see
      */
     @Test(dataProvider = "dataForTestIsMessageCorrect")
     public void isMessageCorrectTest(final String valueWeInputInSearchField, final String valueWeExpectToSee) {
@@ -105,6 +109,7 @@ public class MessageTest {
         String expected = "Search - " + valueWeExpectToSee;
         Assert.assertEquals(actual, expected);
     }
+
     /**
      * Test for message about what are we looking for.
      * For empty field.

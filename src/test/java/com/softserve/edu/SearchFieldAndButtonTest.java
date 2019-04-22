@@ -35,7 +35,7 @@ public class SearchFieldAndButtonTest {
      */
     @BeforeClass
     public void beforeClass() {
-        String webDriverPath =  this.getClass().getResource("/").toString();
+        String webDriverPath = this.getClass().getResource("/").toString();
         webDriverPath = webDriverPath.substring(webDriverPath.indexOf("/"));
         System.setProperty("webdriver.chrome.driver",
                 webDriverPath + "chromedriver-windows-32bit.exe");
@@ -48,10 +48,10 @@ public class SearchFieldAndButtonTest {
     /**
      * In the end for all action driver should be "quit".
      */
-    @AfterClass
-    public void afterClass() {
-        driver.quit();
-    }
+//    @AfterClass
+//    public void afterClass() {
+//        driver.quit();
+//    }
 
     /**
      * Before all method next action should be done.
@@ -87,7 +87,9 @@ public class SearchFieldAndButtonTest {
                 //data from product description
                 {"GB"},
                 //incorrect word
-                {"iphane"}
+                {"iphane"},
+                //some elements
+                {"\uF04A"}
         };
     }
 
@@ -179,6 +181,8 @@ public class SearchFieldAndButtonTest {
         }
     }
 
+
+
     /**
      * Positive tests for search field + ENTER.
      * Use "%" to see all products.
@@ -196,10 +200,51 @@ public class SearchFieldAndButtonTest {
         List<String> products = findAllProductsAndTheirCategories.
                 findAllProductsOnAdminPage();
         System.out.println(products.toString());
-        for (WebElement webElement: webElements) {
+        for (WebElement webElement : webElements) {
             Assert.assertTrue(products.contains(
                     webElement.getText()));
         }
+    }
+
+    /**
+     * Negative test for search field.
+     * We input value longer then 9000 characters
+     */
+    @Test
+    public void stressSearchFieldTest() {
+        String str = "a";
+        for (int i = 0; i < 9000; i++) {
+            str += "a";
+        }
+        driver.findElement(By.name("search")).sendKeys(str + Keys.ENTER);
+        Boolean elamantOnThePage = true;
+        try {
+            driver.findElement(By.id("logo"));
+        } catch (Exception e) {
+            elamantOnThePage = false;
+        }
+        Assert.assertTrue(elamantOnThePage);
+    }
+    /**
+     * Negative test for keyword field.
+     * We input value longer then 9000 characters
+     */
+    @Test
+    public void stressKeywordFieldTest() {
+        driver.findElement(By.name("search")).sendKeys(Keys.ENTER);
+        String str = "a";
+        for (int i = 0; i < 9000; i++) {
+            str += "a";
+        }
+        driver.findElement(By.id("input-search")).sendKeys(
+                str + Keys.ENTER);
+        Boolean elamantOnThePage = true;
+        try {
+            driver.findElement(By.id("logo"));
+        } catch (Exception e) {
+            elamantOnThePage = false;
+        }
+        Assert.assertTrue(elamantOnThePage);
     }
 
     /**
@@ -320,7 +365,7 @@ public class SearchFieldAndButtonTest {
      * @param valueWeInputInSearchField - value that will be imputed into
      *                                  the field
      * @param wayToElement              - way to elements that will be shown on
-     *                                 the page
+     *                                  the page
      * @param textWeExpectToSee         - text we expect to see om the page
      */
     @Test(dataProvider = "dataForCheckButtonTest")
@@ -350,7 +395,7 @@ public class SearchFieldAndButtonTest {
      * @param valueWeInputInSearchField - value that will be imputed into
      *                                  the field
      * @param wayToElement              - way to elements that will be shown
-     *                                 on the page
+     *                                  on the page
      * @param textWeExpectToSee         - text we expect to see om the page
      */
 
