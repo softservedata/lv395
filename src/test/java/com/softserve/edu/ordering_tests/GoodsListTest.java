@@ -128,7 +128,8 @@ public class GoodsListTest extends AddFunctionality {
         driver.findElement(By.id("button-menu")).click();
         driver.findElement(By.linkText("Catalog")).click();
         driver.findElement(By.xpath("(//a[contains(text(),'Products')])[1]")).click();
-        WebElement itemsInStack = driver.findElement(By.xpath("//*[@id='form-product']/div/table/tbody/tr[11]/td[6]"));
+        WebElement itemsInStack = driver
+                .findElement(By.xpath("//*[@id='form-product']/div/table/tbody/tr[11]/td[6]"));
         valueInStack = Integer.parseInt(itemsInStack.getText()) + 100;
         driver.get("http://192.168.239.129/opencart/upload/");
         driver.findElement(By.cssSelector("a[href*='product_id=43']")).click();
@@ -140,7 +141,8 @@ public class GoodsListTest extends AddFunctionality {
         openCart();
         String actualGoodPlate = getGoodPlate().getText();
         System.out.println("Test 5 actual result: " + actualGoodPlate);
-        Assert.assertFalse(actualGoodPlate.contains("MacBook" + " " + "x " + valueInStack + " " + "$619,458.00"));
+        Assert.assertFalse(actualGoodPlate
+                .contains("MacBook" + " " + "x " + valueInStack + " " + "$619,458.00"));
         driver.navigate().refresh();
     }
 

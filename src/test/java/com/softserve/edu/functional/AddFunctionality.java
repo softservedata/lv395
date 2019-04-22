@@ -34,7 +34,7 @@ public class AddFunctionality extends DatabaseConnector {
 
     protected WebDriver driver; // Selenium WebDriver creation.
     private Session session;    // Hibernate session.
-    private DatabaseOperator operator = new DatabaseOperator();
+    private DatabaseOperator operator = new DatabaseOperator(); // Operations with DB
 
     private final String URL = "192.168.239.129";   // Opencart URL.
 
@@ -176,8 +176,8 @@ public class AddFunctionality extends DatabaseConnector {
     /**
      * Method for signing-up on Opencart.
      *
-     * @param email - user email.
-     * @param password - user password.
+     * @param email user email.
+     * @param password user password.
      */
     public void logIn(String email, String password) {
         driver.findElement(By
@@ -210,8 +210,8 @@ public class AddFunctionality extends DatabaseConnector {
      * Method for getting quantity of following
      * product from database.
      *
-     * @param product_id - id of desired product.
-     * @return - quantity of desired product.
+     * @param product_id id of desired product.
+     * @return quantity of desired product.
      */
     public int getProductQuantity(int product_id) {
         session = getFactory().openSession();

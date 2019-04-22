@@ -45,8 +45,8 @@ public class OrderInfoTest extends AddFunctionality {
      * Method for check values in order info
      * table in product cart.
      *
-     * @param xpath - locator to actual value.
-     * @param expectedValue - expected value.
+     * @param xpath locator to actual value.
+     * @param expectedValue expected value.
      */
     @Test(dataProvider = "CheckCartTableBoxes")
     public void checkCartTableBoxes(String xpath, double expectedValue) {

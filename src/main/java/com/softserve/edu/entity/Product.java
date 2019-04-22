@@ -23,35 +23,71 @@ public class Product {
     @Column(name = "quantity")
     private int quantity;
 
+    /**
+     * Constructor of entity 'Product' with parameters.
+     * @param empId id of product.
+     * @param model product model.
+     * @param quantity quantity of product.
+     */
     public Product(int empId, String model, int quantity) {
         this.product_id = empId;
         this.model = model;
         this.quantity = quantity;
     }
 
+    /**
+     * Default constructor of entity 'Product'.
+     */
     public Product() {
     }
 
+    /**
+     * Simple getter.
+     *
+     * @return product id.
+     */
     public int getProduct_id() {
         return product_id;
     }
 
+    /**
+     * Simple setter.
+     * @param product_id product id.
+     */
     public void setProduct_id(int product_id) {
         this.product_id = product_id;
     }
 
+    /**
+     * Simple getter.
+     *
+     * @return product model.
+     */
     public String getModel() {
         return model;
     }
 
+    /**
+     * Simple setter.
+     * @param model product model.
+     */
     public void setModel(String model) {
         this.model = model;
     }
 
+    /**
+     * Simple getter.
+     *
+     * @return product quantity.
+     */
     public int getQuantity() {
         return quantity;
     }
 
+    /**
+     * Simple setter.
+     * @param quantity product quantity.
+     */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }

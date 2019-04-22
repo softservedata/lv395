@@ -31,7 +31,8 @@ public class DatabaseConnector {
         config.configure();
         config.addAnnotatedClass(Product.class);
         config.addResource("Product.hbm.xml");
-        serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
+        serviceRegistry = new StandardServiceRegistryBuilder()
+                .applySettings(config.getProperties()).build();
         factory = config.buildSessionFactory(serviceRegistry);
     }
 

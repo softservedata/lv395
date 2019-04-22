@@ -71,7 +71,8 @@ public class DatabaseOperator {
             // Get an InputStream from this channel and read messages, generated
             // by the executing command, from the remote side.
             InputStream in = channelExec.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(in));
             String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
@@ -105,7 +106,8 @@ public class DatabaseOperator {
             InputStream in = channelExec.getInputStream();
             // Get an InputStream from this channel and read messages, generated
             // by the executing command, from the remote side.
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(in));
             String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
@@ -128,7 +130,6 @@ public class DatabaseOperator {
     public void remoteServerDisconnect() {
         //Disconnect the Session
         session.disconnect();
-
         if(!session.isConnected()) {
             System.out.println("Disconnected from remote server is successful!");
         }
