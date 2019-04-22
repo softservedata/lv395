@@ -61,7 +61,7 @@ public class GoodsListTest extends AddFunctionality {
         openCart();
         //WebElements initialization
         WebElement cartElementsTable = driver
-                .findElement(By.xpath("//*[@id=\"cart\"]/ul/li[1]/table/tbody"));
+                .findElement(By.xpath("//*[@id='cart']/ul/li[1]/table/tbody"));
         cartElementsTableRows = cartElementsTable.findElements(By.tagName("tr"));
         //Printing results
         for (WebElement e: cartElementsTableRows) {
