@@ -1,5 +1,13 @@
-package com.softserve.edu;
+/*
+ * GoodsListTest
+ *
+ * v. 1.0
+ *
+ * Copyright (c) 2019 Maksym Burko.
+ */
+package com.softserve.edu.ordering_tests;
 
+import com.softserve.edu.functional.AddFunctionality;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,13 +19,15 @@ import org.testng.annotations.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Class for check operations with goods.
+ */
 public class GoodsListTest extends AddFunctionality {
 
-    @AfterMethod
-    public void cleanCart() {
-        cartCleaner(driver, getURL());
-    }
-
+    /**
+     * Method which checks adding of one
+     * item to product cart.
+     */
     @Test
     public void addOneItemTest() {
         //Adding goods to the cart
@@ -33,6 +43,11 @@ public class GoodsListTest extends AddFunctionality {
         driver.navigate().refresh();
     }
 
+    /**
+     * Method which checks adding of one
+     * item to product cart and increase
+     * quantity of goods in cart.
+     */
     @Test
     public void increaseQuantityOfItemsTest() {
         List<WebElement> cartElementsTableRows;
@@ -57,6 +72,10 @@ public class GoodsListTest extends AddFunctionality {
         driver.navigate().refresh();
     }
 
+    /**
+     * Method which checks adding of some same
+     * items multiple times to product cart.
+     */
     @Test
     public void addSameItemMultipleTimesTest() {
         //Adding goods to the cart
@@ -74,6 +93,10 @@ public class GoodsListTest extends AddFunctionality {
         driver.navigate().refresh();
     }
 
+    /**
+     * Method which checks adding of one
+     * item from it product page to product cart.
+     */
     @Test
     public void addItemFromProductPageTest() {
         //Adding goods to the cart
@@ -90,6 +113,11 @@ public class GoodsListTest extends AddFunctionality {
         driver.navigate().refresh();
     }
 
+    /**
+     * Method which checks adding more items
+     * then there in stock to product cart.
+     * Checking from admin panel.
+     */
     @Test
     public void addMoreItemsThenInStockTest() {
         int valueInStack;
@@ -116,6 +144,11 @@ public class GoodsListTest extends AddFunctionality {
         driver.navigate().refresh();
     }
 
+    /**
+     * Method which checks adding more items
+     * then there in stock to product cart.
+     * Checking from database.
+     */
     @Test
     public void addMoreItemsThenInDbTest() {
         int moreItemThenInDb = getProductQuantity(43) + 100;
@@ -132,6 +165,10 @@ public class GoodsListTest extends AddFunctionality {
         driver.navigate().refresh();
     }
 
+    /**
+     * Method which checks adding one item
+     * with additional parameters to the cart.
+     */
     @Test
     public void addItemsWithAdditionalParametersTest() {
         //Adding goods to the cart

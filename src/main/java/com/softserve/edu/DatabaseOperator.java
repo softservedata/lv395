@@ -1,3 +1,10 @@
+/*
+ * DatabaseOperator
+ *
+ * v. 1.0
+ *
+ * Copyright (c) 2019 Maksym Burko.
+ */
 package com.softserve.edu;
 
 import java.io.BufferedReader;
@@ -9,30 +16,37 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
+/**
+ * Class establishes SSH connection with remote
+ * server and runs Shell scripts for
+ * dumping and restoring database.
+ */
 public class DatabaseOperator {
 
     private JSch jsch = new JSch();
     private Session session;
 
-    public static void main(String[] args) {
-        DatabaseOperator rsexecutor = new DatabaseOperator();
-        rsexecutor.remoteServerConnect();
-        rsexecutor.dumpDatabase();
-        rsexecutor.remoteServerDisconnect();
-    }
+    private final String HOST = "192.168.239.129";  // IP-adress of remote server.
+    private final int PORT = 22;                    // Remote server port.
+    private final String NAME = "root";             // Linux profile name.
+    private final String PASSWORD = "root";         // Linux password.
 
+    /**
+     * Method for connect to remote Linux server
+     * by SSH connection.
+     */
     public void remoteServerConnect() {
         try {
             // Open a Session to remote SSH server and Connect.
             // Set User and IP of the remote host and SSH port.
-            session = jsch.getSession("root", "192.168.239.129", 22);
+            session = jsch.getSession(NAME, HOST, PORT);
             // When we do SSH to a remote host for the 1st time or if key at the remote host 
             // changes, we will be prompted to confirm the authenticity of remote host. 
             // This check feature is controlled by StrictHostKeyChecking ssh parameter. 
             // By default StrictHostKeyChecking  is set to yes as a security measure.
             session.setConfig("StrictHostKeyChecking", "no");
             //Set password
-            session.setPassword("root");
+            session.setPassword(PASSWORD);
             session.connect();
 
             if(session.isConnected()) {
@@ -43,6 +57,9 @@ public class DatabaseOperator {
         }
     }
 
+    /**
+     * Start Shell script and create database dump.
+     */
     public void dumpDatabase() {
         try {
             // create the execution channel over the session
@@ -74,6 +91,9 @@ public class DatabaseOperator {
         }
     }
 
+    /**
+     * Restore database from dump.
+     */
     public void restoreDatabase() {
         try {
             // create the execution channel over the session
@@ -91,6 +111,9 @@ public class DatabaseOperator {
         }
     }
 
+    /**
+     * Disconnect from SSH connection.
+     */
     public void remoteServerDisconnect() {
         //Disconnect the Session
         session.disconnect();

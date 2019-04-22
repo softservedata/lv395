@@ -1,5 +1,13 @@
-package com.softserve.edu;
+/*
+ * CartFunctionalityTest
+ *
+ * v. 1.0
+ *
+ * Copyright (c) 2019 Maksym Burko.
+ */
+package com.softserve.edu.functionality_test;
 
+import com.softserve.edu.functional.AddFunctionality;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -9,21 +17,15 @@ import org.testng.annotations.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Class includes test of buttons and
+ * other functions of product cart.
+ */
 public class CartFunctionalityTest extends AddFunctionality {
 
-    @AfterMethod
-    public void cleanCart() {
-        cartCleaner(driver, getURL());
-    }
-
-    @Test
-    public void openCartTest() {
-        openCart();
-        boolean isCartOpened = driver.findElement(By.cssSelector("ul[class*='dropdown-menu pull-right']")).isDisplayed();
-        Assert.assertTrue(isCartOpened);
-        driver.navigate().refresh();
-    }
-
+    /**
+     * Test for button "View cart".
+     */
     @Test
     public void viewCartButtonTest() {
         addProduct(0).click();
@@ -35,6 +37,9 @@ public class CartFunctionalityTest extends AddFunctionality {
         driver.navigate().refresh();
     }
 
+    /**
+     * Test for button "Checkout".
+     */
     @Test
     public void checkoutButtonTest() {
         addProduct(0).click();
@@ -51,6 +56,9 @@ public class CartFunctionalityTest extends AddFunctionality {
         driver.navigate().refresh();
     }
 
+    /**
+     * Test for "Remove" button.
+     */
     @Test
     public void removeOneItemTest() {
         driver.findElement(By.cssSelector("a[href*='product_id=43']")).click();
@@ -65,6 +73,10 @@ public class CartFunctionalityTest extends AddFunctionality {
         driver.navigate().refresh();
     }
 
+    /**
+     * Check whether all items are removed
+     * from the cart.
+     */
     @Test
     public void removeAllItemsTest() {
         addProduct(0).click();
@@ -81,6 +93,10 @@ public class CartFunctionalityTest extends AddFunctionality {
         driver.navigate().refresh();
     }
 
+    /**
+     * Test redirection to product page when
+     * product name in cart was pressed.
+     */
     @Test
     public void clickOnItemTest() {
         addProduct(0).click();

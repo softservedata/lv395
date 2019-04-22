@@ -1,5 +1,13 @@
-package com.softserve.edu;
+/*
+ * AddFunctionality
+ *
+ * v. 1.0
+ *
+ * Copyright (c) 2019 Maksym Burko.
+ */
+package com.softserve.edu.functional;
 
+import com.softserve.edu.DatabaseConnector;
 import com.softserve.edu.entity.Product;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -17,13 +25,17 @@ import org.testng.annotations.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Class which provides common functionality
+ * for all Opencart testing methods.
+ */
 public class AddFunctionality extends DatabaseConnector {
 
-    protected WebDriver driver;
-    private Session session;
+    protected WebDriver driver; // Selenium WebDriver creation.
+    private Session session;    // Hibernate session.
     /*private DatabaseOperator operator;*/
 
-    private final String URL = "192.168.239.129";
+    private final String URL = "192.168.239.129";   // Opencart URL.
 
 /*    @BeforeSuite
     public void dumpDb() {
@@ -31,9 +43,9 @@ public class AddFunctionality extends DatabaseConnector {
         operator.remoteServerConnect();
         operator.dumpDatabase();
         operator.remoteServerDisconnect();
-    }*/
+    }
 
-/*    @AfterSuite
+    @AfterSuite
     public void restoreDb() {
         operator.remoteServerConnect();
         dropDatabase();
@@ -41,6 +53,10 @@ public class AddFunctionality extends DatabaseConnector {
         operator.remoteServerDisconnect();
     }*/
 
+    /**
+     * Test suite {@link BeforeClass} method,
+     * establish WebDriving settings and DB connection.
+     */
     @BeforeClass
     public void setUp() {
         String webDriverPath =  this.getClass().getResource("/").toString();
@@ -53,27 +69,51 @@ public class AddFunctionality extends DatabaseConnector {
         dbConnect();
     }
 
+    /**
+     * Test suite {@link AfterClass}
+     * closes DB connection and quites Selenium.
+     */
     @AfterClass
     public void tearDown() {
         driver.quit();
         dbClose();
     }
 
+    /**
+     * Test suite {@link BeforeMethod}
+     * Getting connection to Opencart site.
+     */
     @BeforeMethod
     public void webServiceStart() {
         driver.get("http://" + URL + "/opencart/upload/");
     }
 
+    /**
+     * Test suite {@link AfterMethod}
+     * cleans product cart after tests.
+     */
+    @AfterMethod
+    public void cleanCart() {
+        cartCleaner(driver, getURL());
+    }
+
+    /**
+     * Method for cleaning cart after test running,
+     * deletes all items from the cart.
+     *
+     * @param driver - Selenium WebDriver object.
+     * @param URL - Opencart link.
+     */
     public void cartCleaner(WebDriver driver, String URL) {
         driver.get("http://" + URL + "/opencart/upload/");
-        //WebElements initialization
+        // Set explicitly wait
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         new WebDriverWait(driver, 3);
         if (driver.findElements(By.cssSelector("[title^='Remove'")).size() > 0) {
             List<WebElement> cartElementsTableRows;
             WebElement cartElementsTable = driver.findElement(By.xpath("//*[@id='cart']/ul/li[1]/table/tbody"));
             cartElementsTableRows = cartElementsTable.findElements(By.tagName("tr"));
-            //Cycle which deleting elements from cart
+            //Cycle which deletes elements from cart
             for (int countOfElements = cartElementsTableRows.size(); countOfElements > 0; countOfElements--) {
                 driver.findElement(By.id("cart")).click();
                 driver.findElement(By.cssSelector("button[class*='btn-danger']")).click();
@@ -86,10 +126,22 @@ public class AddFunctionality extends DatabaseConnector {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
+    /**
+     * Simple getter for URL.
+     *
+     * @return opencart URl.
+     */
     public String getURL() {
         return URL;
     }
 
+    /**
+     * Press button to adding item with
+     * following index to cart.
+     *
+     * @param index - index of desired product.
+     * @return - WebElement of desired item.
+     */
     public WebElement addProduct(int index){
     List<WebElement> addButtons = driver
             .findElements(By.cssSelector("div[class*='button-group']"
@@ -97,33 +149,64 @@ public class AddFunctionality extends DatabaseConnector {
     return addButtons.get(index);
     }
 
+    /**
+     * Method for opening product cart.
+     */
     public void openCart(){
         driver.findElement(By.id("cart")).click();
     }
 
+    /**
+     * Method for getting plate of goods
+     * from the cart.
+     *
+     * @return product plate.
+     */
     public WebElement getGoodPlate() {
        WebElement goodPlate = driver.findElement(By.xpath("//*[@id='cart']/ul/li[1]/table/tbody/tr"));
        return goodPlate;
     }
 
+    /**
+     * Method for signing-up on Opencart.
+     *
+     * @param email - user email.
+     * @param password - user password.
+     */
     public void logIn(String email, String password) {
-        driver.findElement(By.cssSelector("li[class*='dropdown'] a[title*='My Account']")).click();
-        driver.findElement(By.cssSelector("ul[class^='dropdown-menu'] li:last-child a")).click();
-        WebElement loginField = driver.findElement(By.cssSelector("input[name='email']"));
+        driver.findElement(By
+                .cssSelector("li[class*='dropdown'] a[title*='My Account']")).click();
+        driver.findElement(By
+                .cssSelector("ul[class^='dropdown-menu'] li:last-child a")).click();
+        WebElement loginField = driver
+                .findElement(By.cssSelector("input[name='email']"));
         loginField.clear();
         loginField.sendKeys(email);
-        WebElement passField = driver.findElement(By.cssSelector("input[name='password']"));
+        WebElement passField = driver
+                .findElement(By.cssSelector("input[name='password']"));
         passField.clear();
         passField.sendKeys(password + Keys.RETURN);
         driver.findElement(By.id("logo")).click();
     }
 
+    /**
+     * Method for logging out from Opencart.
+     */
     public void logOut() {
-        driver.findElement(By.cssSelector("li[class*='dropdown'] a[title*='My Account']")).click();
-        driver.findElement(By.cssSelector("ul[class^='dropdown-menu'] li:last-child a")).click();
+        driver.findElement(By
+                .cssSelector("li[class*='dropdown'] a[title*='My Account']")).click();
+        driver.findElement(By
+                .cssSelector("ul[class^='dropdown-menu'] li:last-child a")).click();
         driver.findElement(By.id("logo")).click();
     }
 
+    /**
+     * Method for getting quantity of following
+     * product from database.
+     *
+     * @param product_id - id of desired product.
+     * @return - quantity of desired product.
+     */
     public int getProductQuantity(int product_id) {
         session = getFactory().openSession();
         Criteria userCriteria = session.createCriteria(Product.class);
@@ -133,14 +216,16 @@ public class AddFunctionality extends DatabaseConnector {
         return product.getQuantity();
     }
 
+    /**
+     * Method which deletes database.
+     */
     public void dropDatabase() {
         session = getFactory().openSession();
         Transaction tx = null;
 
         try {
             tx = session.beginTransaction();
-            session.createSQLQuery("SET FOREIGN_KEY_CHECKS = 0").executeUpdate();
-            session.createSQLQuery("DROP DATABASE restaurantapp").executeUpdate();
+            session.createSQLQuery("DROP DATABASE opencart").executeUpdate();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {

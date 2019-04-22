@@ -5,7 +5,7 @@
     <test name="CartTest">
         <classes>
 
-            <class name="com.softserve.edu.GoodsListTest">
+            <class name="com.softserve.edu.ordering_tests.GoodsListTest">
                 <methods>
                     <include name="addOneItemTest"/>
                     <include name="increaseQuantityOfItemsTest"/>
@@ -17,7 +17,7 @@
                 </methods>
             </class>
 
-            <class name="com.softserve.edu.CartFunctionalityTest">
+            <class name="com.softserve.edu.functionality_test.CartFunctionalityTest">
                 <methods>
                     <include name="openCartTest"/>
                     <include name="viewCartButtonTest"/>
@@ -28,13 +28,13 @@
                 </methods>
             </class>
 
-            <class name="com.softserve.edu.OrderInfoTest">
+            <class name="com.softserve.edu.ordering_tests.OrderInfoTest">
                 <methods>
                     <include name="checkCartTableBoxes"/>
                 </methods>
             </class>
 
-            <class name="com.softserve.edu.OtherFunctionalityTest">
+            <class name="com.softserve.edu.functionality_test.OtherFunctionalityTest">
                 <methods>
                     <include name="checkPriceTextButton"/>
                     <include name="isItemsInDbTest"/>

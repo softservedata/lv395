@@ -1,23 +1,36 @@
-package com.softserve.edu;
+/*
+ * OrderInfoTest
+ *
+ * v. 1.0
+ *
+ * Copyright (c) 2019 Maksym Burko.
+ */
+package com.softserve.edu.ordering_tests;
 
+import com.softserve.edu.functional.AddFunctionality;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.testng.annotations.AfterMethod;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-public class OrderInfoTest extends AddFunctionality{
+/**
+ * Class for check values in order info
+ * table in product cart.
+ */
+public class OrderInfoTest extends AddFunctionality {
 
     private static double expectedEcoTax = 4.0;
     private static double expectedVat = (601.00 * 20)/100;
     private static double expectedTotal = 725.20;
-    private static double expectedSubTotal = (expectedTotal - expectedVat) - expectedEcoTax;
+    private static double expectedSubTotal =
+            (expectedTotal - expectedVat) - expectedEcoTax;
 
-    @AfterMethod
-    public void cleanCart() {
-        cartCleaner(driver, getURL());
-    }
 
+    /**
+     * Data provider for order info table tests.
+     *
+     * @return locator to actual value and expected value.
+     */
     @DataProvider(name = "CheckCartTableBoxes")
     public static Object[][] cartTableBoxesData() {
         return new Object[][]{
@@ -28,6 +41,13 @@ public class OrderInfoTest extends AddFunctionality{
         };
     }
 
+    /**
+     * Method for check values in order info
+     * table in product cart.
+     *
+     * @param xpath - locator to actual value.
+     * @param expectedValue - expected value.
+     */
     @Test(dataProvider = "CheckCartTableBoxes")
     public void checkCartTableBoxes(String xpath, double expectedValue) {
         addProduct(0).click();

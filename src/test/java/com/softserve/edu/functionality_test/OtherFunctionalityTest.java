@@ -1,5 +1,13 @@
-package com.softserve.edu;
+/*
+ * OtherFunctionalityTest
+ *
+ * v. 1.0
+ *
+ * Copyright (c) 2019 Maksym Burko.
+ */
+package com.softserve.edu.functionality_test;
 
+import com.softserve.edu.functional.AddFunctionality;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -8,13 +16,16 @@ import org.testng.annotations.*;
 
 import java.util.ArrayList;
 
-public class OtherFunctionalityTest extends AddFunctionality{
+/**
+ * Test class for different other functions
+ * of product cart.
+ */
+public class OtherFunctionalityTest extends AddFunctionality {
 
-    @AfterMethod
-    public void cleanCart() {
-        cartCleaner(driver, getURL());
-    }
-
+    /**
+     * Check or change the inscription on the
+     * cart button when adding a product.
+     */
     @Test
     public void checkPriceTextButton() {
         addProduct(0).click();
@@ -26,6 +37,11 @@ public class OtherFunctionalityTest extends AddFunctionality{
         driver.navigate().refresh();
     }
 
+    /**
+     * Verify that the number of products
+     * in the database corresponds to
+     * their number in the interface.
+     */
     @Test
     public void isItemsInDbTest(){
         dbConnect();
@@ -44,6 +60,10 @@ public class OtherFunctionalityTest extends AddFunctionality{
         driver.navigate().refresh();
     }
 
+    /**
+     * Checking whether the quantity of goods
+     * in the cart is changed when logged out.
+     */
     @Test
     public void logoutUserCartTest() {
         logIn("qwerty@gmail.com", "qwerty");
@@ -57,6 +77,10 @@ public class OtherFunctionalityTest extends AddFunctionality{
         driver.navigate().refresh();
     }
 
+    /**
+     * Checking whether the amount of goods
+     * in the cart changes when a user changes.
+     */
     @Test
     public void differentLoggedUsersCartTest() {
         logIn("qwerty@gmail.com", "qwerty");
@@ -74,6 +98,10 @@ public class OtherFunctionalityTest extends AddFunctionality{
         driver.navigate().refresh();
     }
 
+    /**
+     * Checking whether the quantity of goods
+     * in the cart is changed when you relog.
+     */
     @Test
     public void relogCartTest() {
         logIn("qwerty@gmail.com", "qwerty");
@@ -87,9 +115,12 @@ public class OtherFunctionalityTest extends AddFunctionality{
         System.out.println(secondLoginCart);
         logOut();
         Assert.assertEquals(secondLoginCart, firstLoginCart);
-        driver.navigate().refresh();
     }
 
+    /**
+     * Check whether the amount of goods in the
+     * cart is saved when you open a new tab of site.
+     */
     @Test
     public void openNewTabTest() {
         addProduct(0).click();

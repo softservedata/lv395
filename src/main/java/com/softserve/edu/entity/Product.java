@@ -1,7 +1,17 @@
+/*
+ * Product
+ *
+ * v. 1.0
+ *
+ * Copyright (c) 2019 Maksym Burko.
+ */
 package com.softserve.edu.entity;
 
 import javax.persistence.*;
 
+/**
+ * Hibernate entity for oc_product table.
+ */
 @Entity
 @Table(name = "oc_product")
 public class Product {
