@@ -1,20 +1,24 @@
 package com.softserve.edu.OpenCart;
-import com.softserve.edu.OpenCart.Helper;
+
 import org.testng.Assert;
-import java.lang.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterClass;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The Test class with three tests:
+ * verifyLogIn, addProductsTest, verifyLogOutTest.
+ */
 public class LoginAndAddProductsTest extends Helper {
 
+    /**
+     * BeforeClass: open OpenCart website and set implicitlyWait.
+     */
     @BeforeClass
     public void beforeClass() {
-        /*String webDriverPath =  this.getClass().getResource("/").toString();
-        webDriverPath = webDriverPath.substring(webDriverPath.indexOf("/"));
-        System.setProperty("webdriver.chrome.driver",
-                webDriverPath + "chromedriver-windows-32bit.exe");*/
         System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -22,49 +26,63 @@ public class LoginAndAddProductsTest extends Helper {
         driver.manage().window().maximize();
     }
 
+    /**
+     * AfterClass: LogIn, delete all products in Shopping Cart,
+     * logOut, close browser.
+     */
     @AfterClass
-    public void afterClass() throws Exception {
+    public void afterClass() {
         logIn();
-        driver.findElement(By.cssSelector("i[class='fa fa-shopping-cart']")).click();
-        while (driver.findElements(By.cssSelector("#content > form")).size() > 0){
-            driver.findElement(By.cssSelector("#content > form > div > table > tbody > tr:nth-child(1) >" +
-                    " td:nth-child(4) > div > span > button.btn.btn-danger")).click();
+        driver.findElement(By.cssSelector(
+                "i[class='fa fa-shopping-cart']")).click();
+        while (driver.findElements(By.cssSelector(
+                "#content > form")).size() > 0) {
+            driver.findElement(By.cssSelector(
+                    "#content > form > div > table "
+                            + "> tbody > tr:nth-child(1) >"
+                            + " td:nth-child(4) > div >"
+                            + " span > button.btn.btn-danger")).click();
             driver.navigate().refresh();
         }
         driver.quit();
     }
 
-    @BeforeMethod
-    public void beforeMethod() throws Exception {
-    }
-
-    @AfterMethod
-    public void afterMethod() throws Exception {
-    }
-
-    // * * * * * * * * * * * * * * * * * * * * * * * * * * L O G I N * * * * * * * * * * * * * * * * * * * * * * * * * *
+    /**
+     * Verify that Logout is present after logIn function.
+     */
     @Test(priority = 1)
-    public void verifylogIn() {
+    public void verifyLogInTest() {
         logIn();
-        Assert.assertTrue(driver.findElement(By.xpath("(//a[contains(text(),'Logout')])[1]")).isEnabled());
+        Assert.assertTrue(driver.findElement(By.xpath(
+                "(//a[contains(text(),'Logout')])[1]")).isEnabled());
     }
 
-    // * * * * * * * * * * * * * * * * * * * A D D * T H R E E * P R O D U C T S * * * * * * * * * * * * * * * * * * * *
-
+    /**
+     * Verify on successful adding products,
+     * size of table after addProducts.
+     */
     @Test (priority = 2)
     public void addProductsTest() {
         addProducts();
-        int expectedRowCount = driver.findElements(By.cssSelector("#content > form > div > table > tbody > tr")).size();
+        int expectedRowCount = driver.findElements(By.cssSelector(
+                "#content > form > div > table > tbody > tr")).size();
         Assert.assertTrue(expectedRowCount > 2);
     }
 
-    // * * * * * * * * * * * * * * * * * * * * * * * * * L O G O U T * * * * * * * * * * * * * * * * * * * * * * * * * *
-    @Test(priority = 9)
-    public void logOut() {
-        driver.findElement(By.cssSelector("#top-links > ul > li.dropdown > a")).click();
-        driver.findElement(By.xpath("//a[contains(text(),'Logout')]")).click();
-        driver.findElement(By.cssSelector("i[class='fa fa-shopping-cart']")).click();
-        Assert.assertTrue(driver.findElements(By.cssSelector("#content > form")).size() == 0);
+    /**
+     * Verify on successful LogOut.
+     * Verify Shopping Cart table is empty
+     */
+    @Test (priority = 9)
+    public void verifyLogOutTest() {
+        driver.findElement(By.cssSelector(
+                "#top-links > ul > li.dropdown > a")).click();
+        driver.findElement(By.xpath(
+                "//a[contains(text(),'Logout')]")).click();
+        driver.findElement(By.cssSelector(
+                "i[class='fa fa-shopping-cart']")).click();
+        Assert.assertTrue(driver.findElements(By.cssSelector(
+                "#content > form")).size() == 0);
     }
 
 }

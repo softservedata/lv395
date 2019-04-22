@@ -101,7 +101,7 @@ public class Helper {
      * The next method fills quantityList from Shopping Cart table.
      */
     public void fillQuantityList() {
-        quantityList.clear();;
+        quantityList.clear();
         driver.findElement(By.cssSelector(
                 "i[class='fa fa-shopping-cart']")).click();
         tableCountRow = driver.findElements(By.xpath(
@@ -146,23 +146,38 @@ public class Helper {
         driverAdmin = new ChromeDriver();
         driverAdmin.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driverAdmin.get(OPEN_CART_ADMIN_URL);
-        driverAdmin.findElement(By.id("input-username")).sendKeys("admin" + Keys.TAB + "admin" + Keys.ENTER);
+        driverAdmin.findElement(By.id(
+                "input-username")).sendKeys(
+                        "admin" + Keys.TAB + "admin" + Keys.ENTER);
         driverAdmin.findElement(By.id("button-menu")).click();
         driverAdmin.findElement(By.linkText("Catalog")).click();
-        driverAdmin.findElement(By.xpath("(//a[contains(text(),'Products')])[1]")).click();
-        for (int i = 0; i < tableCountRow; i++){
-            quantityOnStockList.add(Integer.parseInt(driverAdmin.findElement(By.xpath(
-                    "//tbody/tr/td[text()='" + productNameList.get(i) +
-                            "']/following-sibling::td[*]/span[@class='label label-success']")).getText()));
+        driverAdmin.findElement(By.xpath(
+                "(//a[contains(text(),'Products')])[1]")).click();
+        for (int i = 0; i < tableCountRow; i++) {
+            quantityOnStockList.add(Integer.parseInt(
+                    driverAdmin.findElement(By.xpath(
+                    "//tbody/tr/td[text()='" + productNameList.get(i)
+                            + "']/following-sibling::td[*]"
+                            + "/span[@class='label "
+                            + "label-success']")).getText()));
         }
         driverAdmin.quit();
     }
 
+    /**
+     * Initialize a webElement by his xPath.
+     * @param we - webElement, what will be initialized.
+     * @param xPath - xPath way to webElement.
+     * @return webElement
+     */
     public WebElement webElementInit(WebElement we, final String xPath) {
         we = driver.findElement(By.xpath(xPath));
         return we;
     }
 
+    /**
+     * LogIn method for log in to OpenCart.
+     */
     public void logIn() {
         driver.get(OPEN_CART_URL + "index.php?route=account/login");
         driver.findElement(By.id("input-email")).click();
@@ -174,21 +189,31 @@ public class Helper {
         driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
     }
 
+    /**
+     * addProduct method, adding a few products to Shopping Cart.
+     */
     public void addProducts() {
         driver.get(OPEN_CART_URL);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.findElement(By.cssSelector(
-                "#content > div.row > div:nth-child(1) > div > div.button-group > button:nth-child(1)")).click();
+                "#content > div.row > div:nth-child(1) >"
+                        + " div > div.button-group"
+                        + "> button:nth-child(1)")).click();
         driver.findElement(By.cssSelector(
-                "#content > div.row > div:nth-child(4) > div > div.button-group > button:nth-child(1)")).click();
+                "#content > div.row > div:nth-child(4) >"
+                        + "div > div.button-group"
+                        + " > button:nth-child(1)")).click();
         driver.findElement(By.cssSelector(
                 "#input-option226 > option:nth-child(2)")).click();
         driver.findElement(By.cssSelector("#input-quantity")).click();
         driver.findElement(By.cssSelector(
-                "#input-quantity")).sendKeys(Keys.BACK_SPACE + "2" + Keys.ENTER);
+                "#input-quantity")).sendKeys(
+                        Keys.BACK_SPACE + "2" + Keys.ENTER);
         driver.findElement(By.id("button-cart")).click();
-        driver.findElement(By.cssSelector("a[href$='index.php?route=common/home']")).click();
-        driver.findElement(By.xpath("//a[contains(text(),'Phones & PDAs')]")).click();
+        driver.findElement(By.cssSelector(
+                "a[href$='index.php?route=common/home']")).click();
+        driver.findElement(By.xpath(
+                "//a[contains(text(),'Phones & PDAs')]")).click();
         driver.findElement(By.linkText("Palm Treo Pro")).click();
         driver.findElement(By.id("input-quantity")).click();
         driver.findElement(By.id(
