@@ -2,6 +2,33 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite1">
 
+
+    <test name="Use checkbox 'search in product description'">
+        <classes>
+            <class name="com.softserve.edu.SearchInProductDescriptionTest">
+                <methods>
+                    <include name="searchInProductDescriptionAllProductsPositiveTesting"/>
+                    <include name="searchInProductDescriptionPositiveTest"/>
+                    <include name="searchInProductDescriptionNegativeTest"/>
+                </methods>
+            </class>
+        </classes>
+
+    </test>
+    <test name="Use element 'choose category'">
+        <classes>
+            <class name="com.softserve.edu.ChooseCategoriesTest">
+                <methods>
+                    <include name="chooseCategoriesPositiveTest"/>
+                    <include name="chooseCategoriesNegativeTest"/>
+                    <include name="searchInSubCategoriesPositiveTest"/>
+                    <include name="searchInSubCategoriesNegativeTest"/>
+                </methods>
+
+
+            </class>
+        </classes>
+    </test>
     <test name="Message">
         <classes>
 
@@ -28,10 +55,11 @@
                     <include name="checkSearchFieldPositiveTest"/>
                     <!--negative tests-->
                     <include name="checkSearchFieldNegativeTest"/>
-                    <!--stress test-->
-                    <include name="stressSearchFieldTest"/>
                     <!--Tests for search button-->
                     <include name="buttonForSearchFieldTest"/>
+                    <!--stress test-->
+                    <include name="stressSearchFieldTest"/>
+
 
                 </methods>
             </class>
@@ -49,38 +77,13 @@
                     <include name="checkKeywordsFieldFieldSpaceBetweenCharactersTest"/>
                     <!--negative tests-->
                     <include name="checkKeywordsFieldNegativeTest"/>
-                    <!--stress test-->
-                    <include name="stressKeywordFieldTest"/>
                     <!--Tests for search button-->
                     <include name="buttonForKeywordsFieldTest"/>
+                    <!--stress test-->
+                    <include name="stressKeywordFieldTest"/>
+
 
                 </methods>
-
-            </class>
-        </classes>
-    </test>
-    <test name="Use checkbox 'search in product description'">
-        <classes>
-            <class name="com.softserve.edu.SearchInProductDescriptionTest">
-                <methods>
-                    <include name="searchInProductDescriptionAllProductsPositiveTesting"/>
-                    <include name="searchInProductDescriptionPositiveTest"/>
-                    <include name="searchInProductDescriptionNegativeTest"/>
-                </methods>
-            </class>
-        </classes>
-
-    </test>
-    <test name="Use element 'choose category'">
-        <classes>
-            <class name="com.softserve.edu.ChooseCategoriesTest">
-                <methods>
-                    <include name="chooseCategoriesPositiveTest"/>
-                    <include name="chooseCategoriesNegativeTest"/>
-                    <include name="searchInSubCategoriesPositiveTest"/>
-                    <include name="searchInSubCategoriesNegativeTest"/>
-                </methods>
-
 
             </class>
         </classes>

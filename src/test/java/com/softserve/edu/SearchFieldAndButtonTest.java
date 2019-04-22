@@ -48,10 +48,10 @@ public class SearchFieldAndButtonTest {
     /**
      * In the end for all action driver should be "quit".
      */
-//    @AfterClass
-//    public void afterClass() {
-//        driver.quit();
-//    }
+    @AfterClass
+    public void afterClass() {
+        driver.quit();
+    }
 
     /**
      * Before all method next action should be done.
