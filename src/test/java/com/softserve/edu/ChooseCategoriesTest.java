@@ -19,8 +19,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * This class is created for:
- * testing choose category option and for search in sub category check box.
+ * This class is created for
+ * testing choose category option and for search in sub category check box
+ * (here is used admin page).
  *
  * @author Iryna Ratushniak
  */
@@ -41,19 +42,21 @@ public class ChooseCategoriesTest {
      */
     @BeforeClass
     public void beforeClass() {
-//        System.out.println("res");
-//        System.out.println(this.getClass().getResource("/chromedriver-windows-32bit.exe"));
-//        System.out.println("PATH to WebDriver + " + this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
-//        System.setProperty("webdriver.chrome.driver",
-//                this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
-//        WebDriver driver = new ChromeDriver();
-//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//        driver.get("http://192.168.36.129/opencart/upload/");
-//        Thread.sleep(1000); // For Presentation Only
-        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
+        String webDriverPath =  this.getClass().getResource("/").toString();
+        webDriverPath = webDriverPath.substring(webDriverPath.indexOf("/"));
+        System.setProperty("webdriver.chrome.driver",
+                webDriverPath + "chromedriver-windows-32bit.exe");
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("http://" + ip + "/opencart/upload/");
+
+
+
+
+//        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
+//        driver = new ChromeDriver();
+//        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+//        driver.get("http://" + ip + "/opencart/upload/");
     }
 
     /**
@@ -69,6 +72,8 @@ public class ChooseCategoriesTest {
      */
     @BeforeMethod
     public void beforeMethod() {
+
+
         driver.findElement(By.name("search")).click();
         driver.findElement(By.name("search")).clear();
         driver.findElement(By.name("search")).sendKeys("" + Keys.ENTER);

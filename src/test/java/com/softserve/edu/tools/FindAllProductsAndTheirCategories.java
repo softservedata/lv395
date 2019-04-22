@@ -35,7 +35,7 @@ public class FindAllProductsAndTheirCategories {
      *
      * @return list of product
      */
-    public List<String> findAllProducts() {
+    public List<String> findAllProductsOnAdminPage() {
         System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);

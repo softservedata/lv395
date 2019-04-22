@@ -13,6 +13,16 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+
+
+
+/**
+ * This class is created for:
+ * testing choose category option and for search in sub category check box.
+ * Here is used database.
+ * @author Iryna Ratushniak
+ */
 public class UseDatabaseForChooseCategoryTest {
 
     /**
@@ -30,19 +40,19 @@ public class UseDatabaseForChooseCategoryTest {
      */
     @BeforeClass
     public void beforeClass() {
-//        System.out.println("res");
-//        System.out.println(this.getClass().getResource("/chromedriver-windows-32bit.exe"));
-//        System.out.println("PATH to WebDriver + " + this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
-//        System.setProperty("webdriver.chrome.driver",
-//                this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
-//        WebDriver driver = new ChromeDriver();
-//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//        driver.get("http://192.168.36.129/opencart/upload/");
-//        Thread.sleep(1000); // For Presentation Only
-        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
+        String webDriverPath =  this.getClass().getResource("/").toString();
+        webDriverPath = webDriverPath.substring(webDriverPath.indexOf("/"));
+        System.setProperty("webdriver.chrome.driver",
+                webDriverPath + "chromedriver-windows-32bit.exe");
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.get("http://" + ip + "/opencart/upload/");
+
+
+//        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
+//        driver = new ChromeDriver();
+//        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+//        driver.get("http://" + ip + "/opencart/upload/");
     }
 
     /**
@@ -124,13 +134,13 @@ public class UseDatabaseForChooseCategoryTest {
                 "SELECT opencart.oc_product_description.name,"
                         + " opencart.oc_category_description.name"
                         + " FROM opencart.oc_product_description"
-                        + "  join opencart.oc_product_to_category"
-                        + " on opencart.oc_product_to_category.product_id"
+                        + " JOIN opencart.oc_product_to_category"
+                        + " ON opencart.oc_product_to_category.product_id"
                         + "=opencart.oc_product_description.product_id "
-                        + "join  opencart.oc_category_description  "
-                        + "on opencart.oc_product_to_category.category_id"
+                        + "JOIN  opencart.oc_category_description  "
+                        + "ON opencart.oc_product_to_category.category_id"
                         + "=opencart.oc_category_description.category_id "
-                        + "order by opencart.oc_product_description.name ASC;");
+                        + "ORDER BY opencart.oc_product_description.name ASC;");
         ResultSet resultSet = preparedStatement.executeQuery();
         List<Product> products = new ArrayList<>();
         while (resultSet.next()) {
@@ -143,10 +153,11 @@ public class UseDatabaseForChooseCategoryTest {
                     productAlreadyExist = true;
                 }
             }
+
             if ((!productAlreadyExist) && (productsOnThePage.
                     contains(resultSet.getString(1).
-                            replace("&quot", "")))) {
-                product.setName(resultSet.getString(1).replace("&quot", ""));
+                            replace("&quot", "\"")))) {
+                product.setName(resultSet.getString(1).replace("&quot", "\""));
                 List<String> categories = new ArrayList<>();
                 categories.add(resultSet.getString(2).replace("&amp;", "&"));
                 product.setCategory(categories);

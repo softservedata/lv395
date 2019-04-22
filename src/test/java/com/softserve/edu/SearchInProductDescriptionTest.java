@@ -34,19 +34,19 @@ public class SearchInProductDescriptionTest {
      */
     @BeforeClass
     public void beforeClass() {
-//        System.out.println("res");
-//        System.out.println(this.getClass().getResource("/chromedriver-windows-32bit.exe"));
-//        System.out.println("PATH to WebDriver + " + this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
-//        System.setProperty("webdriver.chrome.driver",
-//                this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
-//        WebDriver driver = new ChromeDriver();
-//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//        driver.get("http://192.168.36.129/opencart/upload/");
-//        Thread.sleep(1000); // For Presentation Only
-        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
+        String webDriverPath =  this.getClass().getResource("/").toString();
+        webDriverPath = webDriverPath.substring(webDriverPath.indexOf("/"));
+        System.setProperty("webdriver.chrome.driver",
+                webDriverPath + "chromedriver-windows-32bit.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.get("http://" + ip + "/opencart/upload/");
+
+
+//        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
+//        driver = new ChromeDriver();
+//        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+//        driver.get("http://" + ip + "/opencart/upload/");
     }
 
     /**
@@ -157,7 +157,7 @@ public class SearchInProductDescriptionTest {
         FindAllProductsAndTheirCategories findAllProductsAndTheirCategories
                 = new FindAllProductsAndTheirCategories();
         List<String> products = findAllProductsAndTheirCategories.
-                findAllProducts();
+                findAllProductsOnAdminPage();
         for (int i = 0; i < webElements.size(); i++) {
             Assert.assertTrue(products.contains( webElements.get(i).
                     getText()));
