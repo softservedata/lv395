@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test_All">
+
+    <test name="Test1">
+        <classes>
+            <class name="com.softserve.edu.UC1_First_entry">
+                <methods>
+                    <include name="login"/>
+                    <include name="checkWishList"/>
+                    <include name="logOut"/>
+                </methods>
+            </class>
+
+            <class name="com.softserve.edu.UC2_Unshure_user">
+                <methods>
+                    <include name="login"/>
+                    <include name="addItems"/>
+                    <include name="wishlistCheck"/>
+                    <include name="priceCheck"/>
+                    <include name="clearList"/>
+                    <include name="logOut"/>
+                </methods>
+            </class>
+            <class name="com.softserve.edu.UC3_Real_lead">
+                <methods>
+                    <include name="login"/>
+                    <include name="addItems"/>
+                    <include name="wishlistCheck"/>
+                    <include name="priceCheck"/>
+                    <include name="addToCart"/>
+                    <include name="checkCart"/>
+                    <include name="clearList"/>
+                    <include name="logOut"/>
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- Test -->
+
+</suite> <!-- Suite -->

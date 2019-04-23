@@ -288,7 +288,7 @@
 						</selenium.version>
 					</systemPropertyVariables>
 					<suiteXmlFiles>
-						<suiteXmlFile>testng1.xml</suiteXmlFile>
+						<suiteXmlFile>Test_All.xml</suiteXmlFile>
 					</suiteXmlFiles>
 					<reportsDirectory>${testng.reports.directory}</reportsDirectory>
 					<!-- <argLine> -->
