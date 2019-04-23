@@ -75,12 +75,8 @@ public class LoginAndAddProductsTest extends Helper {
      */
     @Test (priority = 9)
     public void verifyLogOutTest() {
-        driver.findElement(By.cssSelector(
-                "#top-links > ul > li.dropdown > a")).click();
-        driver.findElement(By.xpath(
-                "//a[contains(text(),'Logout')]")).click();
-        driver.findElement(By.cssSelector(
-                "i[class='fa fa-shopping-cart']")).click();
+        logOut();
+        driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
         Assert.assertTrue(driver.findElements(By.cssSelector(
                 "#content > form")).size() == 0);
     }

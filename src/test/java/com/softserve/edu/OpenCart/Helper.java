@@ -55,15 +55,13 @@ public class Helper {
             ".//form/div/table[@class='table table-bordered']/tbody/tr";
     /** Variable, number of rows in table Shopping Cart. Default: 0. */
     protected int tableCountRow = 0;
-    /** Variable, price of one product. */
-    protected double unitPrice;
 
 
     /**
      * Constructor for Helper class.
      */
     public Helper() {
-        //not used.
+        // Not used.
     }
 
 
@@ -187,6 +185,15 @@ public class Helper {
         driver.findElement(By.id("input-password")).sendKeys(
                 "qwerty" + Keys.ENTER);
         driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
+    }
+
+    public void logOut() {
+        driver.findElement(By.cssSelector(
+                "#top-links > ul > li.dropdown > a")).click();
+        driver.findElement(By.xpath(
+                "//a[contains(text(),'Logout')]")).click();
+        driver.findElement(By.cssSelector(
+                "i[class='fa fa-shopping-cart']")).click();
     }
 
     /**

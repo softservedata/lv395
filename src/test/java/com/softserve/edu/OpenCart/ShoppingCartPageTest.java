@@ -2,7 +2,10 @@ package com.softserve.edu.OpenCart;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -11,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * The main class for testing Shopping Cart page.
  */
-public class ShoppingCartPageTest extends LoginAndAddProductsTest {
+public class ShoppingCartPageTest extends Helper {
 
     /**
      * Selectors String:
@@ -22,12 +25,17 @@ public class ShoppingCartPageTest extends LoginAndAddProductsTest {
     /**cssSelector to second edit(quantity) field.*/
     private String editFieldSelector2 = "#content > form > div > table "
             + "> tbody > tr:nth-child(2) > td:nth-child(4) > div > input";
+    /**cssSelector to third edit(quantity) field.*/
+    private String editFieldSelector3 = "#content > form > div > table "
+            + "> tbody > tr:nth-child(3) > td:nth-child(4) > div > input";
     /**cssSelector to unit price label.*/
-    private String unitPriceFieldSelector = "#content > form > div > table "
-            + "> tbody > tr:nth-child(1) > td:nth-child(5)";
+    private String unitPriceFieldSelector3 = "#content > form > div > table "
+            + "> tbody > tr:nth-child(3) > td:nth-child(5)";
+    /** Variable, price of one product. */
+    private double unitPrice3;
     /**cssSelector to total label.*/
-    private String totalFieldSelector = "#content > form > div > table "
-            + "> tbody > tr:nth-of-type(1) > td:nth-of-type(6)";
+    private String totalFieldSelector3 = "#content > form > div > table "
+            + "> tbody > tr:nth-of-type(3) > td:nth-of-type(6)";
 
     /**
      * Declaring webElements:
@@ -45,8 +53,42 @@ public class ShoppingCartPageTest extends LoginAndAddProductsTest {
             "//*[@id='content']/div/div/a[text()='Checkout']";
     /**Flag for checking are lists filled or not, false by default.*/
     private Boolean isListsFilled = false;
-    /**The int number equals 100.*/
+    /**The int constants number equals 100.*/
     private final int HUNDRED = 100;
+
+    /**
+     * Before class for start working with Shopping Cart page.
+     */
+    @BeforeClass
+    public void beforeClass() {
+        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.get(OPEN_CART_URL);
+        driver.manage().window().maximize();
+        logIn();
+        addProducts();
+    }
+
+    /**
+     * After class, 'cleaning' after all tests.
+     */
+    @AfterClass
+    public void afterClass() {
+        driver.findElement(By.cssSelector(
+                "i[class='fa fa-shopping-cart']")).click();
+        while (driver.findElements(By.cssSelector(
+                "#content > form")).size() > 0) {
+            driver.findElement(By.cssSelector(
+                    "#content > form > div > table "
+                            + "> tbody > tr:nth-child(1) >"
+                            + " td:nth-child(4) > div >"
+                            + " span > button.btn.btn-danger")).click();
+            driver.navigate().refresh();
+        }
+        logOut();
+        driver.quit();
+    }
 
     /**
      * Verify total value test.
@@ -58,13 +100,13 @@ public class ShoppingCartPageTest extends LoginAndAddProductsTest {
         int currentQuantity = Integer.parseInt(quantityList.get(0));
         driver.findElement(By.cssSelector(
                 "i[class='fa fa-shopping-cart']")).click();
-        unitPrice = getFloatNumber(driver.findElement(
-                By.cssSelector(unitPriceFieldSelector)).getText());
+        unitPrice3 = getFloatNumber(driver.findElement(
+                By.cssSelector(unitPriceFieldSelector3)).getText());
         return new Object[][]{
                 {currentQuantity, (double) Math.round(
-                        (currentQuantity * unitPrice)  * HUNDRED) / HUNDRED },
-                {7, (double) Math.round((7 * unitPrice) * HUNDRED) / HUNDRED },
-                {2, (double) Math.round((2 * unitPrice) * HUNDRED) / HUNDRED },
+                        (currentQuantity * unitPrice3)  * HUNDRED) / HUNDRED },
+                {7, (double) Math.round((7 * unitPrice3) * HUNDRED) / HUNDRED },
+                {2, (double) Math.round((2 * unitPrice3) * HUNDRED) / HUNDRED },
         };
     }
 
@@ -80,7 +122,7 @@ public class ShoppingCartPageTest extends LoginAndAddProductsTest {
         driver.findElement(By.cssSelector(
                 "i[class='fa fa-shopping-cart']")).click();
         WebElement quantityField = driver.findElement(
-                By.cssSelector(editFieldSelector1));
+                By.cssSelector(editFieldSelector3));
         quantityField.clear();
         quantityField.sendKeys(String.valueOf(newQuantity));
         webElementInit(refreshButton, refreshButtonXPath).click();
@@ -100,7 +142,7 @@ public class ShoppingCartPageTest extends LoginAndAddProductsTest {
         Assert.assertEquals(actualSuperTotal, expectedSuperTotal);
         double actual = getFloatNumber(
                 driver.findElement(By.cssSelector(
-                        totalFieldSelector)).getText());
+                        totalFieldSelector3)).getText());
         Assert.assertEquals(actual, expectedResult);
     }
 
@@ -112,17 +154,13 @@ public class ShoppingCartPageTest extends LoginAndAddProductsTest {
     @DataProvider
     public Object[][] accessToCheckout() {
         driver.get(OPEN_CART_URL);
-        driver.findElement(By.cssSelector(
-                "#content > div.row > div:nth-child(1) > div > "
-                        + "div.button-group > button:nth-child(1)")).click();
         fillLists();
         isListsFilled = true;
         String h1Text = driver.findElement(
                 By.xpath("//*[@id='content']/h1")).getText().substring(0, 7);
-        System.out.println("quantityOnStockList.get(0).toString() "
-                + quantityOnStockList.get(0).toString());
         return new Object[][]{
                 {quantityList.get(0), h1Text },
+                //positive pv for edit (quantity) field.
                 {quantityOnStockList.get(0).toString(), h1Text },
         };
     }
@@ -162,9 +200,6 @@ public class ShoppingCartPageTest extends LoginAndAddProductsTest {
     public Object[][] notAccessToCheckout() {
         driver.get(OPEN_CART_URL);
         driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS);
-        driver.findElement(By.cssSelector(
-                "#content > div.row > div:nth-child(1) > div > "
-                        + "div.button-group > button:nth-child(1)")).click();
         if (!isListsFilled) {
             fillLists();
         }
@@ -238,7 +273,8 @@ public class ShoppingCartPageTest extends LoginAndAddProductsTest {
     /**
      * Verifying that product will be successfully removing by Remove button.
      * @param deleteSelector - selector for the product, that will be removed.
-     * @param expectedRowCount - the count of rows in a table, after remove product.
+     * @param expectedRowCount - the count of rows in a table,
+     *                           after remove product.
      * @param expectedNotFindProductName - removing product name.
      */
     @Test (dataProvider = "rowDelete", priority = 6)
@@ -259,6 +295,10 @@ public class ShoppingCartPageTest extends LoginAndAddProductsTest {
         Assert.assertEquals(actualRowCount, expectedRowCount);
     }
 
+    /**
+     * Verify access to Home page by clicking on Continue Shopping button.
+     * Shopping Cart table is not empty.
+     */
     @Test (priority = 7)
     public void buttonContinueShoppingTest() {
         driver.get(OPEN_CART_URL);
@@ -273,6 +313,7 @@ public class ShoppingCartPageTest extends LoginAndAddProductsTest {
 
     /**
      * Verify access to Home page by clicking on Continue button.
+     * Shopping Cart table is empty.
      */
     @Test (priority = 8)
     public void buttonContinueTest() {

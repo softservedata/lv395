@@ -1,5 +1,7 @@
 /**
- * This package has one class Helper, that is used for testing OpenCart.
+ * This package has one class Helper.
+ * And two tests classes,
+ * that is used for part of testing OpenCart (Shopping Cart page).
  * @author Yurii Kril.
  */
 package com.softserve.edu.OpenCart;
