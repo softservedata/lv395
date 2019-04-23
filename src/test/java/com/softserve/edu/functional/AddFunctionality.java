@@ -20,6 +20,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 
@@ -115,8 +117,7 @@ public class AddFunctionality extends DatabaseConnector {
     public void cartCleaner(WebDriver driver, String URL) {
         driver.get("http://" + URL + "/opencart/upload/");
         // Set explicitly wait
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        new WebDriverWait(driver, 3);
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         if (driver.findElements(By.cssSelector("[title^='Remove'")).size() > 0) {
             List<WebElement> cartElementsTableRows;
             WebElement cartElementsTable = driver

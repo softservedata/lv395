@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="FirstSuite">
+<suite name="CartTestFirstSuite">
 
-    <test name="CartTest">
+    <test name="OrderingTest">
         <classes>
 
             <class name="com.softserve.edu.ordering_tests.GoodsListTest">
@@ -17,6 +17,18 @@
                 </methods>
             </class>
 
+            <class name="com.softserve.edu.ordering_tests.OrderInfoTest">
+                <methods>
+                    <include name="checkCartTableBoxes"/>
+                </methods>
+            </class>
+
+        </classes>
+    </test>
+
+    <test name="FunctionalityTests">
+        <classes>
+
             <class name="com.softserve.edu.functionality_test.CartFunctionalityTest">
                 <methods>
                     <include name="openCartTest"/>
@@ -25,12 +37,6 @@
                     <include name="removeOneItemTest"/>
                     <include name="removeAllItemsTest"/>
                     <include name="clickOnItemTest"/>
-                </methods>
-            </class>
-
-            <class name="com.softserve.edu.ordering_tests.OrderInfoTest">
-                <methods>
-                    <include name="checkCartTableBoxes"/>
                 </methods>
             </class>
 
@@ -46,6 +52,6 @@
             </class>
 
         </classes>
-    </test> <!-- Test -->
+    </test>
 
-</suite> <!-- Suite -->
+</suite>
