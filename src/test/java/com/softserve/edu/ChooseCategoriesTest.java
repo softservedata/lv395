@@ -129,8 +129,6 @@ public class ChooseCategoriesTest {
             productsFromWeb.add(webElement.getText());
         }
 
-        System.out.println(productsFromStorage.toString());
-        System.out.println(productsFromWeb.toString());
         String categoryName = driver.findElement(By.xpath(category)).getText();
 
         for (Product product : productsFromStorage) {
@@ -279,7 +277,7 @@ public class ChooseCategoriesTest {
      * @param categoryWeAreLookingFor       - name of category
      * @param useSearchInProductDescription - search in
      *                                      product description or not
-     * @param productsFromStorage
+     * @param productsFromStorage           -products from storage
      */
     @Test(dataProvider = "dataForPositiveTestingCategorySearchInSubCategory")
     public void searchInSubCategoriesPositiveTest(
@@ -311,7 +309,9 @@ public class ChooseCategoriesTest {
         FindAllProductsAndTheirCategories productsAndTheirCategories
                 = new FindAllProductsAndTheirCategories();
         List<String> categories = productsAndTheirCategories.
-                findCategories(webElements, categoryWeAreLookingFor);
+                findCategories(categoryWeAreLookingFor);
+        System.out.println(categories.toString());
+        System.out.println(products.toString());
         for (Product product : products) {
             boolean actual = false;
             for (int j = 0; j < product.getCategory().size(); j++) {

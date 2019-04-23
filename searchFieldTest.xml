@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite3">
+
+    <test name="Search Field And Button Test">
+        <classes>
+
+            <class name="com.softserve.edu.SearchFieldAndButtonTest">
+                <methods>
+                    <!--Tests for search field-->
+                    <!--positive tests-->
+                    <include name="chekSearchFieldPositiveTest"/>
+                    <include name="checkSearchFieldFieldSpaceBetweenCharactersTest"/>
+                    <include name="checkSearchFieldToSeeAllProductsPositiveTest"/>
+                    <include name="checkSearchFieldPositiveTest"/>
+                    <!--negative tests-->
+                    <include name="checkSearchFieldNegativeTest"/>
+                    <!--Tests for search button-->
+                    <include name="buttonForSearchFieldTest"/>
+                    <!--stress test-->
+                    <include name="stressSearchFieldTest"/>
+
+
+                </methods>
+            </class>
+
+        </classes>
+    </test>
+
+
+
+
+</suite> <!-- Suite -->

@@ -116,8 +116,8 @@ public class SearchInProductDescriptionTest {
                 + ip + "/opencart/upload/index.php?route=product/search&search="
                 + inputInTheSearchField + "&description=true";
         driver.findElement(By.id("input-search")).
-                sendKeys(inputInTheSearchField);
-        driver.findElement(By.id("input-search")).sendKeys(Keys.ENTER);
+                sendKeys(inputInTheSearchField+Keys.ENTER);
+
         List<WebElement> webElements = driver.findElements(By.xpath(
                 ".//div[@class='row']/div/div/div/div[@class='caption']/h4/a"));
         for (int i = 0; i < webElements.size(); i++) {
@@ -151,8 +151,9 @@ public class SearchInProductDescriptionTest {
                 = new FindAllProductsAndTheirCategories();
         List<String> products = findAllProductsAndTheirCategories.
                 findAllProductsOnAdminPage();
+        Assert.assertEquals(webElements.size(),products.size());
         for (int i = 0; i < webElements.size(); i++) {
-            Assert.assertTrue(products.contains( webElements.get(i).
+            Assert.assertTrue(products.contains(webElements.get(i).
                     getText()));
         }
     }

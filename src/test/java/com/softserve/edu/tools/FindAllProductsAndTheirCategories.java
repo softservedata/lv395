@@ -117,13 +117,11 @@ public class FindAllProductsAndTheirCategories {
      * findCategories - this method will find categories and
      * their subcategories, for products we will need.
      *
-     * @param webElements             - products, for what we need to know
-     *                                categories
+     *
      * @param categoryWeAreLookingFor - category we chose on the web page
      * @return list of categories
      */
     public List<String> findCategories(
-            final List<WebElement> webElements,
             final String categoryWeAreLookingFor) {
         System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
         System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");

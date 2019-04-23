@@ -1,7 +1,6 @@
 package com.softserve.edu;
 
 import com.softserve.edu.tools.FindAllProductsAndTheirCategories;
-import com.softserve.edu.tools.Product;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -182,7 +181,6 @@ public class SearchFieldAndButtonTest {
     }
 
 
-
     /**
      * Positive tests for search field + ENTER.
      * Use "%" to see all products.
@@ -200,6 +198,7 @@ public class SearchFieldAndButtonTest {
         List<String> products = findAllProductsAndTheirCategories.
                 findAllProductsOnAdminPage();
         System.out.println(products.toString());
+        Assert.assertEquals(webElements.size(), products.size());
         for (WebElement webElement : webElements) {
             Assert.assertTrue(products.contains(
                     webElement.getText()));
@@ -225,14 +224,16 @@ public class SearchFieldAndButtonTest {
         }
         Assert.assertTrue(elamantOnThePage);
     }
+
     /**
      * Negative test for keyword field.
      * We input value longer then 9000 characters
      */
     @Test
     public void stressKeywordFieldTest() {
+
         driver.findElement(By.name("search")).sendKeys(Keys.ENTER);
-        String str = "a";
+        String str = "";
         for (int i = 0; i < 9000; i++) {
             str += "a";
         }
@@ -265,11 +266,11 @@ public class SearchFieldAndButtonTest {
     }
 
     /**
-     * Negative tests for keywords field.
+     * Positive tests for keywords field.
      *
      * @param valueWeInputInKeywordsField - data we input into keywords field
      */
-    //positive testing
+
     @Test(dataProvider = "dataForTestingSearchFieldPositiveTesting")
     public void checkKeywordsFieldPositiveTest(
             final String valueWeInputInKeywordsField) {
