@@ -7,6 +7,8 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.TimeUnit;
+
 public class UC1_First_entry {
 
     public ChromeDriver driver;
@@ -28,14 +30,16 @@ public class UC1_First_entry {
      */
 
     @Test(priority = 1)
-    public void login() {
+    public void login()throws InterruptedException {
         driver.findElement(By.xpath("//a[contains(text(),'My Account')]")).click();
         driver.findElement(By.cssSelector("#input-email")).click();
         driver.findElement(By.cssSelector("#input-email"))
                 .sendKeys("maerstek@hotmail.com");
+        Thread.sleep(3000);  // only for demonstration
         driver.findElement(By.xpath("//input[@id='input-password']")).click();
         driver.findElement(By.xpath("//input[@id='input-password']"))
                 .sendKeys("Lv395_Taqc");
+        Thread.sleep(3000);  // only for demonstration
         driver.findElement(By.cssSelector("input[value*='Login']")).click();
         String title = driver.getTitle();
         Assert.assertTrue(title.equals("My Account"));
@@ -46,22 +50,27 @@ public class UC1_First_entry {
      * Wish list page
      */
     @Test(priority = 2)
-    public void checkWishList(){
+    public void checkWishList()throws InterruptedException{
         driver.findElement(By.cssSelector("i[class*='fa-heart']")).click();
         String wishTitle = driver.getTitle();
         Assert.assertTrue(wishTitle.equals("My Wish List"));
         Assert.assertEquals(driver.findElement(By.xpath("//div[@id='content']/h2"))
                         .getText(), "My Wish List");
+        Thread.sleep(3000);  // only for demonstration
     }
+
 
     /**
      * This method logging out from account
      */
     @Test(priority = 3)
-    public void logOut() {
+    public void logOut()throws InterruptedException {
         driver.findElement(By.cssSelector("span[class*='caret']")).click();
+        Thread.sleep(3000);  // only for demonstration
         driver.findElement(By.xpath("(//a[contains(text(),'Logout')])[1]")).click();
+        Thread.sleep(3000);  // only for demonstration
         driver.findElement(By.linkText("Continue")).click();
+        Thread.sleep(3000);  // only for demonstration
     }
 
     /**

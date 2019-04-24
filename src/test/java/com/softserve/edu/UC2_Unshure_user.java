@@ -34,12 +34,13 @@ public class UC2_Unshure_user {
      * correct credentials
      */
     @Test(priority = 1)
-    public void login() {
+    public void login()throws InterruptedException {
         driver.findElement(By.xpath("//a[contains(text(),'My Account')]")).click();
         driver.findElement(By.cssSelector("#input-email")).click();
         driver.findElement(By.cssSelector("#input-email")).sendKeys("maerstek@hotmail.com");
         driver.findElement(By.xpath("//input[@id='input-password']")).click();
         driver.findElement(By.xpath("//input[@id='input-password']")).sendKeys("Lv395_Taqc");
+        Thread.sleep(3000);  // only for demonstration
         driver.findElement(By.cssSelector("input[value*='Login']")).click();
         String title = driver.getTitle();
         Assert.assertTrue(title.equals("My Account"));
@@ -56,13 +57,16 @@ public class UC2_Unshure_user {
         item1 = driver.findElement(By.cssSelector("p[class*='price']")).getText();
         driver.findElement(By.xpath("//div[contains(@class,'button-group')]/button[2]/i")).click();
         Assert.assertEquals(driver.findElement(By.xpath("//div[contains(@class,'alert')]")).getText(), "Success: You have added Samsung Galaxy Tab 10.1 to your wish list!\n" + "×");
+        Thread.sleep(3000);  // only for demonstration
         driver.navigate().refresh();
         driver.findElement(By.linkText("Phones & PDAs")).click();
         item2 = driver.findElement(By.xpath("//div[@id='content']/div[2]/div[2]/div/div[2]/div[1]/p[2]")).getText();
         driver.findElement(By.xpath("//div[@id='content']/div[2]/div[2]/div/div[2]/div[2]/button[2]/i")).click();
         Thread.sleep(500);
         Assert.assertEquals(driver.findElement(By.xpath("//div[contains(@class,'alert')]")).getText(), "Success: You have added iPhone to your wish list!\n" + "×");
+        Thread.sleep(3000);  // only for demonstration
     }
+
 
     /**
      * This method going to Wish list page
@@ -70,9 +74,10 @@ public class UC2_Unshure_user {
      * Wish List page
      */
     @Test(priority = 3)
-    public void wishlistCheck() {
+    public void wishlistCheck() throws InterruptedException {
         driver.findElement(By.xpath("//a[@id='wishlist-total']/i")).click();
         driver.navigate().refresh();
+        Thread.sleep(3000);  // only for demonstration
         Assert.assertEquals(driver.findElement(By.linkText("iPhone")).getText(), "iPhone");
         Assert.assertEquals(driver.findElement(By.linkText("Samsung Galaxy Tab 10.1")).getText(), "Samsung Galaxy Tab 10.1");
         Assert.assertEquals(driver.findElement(By.xpath("//div[@id='content']/h2")).getText(), "My Wish List");
@@ -83,7 +88,7 @@ public class UC2_Unshure_user {
      * same price on Marketplace and on Wish List
      */
     @Test(priority = 4)
-    public void priceCheck() {
+    public void priceCheck() throws InterruptedException {
         Assert.assertEquals(item1, "$199.99\n" +
                 "Ex Tax: $199.99");
         Assert.assertEquals(item2, "$101.00\n" +
@@ -98,17 +103,21 @@ public class UC2_Unshure_user {
     public void clearList() throws InterruptedException {
         driver.findElement(By.xpath("//*[@id=\"content\"]/div[1]/table/tbody/tr[1]/td[6]/a")).click();
         driver.navigate().refresh();
-        driver.findElement(By.xpath("(//a[contains(@href,'opencart/upload/index.php')])[62]")).click();
+        Thread.sleep(3000);  // only for demonstration
+        driver.findElement(By.xpath("(//a[contains(@href,'opencart/upload/index.php')])[59]")).click();
         Assert.assertEquals(driver.findElement(By.cssSelector("div[id='content'] > p")).getText(), "Your wish list is empty.");
+        Thread.sleep(3000);  // only for demonstration
     }
 
     /**
      * This method logging out from account
      */
     @Test(priority = 5)
-    public void logOut() {
+    public void logOut()throws InterruptedException {
         driver.findElement(By.cssSelector("span[class*='caret']")).click();
+        Thread.sleep(3000);  // only for demonstration
         driver.findElement(By.xpath("(//a[contains(text(),'Logout')])[1]")).click();
+        Thread.sleep(3000);  // only for demonstration
         driver.findElement(By.linkText("Continue")).click();
     }
 
