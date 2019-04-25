@@ -5,7 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public abstract class AHeaderPart {
-
+    
+    protected final String TAG_ATTRIBUTE_VALUE = "value";
+    protected final String TAG_ATTRIBUTE_SRC = "src";
+    //
     protected WebDriver driver;
     //
     private WebElement searchField;

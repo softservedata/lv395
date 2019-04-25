@@ -17,7 +17,7 @@ public class SmokeTest {
                 this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("http://10.26.34.98/opencart/upload/");
+        driver.get("http://10.26.34.95/opencart/upload/");
         Thread.sleep(1000); // For Presentation Only
         //
         // Steps
