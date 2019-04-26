@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 
 public class HomePage extends AHeaderPart {
 
+    public static final String IPHONE_IMAGE = "iPhone6-1140x380.jpg";
+    //
     private WebElement slideshow0;
     //
     private ProductsContainerComponent productsContainerComponent;

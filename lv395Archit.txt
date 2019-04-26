@@ -1,5 +1,5 @@
-public WebElement get***() {}
-public String get***Text() {}
+public WebElement get***() { return *}
+public String get***Text() { return *}
 public void clear***() {}
 public void click***() {}
 public void set***(String text) {}

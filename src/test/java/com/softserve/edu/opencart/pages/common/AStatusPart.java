@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.softserve.edu.opencart.tools.LeaveUtils;
+
 public abstract class AStatusPart extends AHeaderPart {
 
     private final String BREADCRUMBSNAME_NOT_FOUND = "BreadcrumbsName: %s not Found.";
@@ -62,11 +64,8 @@ public abstract class AStatusPart extends AHeaderPart {
                 break;
             }
         }
-        if (result == null)
-        {
-            // TODO Develop Custom Exception 
-            throw new RuntimeException(String.format(BREADCRUMBSNAME_NOT_FOUND, breadcrumbName));
-        }
+        LeaveUtils.castExceptionByCondition(result == null,
+                String.format(BREADCRUMBSNAME_NOT_FOUND, breadcrumbName));
         return result;
     }
     
