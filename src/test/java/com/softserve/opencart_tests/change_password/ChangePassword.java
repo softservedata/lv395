@@ -53,7 +53,7 @@ public class ChangePassword {
     /**
      * Open url with log in page.
      */
-    public void openLoginPage() {
+    private void openLoginPage() {
         //Open url --> opencart
         driver.get(URL);
     }

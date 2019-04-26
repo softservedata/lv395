@@ -81,7 +81,7 @@ public class CheckLogin {
         // Check message
         if (actual.contains("Your account")) {
             Assert.assertEquals(actual, tooMuchRequestsMessage);
-        } else if(actual.contains("No match")){
+        } else if (actual.contains("No match")) {
             Assert.assertEquals(actual, failureMessage);
         } else {
             Assert.assertEquals(actual, successMessage);

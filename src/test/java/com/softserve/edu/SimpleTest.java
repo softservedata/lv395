@@ -1,7 +1,5 @@
 package com.softserve.edu;
 
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -11,13 +9,15 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.TimeUnit;
+
 public class SimpleTest {
     WebDriver driver;
 
     @Test
     public void checkSelenium() throws Exception {
         // Precondition
-        System.out.println("PATH to WebDriver + " + this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
+//        System.out.println("PATH to WebDriver + " + this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
         System.setProperty("webdriver.chrome.driver",
                 this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath());
         driver = new ChromeDriver();
