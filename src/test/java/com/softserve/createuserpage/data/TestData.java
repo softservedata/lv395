@@ -1,4 +1,4 @@
-package com.softserve.createuserpage;
+package com.softserve.createuserpage.data;
 
 /**
  * This is TestData class
