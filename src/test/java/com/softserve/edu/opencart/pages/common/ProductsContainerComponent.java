@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.softserve.edu.opencart.tools.LeaveUtils;
+
 public class ProductsContainerComponent {
 
     private final String PRODUCTNAME_NOT_FOUND = "ProductName: %s not Found.";
@@ -62,11 +64,8 @@ public class ProductsContainerComponent {
                 break;
             }
         }
-        if (result == null)
-        {
-            // TODO Develop Custom Exception 
-            throw new RuntimeException(String.format(PRODUCTNAME_NOT_FOUND, productName));
-        }
+        LeaveUtils.castExceptionByCondition(result == null,
+                String.format(PRODUCTNAME_NOT_FOUND, productName));
         return result;
     }
 

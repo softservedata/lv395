@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.softserve.edu.opencart.data.SearchFilter;
+
 public abstract class AHeaderPart {
     
     protected final String TAG_ATTRIBUTE_VALUE = "value";
@@ -34,7 +36,7 @@ public abstract class AHeaderPart {
     }
     
     public String getSearchFieldText() {
-        return getSearchField().getText();
+        return getSearchField().getAttribute(TAG_ATTRIBUTE_VALUE);
     }
     
     public void clearSearchField() {
@@ -48,7 +50,6 @@ public abstract class AHeaderPart {
     public void setSearchField(String text) {
         getSearchField().sendKeys(text);
     }
-    
     
     // searchButton
     public WebElement getSearchButton() {
@@ -69,11 +70,23 @@ public abstract class AHeaderPart {
     
     // Functional
 
+    // searchField
+    private void fillSearchField(String name) {
+        clickSearchField();
+        clearSearchField();
+        setSearchField(name);
+    }
+    
     // Business Logic
     
     public HomePage gotoHomePage() {
         clickLogo();
         return new HomePage(driver); 
     }
-    
+ 
+    public SuccessfulSearchPage searchProducts(SearchFilter searchItems) {
+        fillSearchField(searchItems.getProductSearchName());
+        clickSearchButton();
+        return new SuccessfulSearchPage(driver);
+    }
 }
