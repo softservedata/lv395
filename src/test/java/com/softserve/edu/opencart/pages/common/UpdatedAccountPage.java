@@ -2,10 +2,10 @@ package com.softserve.edu.opencart.pages.common;
 
 import org.openqa.selenium.WebDriver;
 
-public class UpdatedAccountPart extends AccountPart {
+public class UpdatedAccountPage extends AccountPage {
     //define elements
 
-    public UpdatedAccountPart(WebDriver driver) {
+    public UpdatedAccountPage(WebDriver driver) {
         super(driver);
         initElements();
     }

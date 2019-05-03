@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class EditAccountPart extends ARightLoginPart {
+public class EditAccountPage extends ARightLoginPart {
     private WebElement firstNameField;
     private WebElement lastNameField;
     private WebElement emailField;
@@ -14,7 +14,7 @@ public class EditAccountPart extends ARightLoginPart {
     private WebElement continueButton;
 
 
-    public EditAccountPart(WebDriver driver) {
+    public EditAccountPage(WebDriver driver) {
         super(driver);
         initElements();
     }

@@ -2,10 +2,10 @@ package com.softserve.edu.opencart.pages.common;
 
 import org.openqa.selenium.WebDriver;
 
-public class AddressBookPart extends ARightLoginPart {
+public class AddressBookPage extends ARightLoginPart {
     //define elements
 
-    public AddressBookPart(WebDriver driver) {
+    public AddressBookPage(WebDriver driver) {
         super(driver);
         initElements();
     }

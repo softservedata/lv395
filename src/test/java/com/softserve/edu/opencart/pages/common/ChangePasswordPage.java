@@ -4,13 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class ChangePasswordPart extends ARightLoginPart {
+public class ChangePasswordPage extends ARightLoginPart {
     private WebElement passwordField;
     private WebElement confirmPasswordField;
     private WebElement backButton;
     private WebElement continueButton;
 
-    public ChangePasswordPart(WebDriver driver) {
+    public ChangePasswordPage(WebDriver driver) {
         super(driver);
         initElements();
     }
