@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class ARightLoginPart extends ARightMenuPart {
+public abstract class ARightLoginPart extends ARightMenuPart {
     private WebElement myAccountButton;
     private WebElement editAccountButton;
     private WebElement passwordButton;
