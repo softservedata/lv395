@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.softserve.edu.opencart.data.Currencies;
+
 public class HomePage extends AHeaderPart {
 
     public static final String IPHONE_IMAGE = "iPhone6-1140x380.jpg";
@@ -50,4 +52,9 @@ public class HomePage extends AHeaderPart {
     // Functional
 
     // Business Logic
+
+    public HomePage chooseCurrency(Currencies currency) {
+        clickCurrencyByPartialName(currency);
+        return new HomePage(driver); 
+    }
 }

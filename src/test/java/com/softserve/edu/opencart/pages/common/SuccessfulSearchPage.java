@@ -2,6 +2,8 @@ package com.softserve.edu.opencart.pages.common;
 
 import org.openqa.selenium.WebDriver;
 
+import com.softserve.edu.opencart.data.Currencies;
+
 public class SuccessfulSearchPage extends ASearchPart {
 
     private SearchCriteriaComponent searchCriteriaComponent;
@@ -25,4 +27,9 @@ public class SuccessfulSearchPage extends ASearchPart {
     // Functional
 
     // Business Logic
+    
+    public SuccessfulSearchPage chooseCurrency(Currencies currency) {
+        clickCurrencyByPartialName(currency);
+        return new SuccessfulSearchPage(driver);
+    }
 }
