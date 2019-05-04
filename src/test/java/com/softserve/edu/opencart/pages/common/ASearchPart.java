@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 import com.softserve.edu.opencart.data.SearchFilter;
 import com.softserve.edu.opencart.tools.LeaveUtils;
 
-public class ASearchPart extends AStatusPart {
+public abstract class ASearchPart extends AStatusPart {
 
     public final String ALL_CATEGORIES = "All Categories";
     private final String SUBCATEGORY_NOT_SELECTED = "SubCategory is not selected";

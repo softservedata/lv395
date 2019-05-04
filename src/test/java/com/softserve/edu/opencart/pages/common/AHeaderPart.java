@@ -195,7 +195,7 @@ public abstract class AHeaderPart {
         clickSearchField();
         dropdownOptions = null;
     }
-    
+
     // Functional
 
     // currency
@@ -204,7 +204,7 @@ public abstract class AHeaderPart {
         clickCurrency();
         createDropdownOptions(By.cssSelector(LIST_CURENCIES_CSSSELECTOR));
     }
-    
+
     protected void clickCurrencyByPartialName(Currencies optionName) {
         openCurrencyDropdownOption();
         clickDropdownOptionByPartialName(optionName.toString());
