@@ -17,6 +17,7 @@ import com.softserve.edu.opencart.tools.LeaveUtils;
 public abstract class ATestRunner {
     private final String DRIVER_ERROR = "ERROR: Chromedriver not Found";
     private final String SERVER_URL = "http://taqc-opencart.epizy.com";
+
     // protected final Logger logger = LoggerFactory.getLogger(this.getClass());
     private WebDriver driver;
 
