@@ -14,5 +14,11 @@ public final class ProductRepository {
                 "Intel Core 2 Duo processor Powered by an Intel Core 2 Duo processor at speeds up to 2.1..",
                 "500.00");
     }
+
+    public static Product getIPhone3() {
+        return new Product("iPhone 3",
+                "iPhone is a revolutionary new mobile phone that allows you to make a call by simply tapping a nam..",
+                "101.00");
+    }
     
 }

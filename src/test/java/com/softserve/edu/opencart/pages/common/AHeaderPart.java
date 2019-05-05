@@ -280,4 +280,5 @@ public abstract class AHeaderPart {
         clickLoggedMyAccountByPartialName(LoggedMyAccount.LOGOUT);
         return new AccountLogoutPage(driver);
     }
+
 }

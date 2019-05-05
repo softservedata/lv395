@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.data;
 
+import java.util.Objects;
+
 public class Product {
 
     private String name;
