@@ -1,15 +1,20 @@
 package com.softserve.edu.opencart.pages.common;
 
 import com.softserve.edu.opencart.data.Product;
+import com.softserve.edu.opencart.tools.LeaveUtils;
+import com.softserve.edu.opencart.tools.PriceUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CartProductContainer {
 
+    private String PRODUCT_NOT_FOUND_ERROR_MSG = "Product not Found.";
+    //
     private static final String PRODUCT_COMPONENT_CSSSELECTOR = (".table.table-striped>tbody>tr");
     private static final String PRICE_TABLE_CSSSELECTOR = (".dropdown-menu.pull-right .table.table-bordered");
     //
@@ -46,10 +51,25 @@ public class CartProductContainer {
                 result = current;
             }
         }
-        if (result == null) {
-            throw new RuntimeException("ProductName: " + productName + " not Found.");
-        }
+        LeaveUtils.castExceptionByCondition(result == null, PRODUCT_NOT_FOUND_ERROR_MSG);
         return result;
+    }
+
+    public TotalPriceTableComponent getTotalPriceTableComponent(){
+        return new TotalPriceTableComponent(driver.findElement(By.cssSelector(PRICE_TABLE_CSSSELECTOR)));
+    }
+
+    public BigDecimal getCartProductPriceByName(String productName) {
+        return PriceUtils.getPrice(getCartProductComponentByName(productName).getCartProductPriceText());
+    }
+
+    private void removeProductFromCartByName(String productName) {
+        getCartProductComponentByName(productName).clickRemoveButton();
+    }
+
+    public HomePage removeProductByName(Product product) {
+        removeProductFromCartByName(product.getName());
+        return new HomePage(driver);
     }
 
     // Business Logic
