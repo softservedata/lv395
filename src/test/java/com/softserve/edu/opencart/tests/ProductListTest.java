@@ -60,11 +60,40 @@ public class ProductListTest extends ATestRunner {
                 firstProduct.getName());
         Assert.assertEquals(cartProductComponents.get(0).getCartProductNameText(),
                 secondProduct.getName());
-        // Step
+        // Steps
         cartProductContainer
                 .removeProductByName(firstProduct)
                 .openCartProductContainer()
                 .removeProductByName(secondProduct);
+
+    }
+
+    @DataProvider
+    public Object[][] thirdProductData() {
+        return new Object[][] {
+                {ProductRepository.getMacBook(), "x 2"}
+        };
+    }
+
+    @Test(dataProvider = "thirdProductData")
+    public void addSameItemMultipleTimesTest(Product product, String productQuantity) {
+       // Steps
+        CartProductContainer cartProductContainer = loadApplication()
+                .addProductToCart(product)
+                .gotoHomePage()
+                .addProductToCart(product)
+                .gotoHomePage()
+                .openCartProductContainer();
+        List<CartProductComponent> cartProductComponents = cartProductContainer
+                .getCartProductComponents();
+        // Check
+        Assert.assertEquals(cartProductComponents.get(0).getCartProductNameText(),
+                product.getName());
+        Assert.assertEquals(cartProductComponents.get(0).getCartProductQuantityText(),
+                productQuantity);
+        // Steps
+        cartProductContainer
+                .removeProductByName(product);
 
     }
 
