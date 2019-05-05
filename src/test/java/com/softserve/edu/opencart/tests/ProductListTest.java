@@ -56,8 +56,10 @@ public class ProductListTest extends ATestRunner {
         List<CartProductComponent> cartProductComponents = cartProductContainer
                 .getCartProductComponents();
         // Check
-       /* Assert.assertTrue(cartProductComponents.contains(firstProduct));
-        Assert.assertTrue(cartProductComponents.contains(secondProduct));*/
+        Assert.assertEquals(cartProductComponents.get(1).getCartProductNameText(),
+                firstProduct.getName());
+        Assert.assertEquals(cartProductComponents.get(0).getCartProductNameText(),
+                secondProduct.getName());
         // Step
         cartProductContainer
                 .removeProductByName(firstProduct)
