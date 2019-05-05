@@ -1,7 +1,10 @@
 package com.softserve.edu.opencart.pages.common;
 
+import com.softserve.edu.opencart.tools.PriceUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import java.math.BigDecimal;
 
 public class TotalPriceTableComponent {
 
@@ -15,7 +18,7 @@ public class TotalPriceTableComponent {
     // Page Object
 
     private WebElement getTableSubTotal(){
-        return totalTable.findElement(By.cssSelector(".table.table-bordered tr:first-child>td"));
+        return totalTable.findElement(By.cssSelector(".table.table-bordered tr:first-child>td+td"));
     }
 
     private WebElement getTableEcoTax(){
@@ -49,5 +52,21 @@ public class TotalPriceTableComponent {
     // Functional
 
     // Business logic
+
+    public BigDecimal getSubTotalValue() {
+        return PriceUtils.getPrice(getTableSubTotalText());
+    }
+
+    public BigDecimal getTableEcoTaxValue() {
+        return PriceUtils.getPrice(getTableEcoTaxText());
+    }
+
+    public BigDecimal getTableVATValue() {
+        return PriceUtils.getPrice(getTableVATText());
+    }
+
+    public BigDecimal getTableTotalValue() {
+        return PriceUtils.getPrice(getTableTotalText());
+    }
 
 }

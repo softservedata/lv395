@@ -74,18 +74,4 @@ public class CartProductContainer {
 
     // Business Logic
 
-    /*public HomePage removeAllProductsFromCart() {
-        List<CartProductComponent> productsInCart = getCartProductComponents();
-        HomePage homePage = new HomePage(driver);
-        if(productsInCart.size() > 0) {
-            for (CartProductComponent product : productsInCart) {
-                removeProductFromCartByName(product.getCartProductNameText());
-                homePage
-                        .gotoHomePage()
-                        .openCartProductContainer();
-            }
-        }
-        return homePage;
-    }*/
-
 }
