@@ -62,8 +62,9 @@ public abstract class ARightLoginPart extends ARightMenuPart {
         return getPasswordButton().getText();
     }
 
-    public void clickPasswordButton(){
+    public ChangePasswordPage clickPasswordButton(){
         getPasswordButton().click();
+        return new ChangePasswordPage(driver);
     }
 
     //addressBookButton
