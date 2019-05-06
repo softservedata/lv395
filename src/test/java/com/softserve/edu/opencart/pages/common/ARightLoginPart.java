@@ -48,8 +48,9 @@ public abstract class ARightLoginPart extends ARightMenuPart {
         return getEditAccountButton().getText();
     }
 
-    public void clickEditAccountButton(){
+    public EditAccountPage clickEditAccountButton(){
         getEditAccountButton().click();
+        return new EditAccountPage(driver);
     }
 
     //passwordButton

@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 public class MyAccountPage extends ARightLoginPart {
 
     public static final String MY_ACCOUNT_MESSAGE = "My Account";
+    public static final String MY_ACCOUNT_UPDATE_MESSAGE = "Success: Your account has been successfully updated.";
+    public MyAccountMessageComponent messageComponent;
     //
     private WebElement myAccountLabel;
     
@@ -32,6 +34,11 @@ public class MyAccountPage extends ARightLoginPart {
     }
     
     // Functional
+
+    public String getMessage(){
+        messageComponent = new MyAccountMessageComponent(driver);
+        return messageComponent.getMessageText();
+    }
 
     // Business Logic
 }

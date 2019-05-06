@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.pages.common;
 
+import com.softserve.edu.opencart.data.IUser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -147,29 +148,39 @@ public class EditAccountPage extends ARightLoginPart {
     }
 
     // Functional
-    public void changeFirstName(String text) {
+    public void changeFirstName(IUser user) {
         clickFirstNameField();
-        setFirstNameField(text);
+        setFirstNameField(user.getFirstname());
     }
 
-    public void changeLastName(String text) {
+    public void changeLastName(IUser user) {
         clickLastNameField();
-        setLastNameField(text);
+        setLastNameField(user.getLastname());
     }
 
-    public void changeEmail(String text) {
+    public void changeEmail(IUser user) {
         clickEmailField();
-        setEmailField(text);
+        setEmailField(user.getEmail());
     }
 
-    public void changeTelephone(String text) {
+    public void changeTelephone(IUser user) {
         clickTelephoneField();
-        setTelephoneField(text);
+        setTelephoneField(user.getTelephone());
     }
 
-    public void changeFax(String text) {
+    public void changeFax(IUser user) {
         clickFaxField();
-        setFaxField(text);
+        setFaxField(user.getFax());
     }
+
     // Business Logic
+    public MyAccountPage changeUserInfo(IUser user) {
+        changeFirstName(user);
+        changeEmail(user);
+        changeLastName(user);
+        changeTelephone(user);
+        changeFax(user);
+        clickContinueButton();
+        return new MyAccountPage(driver);
+    }
 }
