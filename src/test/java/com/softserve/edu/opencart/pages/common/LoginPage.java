@@ -99,7 +99,7 @@ public class LoginPage extends ARightLogoutPart {
         return new MyAccountPage(driver);
     }
 
-    public UnsuccessfulLoginPage unsuccessfullLogin(IUser invalidUser) {
+    public UnsuccessfulLoginPage unsuccessfulLogin(IUser invalidUser) {
         fillLoginForm(invalidUser);
         return new UnsuccessfulLoginPage(driver);
     }
