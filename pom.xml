@@ -265,7 +265,7 @@
 							<platform>${os.detected.name}</platform>
 							<platform>windows</platform>
 							<bit>32</bit>
-							<version>74.0.3729.6</version>
+							<version>74.0.372.6</version>
 							<url>https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_win32.zip</url>
 						</driver>
 					</drivers>

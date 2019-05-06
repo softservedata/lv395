@@ -55,8 +55,8 @@ interface IUserBuild {
 }
 
 public class User implements IFirstname, ILastname, IEmail,
-         ITelephone, IAddress, ICity, IPostcode, ICountry,
-         IRegion, IPassword, ISubscribe, IUserBuild, IUser {
+        ITelephone, IAddress, ICity, IPostcode, ICountry,
+        IRegion, IPassword, ISubscribe, IUserBuild, IUser {
 
     private String firstname;
     private String lastname;
@@ -211,7 +211,7 @@ public class User implements IFirstname, ILastname, IEmail,
     public IUser build() {
         return this;
     }
-    
+
     // getters
 
     public String getFirstname() {
