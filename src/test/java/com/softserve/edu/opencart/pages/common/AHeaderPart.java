@@ -299,4 +299,9 @@ public abstract class AHeaderPart {
         return new AccountLogoutPage(driver);
     }
 
+    public HomePage refresh() {
+        driver.navigate().refresh();
+        return new HomePage(driver);
+    }
+
 }

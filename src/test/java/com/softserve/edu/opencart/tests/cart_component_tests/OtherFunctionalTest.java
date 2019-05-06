@@ -56,7 +56,7 @@ public class OtherFunctionalTest extends ATestRunner {
         Assert.assertEquals(cartProductComponents.get(0).getCartProductNameText(),
                 product.getName());
         myAccountPage
-                .gotoHomePage()
+                .refresh()
                 .logout()
                 .continueHomePage()
                 .openCartProductContainer();
