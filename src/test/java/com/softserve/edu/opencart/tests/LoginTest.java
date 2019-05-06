@@ -15,7 +15,7 @@ public class LoginTest extends ATestRunner {
     @DataProvider // (parallel = true)
     public Object[][] validUsers() {
         return new Object[][] {
-            { UserRepository.get().johnWick()},
+            { UserRepository.get().johnWick() },
         };
     }
 
