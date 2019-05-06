@@ -259,6 +259,21 @@ public abstract class AHeaderPart {
         return new SuccessfulSearchPage(driver);
     }
 
+    //-------------------------------------------------------------------
+    public UnsuccessfulSearchPage searchIncorrectProducts(String  searchItem) {
+        fillSearchField(searchItem);
+        clickSearchButton();
+        return new UnsuccessfulSearchPage(driver);
+    }
+
+    //-------------------------------------------------------------------
+    public SuccessfulSearchPage searchProducts(String searchItem) {
+        fillSearchField(searchItem);
+        clickSearchButton();
+        return new SuccessfulSearchPage(driver);
+    }
+
+
     public UnsuccessfulSearchPage unsuccessfulSearch(String text) {
         fillSearchField(text);
         clickSearchButton();

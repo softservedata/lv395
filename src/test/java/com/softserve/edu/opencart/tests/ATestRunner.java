@@ -16,14 +16,14 @@ import com.softserve.edu.opencart.tools.LeaveUtils;
 
 public abstract class ATestRunner {
     private final String DRIVER_ERROR = "ERROR: Chromedriver not Found";
-    private final String SERVER_URL = "http://192.168.227.130/opencart/upload/";
+    private final String SERVER_URL = "http://192.168.36.134/opencart/upload/";
 
     // protected final Logger logger = LoggerFactory.getLogger(this.getClass());
     private WebDriver driver;
 
     @BeforeClass
     public void beforeClass() {
-        System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "lib/chromedriver-windows-32bit.exe");
         System.getProperty("webdriver.chrome.driver");
 //        URL url = this.getClass().getResource("/chromedriver.exe");
 //        LeaveUtils.castExceptionByCondition(url == null, DRIVER_ERROR);

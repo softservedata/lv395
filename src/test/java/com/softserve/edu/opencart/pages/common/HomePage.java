@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.pages.common;
 
+import com.softserve.edu.opencart.data.IProduct;
+import com.softserve.edu.opencart.data.Product;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -63,7 +65,7 @@ public class HomePage extends AHeaderPart {
         return new HomePage(driver); 
     }
 
-    public HomePage addProductToCart(Product product) {
+    public HomePage addProductToCart(IProduct product) {
         getProductsContainerComponent()
                 .clickProductComponentAddToCartButtonByName(product.getName());
         return new HomePage(driver);

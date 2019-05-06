@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.pages.common;
 
+import com.softserve.edu.opencart.data.IProduct;
+import com.softserve.edu.opencart.data.Product;
 import com.softserve.edu.opencart.tools.LeaveUtils;
 import com.softserve.edu.opencart.tools.PriceUtils;
 import org.openqa.selenium.By;
@@ -67,7 +69,7 @@ public class CartProductContainer {
         getCartProductComponentByName(productName).clickRemoveButton();
     }
 
-    public HomePage removeProductByName(Product product) {
+    public HomePage removeProductByName(IProduct product) {
         removeProductFromCartByName(product.getName());
         return new HomePage(driver);
     }

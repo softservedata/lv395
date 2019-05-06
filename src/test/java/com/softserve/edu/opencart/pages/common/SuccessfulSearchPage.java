@@ -32,4 +32,9 @@ public class SuccessfulSearchPage extends ASearchPart {
         clickCurrencyByPartialName(currency);
         return new SuccessfulSearchPage(driver);
     }
+    //--------------------------changes----------------------
+    public ProductPage chooseProduct(ProductComponent product){
+        product.clickName();
+        return new ProductPage(driver,product);
+    }
 }

@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.tests;
 
+import com.softserve.edu.opencart.data.IProduct;
+import com.softserve.edu.opencart.data.ProductRepository;
 import com.softserve.edu.opencart.pages.common.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -13,12 +15,12 @@ public class ProductListTest extends ATestRunner {
     public Object[][] productData() {
         return new Object[][] {
                 {ProductRepository.getMacBook()},
-                {ProductRepository.getIPhone3()}
+               // {ProductRepository.getIPhone3()}
         };
     }
 
     @Test(dataProvider = "productData")
-    public void checkAddToCartButton(Product product) {
+    public void checkAddToCartButton(IProduct product) {
         // Steps
         CartProductContainer cartProductContainer = loadApplication()
                 .addProductToCart(product)
@@ -37,12 +39,12 @@ public class ProductListTest extends ATestRunner {
     @DataProvider
     public Object[][] secondProductData() {
         return new Object[][] {
-                {ProductRepository.getMacBook(), ProductRepository.getIPhone3()}
+               // {ProductRepository.getMacBook(), ProductRepository.getIPhone3()}
         };
     }
 
     @Test(dataProvider = "secondProductData")
-    public void increaseQuantityOfItemsTest(Product firstProduct,Product secondProduct) {
+    public void increaseQuantityOfItemsTest(IProduct firstProduct, IProduct secondProduct) {
         // Steps
         CartProductContainer cartProductContainer = loadApplication()
                 .addProductToCart(firstProduct)
@@ -73,7 +75,7 @@ public class ProductListTest extends ATestRunner {
     }
 
     @Test(dataProvider = "thirdProductData")
-    public void addSameItemMultipleTimesTest(Product product, String productQuantity) {
+    public void addSameItemMultipleTimesTest(IProduct product, String productQuantity) {
        // Steps
         CartProductContainer cartProductContainer = loadApplication()
                 .addProductToCart(product)

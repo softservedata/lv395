@@ -108,5 +108,9 @@ public class ProductComponent {
     // Functional
 
     // Business Logic
-
+//-------------------changes-----------------
+    public ProductComponent setPartialDescriptionToFull(WebElement newDescription) {
+        this.partialDescription = newDescription;
+        return this;
+    }
 }

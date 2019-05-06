@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.tests;
 
+import com.softserve.edu.opencart.data.IProduct;
+import com.softserve.edu.opencart.data.ProductRepository;
 import com.softserve.edu.opencart.pages.common.TotalPriceTableComponent;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -29,7 +31,7 @@ public class PriceTableTest extends ATestRunner {
     }
 
     @Test(dataProvider = "productData")
-    public void checkTotalPriceTable(Product product) {
+    public void checkTotalPriceTable(IProduct product) {
         // Steps
         TotalPriceTableComponent totalPriceTableComponent = loadApplication()
                 .addProductToCart(product)

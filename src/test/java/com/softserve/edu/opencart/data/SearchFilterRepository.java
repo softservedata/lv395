@@ -16,5 +16,9 @@ public final class SearchFilterRepository {
     public static SearchFilter getMacWithFilter() {
         return new SearchFilter("mac", true, "Desktops", true);
     }
+    //-----------------------------------------------------------------
+    public static SearchFilter getFromDescription() {
+        return new SearchFilter("i", true, new String(), false);
+    }
 
 }
