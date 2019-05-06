@@ -61,6 +61,25 @@ public final class UserRepository {
                 .build();
     }
 
+    public IUser johnwick() {
+        return User.get()
+                .setFirstname("John")
+                .setLastname("Wick")
+                .setEmail("john.wick.test@ukr.net")
+                .setTelephone("8_telephone")
+                .setAddress1("8_address1")
+                .setCity("8_city")
+                .setPostcode("8_postcode")
+                .setCountry("8_country")
+                .setRegion("8_region")
+                .setPassword("qwerty")
+                .setSubscribe(true)
+                .setFax("8_fax")
+                .setCompany("8_company")
+                .setAddress2("8_address2")
+                .build();
+    }
+
     // TODO
    //public List<IUser> fromExcel() {}
    //public List<IUser> fromDB() { create class, read, max 5-7 lines}
