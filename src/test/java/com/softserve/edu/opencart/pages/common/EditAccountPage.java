@@ -176,8 +176,8 @@ public class EditAccountPage extends ARightLoginPart {
     // Business Logic
     public MyAccountPage changeUserInfo(IUser user) {
         changeFirstName(user);
-        changeEmail(user);
         changeLastName(user);
+        changeEmail(user);
         changeTelephone(user);
         changeFax(user);
         clickContinueButton();
