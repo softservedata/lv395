@@ -4,7 +4,7 @@
 
 	<test name="Test1">
 		<classes>
-			<class name="com.softserve.edu.opencart.tests.PriceTableTest" />
+			<class name="" />
 			<!-- <class name="com.softserve.edu.SimpleTest" /> -->
 		</classes>
 	</test> <!-- Test -->

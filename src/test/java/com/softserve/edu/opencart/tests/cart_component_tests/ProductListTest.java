@@ -1,8 +1,9 @@
-package com.softserve.edu.opencart.tests;
+package com.softserve.edu.opencart.tests.cart_component_tests;
 
 import com.softserve.edu.opencart.data.IProduct;
 import com.softserve.edu.opencart.data.ProductRepository;
 import com.softserve.edu.opencart.pages.common.*;
+import com.softserve.edu.opencart.tests.ATestRunner;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -15,7 +16,7 @@ public class ProductListTest extends ATestRunner {
     public Object[][] productData() {
         return new Object[][] {
                 {ProductRepository.getMacBook()},
-               // {ProductRepository.getIPhone3()}
+                {ProductRepository.getIPhone3()}
         };
     }
 
@@ -39,7 +40,7 @@ public class ProductListTest extends ATestRunner {
     @DataProvider
     public Object[][] secondProductData() {
         return new Object[][] {
-               // {ProductRepository.getMacBook(), ProductRepository.getIPhone3()}
+                {ProductRepository.getMacBook(), ProductRepository.getIPhone3()}
         };
     }
 

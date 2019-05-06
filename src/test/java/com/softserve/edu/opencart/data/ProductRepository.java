@@ -12,7 +12,8 @@ public final class ProductRepository {
     public static IProduct getMacBook() {
         return Product.get().setName("MacBook")
                 .setDescription("Intel Core 2 Duo processor Powered by an Intel Core 2 Duo processor at speeds up to 2.1..")
-                .setPriceDollarExTax("500.00").build();
+                .setPriceDollarExTax("500.00")
+                .build();
 
     }
 
@@ -26,6 +27,12 @@ public final class ProductRepository {
         return Product.get().setName("Canon EOS 5D")
                 .setDescription("Canon's press material for the EOS 5D states that it 'defines (a) new D-SLR category', while we'r..")
                 .setPriceDollarExTax("98.00")
+                .build();
+    }
+
+    public static IProduct getIPhone3(){
+        return Product.get().setName("iPhone 3")
+                .setPriceDollarExTax("101.00")
                 .build();
     }
 //    public static Product getHPLP3065(){

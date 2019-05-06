@@ -25,7 +25,7 @@ public class CheckoutPage extends AStatusPart {
         return checkoutLabel;
     }
 
-    public String checkoutLabelText(){
+    public String getCheckoutLabelText(){
         return getCheckoutLabel().getText();
     }
 
