@@ -23,7 +23,7 @@ public class ChangePasswordTest extends ATestRunner{
                 .successLogin(user)
                 .clickPasswordButton()
                 //TODO add data provider with password values
-                .changePassword("qwerty","qwerty");
+                .changePassword("qwerty");
 
         // Check
         Assert.assertEquals(MyAccountPage.MY_PASSWORD_UPDATE_MESSAGE
