@@ -1,9 +1,8 @@
 package com.softserve.edu.opencart.pages.account;
 
-import com.softserve.edu.opencart.pages.account.AccountPage;
 import org.openqa.selenium.WebDriver;
 
-public class UpdatedAccountPage extends AccountPage {
+public class UpdatedAccountPage extends MyAccountPage {
     //define elements
 
     public UpdatedAccountPage(WebDriver driver) {

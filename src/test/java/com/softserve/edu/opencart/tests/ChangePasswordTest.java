@@ -16,7 +16,7 @@ public class ChangePasswordTest extends ATestRunner{
     }
 
     @Test(dataProvider = "validUser")
-    public void checkLogin(IUser user) throws Exception {
+    public void changePasswordTest(IUser user) throws Exception {
         // Steps
         MyAccountPage myAccountPage = loadApplication()
                 .gotoLoginPage()

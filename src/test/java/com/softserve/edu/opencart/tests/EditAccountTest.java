@@ -16,7 +16,7 @@ public class EditAccountTest extends ATestRunner {
     }
 
     @Test(dataProvider = "validUser")
-    public void checkLogin(IUser user) throws Exception {
+    public void editAccountTest(IUser user) throws Exception {
         // Steps
         MyAccountPage myAccountPage = loadApplication()
                 .gotoLoginPage()
