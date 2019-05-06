@@ -11,25 +11,18 @@ public class UnsuccessfulLoginTest extends ATestRunner {
     @DataProvider // (parallel = true)
     public Object[][] invalidUsers() {
         return new Object[][] {
-                { UserRepository.get().johnWick()},
+                { UserRepository.get().userWithIncorrectCredentials() },
         };
     }
 
     @Test(dataProvider = "invalidUsers")
     public void checkLogin(IUser user) throws Exception {
         // Steps
-        UnsuccessfulLoginPage myAccountPage = loadApplication()
+        UnsuccessfulLoginPage unsuccessfulLoginPage = loadApplication()
                 .gotoLoginPage()
                 .unsuccessfulLogin(user);
         // Check
-        Assert.assertTrue(myAccountPage.getUnsuccessfulMessageText()
+        Assert.assertTrue(unsuccessfulLoginPage.getUnsuccessfulMessageText()
                 .equals(UnsuccessfulLoginPage.ERROR_MESSAGE));
-//        // Steps
-//        HomePage homePage = myAccountPage
-//                .logout()
-//                .continueHomePage();
-//        // Check
-//        Assert.assertTrue(homePage.getSlideshow0FirstImageAttributeSrcText()
-//                .contains(HomePage.IPHONE_IMAGE));
     }
 }

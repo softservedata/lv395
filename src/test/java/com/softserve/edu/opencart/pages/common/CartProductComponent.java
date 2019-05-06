@@ -67,7 +67,7 @@ public class CartProductComponent {
 
     // checkoutButton
     public WebElement getCheckoutButton() {
-        return cartProductLayout.findElement(By.xpath("//a[2]/strong"));
+        return cartProductLayout.findElement(By.xpath(".//p[@class='text-right']/a[2]"));
     }
 
     public void clickCheckoutButton() {

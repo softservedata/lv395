@@ -80,7 +80,7 @@ public class CartProductContainer {
         return new ShoppingCartPage(driver);
     }
 
-    public ShoppingCartPage gotoCheckoutPage() {
+    public CheckoutPage gotoCheckoutPage() {
         productComponents.get(0).clickCheckoutButton();
         return new CheckoutPage(driver);
     }

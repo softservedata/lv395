@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 
 public class CheckoutPage extends AStatusPart {
 
-    public static final String SHOPPING_CART_LABEL_TEXT = "Shopping Cart";
+    public static final String CHECKOUT_LABEL_TEXT = "Checkout";
     //
     WebElement checkoutLabel;
 
@@ -16,17 +16,17 @@ public class CheckoutPage extends AStatusPart {
     }
 
     public void initElements() {
-        shoppingCartLabel = driver.findElement(By.cssSelector(".col-sm-12 > h1"));
+        checkoutLabel = driver.findElement(By.cssSelector(".col-sm-12 > h1"));
     }
 
     // Page Object
 
-    public WebElement getShoppingCartLabel(){
-        return shoppingCartLabel;
+    public WebElement getCheckoutLabel(){
+        return checkoutLabel;
     }
 
-    public String getShoppingCartLabelText(){
-        return getShoppingCartLabel().getText();
+    public String checkoutLabelText(){
+        return getCheckoutLabel().getText();
     }
 
     // Functional
