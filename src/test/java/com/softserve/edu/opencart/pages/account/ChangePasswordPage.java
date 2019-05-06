@@ -99,9 +99,10 @@ public class ChangePasswordPage extends ARightLoginPart {
     }
 
     // Business Logic
-    public void changePassword(String password) {
+    public MyAccountPage changePassword(String password, String confirm) {
         setNewPassword(password);
-        confirmNewPassword(password);
+        confirmNewPassword(confirm);
         clickContinueButton();
+        return new MyAccountPage(driver);
     }
 }
