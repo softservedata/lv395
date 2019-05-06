@@ -440,7 +440,7 @@ public class RegisterPage extends ARightLogoutPart {
     }
 
     public void clickPrivacyPolicy() {
-        privacyPolicy.click();
+        getPrivacyPolicy().click();
     }
 
     //button
@@ -620,48 +620,48 @@ public class RegisterPage extends ARightLogoutPart {
     }
 
     //Error Messages
-
-    /**
-     * CheckErrorMessages;
-     */
-    public void checkErrorMessages() {
-        actualFirstNameError = driver.findElement(By.cssSelector("#account "
-                + "> div:nth-child(3) > div > div"));
-        actualLastNameError = driver.findElement(By.cssSelector("#account "
-                + "> div:nth-child(4) > div > div"));
-        actualEmailError = driver.findElement(By.cssSelector("#account "
-                + "> div:nth-child(5) > div > div"));
-        actualTelephoneError = driver.findElement(By.cssSelector("#account "
-                + "> div:nth-child(6) > div > div"));
-        actualAddressError = driver.findElement(By.cssSelector("#address "
-                + "> div:nth-child(3) > div > div"));
-        actualCityError = driver.findElement(By.cssSelector("#address "
-                + "> div:nth-child(5) > div > div"));
-        actualRegionError = driver.findElement(By.cssSelector("#address"
-                + " > div:nth-child(8) > div > div"));
-        actualPasswordError = driver.findElement(By.cssSelector("#content >"
-                + " form > fieldset:nth-child(3) >"
-                + " div.form-group.required.has-error >"
-                + " div > div"));
-
-        /////////////////////////////////////////////////////////////////////////
-        Assert.assertEquals("First Name must be between 1 and 32 characters!",
-                actualFirstNameError.getText());
-        Assert.assertEquals("Last Name must be between 1 and 32 characters!",
-                actualLastNameError.getText());
-        Assert.assertEquals("E-Mail Address does not appear to be valid!",
-                actualEmailError.getText());
-        Assert.assertEquals("Telephone must be between 3 and 32 characters!",
-                actualTelephoneError.getText());
-        Assert.assertEquals("Address 1 must be between 3 and 128 characters!",
-                actualAddressError.getText());
-        Assert.assertEquals("City must be between 2 and 128 characters!",
-                actualCityError.getText());
-        Assert.assertEquals("Please select a region / state!",
-                actualRegionError.getText());
-        Assert.assertEquals("Password must be between 4 and 20 characters!",
-                actualPasswordError.getText());
-    }
+//
+//    /**
+//     * CheckErrorMessages;
+//     */
+//    public void checkErrorMessages() {
+//        actualFirstNameError = driver.findElement(By.cssSelector("#account "
+//                + "> div:nth-child(3) > div > div"));
+//        actualLastNameError = driver.findElement(By.cssSelector("#account "
+//                + "> div:nth-child(4) > div > div"));
+//        actualEmailError = driver.findElement(By.cssSelector("#account "
+//                + "> div:nth-child(5) > div > div"));
+//        actualTelephoneError = driver.findElement(By.cssSelector("#account "
+//                + "> div:nth-child(6) > div > div"));
+//        actualAddressError = driver.findElement(By.cssSelector("#address "
+//                + "> div:nth-child(3) > div > div"));
+//        actualCityError = driver.findElement(By.cssSelector("#address "
+//                + "> div:nth-child(5) > div > div"));
+//        actualRegionError = driver.findElement(By.cssSelector("#address"
+//                + " > div:nth-child(8) > div > div"));
+//        actualPasswordError = driver.findElement(By.cssSelector("#content >"
+//                + " form > fieldset:nth-child(3) >"
+//                + " div.form-group.required.has-error >"
+//                + " div > div"));
+//
+//        /////////////////////////////////////////////////////////////////////////
+//        Assert.assertEquals("First Name must be between 1 and 32 characters!",
+//                actualFirstNameError.getText());
+//        Assert.assertEquals("Last Name must be between 1 and 32 characters!",
+//                actualLastNameError.getText());
+//        Assert.assertEquals("E-Mail Address does not appear to be valid!",
+//                actualEmailError.getText());
+//        Assert.assertEquals("Telephone must be between 3 and 32 characters!",
+//                actualTelephoneError.getText());
+//        Assert.assertEquals("Address 1 must be between 3 and 128 characters!",
+//                actualAddressError.getText());
+//        Assert.assertEquals("City must be between 2 and 128 characters!",
+//                actualCityError.getText());
+//        Assert.assertEquals("Please select a region / state!",
+//                actualRegionError.getText());
+//        Assert.assertEquals("Password must be between 4 and 20 characters!",
+//                actualPasswordError.getText());
+//    }
 
 
     //Business Logic
@@ -710,27 +710,27 @@ public class RegisterPage extends ARightLogoutPart {
 //        fillRegistrationFormWithNoPrivacyPolicy(validUser);
 //        return new UnsuccessfullRegisterPageAlert(driver);
 //    }
-//
-//    public UnsuccessfullRegisterPage userWithBadEmail(IUser userBadEmail) {
-//        fillRegistrationForm(userBadEmail);
-//        return new UnsuccessfullRegisterPage(driver);
-//    }
-//
-//    public UnsuccessfullRegisterPage userWithNoData(IUser emptyFieldsUser) {
-//        fillRegistrationForm(emptyFieldsUser);
-//        return new UnsuccessfullRegisterPage(driver);
-//    }
-//
-//    public UnsuccessfullRegisterPage userBoundary(IUser userBoundaryValues) {
-//        fillRegistrationForm(userBoundaryValues);
-//        return new UnsuccessfullRegisterPage(driver);
-//    }
-//
-//    public UnsuccessfullRegisterPage userWithFirstNameConsistsDigits(IUser userWithFirstNameConsistsDigits) {
-//        fillRegistrationForm(userWithFirstNameConsistsDigits);
-//        return new UnsuccessfullRegisterPage(driver);
-//
-//    }
+
+    public UnsuccessfullyRegisterPage userWithBadEmail(IUser userBadEmail) {
+        fillRegistrationForm(userBadEmail);
+        return new UnsuccessfullyRegisterPage(driver);
+    }
+
+    public UnsuccessfullyRegisterPage userWithNoData(IUser emptyFieldsUser) {
+        fillRegistrationForm(emptyFieldsUser);
+        return new UnsuccessfullyRegisterPage(driver);
+    }
+
+    public UnsuccessfullyRegisterPage userBoundary(IUser userBoundaryValues) {
+        fillRegistrationForm(userBoundaryValues);
+        return new UnsuccessfullyRegisterPage(driver);
+    }
+
+    public UnsuccessfullyRegisterPage userWithFirstNameConsistsDigits(IUser userWithFirstNameConsistsDigits) {
+        fillRegistrationForm(userWithFirstNameConsistsDigits);
+        return new UnsuccessfullyRegisterPage(driver);
+
+    }
 }
 
 
