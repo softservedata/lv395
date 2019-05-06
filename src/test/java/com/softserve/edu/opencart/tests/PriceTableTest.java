@@ -1,8 +1,5 @@
 package com.softserve.edu.opencart.tests;
 
-import com.softserve.edu.opencart.data.Product;
-import com.softserve.edu.opencart.data.ProductRepository;
-import com.softserve.edu.opencart.pages.common.CartProductContainer;
 import com.softserve.edu.opencart.pages.common.TotalPriceTableComponent;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -11,8 +8,6 @@ import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 
 public class PriceTableTest extends ATestRunner {
 

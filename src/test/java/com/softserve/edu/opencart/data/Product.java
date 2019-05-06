@@ -1,8 +1,18 @@
 package com.softserve.edu.opencart.data;
 
-import java.util.Objects;
+interface IName {
+    IProductBuild setName(String name);
+}
 
-public class Product {
+interface IProductBuild {
+    IProductBuild setDescription(String description);
+
+    IProductBuild setPriceDollarExTax(String priceDollarExTax);
+
+    IProduct build();
+}
+
+public class Product implements IName, IProductBuild, IProduct {
 
     private String name;
     private String description;
@@ -11,23 +21,54 @@ public class Product {
     // TODO
     // private HashMap<EnumCurrencies, Decimal> prices;
 
-    public Product(String name, String description, String priceDollarExTax) {
+//    public Product(String name, String description, String priceDollarExTax) {
+//        this.name = name;
+//        this.description = description;
+//        this.priceDollarExTax = priceDollarExTax;
+//    }
+
+    //    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
+//
+//    public void setPriceDollarExTax(String priceDollarExTax) {
+//        this.priceDollarExTax = priceDollarExTax;
+//    }
+
+
+
+    private Product() {
+        description = new String();
+        priceDollarExTax = new String();
+    }
+
+    public static IName get() {
+        return new Product();
+    }
+
+    public IProductBuild setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public IProductBuild setDescription(String description) {
         this.description = description;
-        this.priceDollarExTax = priceDollarExTax;
+        return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public IProductBuild setPriceDollarExTax(String priceDollarExTax) {
+        this.priceDollarExTax=priceDollarExTax;
+        return this;
+    }
+    public IProduct build(){
+        return this;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
-    public void setPriceDollarExTax(String priceDollarExTax) {
-        this.priceDollarExTax = priceDollarExTax;
-    }
 
     public String getName() {
         return name;
