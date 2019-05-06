@@ -22,14 +22,13 @@ public class RegisterPage extends ARightLogoutPart {
     private WebElement postcodeField;
     private WebElement passwordField;
     private WebElement confirmPasswordField;
+    private WebElement subscribeYes;
+    private WebElement subscribeNo;
     //drop downs
     private Select countryField;
-    //Buttons
-    private WebElement country;
-    private WebElement defaultCountry;
-    private WebElement regionField;
-    private WebElement region;
-    private WebElement submitButton;
+    private Select regionField;
+    //Button
+    private WebElement continueButton;
     //CheckBox
     private WebElement privacyPolicy;
     //Error Messages
@@ -63,18 +62,17 @@ public class RegisterPage extends ARightLogoutPart {
         cityField = driver.findElement(By.id("input-city"));
         postcodeField = driver.findElement(By.id("input-postcode"));
         countryField = new Select(driver.findElement(By.id("input-country")));
-        country = driver.findElement(By.cssSelector("#input-country "
-                + "> option:nth-child(8)"));
-        defaultCountry = driver.findElement(By.id("input-country"));
-        regionField = driver.findElement(By.id("input-zone"));
-        region = driver.findElement(By.cssSelector("select[id*='input-zone'] >"
-                + " option[value*='3519']"));
+        regionField = new Select(driver.findElement(By.id("input-zone")));
         passwordField = driver.findElement(By.id("input-password"));
         confirmPasswordField = driver.findElement(By.id("input-confirm"));
         privacyPolicy = driver.findElement(By
                 .cssSelector("input[type='checkbox']"));
-        submitButton = driver.findElement(By
+        continueButton = driver.findElement(By
                 .cssSelector("input[type='submit']"));
+        subscribeYes = driver.findElement(By.cssSelector("label.radio-inline" +
+                " > input[value='1']"));
+        subscribeNo = driver.findElement(By.cssSelector("label.radio-inline " +
+                " > input[value='0']"));
     }
 
     //fields
@@ -198,7 +196,7 @@ public class RegisterPage extends ARightLogoutPart {
      * Company;
      */
     public WebElement getCompany() {
-        return faxField;
+        return companyField;
     }
 
     public String getCompanyText() {
@@ -232,11 +230,11 @@ public class RegisterPage extends ARightLogoutPart {
         getAddress1().sendKeys(text);
     }
 
-    public void clearAdress1Field() {
+    public void clearAddress1Field() {
         getAddress1().clear();
     }
 
-    public void clickAdress1Field() {
+    public void clickAddress1Field() {
         getAddress1().click();
     }
 
@@ -255,11 +253,11 @@ public class RegisterPage extends ARightLogoutPart {
         getAddress2().sendKeys(text);
     }
 
-    public void clearAdress2Field() {
+    public void clearAddress2Field() {
         getAddress2().clear();
     }
 
-    public void clickAdress2Field() {
+    public void clickAddress2Field() {
         getAddress2().click();
     }
 
@@ -337,80 +335,100 @@ public class RegisterPage extends ARightLogoutPart {
         getCountryAsWebElement().click();
     }
 
+    /**
+     * Region;
+     */
+    public Select getRegion() {
+        return regionField;
+    }
+
+    public WebElement getRegionAsWebElement() {
+        return getRegion().getWrappedElement();
+    }
+
+    public WebElement getRegionSelected() {
+        return getRegion().getFirstSelectedOption();
+    }
+
+    public String getRegionSelectedText() {
+        return getRegionSelected().getText().trim();
+    }
+
+    protected void setRegion(String text) {
+        getRegion().selectByVisibleText(text);
+    }
+
+    public void clickRegion() {
+        getRegionAsWebElement().click();
+    }
 
     /**
      * PasswordField;
      */
-    public WebElement getPasswordField() {
+    public WebElement getPassword() {
         return passwordField;
     }
 
-    public void setPasswordField() {
-        getPasswordField().sendKeys();
+    public String getPasswordText() {
+        return getPassword().getAttribute(TAG_ATTRIBUTE_VALUE);
+    }
+
+    public void setPasswordField(String text) {
+        getPassword().sendKeys(text);
     }
 
     public void clearPasswordField() {
-        getPasswordField().clear();
+        getPassword().clear();
     }
 
     public void clickPasswordField() {
-        getPasswordField().click();
+        getPassword().click();
     }
 
     /**
      * ConfirmPasswordField;
      */
-    public WebElement getConfirmPasswordField() {
+    public WebElement getConfirmPassword() {
         return confirmPasswordField;
     }
 
-    public void setConfirmPasswordField() {
-        getConfirmPasswordField().sendKeys();
+    public String getConfirmPasswordText() {
+        return getConfirmPassword().getAttribute(TAG_ATTRIBUTE_VALUE);
+    }
+
+    public void setConfirmPasswordField(String text) {
+        getConfirmPassword().sendKeys(text);
     }
 
     public void clearConfirmPasswordField() {
-        getConfirmPasswordField().clear();
+        getConfirmPassword().clear();
     }
 
     public void clickConfirmPasswordField() {
-        getConfirmPasswordField().click();
-    }
-
-    //buttons
-
-    /**
-     * RegionField;
-     */
-    public WebElement getRegionField() {
-        return regionField;
-    }
-
-    public void clickRegionField() {
-        getRegionField().click();
+        getConfirmPassword().click();
     }
 
     /**
-     * Region;
+     * SubscribeYes
      */
-    public WebElement getRegion() {
-        return region;
+    public WebElement getSubscribeYes() {
+        return subscribeYes;
     }
 
-    public void clickRegion() {
-        getRegion().click();
+    public void clickSubscribeYes() {
+        getSubscribeYes().click();
     }
 
     /**
-     * SubmitButton;
+     * SubscribeNo
      */
-    public WebElement getSubmitButton() {
-        return submitButton;
+    public WebElement getSubscribeNo() {
+        return subscribeNo;
     }
 
-//        public ReceiptPage clickSubmitButton() {
-//            submitButton.click();
-//            return new ReceiptPage(driver);
-//        }
+    public void clickSubscribeNo() {
+        getSubscribeNo().click();
+    }
 
     //CheckBox
 
@@ -423,6 +441,182 @@ public class RegisterPage extends ARightLogoutPart {
 
     public void clickPrivacyPolicy() {
         privacyPolicy.click();
+    }
+
+    //button
+
+    /**
+     * SubmitButton;
+     */
+    public WebElement getContinueButton() {
+        return continueButton;
+    }
+
+    public String getContinueButtonText() {
+        return getContinueButton().getAttribute(TAG_ATTRIBUTE_VALUE);
+    }
+
+    public void clickContinueButton() {
+        getContinueButton().click();
+    }
+
+//        public ReceiptPage clickSubmitButton() {
+//            submitButton.click();
+//            return new ReceiptPage(driver);
+//        }
+
+    //functional
+    private void fillRegistrationForm(IUser user) {
+        clickFirstNameField();
+        clearFirstNameField();
+        setFirstNameField(user.getFirstname());
+
+        clickLastNameField();
+        clearLastNameField();
+        setLastNameField(user.getLastname());
+
+        clickEmailField();
+        clearEmailField();
+        setEmailField(user.getEmail());
+
+        clickTelephoneNumberField();
+        clearTelephoneNumberField();
+        setTelephoneNumberField(user.getTelephone());
+
+        clickFaxField();
+        clearFaxField();
+        if (user.getFax() != null && user.getFax().trim().length() > 0) {
+            setFaxField(user.getFax());
+        }
+
+        clickCompanyField();
+        clearCompanyField();
+        if (user.getCompany() != null && user.getCompany().trim().length() > 0) {
+            setCompanyField(user.getCompany());
+        }
+
+        clickAddress1Field();
+        clearAddress1Field();
+        setAddress1Field(user.getAddress1());
+
+        clickAddress2Field();
+        clearAddress2Field();
+        if (user.getAddress2() != null && user.getAddress2().trim().length() > 0) {
+            setAddress2Field(user.getAddress2());
+        }
+
+        clickCityField();
+        clearCityField();
+        setCityField(user.getCity());
+
+        clickPostcodeField();
+        clearPostcodeField();
+        setPostcodeField(user.getPostcode());
+
+        clickCountry();
+        setCountry(user.getCountry());//?
+
+        clickRegion();
+        setRegion(user.getRegion());//?
+
+        clickPasswordField();
+        clearPasswordField();
+        setPasswordField(user.getPassword());
+
+        clickConfirmPasswordField();
+        clearConfirmPasswordField();
+        if (user.getPassword() != null//?
+                && user.getPassword().trim().length() > 0) {
+            setConfirmPasswordField(user.getPassword());
+        } else {
+            setConfirmPasswordField(user.getPassword());
+        }//?
+
+        if (user.isSubscribe()) {
+            clickSubscribeYes();
+        } else {
+            clickSubscribeNo();
+        }
+
+        clickPrivacyPolicy();
+
+        clickContinueButton();
+    }
+
+    private void fillRegistrationFormWithNoPrivacyPolicy(IUser user) {
+        clickFirstNameField();
+        clearFirstNameField();
+        setFirstNameField(user.getFirstname());
+
+        clickLastNameField();
+        clearLastNameField();
+        setLastNameField((user.getLastname()));
+
+        clickEmailField();
+        clearEmailField();
+        setEmailField(user.getEmail());
+
+        clickTelephoneNumberField();
+        clearTelephoneNumberField();
+        setTelephoneNumberField((user.getTelephone()));
+
+        clickFaxField();
+        clearFaxField();
+        if (user.getFax() != null && user.getFax().trim().length() > 0) {
+            setFaxField(user.getFax());
+        }
+
+        clickCompanyField();
+        clearCompanyField();
+        if (user.getCompany() != null && user.getCompany().trim().length() > 0) {
+            setCompanyField(user.getCompany());
+        }
+
+        clickAddress1Field();
+        clearAddress1Field();
+        setAddress1Field(user.getAddress1());
+
+        clickAddress2Field();
+        clearAddress2Field();
+        if (user.getAddress2() != null && user.getAddress2().trim().length() > 0) {
+            setAddress2Field(user.getAddress2());
+        }
+
+        clickCityField();
+        clearCityField();
+        setCityField(user.getCity());
+
+        clickPostcodeField();
+        clearPostcodeField();
+        setPostcodeField(user.getPostcode());
+
+        clickCountry();
+        setCountry(user.getCountry());//.getCountryName()
+
+        clickRegion();
+        setRegion(user.getRegion());//.getRegionName()
+
+        clickPasswordField();
+        clearPasswordField();
+        setPasswordField(user.getPassword());
+
+        clickConfirmPasswordField();
+        clearConfirmPasswordField();
+        //.getConfirmPassword()
+        if (user.getPassword() != null
+                && user.getPassword().trim().length() > 0) {
+            setConfirmPasswordField(user.getPassword());
+        } else {
+            setConfirmPasswordField(user.getPassword());
+        }
+
+        if (user.isSubscribe()) {
+            clickSubscribeYes();
+        } else {
+            clickSubscribeNo();
+        }
+
+        clickContinueButton();
     }
 
     //Error Messages
@@ -477,14 +671,15 @@ public class RegisterPage extends ARightLogoutPart {
 //     */
 //    public void registerUserSuccessfully(IUser user) {
 //        setFirstNameField(user.getFirstname());
-//        setLastNameField();
-//        setEmailField();
-//        setTelephoneNumberField();
-//        setAddress1Field();
-//        setCityField();
-//        setPostcodeField();
-//        clickRegionField();
-//        clickRegion();
+//        setLastNameField(user.getLastname());
+//        setEmailField(user.getEmail());
+//        setTelephoneNumberField(user.getTelephone());
+//        setAddress1Field(user.getAddress1());
+//        setCityField(user.getCity());
+//        setPostcodeField(user.getPostcode());
+//        setCountry(user.getCountry());
+//        clickCountry();
+//
 //        setPasswordField();
 //        setConfirmPasswordField();
 //        clickPrivacyPolicy();
@@ -504,6 +699,37 @@ public class RegisterPage extends ARightLogoutPart {
 //        setPasswordField();
 //        setConfirmPasswordField();
 //        clickPrivacyPolicy();
+//    }
+
+    public AccountPage successfullRegisterUser(IUser validUser) {
+        fillRegistrationForm(validUser);
+        return new AccountPage(driver);
+    }
+
+//    public UnsuccessfullRegisterPageAlert userWithNoPrivacyPolicy(IUser validUser) {
+//        fillRegistrationFormWithNoPrivacyPolicy(validUser);
+//        return new UnsuccessfullRegisterPageAlert(driver);
+//    }
+//
+//    public UnsuccessfullRegisterPage userWithBadEmail(IUser userBadEmail) {
+//        fillRegistrationForm(userBadEmail);
+//        return new UnsuccessfullRegisterPage(driver);
+//    }
+//
+//    public UnsuccessfullRegisterPage userWithNoData(IUser emptyFieldsUser) {
+//        fillRegistrationForm(emptyFieldsUser);
+//        return new UnsuccessfullRegisterPage(driver);
+//    }
+//
+//    public UnsuccessfullRegisterPage userBoundary(IUser userBoundaryValues) {
+//        fillRegistrationForm(userBoundaryValues);
+//        return new UnsuccessfullRegisterPage(driver);
+//    }
+//
+//    public UnsuccessfullRegisterPage userWithFirstNameConsistsDigits(IUser userWithFirstNameConsistsDigits) {
+//        fillRegistrationForm(userWithFirstNameConsistsDigits);
+//        return new UnsuccessfullRegisterPage(driver);
+//
 //    }
 }
 
