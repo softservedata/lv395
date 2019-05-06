@@ -8,6 +8,8 @@ public class MyAccountPage extends ARightLoginPart {
 
     public static final String MY_ACCOUNT_MESSAGE = "My Account";
     public static final String MY_ACCOUNT_UPDATE_MESSAGE = "Success: Your account has been successfully updated.";
+    public static final String MY_PASSWORD_UPDATE_MESSAGE = "Success: Your password has been successfully updated.";
+
     private MyAccountMessageComponent messageComponent;
     //
     private WebElement myAccountLabel;
