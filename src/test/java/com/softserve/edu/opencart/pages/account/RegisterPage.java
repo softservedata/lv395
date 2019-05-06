@@ -31,16 +31,6 @@ public class RegisterPage extends ARightLogoutPart {
     private WebElement continueButton;
     //CheckBox
     private WebElement privacyPolicy;
-    //Error Messages
-    private WebElement actualFirstNameError;
-    private WebElement actualLastNameError;
-    private WebElement actualEmailError;
-    private WebElement actualTelephoneError;
-    private WebElement actualAddressError;
-    private WebElement actualCityError;
-    private WebElement actualRegionError;
-    private WebElement actualPasswordError;
-
 
     public RegisterPage(WebDriver driver) {
         super(driver);
@@ -460,11 +450,6 @@ public class RegisterPage extends ARightLogoutPart {
         getContinueButton().click();
     }
 
-//        public ReceiptPage clickSubmitButton() {
-//            submitButton.click();
-//            return new ReceiptPage(driver);
-//        }
-
     //functional
     private void fillRegistrationForm(IUser user) {
         clickFirstNameField();
@@ -701,16 +686,26 @@ public class RegisterPage extends ARightLogoutPart {
 //        clickPrivacyPolicy();
 //    }
 
-    public AccountPage successfullRegisterUser(IUser validUser) {
-        fillRegistrationForm(validUser);
-        return new AccountPage(driver);
+    //valid user with valid registration
+    public MyAccountPage successfullyRegisterUser(IUser validBoundaryUser) {
+        //valid registration
+        fillRegistrationForm(validBoundaryUser);
+        return new MyAccountPage(driver);
     }
 
-//    public UnsuccessfullRegisterPageAlert userWithNoPrivacyPolicy(IUser validUser) {
-//        fillRegistrationFormWithNoPrivacyPolicy(validUser);
-//        return new UnsuccessfullRegisterPageAlert(driver);
-//    }
+    //valid user with invalid registration
+    public MyAccountPage registerUserWithoutPolicy(IUser validBoundaryUser) {
+        fillRegistrationFormWithNoPrivacyPolicy(validBoundaryUser);
+        return new MyAccountPage(driver);
+    }
 
+    //invalid user bad boundary data with valid registration
+    public UnsuccessfullyRegisterPage userWithBadData(IUser invalidBoundaryUser) {
+        fillRegistrationForm(invalidBoundaryUser);
+        return new UnsuccessfullyRegisterPage(driver);
+    }
+
+    //invalid user with bad email valid registration
     public UnsuccessfullyRegisterPage userWithBadEmail(IUser userBadEmail) {
         fillRegistrationForm(userBadEmail);
         return new UnsuccessfullyRegisterPage(driver);
@@ -726,10 +721,17 @@ public class RegisterPage extends ARightLogoutPart {
         return new UnsuccessfullyRegisterPage(driver);
     }
 
+//    public UnsuccessfullRegisterPageAlert userWithNoPrivacyPolicy(IUser validUser) {
+//        fillRegistrationFormWithNoPrivacyPolicy(validUser);
+//        return new UnsuccessfullRegisterPageAlert(driver);
+//    }
+
+
+
+
     public UnsuccessfullyRegisterPage userWithFirstNameConsistsDigits(IUser userWithFirstNameConsistsDigits) {
         fillRegistrationForm(userWithFirstNameConsistsDigits);
         return new UnsuccessfullyRegisterPage(driver);
-
     }
 }
 
