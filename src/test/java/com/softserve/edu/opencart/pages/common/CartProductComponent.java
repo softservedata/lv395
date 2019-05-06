@@ -13,7 +13,7 @@ public class CartProductComponent {
 
     // cartProductImg
     public WebElement getCartProductImg() {
-        return cartProductLayout.findElement(By.cssSelector("td:nth-child(1)>a>img"));
+        return cartProductLayout.findElement(By.cssSelector(".dropdown-menu.pull-right"));
     }
 
     // cartProductName
@@ -58,7 +58,7 @@ public class CartProductComponent {
 
     // viewCartButton
     public WebElement getViewCartButton() {
-        return cartProductLayout.findElement(By.xpath(".//p[@class='text-right']/a[1]"));
+        return cartProductLayout.findElement(By.xpath("//a[1]/strong"));
     }
 
     public void clickViewCartButton() {

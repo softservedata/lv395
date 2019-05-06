@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CartProductContainer {
 
-    private String PRODUCT_NOT_FOUND_ERROR_MSG = "Product not Found.";
+    private String PRODUCT_NOT_FOUND_ERROR_MSG = "Product name: %s not Found.";
     //
     private static final String PRODUCT_COMPONENT_CSSSELECTOR = (".table.table-striped>tbody>tr");
     private static final String PRICE_TABLE_CSSSELECTOR = (".dropdown-menu.pull-right .table.table-bordered");
@@ -51,7 +51,8 @@ public class CartProductContainer {
                 result = current;
             }
         }
-        LeaveUtils.castExceptionByCondition(result == null, PRODUCT_NOT_FOUND_ERROR_MSG);
+        LeaveUtils.castExceptionByCondition(result == null,
+                String.format(PRODUCT_NOT_FOUND_ERROR_MSG, productName));
         return result;
     }
 
@@ -73,5 +74,10 @@ public class CartProductContainer {
     }
 
     // Business Logic
+
+    public ShoppingCartPage gotoShoppingCartPage() {
+        productComponents.get(0).clickViewCartButton();
+        return new ShoppingCartPage(driver);
+    }
 
 }
