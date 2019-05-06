@@ -2,7 +2,6 @@ package com.softserve.edu.opencart.tests;
 
 import com.softserve.edu.opencart.data.Product;
 import com.softserve.edu.opencart.data.ProductRepository;
-import com.softserve.edu.opencart.data.SearchFilterRepository;
 import com.softserve.edu.opencart.pages.common.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
