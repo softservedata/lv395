@@ -28,14 +28,17 @@ public class ChangePasswordPage extends ARightLoginPart {
     public WebElement getPasswordField() {
         return passwordField;
     }
-    public void clickPasswordField(){
+
+    public void clickPasswordField() {
         getPasswordField().click();
     }
-    public void setPasswordField(String text){
+
+    public void setPasswordField(String text) {
         getPasswordField().clear();
         getPasswordField().sendKeys(text);
     }
-    public String getPasswordFieldText(){
+
+    public String getPasswordFieldText() {
         return getPasswordField().getText();
     }
 
@@ -43,51 +46,59 @@ public class ChangePasswordPage extends ARightLoginPart {
     public WebElement getConfirmPasswordField() {
         return confirmPasswordField;
     }
-    public void clickConfirmPasswordField(){
+
+    public void clickConfirmPasswordField() {
         getConfirmPasswordField().click();
     }
-    public void setConfirmPasswordField(String text){
+
+    public void setConfirmPasswordField(String text) {
         getConfirmPasswordField().clear();
         getConfirmPasswordField().sendKeys(text);
     }
-    public String getConfirmPasswordFieldText(){
+
+    public String getConfirmPasswordFieldText() {
         return getConfirmPasswordField().getText();
     }
 
     //backButton
-    public WebElement getBackButton(){
+    public WebElement getBackButton() {
         return backButton;
     }
-    public void clickBackButton(){
+
+    public void clickBackButton() {
         getBackButton().click();
     }
-    public String getBackButtonText(){
+
+    public String getBackButtonText() {
         return getBackButton().getText();
     }
 
     //continueButton
-    public WebElement getContinueButton(){
+    public WebElement getContinueButton() {
         return continueButton;
     }
-    public void clickContinueButton(){
+
+    public void clickContinueButton() {
         getContinueButton().click();
     }
-    public String getContinueButtonText(){
+
+    public String getContinueButtonText() {
         return getBackButton().getText();
     }
 
     // Functional
-    public void setNewPassword(String password){
+    public void setNewPassword(String password) {
         clickPasswordField();
         setPasswordField(password);
     }
-    public void confirmNewPassword(String password){
+
+    public void confirmNewPassword(String password) {
         clickConfirmPasswordField();
         setConfirmPasswordField(password);
     }
 
     // Business Logic
-    public void changePassword(String password){
+    public void changePassword(String password) {
         setNewPassword(password);
         confirmNewPassword(password);
         clickContinueButton();

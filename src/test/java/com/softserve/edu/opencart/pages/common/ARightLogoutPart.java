@@ -2,7 +2,7 @@ package com.softserve.edu.opencart.pages.common;
 
 import org.openqa.selenium.WebDriver;
 
-public class ARightLogoutPart extends ARightMenuPart {
+public abstract class ARightLogoutPart extends ARightMenuPart {
 
     public ARightLogoutPart(WebDriver driver) {
         super(driver);

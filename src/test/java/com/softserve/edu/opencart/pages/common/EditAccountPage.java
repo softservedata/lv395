@@ -147,23 +147,27 @@ public class EditAccountPage extends ARightLoginPart {
     }
 
     // Functional
-    public void changeFirstName(String text){
+    public void changeFirstName(String text) {
         clickFirstNameField();
         setFirstNameField(text);
     }
-    public void changeLastName(String text){
+
+    public void changeLastName(String text) {
         clickLastNameField();
         setLastNameField(text);
     }
-    public void changeEmail(String text){
+
+    public void changeEmail(String text) {
         clickEmailField();
         setEmailField(text);
     }
-    public void changeTelephone(String text){
+
+    public void changeTelephone(String text) {
         clickTelephoneField();
         setTelephoneField(text);
     }
-    public void changeFax(String text){
+
+    public void changeFax(String text) {
         clickFaxField();
         setFaxField(text);
     }
