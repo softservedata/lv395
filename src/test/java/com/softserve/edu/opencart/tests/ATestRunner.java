@@ -23,7 +23,7 @@ public abstract class ATestRunner {
 
     @BeforeClass
     public void beforeClass() {
-        URL url = this.getClass().getResource("/chromedriver-windows-32bit.exe");
+        URL url = this.getClass().getResource("/chromedriver.exe");
         LeaveUtils.castExceptionByCondition(url == null, DRIVER_ERROR);
         System.setProperty("webdriver.chrome.driver", url.getPath());
         // this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath().substring(1));
