@@ -1,11 +1,12 @@
-package com.softserve.edu.opencart.pages.common;
+package com.softserve.edu.opencart.pages.account;
 
+import com.softserve.edu.opencart.pages.account.AccountPage;
 import org.openqa.selenium.WebDriver;
 
-public class AccountPage extends ARightLoginPart {
+public class UpdatedAccountPage extends AccountPage {
     //define elements
 
-    public AccountPage(WebDriver driver) {
+    public UpdatedAccountPage(WebDriver driver) {
         super(driver);
         initElements();
     }

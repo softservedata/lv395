@@ -1,12 +1,11 @@
-package com.softserve.edu.opencart.pages.common;
+package com.softserve.edu.opencart.pages.account;
 
 import org.openqa.selenium.WebDriver;
 
-public class WishListPage extends ARightLoginPart {
-//define elements
-    private WishListComponent wishListComponent;
+public class AccountPage extends ARightLoginPart {
+    //define elements
 
-    public WishListPage(WebDriver driver) {
+    public AccountPage(WebDriver driver) {
         super(driver);
         initElements();
     }

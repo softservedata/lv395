@@ -1,4 +1,4 @@
-package com.softserve.edu.opencart.pages.common;
+package com.softserve.edu.opencart.pages.account;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

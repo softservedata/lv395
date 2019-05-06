@@ -2,6 +2,9 @@ package com.softserve.edu.opencart.pages.common;
 
 import java.util.List;
 
+import com.softserve.edu.opencart.pages.account.AccountLogoutPage;
+import com.softserve.edu.opencart.pages.account.LoginPage;
+import com.softserve.edu.opencart.pages.account.RegisterPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

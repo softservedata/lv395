@@ -7,8 +7,7 @@ import org.testng.annotations.Test;
 import com.softserve.edu.opencart.data.IUser;
 import com.softserve.edu.opencart.data.UserRepository;
 import com.softserve.edu.opencart.pages.common.HomePage;
-import com.softserve.edu.opencart.pages.common.MyAccountPage;
-import com.softserve.edu.opencart.pages.common.ProductComponent;
+import com.softserve.edu.opencart.pages.account.MyAccountPage;
 
 public class LoginTest extends ATestRunner {
 

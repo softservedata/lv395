@@ -1,5 +1,6 @@
-package com.softserve.edu.opencart.pages.common;
+package com.softserve.edu.opencart.pages.account;
 
+import com.softserve.edu.opencart.pages.account.ARightLoginPart;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
