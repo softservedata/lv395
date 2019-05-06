@@ -13,16 +13,15 @@ public class MyAccountMessageComponent {
         initElements();
     }
 
-    private void initElements(){
+    private void initElements() {
         message = driver.findElement(By.cssSelector("div[class*='alert']"));
     }
 
-    public WebElement getMessage(){
+    public WebElement getMessage() {
         return message;
     }
 
-    public String getMessageText(){
+    public String getMessageText() {
         return getMessage().getText();
     }
-
 }

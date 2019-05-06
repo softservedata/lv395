@@ -8,10 +8,10 @@ public class MyAccountPage extends ARightLoginPart {
 
     public static final String MY_ACCOUNT_MESSAGE = "My Account";
     public static final String MY_ACCOUNT_UPDATE_MESSAGE = "Success: Your account has been successfully updated.";
-    public MyAccountMessageComponent messageComponent;
+    private MyAccountMessageComponent messageComponent;
     //
     private WebElement myAccountLabel;
-    
+
     public MyAccountPage(WebDriver driver) {
         super(driver);
         initElements();
@@ -21,7 +21,7 @@ public class MyAccountPage extends ARightLoginPart {
         myAccountLabel = driver.findElement(By.cssSelector("#content > h2:first-child"));
         //myAccountLabel = driver.findElement(By.xpath("//div[@id='content']/h2[contains(text(), 'cc')]"));
     }
-    
+
     // Page Object
 
     // myAccountLabel
@@ -32,10 +32,10 @@ public class MyAccountPage extends ARightLoginPart {
     public String getMyAccountLabelText() {
         return getMyAccountLabel().getText();
     }
-    
+
     // Functional
 
-    public String getMessage(){
+    public String getMessage() {
         messageComponent = new MyAccountMessageComponent(driver);
         return messageComponent.getMessageText();
     }
