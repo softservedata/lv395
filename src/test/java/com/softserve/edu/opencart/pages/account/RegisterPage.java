@@ -450,64 +450,92 @@ public class RegisterPage extends ARightLogoutPart {
         getContinueButton().click();
     }
 
+    //TODO Methods
     //functional
-    private void fillRegistrationForm(IUser user) {
+
+    public void fillFirstName(IUser user) {
         clickFirstNameField();
         clearFirstNameField();
         setFirstNameField(user.getFirstname());
+    }
 
+    public void fillLastName(IUser user) {
         clickLastNameField();
         clearLastNameField();
         setLastNameField(user.getLastname());
+    }
 
+    public void fillEmail(IUser user) {
         clickEmailField();
         clearEmailField();
         setEmailField(user.getEmail());
+    }
 
+    public void fillTelephone(IUser user) {
         clickTelephoneNumberField();
         clearTelephoneNumberField();
         setTelephoneNumberField(user.getTelephone());
+    }
 
+    public void fillFax(IUser user) {
         clickFaxField();
         clearFaxField();
         if (user.getFax() != null && user.getFax().trim().length() > 0) {
             setFaxField(user.getFax());
         }
+    }
 
+    public void fillCompany(IUser user) {
         clickCompanyField();
         clearCompanyField();
         if (user.getCompany() != null && user.getCompany().trim().length() > 0) {
             setCompanyField(user.getCompany());
         }
+    }
 
+    public void fillAddress1(IUser user) {
         clickAddress1Field();
         clearAddress1Field();
         setAddress1Field(user.getAddress1());
+    }
 
+    public void fillAddress2(IUser user) {
         clickAddress2Field();
         clearAddress2Field();
         if (user.getAddress2() != null && user.getAddress2().trim().length() > 0) {
             setAddress2Field(user.getAddress2());
         }
+    }
 
+    public void fillCity(IUser user) {
         clickCityField();
         clearCityField();
         setCityField(user.getCity());
+    }
 
+    public void fillPostcode(IUser user) {
         clickPostcodeField();
         clearPostcodeField();
         setPostcodeField(user.getPostcode());
+    }
 
+    public void fillCountry(IUser user) {
         clickCountry();
         setCountry(user.getCountry());//?
+    }
 
+    public void fillRegion (IUser user) {
         clickRegion();
         setRegion(user.getRegion());//?
+    }
 
+    public void fillPassword(IUser user) {
         clickPasswordField();
         clearPasswordField();
         setPasswordField(user.getPassword());
+    }
 
+    public void fillConfirmPassword(IUser user) {
         clickConfirmPasswordField();
         clearConfirmPasswordField();
         if (user.getPassword() != null//?
@@ -516,175 +544,57 @@ public class RegisterPage extends ARightLogoutPart {
         } else {
             setConfirmPasswordField(user.getPassword());
         }//?
+    }
 
+    public void subscribe(IUser user) {
         if (user.isSubscribe()) {
             clickSubscribeYes();
         } else {
             clickSubscribeNo();
         }
+    }
 
+    private void fillRegistrationForm(IUser user) {
+        fillFirstName(user);
+        fillLastName(user);
+        fillEmail(user);
+        fillTelephone(user);
+        fillFax(user);
+        fillCompany(user);
+        fillAddress1(user);
+        fillAddress2(user);
+        fillCity(user);
+        fillPostcode(user);
+        fillCountry(user);
+        fillRegion(user);
+        fillPassword(user);
+        fillConfirmPassword(user);
+        subscribe(user);
         clickPrivacyPolicy();
-
         clickContinueButton();
     }
 
     private void fillRegistrationFormWithNoPrivacyPolicy(IUser user) {
-        clickFirstNameField();
-        clearFirstNameField();
-        setFirstNameField(user.getFirstname());
-
-        clickLastNameField();
-        clearLastNameField();
-        setLastNameField((user.getLastname()));
-
-        clickEmailField();
-        clearEmailField();
-        setEmailField(user.getEmail());
-
-        clickTelephoneNumberField();
-        clearTelephoneNumberField();
-        setTelephoneNumberField((user.getTelephone()));
-
-        clickFaxField();
-        clearFaxField();
-        if (user.getFax() != null && user.getFax().trim().length() > 0) {
-            setFaxField(user.getFax());
-        }
-
-        clickCompanyField();
-        clearCompanyField();
-        if (user.getCompany() != null && user.getCompany().trim().length() > 0) {
-            setCompanyField(user.getCompany());
-        }
-
-        clickAddress1Field();
-        clearAddress1Field();
-        setAddress1Field(user.getAddress1());
-
-        clickAddress2Field();
-        clearAddress2Field();
-        if (user.getAddress2() != null && user.getAddress2().trim().length() > 0) {
-            setAddress2Field(user.getAddress2());
-        }
-
-        clickCityField();
-        clearCityField();
-        setCityField(user.getCity());
-
-        clickPostcodeField();
-        clearPostcodeField();
-        setPostcodeField(user.getPostcode());
-
-        clickCountry();
-        setCountry(user.getCountry());//.getCountryName()
-
-        clickRegion();
-        setRegion(user.getRegion());//.getRegionName()
-
-        clickPasswordField();
-        clearPasswordField();
-        setPasswordField(user.getPassword());
-
-        clickConfirmPasswordField();
-        clearConfirmPasswordField();
-        //.getConfirmPassword()
-        if (user.getPassword() != null
-                && user.getPassword().trim().length() > 0) {
-            setConfirmPasswordField(user.getPassword());
-        } else {
-            setConfirmPasswordField(user.getPassword());
-        }
-
-        if (user.isSubscribe()) {
-            clickSubscribeYes();
-        } else {
-            clickSubscribeNo();
-        }
+        fillFirstName(user);
+        fillLastName(user);
+        fillEmail(user);
+        fillTelephone(user);
+        fillFax(user);
+        fillCompany(user);
+        fillAddress1(user);
+        fillAddress2(user);
+        fillCity(user);
+        fillPostcode(user);
+        fillCountry(user);
+        fillRegion(user);
+        fillPassword(user);
+        fillConfirmPassword(user);
+        subscribe(user);
 
         clickContinueButton();
     }
 
-    //Error Messages
-//
-//    /**
-//     * CheckErrorMessages;
-//     */
-//    public void checkErrorMessages() {
-//        actualFirstNameError = driver.findElement(By.cssSelector("#account "
-//                + "> div:nth-child(3) > div > div"));
-//        actualLastNameError = driver.findElement(By.cssSelector("#account "
-//                + "> div:nth-child(4) > div > div"));
-//        actualEmailError = driver.findElement(By.cssSelector("#account "
-//                + "> div:nth-child(5) > div > div"));
-//        actualTelephoneError = driver.findElement(By.cssSelector("#account "
-//                + "> div:nth-child(6) > div > div"));
-//        actualAddressError = driver.findElement(By.cssSelector("#address "
-//                + "> div:nth-child(3) > div > div"));
-//        actualCityError = driver.findElement(By.cssSelector("#address "
-//                + "> div:nth-child(5) > div > div"));
-//        actualRegionError = driver.findElement(By.cssSelector("#address"
-//                + " > div:nth-child(8) > div > div"));
-//        actualPasswordError = driver.findElement(By.cssSelector("#content >"
-//                + " form > fieldset:nth-child(3) >"
-//                + " div.form-group.required.has-error >"
-//                + " div > div"));
-//
-//        /////////////////////////////////////////////////////////////////////////
-//        Assert.assertEquals("First Name must be between 1 and 32 characters!",
-//                actualFirstNameError.getText());
-//        Assert.assertEquals("Last Name must be between 1 and 32 characters!",
-//                actualLastNameError.getText());
-//        Assert.assertEquals("E-Mail Address does not appear to be valid!",
-//                actualEmailError.getText());
-//        Assert.assertEquals("Telephone must be between 3 and 32 characters!",
-//                actualTelephoneError.getText());
-//        Assert.assertEquals("Address 1 must be between 3 and 128 characters!",
-//                actualAddressError.getText());
-//        Assert.assertEquals("City must be between 2 and 128 characters!",
-//                actualCityError.getText());
-//        Assert.assertEquals("Please select a region / state!",
-//                actualRegionError.getText());
-//        Assert.assertEquals("Password must be between 4 and 20 characters!",
-//                actualPasswordError.getText());
-//    }
-
-
     //Business Logic
-
-//    /**
-//     * Register User Successfully.
-//     */
-//    public void registerUserSuccessfully(IUser user) {
-//        setFirstNameField(user.getFirstname());
-//        setLastNameField(user.getLastname());
-//        setEmailField(user.getEmail());
-//        setTelephoneNumberField(user.getTelephone());
-//        setAddress1Field(user.getAddress1());
-//        setCityField(user.getCity());
-//        setPostcodeField(user.getPostcode());
-//        setCountry(user.getCountry());
-//        clickCountry();
-//
-//        setPasswordField();
-//        setConfirmPasswordField();
-//        clickPrivacyPolicy();
-//    }
-//
-//    /**
-//     * Register User Unsuccessfully.
-//     */
-//    public void registerUserUnsuccessfully(IUser user) {
-//        setFirstNameField(user.getFirstname());
-//        setLastNameField();
-//        setEmailField();
-//        setTelephoneNumberField();
-//        setAddress1Field();
-//        setCityField();
-//        setPostcodeField();
-//        setPasswordField();
-//        setConfirmPasswordField();
-//        clickPrivacyPolicy();
-//    }
 
     //valid user with valid registration
     public MyAccountPage successfullyRegisterUser(IUser validBoundaryUser) {
@@ -725,9 +635,6 @@ public class RegisterPage extends ARightLogoutPart {
 //        fillRegistrationFormWithNoPrivacyPolicy(validUser);
 //        return new UnsuccessfullRegisterPageAlert(driver);
 //    }
-
-
-
 
     public UnsuccessfullyRegisterPage userWithFirstNameConsistsDigits(IUser userWithFirstNameConsistsDigits) {
         fillRegistrationForm(userWithFirstNameConsistsDigits);

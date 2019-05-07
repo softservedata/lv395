@@ -12,7 +12,7 @@ public class UnsuccessfullyRegisterPage extends RegisterPage {
     public static final String EXPECTED_WARNING_LAST_NAME = "Last Name must be between 1 and 32 characters!";
     public static final String EXPECTED_WARNING_EMAIL = "E-Mail Address does not appear to be valid!";
     public static final String EXPECTED_WARNING_TELEPHONE = "Telephone must be between 3 and 32 characters!";
-    public static final String EXPECTED_WARNING_ADRESS1 = "Address 1 must be between 3 and 128 characters!";
+    public static final String EXPECTED_WARNING_ADDRESS1 = "Address 1 must be between 3 and 128 characters!";
     public static final String EXPECTED_WARNING_CITY = "City must be between 2 and 128 characters!";
     public static final String EXPECTED_WARNING_REGION = "Please select a region / state!";
     public static final String EXPECTED_WARNING_PASSWORD = "Password must be between 4 and 20 characters!";
@@ -127,7 +127,7 @@ public class UnsuccessfullyRegisterPage extends RegisterPage {
         Assert.assertEquals(EXPECTED_WARNING_LAST_NAME, actualLastNameError);
         Assert.assertEquals(EXPECTED_WARNING_EMAIL, actualEmailError);
         Assert.assertEquals(EXPECTED_WARNING_TELEPHONE, actualTelephoneError);
-        Assert.assertEquals(EXPECTED_WARNING_ADRESS1, actualAddressError);
+        Assert.assertEquals(EXPECTED_WARNING_ADDRESS1, actualAddressError);
         Assert.assertEquals(EXPECTED_WARNING_CITY, actualCityError);
         Assert.assertEquals(EXPECTED_WARNING_REGION, actualRegionError);
         Assert.assertEquals(EXPECTED_WARNING_PASSWORD, actualPasswordError);
