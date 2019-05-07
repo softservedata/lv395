@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.data;
 
+import java.util.List;
+
 interface IName {
     IProductBuild setName(String name);
 }
@@ -9,6 +11,8 @@ interface IProductBuild {
 
     IProductBuild setPriceDollarExTax(String priceDollarExTax);
 
+    IProductBuild setCategories(List<String> categories);
+
     IProduct build();
 }
 
@@ -17,6 +21,7 @@ public class Product implements IName, IProductBuild, IProduct {
     private String name;
     private String description;
     private String priceDollarExTax;
+    private List<String> categories;
     //
     // TODO
     // private HashMap<EnumCurrencies, Decimal> prices;
@@ -64,6 +69,12 @@ public class Product implements IName, IProductBuild, IProduct {
         this.priceDollarExTax=priceDollarExTax;
         return this;
     }
+    public IProductBuild setCategories(List<String > categories){
+        this.categories=categories;
+        return this;
+    }
+
+
     public IProduct build(){
         return this;
     }
@@ -81,5 +92,7 @@ public class Product implements IName, IProductBuild, IProduct {
     public String getPriceDollarExTax() {
         return priceDollarExTax;
     }
+
+    public List<String> getCategories(){ return categories;}
 
 }

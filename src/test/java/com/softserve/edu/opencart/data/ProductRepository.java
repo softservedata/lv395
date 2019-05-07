@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.data;
 
+import java.util.ArrayList;
+
 public final class ProductRepository {
 
     public ProductRepository() {

@@ -2,12 +2,13 @@ package com.softserve.edu.opencart.pages.common;
 
 import java.util.List;
 
+import com.softserve.edu.opencart.data.ISearchFilter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import com.softserve.edu.opencart.data.SearchFilter;
+
 import com.softserve.edu.opencart.tools.LeaveUtils;
 
 public abstract class ASearchPart extends AStatusPart {
@@ -154,7 +155,7 @@ public abstract class ASearchPart extends AStatusPart {
 
     // Business Logic
     
-    public SuccessfulSearchPage searchProductsByFilter(SearchFilter searchItems) {
+    public SuccessfulSearchPage searchProductsByFilter(ISearchFilter searchItems) {
         fillSearchCriteriaField(searchItems.getProductSearchName());
         if (searchItems.isUseDescription()) {
             clickDescriptionCheckbox();

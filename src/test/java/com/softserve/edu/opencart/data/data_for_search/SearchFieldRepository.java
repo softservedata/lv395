@@ -1,4 +1,4 @@
-package com.softserve.edu.opencart.data.dataForSearch;
+package com.softserve.edu.opencart.data.data_for_search;
 
 public class SearchFieldRepository {
     public SearchFieldRepository() {

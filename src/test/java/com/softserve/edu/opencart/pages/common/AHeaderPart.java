@@ -2,6 +2,7 @@ package com.softserve.edu.opencart.pages.common;
 
 import java.util.List;
 
+import com.softserve.edu.opencart.data.SearchFilter;
 import com.softserve.edu.opencart.pages.account.AccountLogoutPage;
 import com.softserve.edu.opencart.pages.account.LoginPage;
 import com.softserve.edu.opencart.pages.account.RegisterPage;
@@ -11,7 +12,6 @@ import org.openqa.selenium.WebElement;
 
 import com.softserve.edu.opencart.data.Currencies;
 import com.softserve.edu.opencart.data.LoggedMyAccount;
-import com.softserve.edu.opencart.data.SearchFilter;
 import com.softserve.edu.opencart.data.UnloggedMyAccount;
 import com.softserve.edu.opencart.tools.LeaveUtils;
 

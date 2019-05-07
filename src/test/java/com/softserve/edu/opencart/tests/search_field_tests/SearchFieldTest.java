@@ -1,6 +1,6 @@
-package com.softserve.edu.opencart.tests.SearchFieldTests;
+package com.softserve.edu.opencart.tests.search_field_tests;
 
-import com.softserve.edu.opencart.data.dataForSearch.SearchFieldRepository;
+import com.softserve.edu.opencart.data.data_for_search.SearchFieldRepository;
 import com.softserve.edu.opencart.pages.common.ProductComponent;
 import com.softserve.edu.opencart.pages.common.SuccessfulSearchPage;
 import com.softserve.edu.opencart.pages.common.UnsuccessfulSearchPage;
@@ -26,7 +26,7 @@ public class SearchFieldTest extends ATestRunner {
         };
     }
 
-    @Test(dataProvider = "searchData")
+    @Test(dataProvider = "searchPositiveData")
     public void positiveTest(String searchData) {
         //Steps
 
