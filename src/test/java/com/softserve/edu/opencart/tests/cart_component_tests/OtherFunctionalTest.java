@@ -50,16 +50,16 @@ public class OtherFunctionalTest extends ATestRunner {
                 .openCartProductContainer();
         List<CartProductComponent> cartProductComponents = cartProductContainer
                 .getCartProductComponents();
-        System.out.println(cartProductComponents.get(0).getCartProductNameText() +" : "+
-                product.getName());
         // Check
         Assert.assertEquals(cartProductComponents.get(0).getCartProductNameText(),
                 product.getName());
+        // Steps
         myAccountPage
                 .refresh()
                 .logout()
                 .continueHomePage()
                 .openCartProductContainer();
+        // Check
         Assert.assertTrue(cartProductContainer.isCartEmpty());
     }
 
