@@ -35,9 +35,11 @@ public class EditAccountTest extends ATestRunner {
                 .successLogin(user)
                 .clickEditAccountButton()
                 .changeUserInfo(user);
+
         // Check is correct message displayed
         Assert.assertEquals(MyAccountPage.MY_ACCOUNT_UPDATE_MESSAGE
                 , myAccountPage.getMessageText());
+
         //Verify if user data was changed
         verifyIfUserInfoWasUpdated(user);
 
