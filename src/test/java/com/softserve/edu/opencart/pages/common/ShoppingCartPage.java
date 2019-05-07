@@ -2,7 +2,7 @@ package com.softserve.edu.opencart.pages.common;
 
 import com.softserve.edu.opencart.data.Currencies;
 import com.softserve.edu.opencart.data.Product;
-import com.softserve.edu.opencart.pages.common.ShoppingCart.ShoppingCartProductsContainer;
+import com.softserve.edu.opencart.pages.common.shopping_cart.ShoppingCartProductsContainer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
