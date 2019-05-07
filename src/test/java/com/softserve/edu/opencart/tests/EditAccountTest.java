@@ -52,16 +52,18 @@ public class EditAccountTest extends ATestRunner {
         dataBaseUtils = new DataBaseUtils();
         //Retrieve user data from DB
         List<String> userInfo = dataBaseUtils.checkIfUserInfoWasChanged(user.getEmail());
-        // Check first name
+
+        // Assert first name
         Assert.assertEquals(userInfo.get(0), user.getFirstname());
-        // Check last name
+        // Assert last name
         Assert.assertEquals(userInfo.get(1), user.getLastname());
-        // Check email
+        // Assert email
         Assert.assertEquals(userInfo.get(2), user.getEmail());
-        // Check telephone
+        // Assert telephone
         Assert.assertEquals(userInfo.get(3), user.getTelephone());
-        // Check fax
+        // Assert fax
         Assert.assertEquals(userInfo.get(4), user.getFax());
+
         //Close JDBC connection
         dataBaseUtils.closeConnection();
     }
