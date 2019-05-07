@@ -17,17 +17,19 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @version 1.0
  */
 public class UnsuccessfulLoginTest extends ATestRunner {
-    private int attempts = 5;
+    private int attempts = 0;
     private DataBaseUtils dbUtils;
 
     @DataProvider // (parallel = true)
     public Object[][] invalidUsers() {
         return new Object[][]{
+                //TODO add normal data, delete this shit.
                 {UserRepository.get().userWithIncorrectCredentials()},
                 {UserRepository.get().userWithIncorrectCredentials()},
                 {UserRepository.get().userWithIncorrectCredentials()},
                 {UserRepository.get().userWithIncorrectCredentials()},
                 {UserRepository.get().userWithIncorrectCredentials()},
+                {UserRepository.get().userWithIncorrectCredentials()}
         };
     }
 
@@ -37,22 +39,19 @@ public class UnsuccessfulLoginTest extends ATestRunner {
         UnsuccessfulLoginPage unsuccessfulLoginPage = loadApplication()
                 .gotoLoginPage()
                 .unsuccessfulLogin(invalidUser);
-        attempts--;
-
         // Check
-        if (attempts >= 0) {
+        if (attempts < 5) {
             Assert.assertEquals(UnsuccessfulLoginPage.LOGIN_PAGE_INCORRECT_CREDENTIALS_MESSAGE
                     , unsuccessfulLoginPage.getUnsuccessfulMessageText());
         } else {
             Assert.assertEquals(UnsuccessfulLoginPage.TOO_MUCH_LOGIN_ATTEMPTS
                     , unsuccessfulLoginPage.getUnsuccessfulMessageText());
-
         }
+        attempts++;
     }
 
     @AfterClass
     public void setAttemptsInDatabaseToNull(){
-        System.out.println("Attempts set to null !!!");
         dbUtils = new DataBaseUtils();
         dbUtils.setAttemptsToNull();
     }
