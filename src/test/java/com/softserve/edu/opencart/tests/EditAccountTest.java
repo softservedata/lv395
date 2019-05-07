@@ -3,21 +3,33 @@ package com.softserve.edu.opencart.tests;
 import com.softserve.edu.opencart.data.IUser;
 import com.softserve.edu.opencart.data.UserRepository;
 import com.softserve.edu.opencart.pages.account.MyAccountPage;
+import com.softserve.edu.opencart.tools.DataBaseUtils;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
+/**
+ * @author Yurii Antokhiv
+ * @version 1.0
+ */
 public class EditAccountTest extends ATestRunner {
+    private DataBaseUtils dataBaseUtils;
+
     @DataProvider // (parallel = true)
     public Object[][] validUser() {
-        return new Object[][] {
-                { UserRepository.get().johnWick() },
+        return new Object[][]{
+                //TODO add data to data provider
+                {UserRepository.get().johnWick()},
+                {UserRepository.get().johnWick()},
+                {UserRepository.get().johnWick()}
         };
     }
 
     @Test(dataProvider = "validUser")
     public void editAccountTest(IUser user) throws Exception {
-        // Steps
+        //Login & Change user data
         MyAccountPage myAccountPage = loadApplication()
                 .gotoLoginPage()
                 .successLogin(user)
@@ -25,8 +37,30 @@ public class EditAccountTest extends ATestRunner {
                 .changeUserInfo(user);
         // Check
         Assert.assertEquals(MyAccountPage.MY_ACCOUNT_UPDATE_MESSAGE
-                , myAccountPage.getMessage());
+                , myAccountPage.getMessageText());
+        //Logout
+        myAccountPage
+                .logout()
+                .continueHomePage();
 
+        //Verify if user data was changed
+        verifyIfUserInfoWasUpdated(user);
+    }
+
+    public void verifyIfUserInfoWasUpdated(IUser user) throws Exception {
+        dataBaseUtils = new DataBaseUtils();
+        // Steps
+        List<String> userInfo = dataBaseUtils.checkIfUserInfoWasChanged(user.getEmail());
+        // Check first name
+        Assert.assertEquals(userInfo.get(0), user.getFirstname());
+        // Check last name
+        Assert.assertEquals(userInfo.get(1), user.getLastname());
+        // Check email
+        Assert.assertEquals(userInfo.get(2), user.getEmail());
+        // Check telephone
+        Assert.assertEquals(userInfo.get(3), user.getTelephone());
+        // Check fax
+        Assert.assertEquals(userInfo.get(4), user.getFax());
 
     }
 }
