@@ -55,7 +55,7 @@ public final class UserRepository {
                 .setRegion("8_region")
                 .setPassword("qwerty")
                 .setSubscribe(true)
-                .setFax("8_fax")
+                .setFax("")
                 .setCompany("8_company")
                 .setAddress2("8_address2")
                 .build();
@@ -77,6 +77,7 @@ public final class UserRepository {
                 .setFax("123456789")
                 .setCompany("Mafia")
                 .setAddress2("address")
+                .setNewPassword("qwerty-qwerty")
                 .build();
     }
 
