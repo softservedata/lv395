@@ -64,6 +64,5 @@ public class EditAccountTest extends ATestRunner {
         Assert.assertEquals(userInfo.get(4), user.getFax());
         //Close JDBC connection
         dataBaseUtils.closeConnection();
-
     }
 }
