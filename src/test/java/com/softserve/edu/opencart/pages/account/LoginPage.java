@@ -8,6 +8,7 @@ import com.softserve.edu.opencart.data.IUser;
 
 public class LoginPage extends ARightLogoutPart {
 
+    private WebElement message;
     private WebElement emailField;
     private WebElement passwordField;
     private WebElement loginButton;
@@ -24,6 +25,14 @@ public class LoginPage extends ARightLogoutPart {
     }
     
     // Page Object
+
+    public WebElement getMessage(){
+        message = driver.findElement(By.cssSelector(""));
+        return message;
+    }
+    public String getMessageText(){
+        return getMessage().getText();
+    }
 
     // emailField
     public WebElement getEmailField() {
