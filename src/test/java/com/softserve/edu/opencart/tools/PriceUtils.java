@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PriceUtils {
+public final class PriceUtils {
 
     public static final int SCALE = 2;
     private static final String PRICE_PARSER_PATTERN = "\\d+\\.\\d{1,2}";
