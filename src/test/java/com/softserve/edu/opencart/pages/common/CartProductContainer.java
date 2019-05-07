@@ -1,7 +1,6 @@
 package com.softserve.edu.opencart.pages.common;
 
 import com.softserve.edu.opencart.data.IProduct;
-import com.softserve.edu.opencart.data.Product;
 import com.softserve.edu.opencart.tools.LeaveUtils;
 import com.softserve.edu.opencart.tools.PriceUtils;
 import org.openqa.selenium.By;
@@ -12,19 +11,17 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartProductContainer {
+public class CartProductContainer extends ACartComponent {
 
     private final String PRODUCT_NOT_FOUND_ERROR_MSG = "Product name: %s not Found.";
     //
     private static final String PRODUCT_COMPONENT_CSSSELECTOR = (".table.table-striped>tbody>tr");
     private static final String PRICE_TABLE_CSSSELECTOR = (".dropdown-menu.pull-right .table.table-bordered");
     //
-    WebDriver driver;
-    //
     private List<CartProductComponent> productComponents;
 
     public CartProductContainer(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         initElements();
     }
 

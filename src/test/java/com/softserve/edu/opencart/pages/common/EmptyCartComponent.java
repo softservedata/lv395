@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class EmptyCartComponent extends AHeaderPart {
+public class EmptyCartComponent extends ACartComponent {
 
     public static final String EMPTY_CART_MESSAGE = "Your shopping cart is empty!";
     //

@@ -121,6 +121,7 @@ public class OtherFunctionalTest extends ATestRunner {
                 .gotoHomePage()
                 .refresh()
                 .addProductToCart(product)
+                .refresh()
                 .openCartProductContainer();
         List<CartProductComponent> cartProductComponents = cartProductContainer
                 .getCartProductComponents();
