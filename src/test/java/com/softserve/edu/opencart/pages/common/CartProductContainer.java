@@ -86,6 +86,11 @@ public class CartProductContainer {
         return new CheckoutPage(driver);
     }
 
+    /*public ProductPage gotoProductPage() {
+        productComponents.get(0).clickCartProductName();
+        return new ProductPage(new ProductComponent());
+    }*/
+
     public boolean isCartEmpty() {
         return new EmptyCartComponent(driver).getEmptyCartText()
                 .equals(EmptyCartComponent.EMPTY_CART_MESSAGE);

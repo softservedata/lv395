@@ -63,4 +63,44 @@ public class OtherFunctionalTest extends ATestRunner {
         Assert.assertTrue(cartProductContainer.isCartEmpty());
     }
 
+    @DataProvider // (parallel = true)
+    public Object[][] validDifferentUsers() {
+        return new Object[][] {
+                { UserRepository.get().johnWick(), UserRepository.get().yaroslav(), ProductRepository.getMacBook()},
+        };
+    }
+
+    @Test(dataProvider = "validDifferentUsers")
+    public void differentLoggedUsersCartTest(IUser firstUser, IUser secondUser, IProduct product) {
+        IUser user = firstUser;
+        int step = 1;
+        while (step <= 2){
+            if (step == 2) user = secondUser;
+            // Steps
+            MyAccountPage myAccountPage = loadApplication()
+                    .gotoLoginPage()
+                    .successLogin(user);
+            CartProductContainer cartProductContainer = myAccountPage
+                    .gotoHomePage()
+                    .addProductToCart(product)
+                    .refresh()
+                    .openCartProductContainer();
+            List<CartProductComponent> cartProductComponents = cartProductContainer
+                    .getCartProductComponents();
+            // Check
+            Assert.assertTrue(cartProductComponents.size() == 1);
+            // Steps
+            cartProductComponents.clear();
+            step += step;
+            myAccountPage
+                    .refresh()
+                    .gotoHomePage()
+                    .openCartProductContainer()
+                    .removeProductByName(product)
+                    .refresh()
+                    .logout()
+                    .continueHomePage();
+        }
+    }
+
 }
