@@ -26,7 +26,7 @@ public class SearchFieldTest extends ATestRunner {
         };
     }
 
-    @Test(dataProvider = "searchPositiveData")
+    @Test(dataProvider = "searchData")
     public void positiveTest(String searchData) {
         //Steps
 

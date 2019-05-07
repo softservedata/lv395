@@ -3,10 +3,7 @@ package com.softserve.edu.opencart.tests.cart_component_tests;
 import com.softserve.edu.opencart.data.IProduct;
 import com.softserve.edu.opencart.data.Product;
 import com.softserve.edu.opencart.data.ProductRepository;
-import com.softserve.edu.opencart.pages.common.CartProductComponent;
-import com.softserve.edu.opencart.pages.common.CartProductContainer;
-import com.softserve.edu.opencart.pages.common.CheckoutPage;
-import com.softserve.edu.opencart.pages.common.ShoppingCartPage;
+import com.softserve.edu.opencart.pages.common.*;
 import com.softserve.edu.opencart.tests.ATestRunner;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -16,11 +13,18 @@ import java.util.List;
 
 public class CartFunctionalTest extends ATestRunner {
 
-    @Test
-    public void checkViewCartButton() {
+    @DataProvider
+    public Object[][] productData() {
+        return new Object[][] {
+                {ProductRepository.getMacBook()}
+        };
+    }
+
+    @Test(dataProvider = "productData")
+    public void checkViewCartButton(IProduct product) {
         // Steps
         ShoppingCartPage shoppingCartPage = loadApplication()
-                .addProductToCart(ProductRepository.getMacBook())
+                .addProductToCart(product)
                 .gotoHomePage()
                 .openCartProductContainer()
                 .gotoShoppingCartPage();
@@ -31,14 +35,14 @@ public class CartFunctionalTest extends ATestRunner {
         shoppingCartPage
                 .gotoHomePage()
                 .openCartProductContainer()
-                .removeProductByName(ProductRepository.getMacBook());
+                .removeProductByName(product);
     }
 
-    @Test
-    public void checkCheckoutButton() {
+    @Test(dataProvider = "productData")
+    public void checkCheckoutButton(IProduct product) {
         // Steps
         CheckoutPage checkoutPage = loadApplication()
-                .addProductToCart(ProductRepository.getMacBook())
+                .addProductToCart(product)
                 .gotoHomePage()
                 .openCartProductContainer()
                 .gotoCheckoutPage();
@@ -49,14 +53,7 @@ public class CartFunctionalTest extends ATestRunner {
         checkoutPage
                 .gotoHomePage()
                 .openCartProductContainer()
-                .removeProductByName(ProductRepository.getMacBook());
-    }
-
-    @DataProvider
-    public Object[][] productData() {
-        return new Object[][] {
-                {ProductRepository.getMacBook()}
-        };
+                .removeProductByName(product);
     }
 
     @Test(dataProvider = "productData")
@@ -79,5 +76,21 @@ public class CartFunctionalTest extends ATestRunner {
         // Check
         Assert.assertTrue(cartProductContainer.isCartEmpty());
     }
+
+/*    @Test(dataProvider = "productData")
+    public void checkClickOnItem(IProduct product) {
+        // Steps
+        CartProductContainer cartProductContainer = loadApplication()
+                .addProductToCart(product)
+                .gotoHomePage()
+                .openCartProductContainer();
+        List<CartProductComponent> cartProductComponents = cartProductContainer
+                .getCartProductComponents();
+        // Check
+        Assert.assertEquals(cartProductComponents.get(0).getCartProductNameText(),
+                product.getName());
+        // Steps
+        // TODO
+    }*/
 
 }

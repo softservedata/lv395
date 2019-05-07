@@ -1,6 +1,6 @@
 package com.softserve.edu.opencart.tests.search_field_tests;
 
-import com.softserve.edu.opencart.data.ISearchFilter;
+import com.softserve.edu.opencart.data.SearchFilter;
 import com.softserve.edu.opencart.data.SearchFilterRepository;
 import com.softserve.edu.opencart.pages.common.ProductPage;
 import com.softserve.edu.opencart.pages.common.ProductsContainerComponent;
@@ -19,15 +19,15 @@ public class SearchInProductDescriptionTest extends ATestRunner {
         };
     }
     @Test(dataProvider = "searchFilterData")
-    public void newTest(ISearchFilter searchData){
+    public void newTest(SearchFilter searchData){
         SuccessfulSearchPage successfulSearchPage = loadApplication()
-                .searchProducts(searchData.getProductSearchName())
+                .searchProducts(searchData)
                 .searchProductsByFilter(searchData);
         ProductsContainerComponent productComponents=successfulSearchPage
                 .getSearchCriteriaComponent()
                 .getProductsContainerComponent();
 
-        for(int i=0;i<productComponents.getProductComponents().size();i++) {
+        for(int i=1;i<productComponents.getProductComponents().size();i++) {
             ProductPage productPage=successfulSearchPage
                     .chooseProduct(productComponents
                             .getProductComponents().get(i));
