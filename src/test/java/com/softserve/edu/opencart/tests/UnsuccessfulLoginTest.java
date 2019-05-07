@@ -2,7 +2,7 @@ package com.softserve.edu.opencart.tests;
 
 import com.softserve.edu.opencart.data.IUser;
 import com.softserve.edu.opencart.data.UserRepository;
-import com.softserve.edu.opencart.pages.common.UnsuccessfulLoginPage;
+import com.softserve.edu.opencart.pages.account.UnsuccessfulLoginPage;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

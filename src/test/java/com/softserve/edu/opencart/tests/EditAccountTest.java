@@ -26,5 +26,7 @@ public class EditAccountTest extends ATestRunner {
         // Check
         Assert.assertEquals(MyAccountPage.MY_ACCOUNT_UPDATE_MESSAGE
                 , myAccountPage.getMessage());
+
+
     }
 }

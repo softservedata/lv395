@@ -21,11 +21,9 @@ public class MyAccountPage extends ARightLoginPart {
 
     private void initElements() {
         myAccountLabel = driver.findElement(By.cssSelector("#content > h2:first-child"));
-        //myAccountLabel = driver.findElement(By.xpath("//div[@id='content']/h2[contains(text(), 'cc')]"));
     }
 
     // Page Object
-
     // myAccountLabel
     public WebElement getMyAccountLabel() {
         return myAccountLabel;
@@ -41,6 +39,5 @@ public class MyAccountPage extends ARightLoginPart {
         messageComponent = new MyAccountMessageComponent(driver);
         return messageComponent.getMessageText();
     }
-
     // Business Logic
 }
