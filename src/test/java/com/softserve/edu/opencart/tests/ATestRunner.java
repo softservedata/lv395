@@ -16,7 +16,8 @@ import com.softserve.edu.opencart.tools.LeaveUtils;
 
 public abstract class ATestRunner {
     private final String DRIVER_ERROR = "ERROR: Chromedriver not Found";
-    private final String SERVER_URL = "http://taqc-opencart.epizy.com";
+//    private final String SERVER_URL = "http://taqc-opencart.epizy.com";
+    private final String SERVER_URL = "http://192.168.227.130/opencart/upload/";
     private WebDriver driver;
 
     @BeforeClass
