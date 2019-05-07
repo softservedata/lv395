@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 public class TotalPriceTableComponent {
 
-    WebElement totalTable;
+    private WebElement totalTable;
 
 
     public TotalPriceTableComponent(WebElement totalTable){

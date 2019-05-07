@@ -39,7 +39,6 @@ public abstract class AHeaderPart {
     private WebElement cartButton;
     //
     private DropdownComponent dropdownOptions;
-    private CartProductContainer cartProductContainer;
 
     protected AHeaderPart(WebDriver driver) {
         this.driver = driver;

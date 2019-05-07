@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.data;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface IProduct {
@@ -10,5 +11,13 @@ public interface IProduct {
     String getPriceDollarExTax();
 
     List<String> getCategories();
+
+    BigDecimal getSubTotal();
+
+    BigDecimal getEcoTax();
+
+    BigDecimal getVat();
+
+    BigDecimal getTotalPrice();
 
 }

@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.data;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public final class ProductRepository {
@@ -15,6 +16,10 @@ public final class ProductRepository {
         return Product.get().setName("MacBook")
                 .setDescription("Intel Core 2 Duo processor Powered by an Intel Core 2 Duo processor at speeds up to 2.1..")
                 .setPriceDollarExTax("500.00")
+                .setSubTotal(new BigDecimal(500.00))
+                .setEcoTax(new BigDecimal(2.00))
+                .setVat(new BigDecimal(100.00))
+                .setTotalPrice(new BigDecimal(602.00))
                 .build();
 
     }

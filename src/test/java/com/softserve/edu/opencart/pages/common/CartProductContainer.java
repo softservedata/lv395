@@ -14,7 +14,7 @@ import java.util.List;
 
 public class CartProductContainer {
 
-    private String PRODUCT_NOT_FOUND_ERROR_MSG = "Product name: %s not Found.";
+    private final String PRODUCT_NOT_FOUND_ERROR_MSG = "Product name: %s not Found.";
     //
     private static final String PRODUCT_COMPONENT_CSSSELECTOR = (".table.table-striped>tbody>tr");
     private static final String PRICE_TABLE_CSSSELECTOR = (".dropdown-menu.pull-right .table.table-bordered");
