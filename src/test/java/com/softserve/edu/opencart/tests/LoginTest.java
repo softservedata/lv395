@@ -13,8 +13,8 @@ public class LoginTest extends ATestRunner {
 
     @DataProvider // (parallel = true)
     public Object[][] validUsers() {
-        return new Object[][] {
-            { UserRepository.get().johnWick() },
+        return new Object[][]{
+                {UserRepository.get().johnWick()},
         };
     }
 
@@ -35,5 +35,4 @@ public class LoginTest extends ATestRunner {
         Assert.assertTrue(homePage.getSlideshow0FirstImageAttributeSrcText()
                 .contains(HomePage.IPHONE_IMAGE));
     }
-
 }
