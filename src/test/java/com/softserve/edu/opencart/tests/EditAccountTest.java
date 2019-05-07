@@ -48,8 +48,9 @@ public class EditAccountTest extends ATestRunner {
     }
 
     public void verifyIfUserInfoWasUpdated(IUser user) throws Exception {
+        //Open JDBC connection
         dataBaseUtils = new DataBaseUtils();
-        // Steps
+        //Retrieve user data from DB
         List<String> userInfo = dataBaseUtils.checkIfUserInfoWasChanged(user.getEmail());
         // Check first name
         Assert.assertEquals(userInfo.get(0), user.getFirstname());
@@ -61,6 +62,8 @@ public class EditAccountTest extends ATestRunner {
         Assert.assertEquals(userInfo.get(3), user.getTelephone());
         // Check fax
         Assert.assertEquals(userInfo.get(4), user.getFax());
+        //Close JDBC connection
+        dataBaseUtils.closeConnection();
 
     }
 }
