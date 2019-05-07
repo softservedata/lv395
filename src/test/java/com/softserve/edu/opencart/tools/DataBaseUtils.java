@@ -20,7 +20,7 @@ public class DataBaseUtils {
         openConnection();
     }
 
-    private void openConnection(){
+    private void openConnection() {
         try {
             //Open jdbc connection
             connection = DriverManager.getConnection(db_url, "lv395", "Lv395_Taqc");
@@ -30,7 +30,7 @@ public class DataBaseUtils {
     }
 
     public void setAttemptsToNull() {
-        try (PreparedStatement ps = connection.prepareStatement(setAttemptsToNull)){
+        try (PreparedStatement ps = connection.prepareStatement(setAttemptsToNull)) {
             ps.executeUpdate();
             connection.close();
         } catch (SQLException e) {
@@ -38,14 +38,14 @@ public class DataBaseUtils {
         }
     }
 
-    public List<String> checkIfUserInfoWasChanged(String userEmail){
-        try (PreparedStatement ps = connection.prepareStatement(retrieveDataFromTable)){
-            ps.setString(1,userEmail);
+    public List<String> checkIfUserInfoWasChanged(String userEmail) {
+        try (PreparedStatement ps = connection.prepareStatement(retrieveDataFromTable)) {
+            ps.setString(1, userEmail);
             ResultSet resultSet = ps.executeQuery();
 
             userInfo = new ArrayList<>();
 
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 String firstName = resultSet.getString(1);
                 userInfo.add(firstName);
                 String lastName = resultSet.getString(2);
@@ -62,13 +62,4 @@ public class DataBaseUtils {
         }
         return userInfo;
     }
-
-    public static void main(String[] args) {
-        DataBaseUtils d = new DataBaseUtils();
-        List<String> strings = d.checkIfUserInfoWasChanged("john.wick.test@ukr.net");
-        for (String elem: strings) {
-            System.out.println(elem);
-        }
-    }
-
 }
