@@ -1,5 +1,6 @@
-package com.softserve.edu.opencart.tests;
+package com.softserve.edu.opencart.tests.login_test;
 
+import com.softserve.edu.opencart.tests.ATestRunner;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

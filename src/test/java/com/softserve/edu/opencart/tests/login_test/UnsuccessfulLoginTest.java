@@ -1,8 +1,9 @@
-package com.softserve.edu.opencart.tests;
+package com.softserve.edu.opencart.tests.login_test;
 
 import com.softserve.edu.opencart.data.IUser;
 import com.softserve.edu.opencart.data.UserRepository;
 import com.softserve.edu.opencart.pages.account.UnsuccessfulLoginPage;
+import com.softserve.edu.opencart.tests.ATestRunner;
 import com.softserve.edu.opencart.tools.DataBaseUtils;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
