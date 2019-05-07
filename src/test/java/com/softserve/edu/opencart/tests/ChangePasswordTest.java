@@ -7,6 +7,10 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+/**
+ * @author Yurii Antokhiv
+ * @version 1.0
+ */
 public class ChangePasswordTest extends ATestRunner{
     @DataProvider // (parallel = true)
     public Object[][] validUser() {
@@ -27,6 +31,6 @@ public class ChangePasswordTest extends ATestRunner{
 
         // Check
         Assert.assertEquals(MyAccountPage.MY_PASSWORD_UPDATE_MESSAGE
-                , myAccountPage.getMessage());
+                , myAccountPage.getMessageText());
     }
 }
