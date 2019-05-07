@@ -48,6 +48,7 @@ interface IUserBuild {
     IUserBuild setFax(String fax);
     IUserBuild setCompany(String company);
     IUserBuild setAddress2(String address2);
+    IUserBuild setNewPassword(String newPassword);
     // 5. Add Builder by Interfaces
     //User build();
     // 6. Add Dependency Inversion
@@ -71,6 +72,7 @@ public class User implements IFirstname, ILastname, IEmail,
     private String country;
     private String region;
     private String password;
+    private String newPassword; // not required
     private boolean subscribe;
 
     // 1. Use Classic Constructor
@@ -120,6 +122,7 @@ public class User implements IFirstname, ILastname, IEmail,
         fax = new String();
         company = new String();
         address2 = new String();
+        newPassword = new String();
     }
 
     // 4. Add Static Factory
@@ -162,6 +165,11 @@ public class User implements IFirstname, ILastname, IEmail,
 
     public IUserBuild setCompany(String company) {
         this.company = company;
+        return this;
+    }
+
+    public IUserBuild setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
         return this;
     }
 
@@ -264,6 +272,11 @@ public class User implements IFirstname, ILastname, IEmail,
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getNewPassword() {
+        return newPassword;
     }
 
     public boolean isSubscribe() {

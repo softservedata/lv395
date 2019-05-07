@@ -28,6 +28,8 @@ public interface IUser {
 
     String getPassword();
 
+    String getNewPassword();
+
     boolean isSubscribe();
 
 }
