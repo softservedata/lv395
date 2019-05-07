@@ -12,7 +12,7 @@ import java.util.List;
  */
 public final class DataBaseUtils {
     //
-    // private final  String DATABASE_URL = "192.168.227.130:3306";
+    // private final String DATABASE_URL = "192.168.227.130:3306";
     private final String DATABASE_URL = "192.168.239.130:3306";
     private final String SET_ATTEMPTS_TO_NULL = "TRUNCATE opencart.oc_customer_login;";
     private final String RETRIVE_DATA_FROM_TABLE = "SELECT firstname, lastname, email, telephone, fax  FROM opencart.oc_customer where email = ?;";

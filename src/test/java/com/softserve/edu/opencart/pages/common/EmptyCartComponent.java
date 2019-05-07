@@ -6,8 +6,6 @@ import org.openqa.selenium.WebElement;
 
 public class EmptyCartComponent extends ACartComponent {
 
-    public static final String EMPTY_CART_MESSAGE = "Your shopping cart is empty!";
-    //
     private WebElement emptyCart;
 
     protected EmptyCartComponent(WebDriver driver) {
@@ -19,12 +17,20 @@ public class EmptyCartComponent extends ACartComponent {
         emptyCart = driver.findElement(By.xpath("//div[@id='cart']//p"));
     }
 
-    public WebElement getEmptyCart() {
+    // Page Object
+
+    public WebElement getEmptyCartMessage() {
         return emptyCart;
     }
 
-    public String getEmptyCartText() {
-        return getEmptyCart().getText();
+    public String getEmptyCartMessageText() {
+        return getEmptyCartMessage().getText();
+    }
+
+    // Functional
+
+    public void closeCart() {
+        clickCartButton();
     }
 
 }
