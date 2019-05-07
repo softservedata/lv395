@@ -62,4 +62,12 @@ public class DataBaseUtils {
         }
         return userInfo;
     }
+
+    public void closeConnection(){
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
