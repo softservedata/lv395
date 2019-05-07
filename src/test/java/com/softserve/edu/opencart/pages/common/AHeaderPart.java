@@ -176,6 +176,11 @@ public abstract class AHeaderPart {
         getCartButton().click();
     }
 
+    public CartProductContainer openCartProductContainer() {
+        clickCartButton();
+        return new CartProductContainer(driver);
+    }
+
     // dropdownOptions
     protected DropdownComponent getDropdownOptions() {
         LeaveUtils.castExceptionByCondition(dropdownOptions == null, OPTION_NULL_MESSAGE);

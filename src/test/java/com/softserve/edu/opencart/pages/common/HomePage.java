@@ -53,11 +53,6 @@ public class HomePage extends AHeaderPart {
 
     // Functional
 
-    public CartProductContainer openCartProductContainer() {
-        clickCartButton();
-        return new CartProductContainer(driver);
-    }
-
     // Business Logic
 
     public HomePage chooseCurrency(Currencies currency) {
