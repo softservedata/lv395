@@ -18,7 +18,7 @@ public final class DataBaseUtils {
     private final String RETRIVE_DATA_FROM_TABLE = "SELECT firstname, lastname, email, telephone, fax  FROM opencart.oc_customer where email = ?;";
     private static final String PRODUCT_QUANTITY_STATEMENT = "select oc_product.quantity as quantity from oc_product " +
             "inner join oc_product_description on oc_product.product_id = oc_product_description.product_id" +
-            "where oc_product_description.name = ?;";
+            " where oc_product_description.name = ?;";
     //
     private static Connection connection;
     private List<String> userInfo;
@@ -85,7 +85,7 @@ public final class DataBaseUtils {
         try (PreparedStatement ps = connection.prepareStatement(PRODUCT_QUANTITY_STATEMENT)) {
             ps.setString(1, product.getName());
             resultSet = ps.executeQuery();
-            if(resultSet.next())
+            if (resultSet.next())
                 productQuantity = Integer
                         .parseInt(resultSet.getString(1));
         } catch (SQLException e) {
@@ -94,4 +94,11 @@ public final class DataBaseUtils {
         return productQuantity;
     }
 
+    public void dumpDB() {
+        //TODO add functionality to create DB dump
+    }
+
+    public void omportDBFromDump() {
+        //TODO add functionality to create DB from dump
+    }
 }
