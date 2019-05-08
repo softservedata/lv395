@@ -1,5 +1,14 @@
 package com.softserve.edu.opencart.tools;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import com.jcraft.jsch.ChannelExec;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
+
 import com.softserve.edu.opencart.data.IProduct;
 
 import java.sql.*;
@@ -12,6 +21,15 @@ import java.util.List;
  */
 public final class DataBaseUtils {
     //
+    private final String HOST = "192.168.239.129";  // IP-adress of remote server.
+    private final int PORT = 22;                    // Remote server port.
+    private final String NAME = "root";             // Linux profile name.
+    private final String PASSWORD = "root";         // Linux password.
+    //
+    private final String DUMP_DATABASE = "/home/backupdb.sh";       // Script for dumping DB.
+    private final String RESTORE_DATABASE = "/home/restoredb.sh";   // Script for restoring DB.
+    private final String DROP_DATABASE_STATEMENT = "DROP DATABASE opencart";
+
     // private final String DATABASE_URL = "192.168.227.130:3306";
     private final String DATABASE_URL = "192.168.239.130:3306";
     private final String SET_ATTEMPTS_TO_NULL = "TRUNCATE opencart.oc_customer_login;";
@@ -20,6 +38,8 @@ public final class DataBaseUtils {
             "inner join oc_product_description on oc_product.product_id = oc_product_description.product_id" +
             " where oc_product_description.name = ?;";
     //
+    private JSch jsch = new JSch();
+    private Session session;
     private static Connection connection;
     private List<String> userInfo;
     private String db_url = "jdbc:mysql://" + DATABASE_URL + "/opencart?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnect=true&useSSL=false";
@@ -94,11 +114,101 @@ public final class DataBaseUtils {
         return productQuantity;
     }
 
-    public void dumpDB() {
-        //TODO add functionality to create DB dump
+    /**
+     * Method for connect to remote Linux server
+     * by SSH connection.
+     */
+    public void remoteServerConnect() {
+        try {
+            // Open a Session to remote SSH server and Connect.
+            // Set User and IP of the remote host and SSH port.
+            session = jsch.getSession(NAME, HOST, PORT);
+            // When we do SSH to a remote host for the 1st time or if key at the remote host
+            // changes, we will be prompted to confirm the authenticity of remote host.
+            // This check feature is controlled by StrictHostKeyChecking ssh parameter.
+            // By default StrictHostKeyChecking  is set to yes as a security measure.
+            session.setConfig("StrictHostKeyChecking", "no");
+            //Set password
+            session.setPassword(PASSWORD);
+            session.connect();
+
+            if(session.isConnected()) {
+                System.out.println("Connected to remote server is successful!");
+            }
+        } catch (JSchException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void omportDBFromDump() {
-        //TODO add functionality to create DB from dump
+    /**
+     * Start Shell script for dump and restore database.
+     */
+    public void runShellScript(String script) {
+        try {
+            // create the execution channel over the session
+            ChannelExec channelExec = (ChannelExec) session.openChannel("exec");
+            // Set the command to execute on the channel and execute the command
+            channelExec.setCommand(script);
+            channelExec.connect();
+
+            // Get an InputStream from this channel and read messages, generated
+            // by the executing command, from the remote side.
+            InputStream in = channelExec.getInputStream();
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(in));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            // Command execution completed here.
+
+            // Retrieve the exit status of the executed command
+            int exitStatus = channelExec.getExitStatus();
+            if (exitStatus > 0) {
+                System.out.println("Remote script exec error! " + exitStatus);
+            }
+        } catch (JSchException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+    /**
+     * Disconnect from SSH connection.
+     */
+    public void remoteServerDisconnect() {
+        //Disconnect the Session
+        session.disconnect();
+        if(!session.isConnected()) {
+            System.out.println("Disconnected from remote server is successful!");
+        }
+    }
+
+    /**
+     * Method which deletes database.
+     */
+    public void dropDatabase() {
+        try (PreparedStatement ps = connection.prepareStatement(DROP_DATABASE_STATEMENT)) {
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void dumpDb() {
+        openConnection();
+        remoteServerConnect();
+        runShellScript(DUMP_DATABASE);
+    }
+
+    public void restoreDb() {
+        dropDatabase();
+        closeConnection();
+        runShellScript(RESTORE_DATABASE);
+        remoteServerDisconnect();
+    }
+
 }
