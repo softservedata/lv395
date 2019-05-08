@@ -14,7 +14,7 @@ public final class ProductRepository {
 
     public static IProduct getMacBook() {
         return Product.get().setName("MacBook")
-                .setDescription("Intel Core 2 Duo processor Powered by an Intel Core 2 Duo processor at speeds up to 2.1..")
+                .setDescription("Intel Core 2 Duo processor")
                 .setPriceDollarExTax("500.00")
                 .setSubTotal(new BigDecimal(500.00))
                 .setEcoTax(new BigDecimal(2.00))

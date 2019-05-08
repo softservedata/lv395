@@ -83,9 +83,9 @@ public class CartProductContainer extends ACartComponent {
         return new CheckoutPage(driver);
     }
 
-    /*public ProductPage gotoProductPage() {
+    public ProductPage gotoProductPage(IProduct product) {
         productComponents.get(0).clickCartProductName();
-        return new ProductPage(new ProductComponent());
-    }*/
+        return new ProductPage(driver);
+    }
 
 }

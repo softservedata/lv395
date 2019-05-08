@@ -76,7 +76,7 @@ public class CartFunctionalTest extends ATestRunner {
        Assert.assertTrue(cartProductContainer.isCartEmpty());
     }
 
-/*    @Test(dataProvider = "productData")
+    @Test(dataProvider = "productData")
     public void checkClickOnItem(IProduct product) {
         // Steps
         CartProductContainer cartProductContainer = loadApplication()
@@ -89,7 +89,11 @@ public class CartFunctionalTest extends ATestRunner {
         Assert.assertEquals(cartProductComponents.get(0).getCartProductNameText(),
                 product.getName());
         // Steps
-        // TODO
-    }*/
+        ProductPage productPage = cartProductContainer
+                .gotoProductPage(product);
+        // Check
+        Assert.assertTrue(productPage.getDescriptionText()
+                .contains(product.getDescription()));
+    }
 
 }
