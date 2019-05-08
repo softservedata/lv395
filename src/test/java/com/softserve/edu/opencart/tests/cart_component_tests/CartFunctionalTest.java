@@ -1,7 +1,6 @@
 package com.softserve.edu.opencart.tests.cart_component_tests;
 
 import com.softserve.edu.opencart.data.IProduct;
-import com.softserve.edu.opencart.data.Product;
 import com.softserve.edu.opencart.data.ProductRepository;
 import com.softserve.edu.opencart.pages.common.*;
 import com.softserve.edu.opencart.tests.ATestRunner;
@@ -74,7 +73,7 @@ public class CartFunctionalTest extends ATestRunner {
                 .gotoHomePage()
                 .openCartProductContainer();
         // Check
-        Assert.assertTrue(cartProductContainer.isCartEmpty());
+       Assert.assertTrue(cartProductContainer.isCartEmpty());
     }
 
 /*    @Test(dataProvider = "productData")

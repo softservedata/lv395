@@ -12,8 +12,13 @@ public class CartProductComponent {
     }
 
     // cartProductImg
+
     public WebElement getCartProductImg() {
-        return cartProductLayout.findElement(By.cssSelector(".dropdown-menu.pull-right"));
+        return cartProductLayout.findElement(By.cssSelector(".img-thumbnail"));
+    }
+
+    public void clickCartProductImg() {
+        getCartProductImg().click();
     }
 
     // cartProductName

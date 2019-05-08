@@ -88,9 +88,4 @@ public class CartProductContainer extends ACartComponent {
         return new ProductPage(new ProductComponent());
     }*/
 
-    public boolean isCartEmpty() {
-        return new EmptyCartComponent(driver).getEmptyCartText()
-                .equals(EmptyCartComponent.EMPTY_CART_MESSAGE);
-    }
-
 }

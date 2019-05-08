@@ -176,11 +176,6 @@ public abstract class AHeaderPart {
         getCartButton().click();
     }
 
-    public CartProductContainer openCartProductContainer() {
-        clickCartButton();
-        return new CartProductContainer(driver);
-    }
-
     // dropdownOptions
     protected DropdownComponent getDropdownOptions() {
         LeaveUtils.castExceptionByCondition(dropdownOptions == null, OPTION_NULL_MESSAGE);
@@ -301,6 +296,16 @@ public abstract class AHeaderPart {
     public AccountLogoutPage logout() {
         clickLoggedMyAccountByPartialName(LoggedMyAccount.LOGOUT);
         return new AccountLogoutPage(driver);
+    }
+
+    public CartProductContainer openCartProductContainer() {
+        clickCartButton();
+        return new CartProductContainer(driver);
+    }
+
+    public EmptyCartComponent openEmptyCart() {
+        clickCartButton();
+        return new EmptyCartComponent(driver);
     }
 
     public HomePage refresh() {
