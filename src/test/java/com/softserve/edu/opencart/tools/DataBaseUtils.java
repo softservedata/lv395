@@ -20,44 +20,46 @@ import java.util.List;
  * @version 1.0
  */
 public final class DataBaseUtils {
-    //
-    private final String HOST = "192.168.239.129";  // IP-adress of remote server.
-    private final int PORT = 22;                    // Remote server port.
-    private final String NAME = "root";             // Linux profile name.
-    private final String PASSWORD = "root";         // Linux password.
-    //
-    private final String DUMP_DATABASE = "/home/backupdb.sh";       // Script for dumping DB.
-    private final String RESTORE_DATABASE = "/home/restoredb.sh";   // Script for restoring DB.
-    private final String DROP_DATABASE_STATEMENT = "DROP DATABASE opencart";
 
-    // private final String DATABASE_URL = "192.168.227.130:3306";
-    private final String DATABASE_URL = "192.168.239.130:3306";
-    private final String SET_ATTEMPTS_TO_NULL = "TRUNCATE opencart.oc_customer_login;";
-    private final String RETRIVE_DATA_FROM_TABLE = "SELECT firstname, lastname, email, telephone, fax  FROM opencart.oc_customer where email = ?;";
+    // private static final String DATABASE_PARTIAL_URL = "192.168.227.130:3306";
+    private static final String DATABASE_PARTIAL_URL = "192.168.239.130:3306";
+    private static final String DB_URL = "jdbc:mysql://" + DATABASE_PARTIAL_URL + "/opencart?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnect=true&useSSL=false";
     private static final String PRODUCT_QUANTITY_STATEMENT = "select oc_product.quantity as quantity from oc_product " +
             "inner join oc_product_description on oc_product.product_id = oc_product_description.product_id" +
             " where oc_product_description.name = ?;";
     //
-    private JSch jsch = new JSch();
-    private Session session;
+    private static final String HOST = "192.168.239.129";  // IP-adress of remote server.
+    private static final int PORT = 22;                    // Remote server port.
+    private static  final String NAME = "root";             // Linux profile name.
+    private static final String PASSWORD = "root";         // Linux password.
+    //
+    private static final String DUMP_DATABASE = "/home/backupdb.sh";       // Script for dumping DB.
+    private static final String RESTORE_DATABASE = "/home/restoredb.sh";   // Script for restoring DB.
+    private static final String DROP_DATABASE_STATEMENT = "DROP DATABASE opencart";
+
+    private final String SET_ATTEMPTS_TO_NULL = "TRUNCATE opencart.oc_customer_login;";
+    private final String RETRIVE_DATA_FROM_TABLE = "SELECT firstname, lastname, email, telephone, fax  FROM opencart.oc_customer where email = ?;";
+    //
     private static Connection connection;
+    private static JSch jsch = new JSch();
+    private static Session session;
+    //
     private List<String> userInfo;
-    private String db_url = "jdbc:mysql://" + DATABASE_URL + "/opencart?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnect=true&useSSL=false";
 
     public DataBaseUtils() {
         openConnection();
     }
 
-    private void openConnection() {
+    public static void openConnection() {
         try {
             //Open jdbc connection
-            connection = DriverManager.getConnection(db_url, "lv395", "Lv395_Taqc");
+            connection = DriverManager.getConnection(DB_URL, "lv395", "Lv395_Taqc");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void closeConnection() {
+    public static void closeConnection() {
         try {
             connection.close();
         } catch (SQLException e) {
@@ -118,7 +120,7 @@ public final class DataBaseUtils {
      * Method for connect to remote Linux server
      * by SSH connection.
      */
-    public void remoteServerConnect() {
+    public static void remoteServerConnect() {
         try {
             // Open a Session to remote SSH server and Connect.
             // Set User and IP of the remote host and SSH port.
@@ -143,7 +145,7 @@ public final class DataBaseUtils {
     /**
      * Start Shell script for dump and restore database.
      */
-    public void runShellScript(String script) {
+    public static void runShellScript(String script) {
         try {
             // create the execution channel over the session
             ChannelExec channelExec = (ChannelExec) session.openChannel("exec");
@@ -178,7 +180,7 @@ public final class DataBaseUtils {
     /**
      * Disconnect from SSH connection.
      */
-    public void remoteServerDisconnect() {
+    public static void remoteServerDisconnect() {
         //Disconnect the Session
         session.disconnect();
         if(!session.isConnected()) {
@@ -189,7 +191,7 @@ public final class DataBaseUtils {
     /**
      * Method which deletes database.
      */
-    public void dropDatabase() {
+    public static void dropDatabase() {
         try (PreparedStatement ps = connection.prepareStatement(DROP_DATABASE_STATEMENT)) {
             ps.executeUpdate();
 
@@ -198,13 +200,13 @@ public final class DataBaseUtils {
         }
     }
 
-    public void dumpDb() {
+    public static void dumpDb() {
         openConnection();
         remoteServerConnect();
         runShellScript(DUMP_DATABASE);
     }
 
-    public void restoreDb() {
+    public static void restoreDb() {
         dropDatabase();
         closeConnection();
         runShellScript(RESTORE_DATABASE);

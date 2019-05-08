@@ -6,6 +6,8 @@ import com.softserve.edu.opencart.data.SearchFilter;
 import com.softserve.edu.opencart.pages.account.AccountLogoutPage;
 import com.softserve.edu.opencart.pages.account.LoginPage;
 import com.softserve.edu.opencart.pages.account.RegisterPage;
+import com.softserve.edu.opencart.pages.shop.CartProductContainer;
+import com.softserve.edu.opencart.pages.shop.EmptyCartComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

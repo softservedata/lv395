@@ -1,7 +1,7 @@
 package com.softserve.edu.opencart.tests.search_field_tests;
 
 import com.softserve.edu.opencart.data.data_for_search.SearchFieldRepository;
-import com.softserve.edu.opencart.pages.common.ProductComponent;
+import com.softserve.edu.opencart.pages.shop.ProductComponent;
 import com.softserve.edu.opencart.pages.common.SuccessfulSearchPage;
 import com.softserve.edu.opencart.pages.common.UnsuccessfulSearchPage;
 import com.softserve.edu.opencart.tests.ATestRunner;

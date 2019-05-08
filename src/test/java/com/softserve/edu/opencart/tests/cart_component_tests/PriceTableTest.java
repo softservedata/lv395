@@ -2,9 +2,8 @@ package com.softserve.edu.opencart.tests.cart_component_tests;
 
 import com.softserve.edu.opencart.data.IProduct;
 import com.softserve.edu.opencart.data.ProductRepository;
-import com.softserve.edu.opencart.pages.common.TotalPriceTableComponent;
+import com.softserve.edu.opencart.pages.shop.TotalPriceTableComponent;
 import com.softserve.edu.opencart.tests.ATestRunner;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

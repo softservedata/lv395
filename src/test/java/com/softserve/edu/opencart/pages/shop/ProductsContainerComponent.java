@@ -1,4 +1,4 @@
-package com.softserve.edu.opencart.pages.common;
+package com.softserve.edu.opencart.pages.shop;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +87,10 @@ public class ProductsContainerComponent {
     public void clickProductComponentAddToWishButtonByName(String productName)
     {
         getProductComponentByName(productName).clickAddToWishButton();
+    }
+
+    public void clickProductComponentName(String productName) {
+        getProductComponentByName(productName).clickName();
     }
 
     public int getProductComponentsSize()

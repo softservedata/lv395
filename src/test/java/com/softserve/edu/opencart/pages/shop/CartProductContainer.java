@@ -1,6 +1,8 @@
-package com.softserve.edu.opencart.pages.common;
+package com.softserve.edu.opencart.pages.shop;
 
 import com.softserve.edu.opencart.data.IProduct;
+import com.softserve.edu.opencart.pages.common.CheckoutPage;
+import com.softserve.edu.opencart.pages.common.HomePage;
 import com.softserve.edu.opencart.tools.LeaveUtils;
 import com.softserve.edu.opencart.tools.PriceUtils;
 import org.openqa.selenium.By;

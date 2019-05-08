@@ -1,8 +1,8 @@
-package com.softserve.edu.opencart.pages.common;
+package com.softserve.edu.opencart.pages.shop;
 
 import com.softserve.edu.opencart.data.Currencies;
 import com.softserve.edu.opencart.data.Product;
-import com.softserve.edu.opencart.pages.common.shopping_cart.ShoppingCartProductsContainer;
+import com.softserve.edu.opencart.pages.common.AStatusPart;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

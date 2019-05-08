@@ -3,6 +3,9 @@ package com.softserve.edu.opencart.tests.cart_component_tests;
 import com.softserve.edu.opencart.data.IProduct;
 import com.softserve.edu.opencart.data.ProductRepository;
 import com.softserve.edu.opencart.pages.common.*;
+import com.softserve.edu.opencart.pages.shop.CartProductComponent;
+import com.softserve.edu.opencart.pages.shop.CartProductContainer;
+import com.softserve.edu.opencart.pages.shop.ProductPage;
 import com.softserve.edu.opencart.tests.ATestRunner;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -95,6 +98,31 @@ public class ProductListTest extends ATestRunner {
         cartProductContainer
                 .removeProductByName(product);
 
+    }
+
+    @DataProvider
+    public Object[][] fourthProductData() {
+        return new Object[][] {
+                {ProductRepository.getMacBook()},
+        };
+    }
+
+    @Test(dataProvider = "fourthProductData")
+    public void addProductFromProductPageTest(IProduct product) {
+        // Steps
+        CartProductContainer cartProductContainer = loadApplication()
+                .clickProductName(product)
+                .addProductToCart()
+                .openCartProductContainer();
+        List<CartProductComponent> cartProductComponents = cartProductContainer
+                .getCartProductComponents();
+        // Check
+        Assert.assertEquals(cartProductComponents.get(0).getCartProductNameText(),
+                product.getName());
+        cartProductContainer
+                .gotoHomePage()
+                .openCartProductContainer()
+                .removeProductByName(product);
     }
 
 }

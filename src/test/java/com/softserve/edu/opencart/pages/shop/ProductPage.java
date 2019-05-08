@@ -1,5 +1,8 @@
-package com.softserve.edu.opencart.pages.common;
+package com.softserve.edu.opencart.pages.shop;
 
+import com.softserve.edu.opencart.pages.common.AStatusPart;
+import com.softserve.edu.opencart.pages.common.HomePage;
+import com.softserve.edu.opencart.pages.common.SuccessfulSearchPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,13 +11,14 @@ import java.util.List;
 
 public class ProductPage extends AStatusPart {
 
-    //
     private ProductComponent product;
     private List<WebElement> thumbnailsImages;
     private WebElement descriptionButton;
     private WebElement specificationButton;
     private WebElement reviewsButton;
     private WebElement description;
+
+    private ProductRightComponent rightMenu;
 
     public ProductPage(WebDriver driver) {
         super(driver);
@@ -88,11 +92,36 @@ public class ProductPage extends AStatusPart {
         return getDescription().getText();
     }
 
+    // rightMenu
+
+    private ProductRightComponent getRightMenu() {
+        return new ProductRightComponent(driver);
+    }
+
     // Functional
 
     public ProductComponent getProduct() {
         return product;
     }
+
+    public ProductPage setQuantity(int quantity) {
+        getRightMenu().clickQuantityField();
+        getRightMenu().clearQuantityField();
+        getRightMenu().setQuantityField(quantity);
+        return new ProductPage(driver);
+    }
+
+    public ProductPage addProductToCart() {
+        getRightMenu().clickAddToCartButton();
+        return new ProductPage(driver);
+    }
+
+    public HomePage gotoHomePage() {
+        clickLogo();
+        return new HomePage(driver);
+    }
+
+    // dropdownOptions
 
     // Business Logic
 

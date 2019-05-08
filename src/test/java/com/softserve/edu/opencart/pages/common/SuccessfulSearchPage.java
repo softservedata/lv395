@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.pages.common;
 
+import com.softserve.edu.opencart.pages.shop.ProductComponent;
+import com.softserve.edu.opencart.pages.shop.ProductPage;
 import org.openqa.selenium.WebDriver;
 
 import com.softserve.edu.opencart.data.Currencies;

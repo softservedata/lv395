@@ -1,4 +1,4 @@
-package com.softserve.edu.opencart.pages.common.shopping_cart;
+package com.softserve.edu.opencart.pages.shop;
 
 import com.softserve.edu.opencart.data.Product;
 import com.softserve.edu.opencart.tools.PriceUtils;

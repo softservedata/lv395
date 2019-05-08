@@ -1,7 +1,8 @@
 package com.softserve.edu.opencart.pages.common;
 
 import com.softserve.edu.opencart.data.IProduct;
-import com.softserve.edu.opencart.data.Product;
+import com.softserve.edu.opencart.pages.shop.ProductPage;
+import com.softserve.edu.opencart.pages.shop.ProductsContainerComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -51,18 +52,25 @@ public class HomePage extends AHeaderPart {
         return productsContainerComponent;
     }
 
+
     // Functional
+
+    public HomePage addProductToCart(IProduct product) {
+        getProductsContainerComponent()
+                .clickProductComponentAddToCartButtonByName(product.getName());
+        return new HomePage(driver);
+    }
+
+    public ProductPage clickProductName(IProduct product) {
+        getProductsContainerComponent()
+                .clickProductComponentName(product.getName());
+        return new ProductPage(driver);
+    }
 
     // Business Logic
 
     public HomePage chooseCurrency(Currencies currency) {
         clickCurrencyByPartialName(currency);
-        return new HomePage(driver); 
-    }
-
-    public HomePage addProductToCart(IProduct product) {
-        getProductsContainerComponent()
-                .clickProductComponentAddToCartButtonByName(product.getName());
         return new HomePage(driver);
     }
 

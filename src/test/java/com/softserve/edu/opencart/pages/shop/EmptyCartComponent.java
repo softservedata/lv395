@@ -1,4 +1,4 @@
-package com.softserve.edu.opencart.pages.common;
+package com.softserve.edu.opencart.pages.shop;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,7 +8,7 @@ public class EmptyCartComponent extends ACartComponent {
 
     private WebElement emptyCart;
 
-    protected EmptyCartComponent(WebDriver driver) {
+    public EmptyCartComponent(WebDriver driver) {
         super(driver);
         initElements();
     }

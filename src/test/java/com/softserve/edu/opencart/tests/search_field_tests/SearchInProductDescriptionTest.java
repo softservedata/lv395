@@ -2,8 +2,8 @@ package com.softserve.edu.opencart.tests.search_field_tests;
 
 import com.softserve.edu.opencart.data.SearchFilter;
 import com.softserve.edu.opencart.data.SearchFilterRepository;
-import com.softserve.edu.opencart.pages.common.ProductPage;
-import com.softserve.edu.opencart.pages.common.ProductsContainerComponent;
+import com.softserve.edu.opencart.pages.shop.ProductPage;
+import com.softserve.edu.opencart.pages.shop.ProductsContainerComponent;
 import com.softserve.edu.opencart.pages.common.SuccessfulSearchPage;
 import com.softserve.edu.opencart.tests.ATestRunner;
 import org.testng.Assert;
