@@ -27,7 +27,7 @@ public class ChooseCategoryTest extends ATestRunner {
                         ProductRepository.getIMac().getName()},
         };
     }
-    //positive test search in description is not used
+
     @Test(dataProvider = "dataForPositiveTest")
     public void findSonyPositiveTest(SearchFilter searchFilterData, String producatName){
         SuccessfulSearchPage successfulSearchPage=loadApplication()
@@ -41,19 +41,25 @@ public class ChooseCategoryTest extends ATestRunner {
     @DataProvider
     public Object[][] dataForNegativeTest(){
         return new Object[][] {
-                {SearchFilterRepository.getIMacWrongCategory(),
+                //negative test search in description is not used
+                   {SearchFilterRepository.getIMacWrongCategory(),
                         ProductRepository.getIMac().getName()} ,
-                //IMac category - Mac and Mac is
-                // Desktops's sub category, here we use desktop category
-                {SearchFilterRepository.getIMacFathersCategory()
+                   //IMac category - Mac and Mac is
+                   // Desktops's sub category, here we use desktop category
+                   {SearchFilterRepository.getIMacFathersCategory()
                         ,ProductRepository.getIMac().getName()},
 
-                //positive test search in description is used
-                {SearchFilterRepository.getIMacNegativeDataUseSearchInDescription(),
+                //negative test search in description is used
+
+                {SearchFilterRepository.getIMacWrongCategoryUseSearchInDescription()
+                        ,ProductRepository.getIMac().getName()},
+                //IMac category - Mac and Mac is
+                // Desktops's sub category, here we use desktop category
+                {SearchFilterRepository.getIMacFathersCategoryUseSearchInDescription(),
                         ProductRepository.getIMac().getName()},
         };
     }
-    //negative test(everything  is like in previous data except category)
+
     @Test(dataProvider = "dataForNegativeTest")
     public void findSonyNegativeTest(SearchFilter searchFilterData, String producatName){
         SuccessfulSearchPage successfulSearchPage=loadApplication()

@@ -70,8 +70,10 @@ public class SearchInProductDescriptionTest extends ATestRunner {
     @DataProvider
     public Object[][] dataForFindCanon(){
         return new Object[][]{
-                {ProductRepository.getCanonEOS5D().getName(),SearchFilterRepository.getCanonFromName()},
-                {ProductRepository.getCanonEOS5D().getName(),SearchFilterRepository.getCanonFromDescription()},
+                {ProductRepository.getCanonEOS5D().getName(),
+                        SearchFilterRepository.getCanonFromName()},
+                {ProductRepository.getCanonEOS5D().getName()
+                        ,SearchFilterRepository.getCanonFromDescription()},
         };
 
     }

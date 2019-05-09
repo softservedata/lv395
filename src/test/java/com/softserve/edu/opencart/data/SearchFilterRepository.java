@@ -87,7 +87,7 @@ public final class SearchFilterRepository {
     }
 
 
-    //----------------------------------------------------data for search in product description---------------------------
+    //-----------------------------------------------data for search in product description---------------------------
 
     public static ISearchFilter getCanonFromName() {
         return SearchFilter.get().setProductSearchName("Canon").isUseDescription(true).build();
@@ -120,18 +120,7 @@ public final class SearchFilterRepository {
 
 
     //---------------------------------data for choose category--------------------------------------------------------
-    public static ISearchFilter getSonyVAIOPositiveData(){
-        return SearchFilter.get().setProductSearchName("o").setCategoryName("Desktops").build();
-    }
-    public static ISearchFilter getSonyVAIONegativeData(){
-        return SearchFilter.get().setProductSearchName("o").setCategoryName("MP3 Players").build();
-    }
-    public static ISearchFilter getMacBookPositiveData() {
-        return SearchFilter.get().setProductSearchName("is").isUseDescription(true).setCategoryName("Desktops").build();
-    }
-    public static ISearchFilter getMacBookNegativeData() {
-        return SearchFilter.get().setProductSearchName("is").isUseDescription(true).setCategoryName("MP3 Players").build();
-    }
+
     public static ISearchFilter getIMacFathersCategory(){
         return SearchFilter.get()
                 .setProductSearchName("a")
@@ -146,7 +135,7 @@ public final class SearchFilterRepository {
                 .setCategoryName("Mac")
                 .build();
     }
-    public static ISearchFilter getIMacNegativeDataUseSearchInDescription(){
+    public static ISearchFilter getIMacFathersCategoryUseSearchInDescription(){
         return SearchFilter.get()
                 .setProductSearchName("when")
                 .isUseDescription(true)
@@ -176,8 +165,56 @@ public final class SearchFilterRepository {
                 .build();
     }
 
+//----------------------------data for searh in subcategories--------------------------------------------------------------
+public static ISearchFilter getIMacFathersCategoryUseSubCategories(){
+    return SearchFilter.get()
+            .setProductSearchName("a")
+            .isUseDescription(false)
+            .setCategoryName("Desktops")
+            .isUseSubcategory(true)
+            .build();
+}
+    public static ISearchFilter getIMacPositiveDataUseSubCategories(){
+        return SearchFilter.get()
+                .setProductSearchName("a")
+                .isUseDescription(false)
+                .setCategoryName("Mac")
+                .isUseSubcategory(true)
+                .build();
+    }
+    public static ISearchFilter getIMacFathersCategoryUseSearchInDescriptionUseSubCategories(){
+        return SearchFilter.get()
+                .setProductSearchName("when")
+                .isUseDescription(true)
+                .setCategoryName("Desktops")
+                .isUseSubcategory(true)
+                .build();
+    }
+    public static ISearchFilter getIMacPositiveDataUseSearchInDescriptionUseSubCategories(){
+        return SearchFilter.get()
+                .setProductSearchName("when")
+                .isUseDescription(true)
+                .setCategoryName("Mac")
+                .isUseSubcategory(true)
+                .build();
+    }
 
-
+    public static ISearchFilter getIMacWrongCategoryUseSearchInDescriptionUseSubCategories(){
+        return SearchFilter.get()
+                .setProductSearchName("when")
+                .isUseDescription(true)
+                .setCategoryName("Monitors")
+                .isUseSubcategory(true)
+                .build();
+    }
+    public static ISearchFilter getIMacWrongCategoryUseSubCategories(){
+        return SearchFilter.get()
+                .setProductSearchName("a")
+                .isUseDescription(false)
+                .setCategoryName("Monitors")
+                .isUseSubcategory(true)
+                .build();
+    }
 
 
 
