@@ -28,33 +28,4 @@ public class WishListPage extends ARightLoginPart {
     public WebElement getWishListButtonContinue() {
         return wishListButtonContinue;
     }
-
-    public MyAccountPage clickWishListButtonContinue() {
-        getWishListButtonContinue().click();
-        return new MyAccountPage(driver);
-    }
-
-    public WishListProductsListComponent getWishListProductsListComponent() {
-        return wishListProductListComponent;
-    }
-
-    public String getWishListProductNameByPartialName(String partialProductName) {
-        return getWishListProductsListComponent()
-                .getWishListProductComponentByPartialName(partialProductName)
-                .getproductNameWishListText();
-    }
-
-    public WishListMessagePage putFromWishListToCartProductByPartialName(String partialProductName)  //HomeMessagePage
-    {
-        getWishListProductsListComponent()
-                .addToCartProductFromWishListByPartialName(partialProductName);
-        return new WishListMessagePage(driver);
-    }
-
-    public WishListMessagePage removeFromWishListProductByPartialName(String partialProductName)
-    {
-        getWishListProductsListComponent()
-                .removeProductFromWishListByPartialName(partialProductName);
-        return new WishListMessagePage(driver);
-    }
 }

@@ -2,9 +2,9 @@ package com.softserve.edu.opencart.pages.account;
 
 import org.openqa.selenium.WebDriver;
 
-public class UpdatedWishList extends WishListPage {
+public class WishListUpdated extends WishListPage {
 
-    public UpdatedWishList(WebDriver driver) {
+    public WishListUpdated(WebDriver driver) {
         super(driver);
     }
 }
