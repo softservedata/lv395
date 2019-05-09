@@ -34,6 +34,8 @@ public abstract class ACartComponent extends AHeaderPart {
 
     // Business Logic
 
+
+
     public boolean isCartEmpty() {
         return getCartContainerText().equals(EMPTY_CART_MESSAGE);
     }

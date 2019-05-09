@@ -7,6 +7,8 @@ import com.softserve.edu.opencart.pages.shop.CartProductComponent;
 import com.softserve.edu.opencart.pages.shop.CartProductContainer;
 import com.softserve.edu.opencart.pages.shop.ProductPage;
 import com.softserve.edu.opencart.tests.ATestRunner;
+import com.softserve.edu.opencart.tools.DataBaseUtils;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -123,6 +125,29 @@ public class ProductListTest extends ATestRunner {
                 .gotoHomePage()
                 .openCartProductContainer()
                 .removeProductByName(product);
+    }
+
+    @DataProvider
+    public Object[][] fifthProductData() {
+        return new Object[][] {
+                {ProductRepository.getMacBook(), 100},
+        };
+    }
+
+    @Test(dataProvider = "fifthProductData")
+    // Steps
+    public void addMoreItemsThenInDbTest(IProduct product, int add) {
+        CartProductContainer cartProductContainer = loadApplication()
+                .clickProductName(product)
+                .setQuantity(DataBaseUtils
+                        .getProductQuantityFromDb(product) + add)
+                .addProductToCart()
+                .gotoHomePage()
+                .openCartProductContainer();
+        List<CartProductComponent> cartProductComponents = cartProductContainer
+                .getCartProductComponents();
+        // Check
+        Assert.assertTrue(cartProductComponents.size() == 0);
     }
 
 }
