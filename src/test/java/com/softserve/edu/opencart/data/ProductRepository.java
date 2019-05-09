@@ -2,6 +2,8 @@ package com.softserve.edu.opencart.data;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public final class ProductRepository {
 
@@ -42,6 +44,25 @@ public final class ProductRepository {
                 .setPriceDollarExTax("101.00")
                 .build();
     }
+        public static IProduct getSonyVAIO(){
+            List<String> categories=new ArrayList<>();
+            categories.add("Laptops & Notebooks");
+            categories.add(" Desktops");
+        return Product.get().setName("Sony VAIO")
+                .setDescription("Unprecedented power. The next generation of processing technology has arrived. Built into the new..")
+                .setPriceDollarExTax("1,202.00")
+                .setCategories(categories)
+                .build();
+    }
+public static IProduct getIMac(){
+        List<String> categories=new ArrayList<>();
+        categories.add("Mac");
+        return Product.get()
+                .setName("iMac")
+                .setCategories(categories)
+                .build();
+}
+
 //    public static Product getHPLP3065(){
 //        return new Product("HP LP3065","Stop your co-workers in their tracks with the stunning new 30-inch diagonal HP LP3065 Flat Panel ..","122.00");
 //    }
@@ -84,9 +105,7 @@ public final class ProductRepository {
 //    public static Product getSamsungSyncMaster941BW(){
 //        return new Product("Samsung SyncMaster 941BW","Imagine the advantages of going big without slowing down. The big 19\" 941BW monitor combines..","242.00");
 //    }
-//    public static Product getSonyVAIO(){
-//        return new Product("Sony VAIO","Unprecedented power. The next generation of processing technology has arrived. Built into the new..","1,202.00");
-//    }
+
 //    public static Product get(){
 //        return new Product("Samsung Galaxy Tab 10.1","Samsung Galaxy Tab 10.1, is the world’s thinnest tablet, measuring 8.6 mm thickness, runnin..","241.99");
 //    }

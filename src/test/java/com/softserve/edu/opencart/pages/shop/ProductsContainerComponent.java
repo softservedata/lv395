@@ -42,6 +42,10 @@ public class ProductsContainerComponent {
     }
     
     // Functional
+    public Boolean isProductOnThePage(String productName){
+        return getProductComponentNames().contains(productName);
+
+    }
     public List<String> getProductComponentNames()
     {
         List<String> productComponentNames = new ArrayList<>();

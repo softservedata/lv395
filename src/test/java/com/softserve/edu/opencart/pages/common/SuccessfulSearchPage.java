@@ -27,16 +27,17 @@ public class SuccessfulSearchPage extends ASearchPart {
     }
     
     // Functional
-
+    //--new--
+    public ProductPage chooseProduct(ProductComponent product){
+        product.clickName();
+        return new ProductPage(driver,product);
+    }
     // Business Logic
     
     public SuccessfulSearchPage chooseCurrency(Currencies currency) {
         clickCurrencyByPartialName(currency);
         return new SuccessfulSearchPage(driver);
     }
-    //--------------------------changes----------------------
-    public ProductPage chooseProduct(ProductComponent product){
-        product.clickName();
-        return new ProductPage(driver,product);
-    }
+
+
 }

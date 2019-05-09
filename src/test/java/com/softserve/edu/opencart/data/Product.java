@@ -26,6 +26,7 @@ interface IProductBuild {
     IProductBuild setTotalPrice(BigDecimal totalPrice);
 
     IProduct build();
+
 }
 
 public class Product implements IName, IProductBuild, IProduct {

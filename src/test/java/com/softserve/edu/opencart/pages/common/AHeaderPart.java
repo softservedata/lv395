@@ -248,6 +248,21 @@ public abstract class AHeaderPart {
     }
 
     // Business Logic
+//    public boolean tryGotoHomePage() {
+//        boolean weAreOnHomePage = true;
+//        try {
+//            gotoHomePage();
+//        } catch (Exception e) {
+//            weAreOnHomePage = false;
+//        }
+//        return weAreOnHomePage;
+//    }
+//
+    public void fillField(String text) {
+        fillSearchField(text);
+        clickSearchButton();
+    }
+
 
     public HomePage gotoHomePage() {
         clickLogo();
@@ -260,18 +275,15 @@ public abstract class AHeaderPart {
         return new SuccessfulSearchPage(driver);
     }
 
-    //-------------------------------------------------------------------
-    public UnsuccessfulSearchPage searchIncorrectProducts(String  searchItem) {
-        fillSearchField(searchItem);
-        clickSearchButton();
-        return new UnsuccessfulSearchPage(driver);
-    }
-
-    //-------------------------------------------------------------------
     public SuccessfulSearchPage searchProducts(String searchItem) {
         fillSearchField(searchItem);
         clickSearchButton();
         return new SuccessfulSearchPage(driver);
+    }
+    public UnsuccessfulSearchPage gotoSearchPageWithFilters() {
+        fillSearchField("");
+        clickSearchButton();
+        return new UnsuccessfulSearchPage(driver);
     }
 
 
