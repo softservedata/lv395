@@ -2,7 +2,7 @@ package com.softserve.edu.opencart.data;
 
 public final class UserRepository {
     private static volatile UserRepository instance = null;
-    
+
     private UserRepository() {
     }
 
@@ -16,13 +16,13 @@ public final class UserRepository {
         }
         return instance;
     }
-    
+
     public IUser defaultUser() {
         return customer();
     }
-    
+
     //public IUser admin() {}
-    
+
     public IUser customer() {
         return User.get()
                 .setFirstname("8_firstname")
@@ -81,7 +81,7 @@ public final class UserRepository {
                 .build();
     }
 
-    public IUser userWithIncorrectCredentials(){
+    public IUser userWithIncorrectCredentials() {
         return User.get()
                 .setFirstname("Not_John")
                 .setLastname("Not_Wick")
@@ -100,7 +100,126 @@ public final class UserRepository {
                 .build();
     }
 
+    ////////////////////////////////////////////////////////////
+    public IUser validUserWithBoundaryValues1() {
+        return User.get()
+                .setFirstname("L")
+                .setLastname("V")
+                .setEmail("nnbvc.201@lpnu.ua")
+                .setTelephone("0507591658")
+                .setAddress1("Var")
+                .setCity("Lv")
+                .setPostcode("48")
+                .setCountry("Angola")
+                .setRegion("Huila")
+                .setPassword("qwer")
+                .setSubscribe(true)
+                .setFax("41358454")
+                .setCompany("Company")
+                .setAddress2("address")
+                .build();
+    }
+
+    public IUser validUserWithBoundaryValues2() {
+        return User.get()
+                .setFirstname("iamlordvoldemortiamlordvoldemort")
+                .setLastname("iamlordvoldemortiamlordvoldemort")
+                .setEmail("naz.bibasko.kn.2016@lpnu.ua")
+                .setTelephone("56698765645669876564566987656445")
+                .setAddress1("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                .setCity("lvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlv" +
+                        "lvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlv" +
+                        "lvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlvlv")
+                .setPostcode("4876448764")
+                .setCountry("Angola")
+                .setRegion("Huila")
+                .setPassword("qwertqwertqwertqwert")
+                .setSubscribe(false)
+                .setFax("16541684165416468")
+                .setCompany("Company")
+                .setAddress2("Address2")
+                .build();
+    }
+
+    public IUser invalidUserWithBoundaryValues() {
+        return User.get()
+                .setFirstname("")
+                .setLastname("")
+                .setEmail("")
+                .setTelephone("")
+                .setAddress1("")
+                .setCity("")
+                .setPostcode("")
+                .setCountry("")
+                .setRegion("")
+                .setPassword("")
+                .setSubscribe(true)
+                .setFax("")
+                .setCompany("")
+                .setAddress2("")
+                .build();
+    }
+
+    public IUser invalidUserWithBoundaryValues2() {
+        return User.get()
+                .setFirstname("")
+                .setLastname("")
+                .setEmail("")
+                .setTelephone("")
+                .setAddress1("")
+                .setCity("")
+                .setPostcode("")
+                .setCountry("")
+                .setRegion("")
+                .setPassword("")
+                .setSubscribe(true)
+                .setFax("")
+                .setCompany("")
+                .setAddress2("")
+                .build();
+    }
+
+    public IUser emptyFieldsUser() {
+        return User.get()
+                .setFirstname("")
+                .setLastname("")
+                .setEmail("")
+                .setTelephone("")
+                .setAddress1("")
+                .setCity("")
+                .setPostcode("")
+                .setCountry("")
+                .setRegion("")
+                .setPassword("")
+                .setSubscribe(true)
+                .setFax("")
+                .setCompany("")
+                .setAddress2("")
+                .build();
+    }
+
+    public IUser userConsistsDigits() {
+        return User.get()
+                .setFirstname("")
+                .setLastname("")
+                .setEmail("")
+                .setTelephone("")
+                .setAddress1("")
+                .setCity("")
+                .setPostcode("")
+                .setCountry("")
+                .setRegion("")
+                .setPassword("")
+                .setSubscribe(true)
+                .setFax("")
+                .setCompany("")
+                .setAddress2("")
+                .build();
+    }
+
     // TODO
-   //public List<IUser> fromExcel() {}
-   //public List<IUser> fromDB() { create class, read, max 5-7 lines}
+    //public List<IUser> fromExcel() {}
+    //public List<IUser> fromDB() { create class, read, max 5-7 lines}
 }

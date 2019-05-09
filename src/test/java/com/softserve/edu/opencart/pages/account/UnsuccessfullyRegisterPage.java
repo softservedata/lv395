@@ -10,7 +10,7 @@ public class UnsuccessfullyRegisterPage extends RegisterPage {
 
     public static final String EXPECTED_WARNING_FIRST_NAME = "First Name must be between 1 and 32 characters!";
     public static final String EXPECTED_WARNING_LAST_NAME = "Last Name must be between 1 and 32 characters!";
-    public static final String EXPECTED_WARNING_EMAIL = "E-Mail Address dуіoes not appear to be valid!";
+    public static final String EXPECTED_WARNING_EMAIL = "E-Mail Address does not appear to be valid!";
     public static final String EXPECTED_WARNING_TELEPHONE = "Telephone must be between 3 and 32 characters!";
     public static final String EXPECTED_WARNING_ADDRESS1 = "Address 1 must be between 3 and 128 characters!";
     public static final String EXPECTED_WARNING_CITY = "City must be between 2 and 128 characters!";

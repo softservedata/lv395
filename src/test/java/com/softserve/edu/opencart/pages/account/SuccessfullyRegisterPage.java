@@ -4,8 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class SuccessfullyRegisterPage extends RegisterPage {
+public class SuccessfullyRegisterPage extends ARightMenuPart {
+
+    public static final String EXPECTED_SUCCESS_MESSAGE = "Your Account Has Been Created!";
+
     private WebElement continueButton;
+    private static WebElement successMessage;
 
     public SuccessfullyRegisterPage(WebDriver driver) {
         super(driver);
@@ -14,6 +18,7 @@ public class SuccessfullyRegisterPage extends RegisterPage {
 
     private void initElements() {
         continueButton = driver.findElement(By.cssSelector("a.btn.btn-primary"));
+        successMessage = driver.findElement(By.cssSelector("div[id='content'] > h1"));
     }
 
     // Page Object
@@ -29,6 +34,15 @@ public class SuccessfullyRegisterPage extends RegisterPage {
 
     public void clickContinueButton() {
         getContinueButton().click();
+    }
+
+    //
+    public static WebElement getSuccessMessage() {
+        return successMessage;
+    }
+
+    public static String getExpectedSuccessMessage() {
+        return getSuccessMessage().getText();
     }
 
     // Business Logic

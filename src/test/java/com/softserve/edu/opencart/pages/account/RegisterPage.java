@@ -596,49 +596,53 @@ public class RegisterPage extends ARightLogoutPart {
 
     //Business Logic
 
-    //valid user with valid registration
-    public MyAccountPage successfullyRegisterUser(IUser validBoundaryUser) {
+    //checkcorrectdata
+    public SuccessfullyRegisterPage successfullyRegisterUser(IUser validBoundaryUser) {
         //valid registration
         fillRegistrationForm(validBoundaryUser);
-        return new MyAccountPage(driver);
+        return new SuccessfullyRegisterPage(driver);
     }
 
-    //valid user with invalid registration
-    public MyAccountPage registerUserWithoutPolicy(IUser validBoundaryUser) {
-        fillRegistrationFormWithNoPrivacyPolicy(validBoundaryUser);
-        return new MyAccountPage(driver);
+    //checkcorrectdata
+    public SuccessfullyRegisterPage successfullyRegisterUser2(IUser validBoundaryUser2) {
+        fillRegistrationForm(validBoundaryUser2);
+        return new SuccessfullyRegisterPage(driver);
     }
 
-    //invalid user bad boundary data with valid registration
+    //checkincorrectdata
     public UnsuccessfullyRegisterPage userWithBadData(IUser invalidBoundaryUser) {
         fillRegistrationForm(invalidBoundaryUser);
         return new UnsuccessfullyRegisterPage(driver);
     }
 
-    //invalid user with bad email valid registration
-    public UnsuccessfullyRegisterPage userWithBadEmail(IUser userBadEmail) {
-        fillRegistrationForm(userBadEmail);
+    //checkincorrectdata
+    public UnsuccessfullyRegisterPage userWithBadData2(IUser invalidBoundaryUser2) {
+        fillRegistrationForm(invalidBoundaryUser2);
         return new UnsuccessfullyRegisterPage(driver);
     }
 
+    //empty user
     public UnsuccessfullyRegisterPage userWithNoData(IUser emptyFieldsUser) {
         fillRegistrationForm(emptyFieldsUser);
         return new UnsuccessfullyRegisterPage(driver);
     }
 
-    public UnsuccessfullyRegisterPage userBoundary(IUser userBoundaryValues) {
-        fillRegistrationForm(userBoundaryValues);
+
+//    public UnsuccessfullyRegisterPage userBoundary(IUser userBoundaryValues) {
+//        fillRegistrationForm(userBoundaryValues);
+//        return new UnsuccessfullyRegisterPage(driver);
+//    }
+
+    //without privacyPolicy
+    public UnsuccessfullyRegisterPage userWithNoPrivacyPolicy(IUser validUser) {
+        fillRegistrationFormWithNoPrivacyPolicy(validUser);
         return new UnsuccessfullyRegisterPage(driver);
     }
 
-//    public UnsuccessfullRegisterPageAlert userWithNoPrivacyPolicy(IUser validUser) {
-//        fillRegistrationFormWithNoPrivacyPolicy(validUser);
-//        return new UnsuccessfullRegisterPageAlert(driver);
-//    }
-
-    public UnsuccessfullyRegisterPage userWithFirstNameConsistsDigits(IUser userWithFirstNameConsistsDigits) {
-        fillRegistrationForm(userWithFirstNameConsistsDigits);
-        return new UnsuccessfullyRegisterPage(driver);
+    //fields consist digits
+    public SuccessfullyRegisterPage userWithConsistsDigits(IUser userConsistsDigits) {
+        fillRegistrationForm(userConsistsDigits);
+        return new SuccessfullyRegisterPage(driver);
     }
 }
 

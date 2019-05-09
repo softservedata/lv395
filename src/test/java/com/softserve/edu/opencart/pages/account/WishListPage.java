@@ -38,23 +38,23 @@ public class WishListPage extends ARightLoginPart {
         return wishListProductListComponent;
     }
 
-    public String getWishListProductNameByPartialName(String partialProductName) {
-        return getWishListProductsListComponent()
-                .getWishListProductComponentByPartialName(partialProductName)
-                .getproductNameWishListText();
-    }
-
-    public WishListMessagePage putFromWishListToCartProductByPartialName(String partialProductName)  //HomeMessagePage
-    {
-        getWishListProductsListComponent()
-                .addToCartProductFromWishListByPartialName(partialProductName);
-        return new WishListMessagePage(driver);
-    }
-
-    public WishListMessagePage removeFromWishListProductByPartialName(String partialProductName)
-    {
-        getWishListProductsListComponent()
-                .removeProductFromWishListByPartialName(partialProductName);
-        return new WishListMessagePage(driver);
-    }
+//    public String getWishListProductNameByPartialName(String partialProductName) {
+//        return getWishListProductsListComponent()
+//                .getWishListProductComponentByPartialName(partialProductName)
+//                .getproductNameWishListText();
+//    }
+//
+//    public WishListMessagePage putFromWishListToCartProductByPartialName(String partialProductName)  //HomeMessagePage
+//    {
+//        getWishListProductsListComponent()
+//                .addToCartProductFromWishListByPartialName(partialProductName);
+//        return new WishListMessagePage(driver);
+//    }
+//
+//    public WishListMessagePage removeFromWishListProductByPartialName(String partialProductName)
+//    {
+//        getWishListProductsListComponent()
+//                .removeProductFromWishListByPartialName(partialProductName);
+//        return new WishListMessagePage(driver);
+//    }
 }
