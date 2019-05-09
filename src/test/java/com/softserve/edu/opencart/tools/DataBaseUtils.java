@@ -102,6 +102,7 @@ public final class DataBaseUtils {
     }
 
     public static int getProductQuantityFromDb(IProduct product) {
+        openConnection();
         ResultSet resultSet = null;
         int productQuantity = 0;
         try (PreparedStatement ps = connection.prepareStatement(PRODUCT_QUANTITY_STATEMENT)) {
@@ -112,6 +113,8 @@ public final class DataBaseUtils {
                         .parseInt(resultSet.getString(1));
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
         return productQuantity;
     }
