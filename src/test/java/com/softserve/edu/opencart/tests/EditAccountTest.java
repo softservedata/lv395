@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class EditAccountTest extends ATestRunner {
     private DataBaseUtils dataBaseUtils;
+    private List<String> userInfo;
 
     @DataProvider // (parallel = true)
     public Object[][] validUser() {
@@ -53,7 +54,7 @@ public class EditAccountTest extends ATestRunner {
         //Open JDBC connection
         dataBaseUtils = new DataBaseUtils();
         //Retrieve user data from DB
-        List<String> userInfo = dataBaseUtils.checkIfUserInfoWasChanged(user.getEmail());
+        userInfo = dataBaseUtils.checkIfUserInfoWasChanged(user.getEmail());
 
         // Assert first name
         Assert.assertEquals(userInfo.get(0), user.getFirstname());
