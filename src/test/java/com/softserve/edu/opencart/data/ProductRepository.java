@@ -39,8 +39,8 @@ public final class ProductRepository {
                 .build();
     }
 
-    public static IProduct getIPhone3(){
-        return Product.get().setName("iPhone 3")
+    public static IProduct getIPhone(){
+        return Product.get().setName("iPhone")
                 .setPriceDollarExTax("101.00")
                 .build();
     }

@@ -8,6 +8,7 @@ import com.softserve.edu.opencart.pages.account.MyAccountPage;
 import com.softserve.edu.opencart.pages.shop.CartProductComponent;
 import com.softserve.edu.opencart.pages.shop.CartProductContainer;
 import com.softserve.edu.opencart.pages.common.HomePage;
+import com.softserve.edu.opencart.pages.shop.EmptyCartComponent;
 import com.softserve.edu.opencart.tests.ATestRunner;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -17,18 +18,25 @@ import java.util.List;
 
 public class OtherFunctionalTest extends ATestRunner {
 
-    @Test
-    public void checkPriceTextButton() {
+    @DataProvider // (parallel = true)
+    public Object[][] validData() {
+        return new Object[][]{
+                {ProductRepository.getMacBook() ,"1 item(s) - $602.00"},
+        };
+    }
+
+    @Test(dataProvider = "validData")
+    public void checkPriceTextButton(IProduct product, String text) {
         // Steps
         HomePage homePage = loadApplication()
-                .addProductToCart(ProductRepository.getMacBook())
+                .addProductToCart(product)
                 .gotoHomePage();
         // Check
-        Assert.assertTrue(homePage.getCartButtonText().contains(" 1 item(s) - $602.00"));
+        Assert.assertTrue(homePage.getCartButtonText().contains(text));
         // Steps
         homePage
                 .openCartProductContainer()
-                .removeProductByName(ProductRepository.getMacBook());
+                .removeProductByName(product);
     }
 
     @DataProvider // (parallel = true)
@@ -54,60 +62,20 @@ public class OtherFunctionalTest extends ATestRunner {
         Assert.assertEquals(cartProductComponents.get(0).getCartProductNameText(),
                 product.getName());
         // Steps
-        myAccountPage
+        EmptyCartComponent emptyCartComponent = myAccountPage
                 .refresh()
                 .logout()
                 .continueHomePage()
-                .openCartProductContainer();
+                .openEmptyCart();
         // Check
-        Assert.assertTrue(cartProductContainer.isCartEmpty());
+        Assert.assertTrue(emptyCartComponent.isCartEmpty());
     }
-
-/*    @DataProvider // (parallel = true)
-    public Object[][] validDifferentUsers() {
-        return new Object[][] {
-                { UserRepository.get().johnWick(), UserRepository.get().yaroslav(), ProductRepository.getMacBook()},
-        };
-    }
-
-    @Test(dataProvider = "validDifferentUsers")
-    public void differentLoggedUsersCartTest(IUser firstUser, IUser secondUser, IProduct product) {
-        IUser user = firstUser;
-        int step = 1;
-        while (step <= 2){
-            if (step == 2) user = secondUser;
-            // Steps
-            MyAccountPage myAccountPage = loadApplication()
-                    .gotoLoginPage()
-                    .successLogin(user);
-            CartProductContainer cartProductContainer = myAccountPage
-                    .gotoHomePage()
-                    .addProductToCart(product)
-                    .refresh()
-                    .openCartProductContainer();
-            List<CartProductComponent> cartProductComponents = cartProductContainer
-                    .getCartProductComponents();
-            // Check
-            Assert.assertTrue(cartProductComponents.size() == 1);
-            // Steps
-            cartProductComponents.clear();
-            step += step;
-            myAccountPage
-                    .refresh()
-                    .gotoHomePage()
-                    .openCartProductContainer()
-                    .removeProductByName(product)
-                    .refresh()
-                    .logout()
-                    .continueHomePage();
-        }
-    }*/
 
     @DataProvider // (parallel = true)
     public Object[][] validDifferentUsers() {
         return new Object[][]{
                 {UserRepository.get().johnWick(), ProductRepository.getMacBook()},
-                {UserRepository.get().yaroslav(), ProductRepository.getIPhone3()}
+                {UserRepository.get().yaroslav(), ProductRepository.getIPhone()}
         };
     }
 

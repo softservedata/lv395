@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="CartTestSuite">
+
+    <test name="CartComponentTest">
+        <classes>
+            <class name="com.softserve.edu.opencart.tests.cart_component_tests.ProductListTest">
+            <methods>
+                <include name="" />
+            </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.cart_component_tests.PriceTableTest">
+                <methods>
+                    <include name="" />
+                </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.cart_component_tests.CartFunctionalTest">
+                <methods>
+                    <include name="" />
+                </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.cart_component_tests.OtherFunctionalTest">
+                <methods>
+                    <include name="" />
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- Test -->
+
+</suite> <!-- Suite -->

@@ -5,10 +5,8 @@ import com.softserve.edu.opencart.data.ProductRepository;
 import com.softserve.edu.opencart.pages.common.*;
 import com.softserve.edu.opencart.pages.shop.CartProductComponent;
 import com.softserve.edu.opencart.pages.shop.CartProductContainer;
-import com.softserve.edu.opencart.pages.shop.ProductPage;
 import com.softserve.edu.opencart.tests.ATestRunner;
 import com.softserve.edu.opencart.tools.DataBaseUtils;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -21,7 +19,7 @@ public class ProductListTest extends ATestRunner {
     public Object[][] productData() {
         return new Object[][] {
                 {ProductRepository.getMacBook()},
-                {ProductRepository.getIPhone3()}
+                {ProductRepository.getIPhone()}
         };
     }
 
@@ -45,7 +43,7 @@ public class ProductListTest extends ATestRunner {
     @DataProvider
     public Object[][] secondProductData() {
         return new Object[][] {
-                {ProductRepository.getMacBook(), ProductRepository.getIPhone3()}
+                {ProductRepository.getMacBook(), ProductRepository.getIPhone()}
         };
     }
 
@@ -136,11 +134,11 @@ public class ProductListTest extends ATestRunner {
 
     @Test(dataProvider = "fifthProductData")
     // Steps
-    public void addMoreItemsThenInDbTest(IProduct product, int add) {
+    public void addMoreItemsThenInDbTest(IProduct product, int addition) {
         CartProductContainer cartProductContainer = loadApplication()
                 .clickProductName(product)
                 .setQuantity(DataBaseUtils
-                        .getProductQuantityFromDb(product) + add)
+                        .getProductQuantityFromDb(product) + addition)
                 .addProductToCart()
                 .gotoHomePage()
                 .openCartProductContainer();
@@ -148,6 +146,9 @@ public class ProductListTest extends ATestRunner {
                 .getCartProductComponents();
         // Check
         Assert.assertTrue(cartProductComponents.size() == 0);
+        // Steps
+        cartProductContainer
+                .removeProductByName(product);
     }
 
 }
