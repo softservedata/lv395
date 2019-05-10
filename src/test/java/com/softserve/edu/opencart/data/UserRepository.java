@@ -44,10 +44,10 @@ public final class UserRepository {
 
     public IUser yaroslav() {
         return User.get()
-                .setFirstname("8_firstname")
-                .setLastname("8_lastname")
+                .setFirstname("Yaroslav")
+                .setLastname("Harasym")
                 .setEmail("garasym@gmail.com")
-                .setTelephone("8_telephone")
+                .setTelephone("1234567")
                 .setAddress1("8_address1")
                 .setCity("8_city")
                 .setPostcode("8_postcode")
@@ -55,7 +55,7 @@ public final class UserRepository {
                 .setRegion("8_region")
                 .setPassword("qwerty")
                 .setSubscribe(true)
-                .setFax("8_fax")
+                .setFax("123")
                 .setCompany("8_company")
                 .setAddress2("8_address2")
                 .build();
