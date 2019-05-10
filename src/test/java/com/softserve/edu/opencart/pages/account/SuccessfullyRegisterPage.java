@@ -45,9 +45,16 @@ public class SuccessfullyRegisterPage extends ARightMenuPart {
         return getSuccessMessage().getText();
     }
 
+    //TODO logout button for CorrectDataTest
+
     // Business Logic
-    public MyAccountPage continueMyAccountPage() {
+//    public MyAccountPage continueMyAccountPage() {
+//        clickContinueButton();
+//        return new MyAccountPage(driver);
+//    }
+
+    public AccountLogoutPage continueAccountLogoutPage() {
         clickContinueButton();
-        return new MyAccountPage(driver);
+        return new AccountLogoutPage(driver);
     }
 }
