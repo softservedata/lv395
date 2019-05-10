@@ -9,6 +9,8 @@ import com.softserve.edu.opencart.pages.account.LoginPage;
 import com.softserve.edu.opencart.pages.account.RegisterPage;
 import com.softserve.edu.opencart.pages.shop.CartProductContainer;
 import com.softserve.edu.opencart.pages.shop.EmptyCartComponent;
+import com.softserve.edu.opencart.pages.shop.ShoppingCartPage;
+import com.softserve.edu.opencart.pages.shop.ShoppingCartProductsContainer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -310,6 +312,11 @@ public abstract class AHeaderPart {
         return unsuccessfulSearch(invalidSearchItems.getProductSearchName());
     }
 
+    public ShoppingCartPage gotoShoppingCartPage() {
+        clickShoppingCart();
+        return new ShoppingCartPage(driver);
+    }
+
     public LoginPage gotoLoginPage() {
         clickUnloggedMyAccountByPartialName(UnloggedMyAccount.LOGIN);
         return new LoginPage(driver);
@@ -333,6 +340,13 @@ public abstract class AHeaderPart {
     public EmptyCartComponent openEmptyCart() {
         clickCartButton();
         return new EmptyCartComponent(driver);
+    }
+
+    // ShoppingCart
+
+    public ShoppingCartProductsContainer openShoppingCartProductsContainer() {
+        clickShoppingCart();
+        return new ShoppingCartProductsContainer(driver);
     }
 
     public HomePage refresh() {
