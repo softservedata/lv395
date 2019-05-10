@@ -7,11 +7,8 @@ import com.softserve.edu.opencart.tests.ATestRunner;
 import com.softserve.edu.opencart.tools.DataBaseUtils;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author Yurii Antokhiv
