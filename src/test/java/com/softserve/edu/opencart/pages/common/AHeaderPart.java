@@ -1,6 +1,7 @@
 package com.softserve.edu.opencart.pages.common;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.softserve.edu.opencart.data.SearchFilter;
 import com.softserve.edu.opencart.pages.account.AccountLogoutPage;
@@ -16,6 +17,8 @@ import com.softserve.edu.opencart.data.Currencies;
 import com.softserve.edu.opencart.data.LoggedMyAccount;
 import com.softserve.edu.opencart.data.UnloggedMyAccount;
 import com.softserve.edu.opencart.tools.LeaveUtils;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class AHeaderPart {
 
@@ -29,6 +32,7 @@ public abstract class AHeaderPart {
     protected final String DROPDOWN_MYACCOUNT_CSSSELECTOR = ".dropdown-menu-right li";
     //
     protected WebDriver driver;
+    protected WebDriverWait wait;
     //
     private WebElement currency;
     private WebElement myAccount;
@@ -44,6 +48,7 @@ public abstract class AHeaderPart {
 
     protected AHeaderPart(WebDriver driver) {
         this.driver = driver;
+        waitElements();
         initElements();
     }
 
@@ -53,10 +58,18 @@ public abstract class AHeaderPart {
         wishList = driver.findElement(By.id("wishlist-total"));
         shoppingCart = driver.findElement(By.cssSelector("a[title='Shopping Cart']"));
         checkout = driver.findElement(By.cssSelector("a[title='Checkout']"));
-        logo = driver.findElement(By.id("logo"));
+        logo = driver.findElement(By.cssSelector("#logo a"));
         searchField = driver.findElement(By.name("search"));
         searchButton = driver.findElement(By.cssSelector("button.btn.btn-default"));
         cartButton = driver.findElement(By.cssSelector("#cart > button"));
+    }
+
+    private void waitElements() {
+        wait = new WebDriverWait(driver, 10);
+        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#logo a")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#cart > button")));
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     // Page Object
