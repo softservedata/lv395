@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 
 public abstract class ACartComponent extends AHeaderPart {
 
-    public final String EMPTY_CART_MESSAGE = "Your shopping cart is empty!";
     //
     private WebElement cartContainer;
 
@@ -33,11 +32,5 @@ public abstract class ACartComponent extends AHeaderPart {
     // Functional
 
     // Business Logic
-
-
-
-    public boolean isCartEmpty() {
-        return getCartContainerText().equals(EMPTY_CART_MESSAGE);
-    }
 
 }
