@@ -50,7 +50,7 @@ public class EditAccountTest extends ATestRunner {
                 .continueHomePage();
     }
 
-    public void verifyIfUserInfoWasUpdated(IUser user) throws Exception {
+    private void verifyIfUserInfoWasUpdated(IUser user) throws Exception {
         //Open JDBC connection
         dataBaseUtils = new DataBaseUtils();
         //Retrieve user data from DB
