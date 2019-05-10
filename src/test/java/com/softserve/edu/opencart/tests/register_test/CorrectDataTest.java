@@ -7,12 +7,11 @@ import com.softserve.edu.opencart.pages.account.MyAccountPage;
 import com.softserve.edu.opencart.pages.account.RegisterPage;
 import com.softserve.edu.opencart.pages.account.SuccessfullyRegisterPage;
 import com.softserve.edu.opencart.pages.common.HomePage;
-import com.softserve.edu.opencart.tests.ATestRunner;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class CorrectDataTest extends ATestRunner {
+public class CorrectDataTest extends TestRunner {
 
     @DataProvider
     public Object[][] validMinValuesUser() {
@@ -38,11 +37,12 @@ public class CorrectDataTest extends ATestRunner {
         //Check
         Assert.assertTrue(sc.getExpectedSuccessMessage().
                 equals(sc.EXPECTED_SUCCESS_MESSAGE));
-        //Steps
-//        AccountLogoutPage accountLogoutPage = sc
-//                .continueAccountLogoutPage()
-//                .logout();
-        //TODO
+        //Step
+        AccountLogoutPage accountLogoutPage = sc
+                .logOut();
+        //Check
+        Assert.assertTrue(accountLogoutPage.getActualAccountLogoutMessage()
+                .equals(accountLogoutPage.EXPECTED_ACCOUNT_MESSAGE));
     }
 
     @Test(dataProvider = "validMaxValuesUser")

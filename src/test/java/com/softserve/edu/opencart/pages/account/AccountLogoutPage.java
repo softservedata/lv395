@@ -1,13 +1,17 @@
 package com.softserve.edu.opencart.pages.account;
 
 import com.softserve.edu.opencart.pages.common.HomePage;
+import org.bouncycastle.cms.PasswordRecipientId;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class AccountLogoutPage extends ARightLogoutPart {
 
+    public final String EXPECTED_ACCOUNT_MESSAGE = "Account Logout";
+
     private WebElement continueButton;
+    private WebElement logoutMessage;
     
     public AccountLogoutPage(WebDriver driver) {
         super(driver);
@@ -16,6 +20,7 @@ public class AccountLogoutPage extends ARightLogoutPart {
 
     private void initElements() {
         continueButton = driver.findElement(By.cssSelector("a.btn.btn-primary"));
+        logoutMessage = driver.findElement(By.cssSelector("div[id='content'] > h1"));
     }
     
     // Page Object
@@ -32,7 +37,15 @@ public class AccountLogoutPage extends ARightLogoutPart {
     public void clickContinueButton() {
         getContinueButton().click();
     }
-    
+
+    //AccountMessage
+    public WebElement getAccountLogoutMessage() {
+        return logoutMessage;
+    }
+
+    public String getActualAccountLogoutMessage() {
+        return getAccountLogoutMessage().getText();
+    }
     // Functional
 
     // Business Logic

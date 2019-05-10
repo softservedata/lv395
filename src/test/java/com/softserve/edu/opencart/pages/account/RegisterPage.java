@@ -603,11 +603,11 @@ public class RegisterPage extends ARightLogoutPart {
         return new SuccessfullyRegisterPage(driver);
     }
 
-    //checkcorrectdata
-    public SuccessfullyRegisterPage successfullyRegisterUser2(IUser validBoundaryUser2) {
-        fillRegistrationForm(validBoundaryUser2);
-        return new SuccessfullyRegisterPage(driver);
-    }
+//    //checkcorrectdata
+//    public SuccessfullyRegisterPage successfullyRegisterUser2(IUser validBoundaryUser2) {
+//        fillRegistrationForm(validBoundaryUser2);
+//        return new SuccessfullyRegisterPage(driver);
+//    }
 
     //checkincorrectdata
     public UnsuccessfullyRegisterPage userWithBadData(IUser invalidBoundaryUser) {
