@@ -3,10 +3,7 @@ package com.softserve.edu.opencart.tests.cart_component_tests;
 import com.softserve.edu.opencart.data.IProduct;
 import com.softserve.edu.opencart.data.ProductRepository;
 import com.softserve.edu.opencart.pages.common.*;
-import com.softserve.edu.opencart.pages.shop.CartProductComponent;
-import com.softserve.edu.opencart.pages.shop.CartProductContainer;
-import com.softserve.edu.opencart.pages.shop.ProductPage;
-import com.softserve.edu.opencart.pages.shop.ShoppingCartPage;
+import com.softserve.edu.opencart.pages.shop.*;
 import com.softserve.edu.opencart.tests.ATestRunner;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -72,12 +69,12 @@ public class CartFunctionalTest extends ATestRunner {
         Assert.assertEquals(cartProductComponents.get(0).getCartProductNameText(),
                 product.getName());
         // Steps
-        cartProductContainer
+        EmptyCartComponent emptyCartComponent = cartProductContainer
                 .removeProductByName(product)
                 .gotoHomePage()
-                .openCartProductContainer();
+                .openEmptyCart();
         // Check
-       Assert.assertTrue(cartProductContainer.isCartEmpty());
+       Assert.assertTrue(emptyCartComponent.isCartEmpty());
     }
 
     @Test(dataProvider = "productData")
