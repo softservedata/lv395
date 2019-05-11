@@ -11,7 +11,8 @@ import com.softserve.edu.opencart.pages.shop.CartProductContainer;
 import com.softserve.edu.opencart.pages.shop.EmptyCartComponent;
 import com.softserve.edu.opencart.pages.shop.ShoppingCartPage;
 import com.softserve.edu.opencart.pages.shop.ShoppingCartProductsContainer;
-import com.softserve.edu.opencart.tools.utils_for_search_field.PageDoNotExistException;
+
+import com.softserve.edu.opencart.tools.utils_for_search_field.PageDoesNotExistException;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -286,52 +287,52 @@ public abstract class AHeaderPart {
         return new HomePage(driver);
     }
 
-    public SuccessfulSearchPage searchProducts(SearchFilter searchItems) throws PageDoNotExistException {
+    public SuccessfulSearchPage searchProducts(SearchFilter searchItems) throws PageDoesNotExistException {
         try {
             fillSearchField(searchItems.getProductSearchName());
             clickSearchButton();
             return new SuccessfulSearchPage(driver);
         } catch (Exception e) {
-            throw new PageDoNotExistException("Page do not exist!!!");
+            throw new PageDoesNotExistException("Page do not exist!!!");
         }
     }
 
-    public SuccessfulSearchPage searchProducts(String searchItem) throws PageDoNotExistException {
+    public SuccessfulSearchPage searchProducts(String searchItem) throws PageDoesNotExistException {
         try {
             fillSearchField(searchItem);
             clickSearchButton();
             return new SuccessfulSearchPage(driver);
         } catch (Exception e) {
-            throw new PageDoNotExistException("Page do not exist!!!");
+            throw new PageDoesNotExistException("Page do not exist!!!");
         }
     }
 
-    public UnsuccessfulSearchPage gotoSearchPageWithFilters() throws PageDoNotExistException {
+    public UnsuccessfulSearchPage gotoSearchPageWithFilters() throws PageDoesNotExistException {
         try {
             fillSearchField("");
             clickSearchButton();
             return new UnsuccessfulSearchPage(driver);
         } catch (Exception e) {
-            throw new PageDoNotExistException("Page do not exist!!!");
+            throw new PageDoesNotExistException("Page do not exist!!!");
         }
     }
 
 
-    public UnsuccessfulSearchPage unsuccessfulSearch(String text) throws PageDoNotExistException {
+    public UnsuccessfulSearchPage unsuccessfulSearch(String text) throws PageDoesNotExistException {
         try {
             fillSearchField(text);
             clickSearchButton();
             return new UnsuccessfulSearchPage(driver);
         } catch (Exception e) {
-            throw new PageDoNotExistException("Page do not exist!!!");
+            throw new PageDoesNotExistException("Page do not exist!!!");
         }
     }
 
-    public UnsuccessfulSearchPage unsuccessfulSearch(SearchFilter invalidSearchItems) throws PageDoNotExistException {
+    public UnsuccessfulSearchPage unsuccessfulSearch(SearchFilter invalidSearchItems) throws PageDoesNotExistException {
         try {
             return unsuccessfulSearch(invalidSearchItems.getProductSearchName());
         } catch (Exception e) {
-            throw new PageDoNotExistException("Page do not exist!!!");
+            throw new PageDoesNotExistException("Page do not exist!!!");
         }
     }
 
