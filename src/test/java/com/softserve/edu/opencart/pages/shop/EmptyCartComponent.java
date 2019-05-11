@@ -14,7 +14,7 @@ public class EmptyCartComponent extends ACartComponent {
     }
 
     public void initElements() {
-        emptyCartMessage = driver.findElement(By.xpath("//div[@id='cart']//p"));
+        emptyCartMessage = driver.findElement(By.cssSelector("#cart li > p"));
     }
 
     // Page Object

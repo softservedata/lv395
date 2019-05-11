@@ -5,6 +5,7 @@ import com.softserve.edu.opencart.pages.common.CheckoutPage;
 import com.softserve.edu.opencart.pages.common.HomePage;
 import com.softserve.edu.opencart.tools.LeaveUtils;
 import com.softserve.edu.opencart.tools.PriceUtils;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -37,6 +38,7 @@ public class CartProductContainer extends ACartComponent {
     // Page Object
 
     // productComponents
+    @Step("Get all products from cart")
     public List<CartProductComponent> getCartProductComponents() {
         return productComponents;
     }
@@ -56,6 +58,7 @@ public class CartProductContainer extends ACartComponent {
         return result;
     }
 
+    @Step("Get data from product cart table")
     public TotalPriceTableComponent getTotalPriceTableComponent(){
         return new TotalPriceTableComponent(driver.findElement(By.cssSelector(PRICE_TABLE_CSSSELECTOR)));
     }
@@ -68,6 +71,7 @@ public class CartProductContainer extends ACartComponent {
         getCartProductComponentByName(productName).clickRemoveButton();
     }
 
+    @Step("Remove product from cart")
     public HomePage removeProductByName(IProduct product) {
         removeProductFromCartByName(product.getName());
         return new HomePage(driver);
@@ -75,16 +79,19 @@ public class CartProductContainer extends ACartComponent {
 
     // Business Logic
 
+    @Step("Click 'View Cart' button")
     public ShoppingCartPage gotoShoppingCartPage() {
         productComponents.get(0).clickViewCartButton();
         return new ShoppingCartPage(driver);
     }
 
+    @Step("Click 'Checkout' button")
     public CheckoutPage gotoCheckoutPage() {
         productComponents.get(0).clickCheckoutButton();
         return new CheckoutPage(driver);
     }
 
+    @Step("Click on product name in cart")
     public ProductPage gotoProductPage(IProduct product) {
         productComponents.get(0).clickCartProductName();
         return new ProductPage(driver);

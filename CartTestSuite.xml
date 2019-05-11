@@ -4,6 +4,11 @@
 
     <test name="CartComponentTest">
         <classes>
+            <class name="com.softserve.edu.opencart.tests.cart_component_tests.SmokeTest">
+                <methods>
+                    <include name="smokeTest" />
+                </methods>
+            </class>
             <class name="com.softserve.edu.opencart.tests.cart_component_tests.ProductListTest">
             <methods>
                 <include name="checkAddToCartButton" />

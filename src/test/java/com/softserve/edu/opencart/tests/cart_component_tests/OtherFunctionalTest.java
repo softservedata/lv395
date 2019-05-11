@@ -9,13 +9,15 @@ import com.softserve.edu.opencart.pages.shop.CartProductComponent;
 import com.softserve.edu.opencart.pages.shop.CartProductContainer;
 import com.softserve.edu.opencart.pages.common.HomePage;
 import com.softserve.edu.opencart.pages.shop.EmptyCartComponent;
-import com.softserve.edu.opencart.tests.ATestRunner;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
+@Epic("Functional Testing")
+@Feature("OtherFunctionalTest")
 public class OtherFunctionalTest extends ATestRunner {
 
     @DataProvider // (parallel = true)
@@ -25,8 +27,12 @@ public class OtherFunctionalTest extends ATestRunner {
         };
     }
 
-    @Test(dataProvider = "validData")
+    @Description("Test Description: This test check does the info about products displayed on Cart Button")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Add product to cart and check that the info about products displayed on Cart Button")
+    @Test(dataProvider = "validData", description = "Check info about products on Cart Button")
     public void checkPriceTextButton(IProduct product, String text) {
+        log.debug("checkPriceTextButton test started");
         // Steps
         HomePage homePage = loadApplication()
                 .addProductToCart(product)
@@ -37,6 +43,7 @@ public class OtherFunctionalTest extends ATestRunner {
         homePage
                 .openCartProductContainer()
                 .removeProductByName(product);
+        log.debug("checkPriceTextButton test finished");
     }
 
     @DataProvider // (parallel = true)
@@ -46,8 +53,13 @@ public class OtherFunctionalTest extends ATestRunner {
         };
     }
 
-    @Test(dataProvider = "validUsers")
+    @Description("Test Description: This test checks whether goods in the cart are stored " +
+            "when the user leaves the profile")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Add the item to the cart under the logged-in user and exit the profile")
+    @Test(dataProvider = "validUsers", description = "Checking the user's personal cart")
     public void logoutUserCartTest(IUser user, IProduct product) {
+        log.debug("logoutUserCartTest test started");
         // Steps
         MyAccountPage myAccountPage = loadApplication()
                 .gotoLoginPage()
@@ -69,6 +81,7 @@ public class OtherFunctionalTest extends ATestRunner {
                 .openEmptyCart();
         // Check
         Assert.assertTrue(emptyCartComponent.isCartEmpty());
+        log.debug("logoutUserCartTest test finished");
     }
 
     @DataProvider // (parallel = true)
@@ -79,8 +92,12 @@ public class OtherFunctionalTest extends ATestRunner {
         };
     }
 
-    @Test(dataProvider = "validDifferentUsers")
+    @Description("Test Description: This test checks whether goods in the cart are not saved when user changes")
+    @Severity(SeverityLevel.BLOCKER)
+    @Story("Add the item to the cart under the logged-in user and change profile")
+    @Test(dataProvider = "validDifferentUsers", description = "Checking the user's personal cart")
     public void differentLoggedUsersCartTest(IUser user, IProduct product) {
+        log.debug("differentLoggedUsersCartTest test started");
         // Steps
         MyAccountPage myAccountPage = loadApplication()
                 .gotoLoginPage()
@@ -106,5 +123,6 @@ public class OtherFunctionalTest extends ATestRunner {
                 .gotoHomePage()
                 .logout()
                 .continueHomePage();
+        log.debug("differentLoggedUsersCartTest test finished");
     }
 }

@@ -1,6 +1,7 @@
 package com.softserve.edu.opencart.pages.account;
 
 import com.softserve.edu.opencart.pages.common.HomePage;
+import io.qameta.allure.Step;
 import org.bouncycastle.cms.PasswordRecipientId;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -49,7 +50,8 @@ public class AccountLogoutPage extends ARightLogoutPart {
     // Functional
 
     // Business Logic
-    
+
+    @Step("Click continue button and go to HomePage")
     public HomePage continueHomePage() {
         clickContinueButton();
         return new HomePage(driver);

@@ -3,11 +3,13 @@ package com.softserve.edu.opencart.tests.cart_component_tests;
 import com.softserve.edu.opencart.data.IProduct;
 import com.softserve.edu.opencart.data.ProductRepository;
 import com.softserve.edu.opencart.pages.shop.TotalPriceTableComponent;
-import com.softserve.edu.opencart.tests.ATestRunner;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+@Epic("Functional Testing")
+@Feature("PriceTableTest")
 public class PriceTableTest extends ATestRunner {
 
     @DataProvider
@@ -17,8 +19,12 @@ public class PriceTableTest extends ATestRunner {
         };
     }
 
-    @Test(dataProvider = "productData")
+    @Description("Test Description: This test checks if all data in the cart table is displayed correctly")
+    @Severity(SeverityLevel.BLOCKER)
+    @Story("Add the item to the cart and check if all data in the cart table is displayed correctly")
+    @Test(dataProvider = "productData", description = "Checking data in cart table")
     public void checkTotalPriceTable(IProduct product) {
+        log.debug("checkTotalPriceTable test started");
         // Steps
         TotalPriceTableComponent totalPriceTableComponent = loadApplication()
                 .addProductToCart(product)
@@ -34,6 +40,7 @@ public class PriceTableTest extends ATestRunner {
                 product.getVat());
         Assert.assertEquals(totalPriceTableComponent.getTableTotalValue(),
                 product.getTotalPrice());
+        log.debug("checkTotalPriceTable test finished");
     }
 
 }

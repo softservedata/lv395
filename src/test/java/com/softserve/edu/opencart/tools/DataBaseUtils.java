@@ -22,13 +22,13 @@ import java.util.List;
 public final class DataBaseUtils {
 
     // private static final String DATABASE_PARTIAL_URL = "192.168.227.130:3306";
-    private static final String DATABASE_PARTIAL_URL = "192.168.239.130:3306";
+    private static final String DATABASE_PARTIAL_URL = "192.168.239.128:3306";
     private static final String DB_URL = "jdbc:mysql://" + DATABASE_PARTIAL_URL + "/opencart?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnect=true&useSSL=false";
     private static final String PRODUCT_QUANTITY_STATEMENT = "select oc_product.quantity as quantity from oc_product " +
             "inner join oc_product_description on oc_product.product_id = oc_product_description.product_id" +
             " where oc_product_description.name = ?;";
     //
-    private static final String HOST = "192.168.239.129";  // IP-adress of remote server.
+    private static final String HOST = "192.168.239.128";  // IP-adress of remote server.
     private static final int PORT = 22;                    // Remote server port.
     private static  final String NAME = "root";             // Linux profile name.
     private static final String PASSWORD = "root";         // Linux password.

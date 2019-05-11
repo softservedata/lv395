@@ -11,6 +11,7 @@ import com.softserve.edu.opencart.pages.shop.CartProductContainer;
 import com.softserve.edu.opencart.pages.shop.EmptyCartComponent;
 import com.softserve.edu.opencart.pages.shop.ShoppingCartPage;
 import com.softserve.edu.opencart.pages.shop.ShoppingCartProductsContainer;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -278,7 +279,7 @@ public abstract class AHeaderPart {
         clickSearchButton();
     }
 
-
+    @Step("Go to HomePage")
     public HomePage gotoHomePage() {
         clickLogo();
         return new HomePage(driver);
@@ -317,6 +318,7 @@ public abstract class AHeaderPart {
         return new ShoppingCartPage(driver);
     }
 
+    @Step("Go to LoginPage")
     public LoginPage gotoLoginPage() {
         clickUnloggedMyAccountByPartialName(UnloggedMyAccount.LOGIN);
         return new LoginPage(driver);
@@ -332,11 +334,13 @@ public abstract class AHeaderPart {
         return new AccountLogoutPage(driver);
     }
 
+    @Step("Open Cart")
     public CartProductContainer openCartProductContainer() {
         clickCartButton();
         return new CartProductContainer(driver);
     }
 
+    @Step("Open empty cart")
     public EmptyCartComponent openEmptyCart() {
         clickCartButton();
         return new EmptyCartComponent(driver);
