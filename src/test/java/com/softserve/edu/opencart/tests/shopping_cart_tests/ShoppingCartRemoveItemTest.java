@@ -1,26 +1,49 @@
 package com.softserve.edu.opencart.tests.shopping_cart_tests;
 
-import com.softserve.edu.opencart.tests.ATestRunner;
+import com.softserve.edu.opencart.data.IProduct;
+import com.softserve.edu.opencart.data.ProductRepository;
+import com.softserve.edu.opencart.pages.common.HomePage;
+import com.softserve.edu.opencart.pages.shop.ShoppingCartPage;
+import com.softserve.edu.opencart.pages.shop.ShoppingCartProductComponent;
+import com.softserve.edu.opencart.pages.shop.ShoppingCartProductsContainer;
+import com.softserve.edu.opencart.tests.shopping_cart_tests.ATestRunner;
+import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 @Test
 public class ShoppingCartRemoveItemTest extends ATestRunner {
-    public void checkRemoveButton() throws InterruptedException {
-        // Steps
-        /*ShoppingCartProductsContainer shoppingCartProductsContainer = loadApplication()
-                .addProductToCart(ProductRepository.getMacBook())
-                .addProductToCart(ProductRepository.getIPhone3())
-                .addProductToCart(ProductRepository.getIPhone3())
+    @DataProvider
+    public Object[][] productData() {
+        return new Object[][] {
+                {ProductRepository.getMacBook(), ProductRepository.getIPhone3()}
+        };
+    }
+
+    @Test(dataProvider = "productData")
+    public void checkViewShoppingCartButton(IProduct Mac, IProduct iPhone) {
+        //Steps
+        ShoppingCartProductsContainer shoppingCartProductsContainer = loadApplication()
+                .addProductToCart(Mac)
+                .addProductToCart(iPhone)
+                .gotoHomePage()
                 .gotoShoppingCartPage()
                 .getShoppingCartProductsContainer();
-        Thread.sleep(2000);
-        shoppingCartProductsContainer.removeProductFromShoppingCartByName(ProductRepository.getMacBook());
+        int beforeRemovingRowCountSize = shoppingCartProductsContainer
+                .getShoppingCartComponents().size();
 
-        // Check
-        Assert.assertFalse(shoppingCartProductsContainer.getShoppingCartComponents()
-                .contains(ProductRepository.getMacBook()));
-        Thread.sleep(5000);
-        // Steps
-        */
+        shoppingCartProductsContainer.removeProductFromShoppingCartByName(Mac);
+
+        int afterRemovingRowCountSize = shoppingCartProductsContainer
+                .getShoppingCartComponents()
+                .size();
+
+        for (ShoppingCartProductComponent i : shoppingCartProductsContainer.getShoppingCartComponents()) {
+            System.out.println("afterRemove "+ i.getProductNameText());
+        }
+        Assert.assertNotEquals(beforeRemovingRowCountSize, afterRemovingRowCountSize);
+        Assert.assertEquals(shoppingCartProductsContainer.getShoppingCartComponents().get(0).getProductNameText(), iPhone.getName());
     }
 }

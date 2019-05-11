@@ -44,7 +44,14 @@ public final class ProductRepository {
                 .setPriceDollarExTax("101.00")
                 .build();
     }
-        public static IProduct getSonyVAIO(){
+
+    public static IProduct getIPhone3(){
+        return Product.get().setName("iPhone 3")
+                .setPriceDollarExTax("101.00")
+                .build();
+    }
+
+    public static IProduct getSonyVAIO(){
             List<String> categories=new ArrayList<>();
             categories.add("Laptops & Notebooks");
             categories.add(" Desktops");
