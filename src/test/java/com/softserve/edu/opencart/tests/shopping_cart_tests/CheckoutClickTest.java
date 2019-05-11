@@ -4,7 +4,7 @@ import com.softserve.edu.opencart.data.IProduct;
 import com.softserve.edu.opencart.data.ProductRepository;
 import com.softserve.edu.opencart.pages.common.CheckoutPage;
 import com.softserve.edu.opencart.pages.common.HomePage;
-import com.softserve.edu.opencart.tests.shopping_cart_tests.ATestRunner;
+import com.softserve.edu.opencart.tests.cart_component_tests.ATestRunner;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

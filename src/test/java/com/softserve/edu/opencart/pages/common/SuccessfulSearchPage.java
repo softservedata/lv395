@@ -3,7 +3,7 @@ package com.softserve.edu.opencart.pages.common;
 import com.softserve.edu.opencart.pages.shop.ProductComponent;
 import com.softserve.edu.opencart.pages.shop.ProductPage;
 import com.softserve.edu.opencart.tools.utils_for_search_field.ElementDoNotExistException;
-import com.softserve.edu.opencart.tools.utils_for_search_field.PageDoNotExistException;
+import com.softserve.edu.opencart.tools.utils_for_search_field.PageDoesNotExistException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -55,12 +55,12 @@ public class SuccessfulSearchPage extends ASearchPart {
         return new ProductPage(driver, product);
     }
 
-    public SuccessfulSearchPage gotoNextPage() throws PageDoNotExistException, ElementDoNotExistException {
+    public SuccessfulSearchPage gotoNextPage() throws PageDoesNotExistException, ElementDoNotExistException {
        clickPaginationIfOnFirstPageGotoNext();
         return new SuccessfulSearchPage(driver);
     }
 
-    public SuccessfulSearchPage gotoPreviousPage() throws PageDoNotExistException, ElementDoNotExistException {
+    public SuccessfulSearchPage gotoPreviousPage() throws PageDoesNotExistException, ElementDoNotExistException {
        clickPaginationIfOnSecondPageGotoPreviou();
         return new SuccessfulSearchPage(driver);
     }

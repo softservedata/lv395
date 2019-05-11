@@ -1,12 +1,14 @@
 package com.softserve.edu.opencart.tests.shopping_cart_tests;
 
 import com.softserve.edu.opencart.data.IProduct;
+import com.softserve.edu.opencart.data.Product;
 import com.softserve.edu.opencart.data.ProductRepository;
 import com.softserve.edu.opencart.pages.common.HomePage;
 import com.softserve.edu.opencart.pages.shop.ShoppingCartPage;
 import com.softserve.edu.opencart.pages.shop.ShoppingCartProductComponent;
 import com.softserve.edu.opencart.pages.shop.ShoppingCartProductsContainer;
-import com.softserve.edu.opencart.tests.shopping_cart_tests.ATestRunner;
+import com.softserve.edu.opencart.tests.ATestRunner;
+
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -34,7 +36,7 @@ public class ShoppingCartRemoveItemTest extends ATestRunner {
         int beforeRemovingRowCountSize = shoppingCartProductsContainer
                 .getShoppingCartComponents().size();
 
-        shoppingCartProductsContainer.removeProductFromShoppingCartByName(Mac);
+        shoppingCartProductsContainer.removeProductFromShoppingCartByName((Product) Mac);
 
         int afterRemovingRowCountSize = shoppingCartProductsContainer
                 .getShoppingCartComponents()

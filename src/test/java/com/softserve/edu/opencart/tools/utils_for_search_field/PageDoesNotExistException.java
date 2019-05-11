@@ -6,7 +6,7 @@ package com.softserve.edu.opencart.tools.utils_for_search_field;
  *
  * @author Iryna Ratushniak
  */
-public class PageDoNotExistException extends Exception {
+public class PageDoesNotExistException extends Exception {
 
 
     /**
@@ -15,7 +15,7 @@ public class PageDoNotExistException extends Exception {
      * @param message - message that customer will see,
      *                if imputed value is incorrect.
      */
-    public PageDoNotExistException(final String message) {
+    public PageDoesNotExistException(final String message) {
         super(message);
     }
 

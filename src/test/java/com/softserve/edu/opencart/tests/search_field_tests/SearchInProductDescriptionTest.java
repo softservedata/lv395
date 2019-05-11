@@ -10,14 +10,17 @@ import com.softserve.edu.opencart.pages.shop.ProductsContainerComponent;
 import com.softserve.edu.opencart.pages.common.SuccessfulSearchPage;
 import com.softserve.edu.opencart.pages.common.UnsuccessfulSearchPage;
 import com.softserve.edu.opencart.tests.ATestRunner;
-import com.softserve.edu.opencart.tools.utils_for_search_field.PageDoNotExistException;
+import com.softserve.edu.opencart.tools.utils_for_search_field.PageDoesNotExistException;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
-
+/**
+ * Tests for using "search in product description" checkbox
+ * @author Ratushniak Iryna
+ */
 public class SearchInProductDescriptionTest extends ATestRunner {
 //    @DataProvider
 //    public Object[][] searchFilterData() {
@@ -68,6 +71,13 @@ public class SearchInProductDescriptionTest extends ATestRunner {
 //
 //    }
 
+    /**
+     * Here we have data for searching product,
+     * using search in product description checkbox.
+     * We can find product, using name/partial name of product
+     * and using something from product description.
+     * @return - data for finding Canon
+     */
     @DataProvider
     public Object[][] dataForFindCanon(){
         return new Object[][]{
@@ -78,8 +88,23 @@ public class SearchInProductDescriptionTest extends ATestRunner {
         };
 
     }
+
+    /**
+     * Positive test for finding Canon.
+     * Here we input name/partial name
+     * in the search field and we are using
+     * check in product description checkbox.
+     * We are expecting to see product ,that
+     * we are looking for on the page
+     * @param productWeWantToFind- Canon
+     * @param searchFilterWeUse - search filter,
+     *                         that we use for finding canon
+     * @throws PageDoesNotExistException - it is possible,
+     *                             that page that we want to
+     *                             find/to use does not exist
+     */
     @Test(dataProvider = "dataForFindCanon")
-    public void searchCanonTest(String productWeWantToFind, SearchFilter searchFilterWeUse) throws PageDoNotExistException {
+    public void searchCanonTest(String productWeWantToFind, SearchFilter searchFilterWeUse) throws PageDoesNotExistException {
         ProductsContainerComponent productsOnThePage=loadApplication()
                 .gotoSearchPageWithFilters()
                 .searchProductsByFilter(searchFilterWeUse)
@@ -87,8 +112,19 @@ public class SearchInProductDescriptionTest extends ATestRunner {
                 .getProductsContainerComponent();
         Assert.assertTrue(productsOnThePage.isProductOnThePage(productWeWantToFind));
     }
+
+    /**
+     * Here we have negative test.
+     * If we use some  incorrect data for
+     * product searching
+     * we expect that product won`t be shown
+     * on the page
+     * @throws PageDoesNotExistException -it is possible,
+     *                                  that page that we want to
+     *                                  find/to use does not exist
+     */
     @Test
-    public void negativeTestSearchCanonTest() throws PageDoNotExistException {
+    public void negativeTestSearchCanonTest() throws PageDoesNotExistException {
         ProductsContainerComponent productsOnThePage=loadApplication()
                 .searchProducts(ProductRepository.getCanonEOS5D().getName())
                 .searchProductsByFilter(SearchFilterRepository.getCanonIncorrectData())
