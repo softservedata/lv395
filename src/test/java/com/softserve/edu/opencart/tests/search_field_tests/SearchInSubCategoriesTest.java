@@ -5,6 +5,7 @@ import com.softserve.edu.opencart.data.SearchFilter;
 import com.softserve.edu.opencart.data.SearchFilterRepository;
 import com.softserve.edu.opencart.pages.common.SuccessfulSearchPage;
 import com.softserve.edu.opencart.tests.ATestRunner;
+import com.softserve.edu.opencart.tools.utils_for_search_field.PageDoNotExistException;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -36,7 +37,7 @@ public class SearchInSubCategoriesTest extends ATestRunner {
     }
 
     @Test(dataProvider = "dataForPositiveTest")
-    public void findSonyPositiveTest(SearchFilter searchFilterData, String producatName){
+    public void findSonyPositiveTest(SearchFilter searchFilterData, String producatName) throws PageDoNotExistException {
         SuccessfulSearchPage successfulSearchPage=loadApplication()
                 .gotoSearchPageWithFilters()
                 .searchProductsByFilter(searchFilterData);
@@ -61,7 +62,7 @@ public class SearchInSubCategoriesTest extends ATestRunner {
     }
 
     @Test(dataProvider = "dataForNegativeTest")
-    public void findSonyNegativeTest(SearchFilter searchFilterData, String producatName){
+    public void findSonyNegativeTest(SearchFilter searchFilterData, String producatName) throws PageDoNotExistException {
         SuccessfulSearchPage successfulSearchPage=loadApplication()
                 .gotoSearchPageWithFilters()
                 .searchProductsByFilter(searchFilterData);

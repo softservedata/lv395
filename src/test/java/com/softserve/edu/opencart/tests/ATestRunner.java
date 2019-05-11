@@ -11,9 +11,11 @@ import io.qameta.allure.Step;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.apache.log4j.Logger;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -26,9 +28,8 @@ import com.softserve.edu.opencart.tools.LeaveUtils;
 public abstract class ATestRunner {
     private final String DRIVER_ERROR = "ERROR: Chromedriver not Found";
     // private final String SERVER_URL = "http://taqc-opencart.epizy.com";
-    private final String SERVER_URL = "http://192.168.239.130/opencart/upload/";
-    protected final Logger log = Logger.getLogger(this.getClass());
-    private WebDriver driver;
+    private final String SERVER_URL = "http://192.168.36.134/opencart/upload/";
+    protected WebDriver driver;
 
     @BeforeClass
     public void beforeClass() {
@@ -94,4 +95,10 @@ public abstract class ATestRunner {
         FileUtils.copyFile(scrFile, new File("/home/milnik/Pictures/cartscreenshot.png"));
     }
 
+    public void takeScreenshot(String name) throws IOException {
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(source, new
+                File("./Screenshots/"+name+".png"));
+    }
 }

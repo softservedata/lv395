@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class UnsuccessfulSearchPage extends ASearchPart {
-    private String theraIsNoProductThatMatchesTheSearchCriteria;
+    private String thereIsNoProductThatMatchesTheSearchCriteria;
     private WebElement productLayout;
     public static String THERE_IS_NO_PRODUCT_THAT_MATCHES_THE_SEARCH_CRITERIA = "There is no product that matches the search criteria.";
     private final String NUMBER_FOR_FINDING_MESSAGE="[2]";
@@ -18,12 +18,12 @@ public class UnsuccessfulSearchPage extends ASearchPart {
     }
 
     private void initElements() {
-        theraIsNoProductThatMatchesTheSearchCriteria = driver.findElement(By.xpath(".//div/p"+NUMBER_FOR_FINDING_MESSAGE)).getText();
+        thereIsNoProductThatMatchesTheSearchCriteria = driver.findElement(By.xpath(".//div/p"+NUMBER_FOR_FINDING_MESSAGE)).getText();
     }
 
     // Page Object
     public String getMessage() {
-        return theraIsNoProductThatMatchesTheSearchCriteria;
+        return thereIsNoProductThatMatchesTheSearchCriteria;
     }
 
     // Functional

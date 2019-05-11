@@ -10,6 +10,7 @@ import com.softserve.edu.opencart.pages.shop.ProductsContainerComponent;
 import com.softserve.edu.opencart.pages.common.SuccessfulSearchPage;
 import com.softserve.edu.opencart.pages.common.UnsuccessfulSearchPage;
 import com.softserve.edu.opencart.tests.ATestRunner;
+import com.softserve.edu.opencart.tools.utils_for_search_field.PageDoNotExistException;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -78,7 +79,7 @@ public class SearchInProductDescriptionTest extends ATestRunner {
 
     }
     @Test(dataProvider = "dataForFindCanon")
-    public void searchCanonTest(String productWeWantToFind, SearchFilter searchFilterWeUse){
+    public void searchCanonTest(String productWeWantToFind, SearchFilter searchFilterWeUse) throws PageDoNotExistException {
         ProductsContainerComponent productsOnThePage=loadApplication()
                 .gotoSearchPageWithFilters()
                 .searchProductsByFilter(searchFilterWeUse)
@@ -87,7 +88,7 @@ public class SearchInProductDescriptionTest extends ATestRunner {
         Assert.assertTrue(productsOnThePage.isProductOnThePage(productWeWantToFind));
     }
     @Test
-    public void negativeTestSearchCanonTest(){
+    public void negativeTestSearchCanonTest() throws PageDoNotExistException {
         ProductsContainerComponent productsOnThePage=loadApplication()
                 .searchProducts(ProductRepository.getCanonEOS5D().getName())
                 .searchProductsByFilter(SearchFilterRepository.getCanonIncorrectData())

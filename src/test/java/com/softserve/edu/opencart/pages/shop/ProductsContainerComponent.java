@@ -3,6 +3,7 @@ package com.softserve.edu.opencart.pages.shop;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.softserve.edu.opencart.data.IProduct;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -39,6 +40,13 @@ public class ProductsContainerComponent {
     // productComponents
     public List<ProductComponent> getProductComponents() {
         return productComponents;
+    }
+    public List<String> getProductComponentsName() {
+        List<String> productComponentsNames =new ArrayList<>();
+        for (ProductComponent productComponent:productComponents){
+            productComponentsNames.add(productComponent.getNameText());
+        }
+        return productComponentsNames;
     }
     
     // Functional
@@ -101,7 +109,7 @@ public class ProductsContainerComponent {
     {
         return getProductComponents().size();
     }
-    
+
     // Business Logic
 
 }

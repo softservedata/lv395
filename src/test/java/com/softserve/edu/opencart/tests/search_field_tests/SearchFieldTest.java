@@ -1,5 +1,7 @@
 package com.softserve.edu.opencart.tests.search_field_tests;
 
+import com.softserve.edu.opencart.data.IProduct;
+import com.softserve.edu.opencart.data.ProductRepository;
 import com.softserve.edu.opencart.data.SearchFilter;
 import com.softserve.edu.opencart.data.SearchFilterRepository;
 import com.softserve.edu.opencart.pages.common.SuccessfulSearchPage;
@@ -7,10 +9,14 @@ import com.softserve.edu.opencart.pages.common.UnsuccessfulSearchPage;
 import com.softserve.edu.opencart.pages.shop.ProductComponent;
 import com.softserve.edu.opencart.tests.ATestRunner;
 import com.softserve.edu.opencart.tools.utils.LongString;
+
+import com.softserve.edu.opencart.tools.utils_for_search_field.ElementDoNotExistException;
+import com.softserve.edu.opencart.tools.utils_for_search_field.PageDoNotExistException;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 public class SearchFieldTest extends ATestRunner {
@@ -29,7 +35,7 @@ public class SearchFieldTest extends ATestRunner {
     }
 
     @Test(dataProvider = "searchPositiveData")
-    public void positiveTest(String searchData) {
+    public void positiveTest(String searchData) throws PageDoNotExistException{
         //Steps
         SuccessfulSearchPage successfulSearchPage = loadApplication().
                 searchProducts(searchData);
@@ -57,7 +63,7 @@ public class SearchFieldTest extends ATestRunner {
     }
 
     @Test(dataProvider = "searchNegativeData")
-    public void searchFieldNegativeTest(SearchFilter searchData) {
+    public void searchFieldNegativeTest(SearchFilter searchData) throws PageDoNotExistException {
         //Steps
         UnsuccessfulSearchPage unsuccessfulSearchPage = loadApplication()
                 .unsuccessfulSearch(searchData.getProductSearchName());
@@ -66,25 +72,39 @@ public class SearchFieldTest extends ATestRunner {
                         .THERE_IS_NO_PRODUCT_THAT_MATCHES_THE_SEARCH_CRITERIA);
 
     }
-   //to do use % and db
-//    @Test
-////    public void findAllProducts(){
-////
-////    }
+
+    //To see all products
+    @Test
+    public void findAllProducts() throws  PageDoNotExistException, ElementDoNotExistException {
+        SuccessfulSearchPage successfulSearchPage = loadApplication().searchProducts("%");
+        List<String> productComponents = successfulSearchPage
+                .getSearchCriteriaComponent()
+                .getProductsContainerComponent()
+                .getProductComponentsName();
+        if (successfulSearchPage.isThereMoreThenOnePage()) {
+            List<String> productFromSecondPage = successfulSearchPage.gotoNextPage()
+                    .getSearchCriteriaComponent()
+                    .getProductsContainerComponent()
+                    .getProductComponentsName();
+            productComponents.addAll(productFromSecondPage);
+        }
+        for (IProduct product : ProductRepository.getAllProducts()) {
+            System.out.println(product.getName());
+            Assert.assertTrue(productComponents.contains(product.getName()));
+        }
+
+
+    }
 
     /**
      * Negative test for search field.
      * We input value longer then 9000 characters
      */
-    @Test
-    public void stressSearchFieldTest() {
-        String dataForField = LongString.createLongString(9000);
-        boolean applicationWorksCorrect=true;
-        try{
+    @Test(expectedExceptions = PageDoNotExistException.class)
+    public void stressSearchFieldTest() throws PageDoNotExistException, IOException {
+        String dataForField = new LongString().createLongString(9000);
         loadApplication().unsuccessfulSearch(dataForField);
-            }
-        catch (Exception e){applicationWorksCorrect=false;}
-        Assert.assertTrue(applicationWorksCorrect);
+        takeScreenshot("search_field_stress_test");
     }
 
 
