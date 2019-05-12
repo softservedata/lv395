@@ -16,6 +16,7 @@ public class TotalPriceTableComponent {
 
     public TotalPriceTableComponent(WebElement totalTable){
         this.totalTable = totalTable;
+        initElements();
     }
 
     private void initElements() {
