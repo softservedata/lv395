@@ -9,28 +9,38 @@ import java.math.BigDecimal;
 public class TotalPriceTableComponent {
 
     private WebElement totalTable;
-
+    WebElement tableSubTotal;
+    WebElement tableEcoTax;
+    WebElement tableVat;
+    WebElement tableTotal;
 
     public TotalPriceTableComponent(WebElement totalTable){
         this.totalTable = totalTable;
     }
 
+    private void initElements() {
+        tableSubTotal = totalTable.findElement(By.cssSelector(".table.table-bordered tr:first-child>td+td"));
+        tableEcoTax = totalTable.findElement(By.cssSelector(".table.table-bordered tr:first-child+tr>td+td"));;
+        tableVat = totalTable.findElement(By.cssSelector(".table.table-bordered tr:first-child+tr+tr>td+td"));
+        tableTotal = totalTable.findElement(By.cssSelector(".table.table-bordered tr:last-child>td+td"));
+    }
+
     // Page Object
 
     private WebElement getTableSubTotal(){
-        return totalTable.findElement(By.cssSelector(".table.table-bordered tr:first-child>td+td"));
+        return tableSubTotal;
     }
 
     private WebElement getTableEcoTax(){
-        return totalTable.findElement(By.cssSelector(".table.table-bordered tr:first-child+tr>td+td"));
+        return tableEcoTax;
     }
 
     private WebElement getTableVAT(){
-        return totalTable.findElement(By.cssSelector(".table.table-bordered tr:first-child+tr+tr>td+td"));
+        return tableVat;
     }
 
     private WebElement getTableTotal(){
-        return totalTable.findElement(By.cssSelector(".table.table-bordered tr:last-child>td+td"));
+        return tableTotal;
     }
 
     private String getTableSubTotalText(){
