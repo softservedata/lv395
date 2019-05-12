@@ -72,8 +72,8 @@ public abstract class AHeaderPart {
     private void waitElements() {
         wait = new WebDriverWait(driver, 10);
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#logo a")));
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#cart > button")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#logo a")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#cart > button")));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
