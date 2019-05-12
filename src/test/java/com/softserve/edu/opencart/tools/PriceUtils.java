@@ -11,14 +11,24 @@ public final class PriceUtils {
     private static final String PRICE_PARSER_PATTERN = "\\d+\\.\\d{1,2}";
     private static final String CURRENCY_PRICE_PARSER_PATTERN = "[\\$£€]{1}";
 
-    private static BigDecimal itemCost  = BigDecimal.ZERO;
-    private static BigDecimal totalCost = BigDecimal.ZERO;
+    private static BigDecimal itemCost;
+    private static BigDecimal totalCost;
 
     public static BigDecimal calculateProductTotal(int itemQuantity, BigDecimal itemPrice)
     {
+        initBigDecimalVariables();
         itemCost  = itemPrice.multiply(new BigDecimal(itemQuantity));
         totalCost = totalCost.add(itemCost);
         return totalCost;
+    }
+
+    private static void initBigDecimalVariables(){
+        itemCost = BigDecimal.ZERO;
+        totalCost = BigDecimal.ZERO;
+    }
+
+    public static double convertBigDecimalToDouble(BigDecimal bigDecimalValue){
+        return Double.valueOf(bigDecimalValue.doubleValue());
     }
 
     public static BigDecimal getPrice(String price) {

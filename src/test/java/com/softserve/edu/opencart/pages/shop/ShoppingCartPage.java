@@ -17,6 +17,7 @@ public class ShoppingCartPage extends AStatusPart {
     private static final String PRICE_TABLE_CSSSELECTOR = ".col-sm-4.col-sm-offset-8 .table.table-bordered";
     private ShoppingCartProductsContainer shoppingCartProductsContainer;
     private TotalPriceTableComponent totalPriceTableComponent;
+
     //
     WebElement shoppingCartLabel;
     WebElement continueButton;
@@ -40,8 +41,8 @@ public class ShoppingCartPage extends AStatusPart {
         return shoppingCartProductsContainer;
     }
 
-    public TotalPriceTableComponent getTotalPriceTableComponent() {
-        return totalPriceTableComponent;
+    public TotalPriceTableComponent getTotalPriceTableComponent(){
+        return new TotalPriceTableComponent(driver.findElement(By.cssSelector(PRICE_TABLE_CSSSELECTOR)));
     }
 
     public WebElement getContinueButton () {
@@ -87,7 +88,9 @@ public class ShoppingCartPage extends AStatusPart {
         return new ShoppingCartPage(driver);
     }
 
-    /*public BigDecimal getUnitProductPriceByCurrency(Currencies currency, Product product) {
+
+
+    public BigDecimal getUnitProductPriceByCurrency(Currencies currency, Product product) {
         return chooseCurrency(currency).getShoppingCartProductsContainer().getUnitPriceByName(product);
     }
 
@@ -99,9 +102,9 @@ public class ShoppingCartPage extends AStatusPart {
         return getShoppingCartProductsContainer().getCurrencyByProduct(product);
     }
 
-    public TotalPriceTableComponent getTotalPriceTableComponent() {
+   /* public TotalPriceTableComponent getTotalPriceTableComponent() {
         return new TotalPriceTableComponent(driver.findElement(By.cssSelector(PRICE_TABLE_CSSSELECTOR)));
-    }
+    }*/
 
     public BigDecimal getTableSubTotalByCurrency(Currencies currency) {
         return chooseCurrency(currency).getTotalPriceTableComponent().getSubTotalValue();
@@ -117,7 +120,7 @@ public class ShoppingCartPage extends AStatusPart {
 
     public BigDecimal getTableTotalByCurrency(Currencies currency) {
         return chooseCurrency(currency).getTotalPriceTableComponent().getTableTotalValue();
-    }*/
+    }
 
     // Business Logic
 
