@@ -1,4 +1,5 @@
 package com.softserve.edu.opencart.pages.account;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -6,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import com.softserve.edu.opencart.pages.common.AStatusPart;
 import com.softserve.edu.opencart.pages.account.MyAccountPage;
 
-public class WishListEmptyPage extends AStatusPart{
+public class WishListEmptyPage extends AStatusPart {
 
     public final String EXPECT_EMPTY_WISH_TEXT = "Your wish list is empty.";
 

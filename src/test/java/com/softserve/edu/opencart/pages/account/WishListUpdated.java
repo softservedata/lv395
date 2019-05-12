@@ -1,4 +1,5 @@
 package com.softserve.edu.opencart.pages.account;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,7 +18,7 @@ public class WishListUpdated extends WishListPage {
     private void initAlertMessage() {
         alertMessage = driver.findElement(By.cssSelector(".alert.alert-success"));
     }
-    // alertMessage
+
     public WebElement getAlertMessage() {
         return alertMessage;
     }
@@ -31,8 +32,6 @@ public class WishListUpdated extends WishListPage {
         // Remove x Symbol from Message
         return textMessage.substring(0, textMessage.length() - 2);
     }
-
-    // Business Logic
 
     public WishListPage closeAlertMessage() {
         getAlertMessageCloseButton().click();
