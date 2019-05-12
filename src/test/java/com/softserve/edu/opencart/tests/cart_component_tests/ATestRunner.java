@@ -22,6 +22,10 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Class for main Selenium WebDriver operations
+ * and test functional.
+ */
 public abstract class ATestRunner {
     private final String DRIVER_ERROR = "ERROR: Chromedriver not Found";
     // private final String SERVER_URL = "http://taqc-opencart.epizy.com";
@@ -29,6 +33,9 @@ public abstract class ATestRunner {
     protected final Logger log = Logger.getLogger(this.getClass());
     private WebDriver driver;
 
+    /**
+     * Method loads Selenium WebDriver.
+     */
     @BeforeClass
     public void beforeClass() {
         log.info("Test suite start!");
@@ -43,6 +50,9 @@ public abstract class ATestRunner {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
+    /**
+     * Close web-driver after test run.
+     */
     @AfterClass(alwaysRun = true)
     public void afterClass() {
         if (driver != null) {
@@ -51,12 +61,21 @@ public abstract class ATestRunner {
         log.info("ChromeDriver quite!");
     }
 
+    /**
+     * Method loads web-site.
+     */
     @BeforeMethod
     public void beforeMethod() {
         driver.get(SERVER_URL);
         log.info("Web Application loaded!");
     }
 
+    /**
+     * If something in tests goes wrong -
+     * take a screenshot and load web-site again.
+     *
+     * @param testResult results of test running.
+     */
     @AfterMethod
     public void afterMethod(ITestResult testResult) {
         if (!testResult.isSuccess()) {
@@ -71,6 +90,11 @@ public abstract class ATestRunner {
         }
     }
 
+    /**
+     * Method for loading Home Page of our application.
+     *
+     * @return opencart Home Page.
+     */
     @Step("Load HomePage")
     public HomePage loadApplication() {
         log.debug("loadApplication() start");

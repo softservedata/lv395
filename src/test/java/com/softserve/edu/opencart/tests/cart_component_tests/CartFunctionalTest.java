@@ -11,10 +11,19 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
+/**
+ * This class includes test cases for main functionality
+ * of product cart. (Mainly it's about buttons)
+ */
 @Epic("Functional Testing")
 @Feature("CartFunctionalTest")
 public class CartFunctionalTest extends ATestRunner {
 
+    /**
+     * Data provider for CartFunctional test.
+     *
+     * @return product from product repository.
+     */
     @DataProvider
     public Object[][] productData() {
         return new Object[][] {
@@ -22,6 +31,13 @@ public class CartFunctionalTest extends ATestRunner {
         };
     }
 
+    /**
+     * This test check does the 'View Cart' button works
+     *
+     * Clicks 'View Cart' and checks did we go to the cart page
+     *
+     * @param product the product with which the text will be made.
+     */
     @Description("Test Description: This test check does the 'View Cart' button works")
     @Severity(SeverityLevel.NORMAL)
     @Story("Click 'View Cart' and check did we go to the cart page")
@@ -45,6 +61,13 @@ public class CartFunctionalTest extends ATestRunner {
         log.debug("checkViewCartButton test finished");
     }
 
+    /**
+     * This test check does the 'Checkout' button works"
+     *
+     * Clicks 'Checkout' and checks did we go to the checkout page
+     *
+     * @param product the product with which the text will be made.
+     */
     @Description("Test Description: This test check does the 'Checkout' button works")
     @Severity(SeverityLevel.NORMAL)
     @Story("Click 'Checkout' and check did we go to the checkout page")
@@ -68,7 +91,13 @@ public class CartFunctionalTest extends ATestRunner {
         log.debug("checkCheckoutButton test finished");
     }
 
-
+    /**
+     * This test check does the 'Remove' button works
+     *
+     * Clicks 'Checkout' and checks is the product removed from the cart
+     *
+     * @param product the product with which the text will be made.
+     */
     @Description("Test Description: This test check does the 'Remove' button works")
     @Severity(SeverityLevel.BLOCKER)
     @Story("Click 'Checkout' and check is the product removed from the cart")
@@ -95,6 +124,13 @@ public class CartFunctionalTest extends ATestRunner {
         log.debug("checkRemoveButton test finished");
     }
 
+    /**
+     * Test Description: This test check clicking on item name in cart
+     *
+     * Clicks on product name and checks did we go to the product page
+     *
+     * @param product the product with which the text will be made.
+     */
     @Description("Test Description: This test check clicking on item name in cart")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Click on product name and check did we go to the product page")

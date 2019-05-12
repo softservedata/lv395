@@ -8,10 +8,20 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+
+/**
+ * This class includes test cases for
+ * price table of product cart.
+ */
 @Epic("Functional Testing")
 @Feature("PriceTableTest")
 public class PriceTableTest extends ATestRunner {
 
+    /**
+     * Data provider for PriceTable tests.
+     *
+     * @return product from product repository.
+     */
     @DataProvider
     public Object[][] productData() {
         return new Object[][] {
@@ -19,6 +29,15 @@ public class PriceTableTest extends ATestRunner {
         };
     }
 
+    /**
+     * This test checks if all data in the
+     * cart table is displayed correctly.
+     *
+     * Add the item to the cart and check if all
+     * data in the cart table is displayed correctly.
+     *
+     * @param product product from product repository.
+     */
     @Description("Test Description: This test checks if all data in the cart table is displayed correctly")
     @Severity(SeverityLevel.BLOCKER)
     @Story("Add the item to the cart and check if all data in the cart table is displayed correctly")

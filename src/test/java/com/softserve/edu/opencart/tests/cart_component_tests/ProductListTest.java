@@ -13,10 +13,18 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
+/**
+ * This class includes test cases for product list.
+ */
 @Epic("Functional Testing")
 @Feature("ProductListTest")
 public class ProductListTest extends ATestRunner {
 
+    /**
+     * Data provider for checkAddToCartButton tests.
+     *
+     * @return product from product repository.
+     */
     @DataProvider
     public Object[][] productData() {
         return new Object[][] {
@@ -25,6 +33,13 @@ public class ProductListTest extends ATestRunner {
         };
     }
 
+    /**
+     * This test check whether the product has been added cart from homepage.
+     *
+     * Click AddToCart and check if product added to Car.
+     *
+     * @param product product from product repository.
+     */
     @Description("Test Description: This test check whether the product has been added cart from homepage")
     @Severity(SeverityLevel.BLOCKER)
     @Story("Click AddToCart and check if product added to Cart")
@@ -47,6 +62,11 @@ public class ProductListTest extends ATestRunner {
         log.debug("checkAddToCartButton test finished");
     }
 
+    /**
+     * Data provider for increaseQuantityOfItemsTest tests.
+     *
+     * @return products from product repository.
+     */
     @DataProvider
     public Object[][] secondProductData() {
         return new Object[][] {
@@ -54,7 +74,15 @@ public class ProductListTest extends ATestRunner {
         };
     }
 
-
+    /**
+     * Test Description: This test check whether the product quantity
+     * has been increased when we add some else product to cart.
+     *
+     * Click AddToCart again and check if product quantity has increased.
+     *
+     * @param firstProduct product from product repository.
+     * @param secondProduct product from product repository.
+     */
     @Description("Test Description: This test check whether the product quantity has been increased" +
             "when we add some else product to cart")
     @Severity(SeverityLevel.BLOCKER)
@@ -85,6 +113,12 @@ public class ProductListTest extends ATestRunner {
 
     }
 
+    /**
+     * Data provider for addSameItemMultipleTimesTest tests.
+     *
+     * @return product from product repository and
+     * expected quantity of items in cart after test.
+     */
     @DataProvider
     public Object[][] thirdProductData() {
         return new Object[][] {
@@ -92,6 +126,16 @@ public class ProductListTest extends ATestRunner {
         };
     }
 
+    /**
+     * This test checks if the same items are
+     * displayed in the cart correctly.
+     *
+     * Add same product few times and check
+     * if quantity of same products is correct.
+     *
+     * @param product product from product repository.
+     * @param productQuantity expected quantity of items in cart.
+     */
     @Description("This test checks if the same items are displayed in the cart correctly")
     @Severity(SeverityLevel.BLOCKER)
     @Story("Add same product few times and check if quantity of same products is correct")
@@ -119,6 +163,11 @@ public class ProductListTest extends ATestRunner {
 
     }
 
+    /**
+     * Data provider for addProductFromProductPageTest tests.
+     *
+     * @return product from product repository.
+     */
     @DataProvider
     public Object[][] fourthProductData() {
         return new Object[][] {
@@ -126,6 +175,13 @@ public class ProductListTest extends ATestRunner {
         };
     }
 
+    /**
+     * This test checks if products add to cart from product page.\
+     *
+     * Add product to cart from product page.
+     *
+     * @param product product from product repository.
+     */
     @Description("This test checks if products add to cart from product page")
     @Severity(SeverityLevel.BLOCKER)
     @Story("Add product to cart from product page")
@@ -149,6 +205,12 @@ public class ProductListTest extends ATestRunner {
         log.debug("addProductFromProductPageTest test finished");
     }
 
+    /**
+     * Data provider for addMoreItemsThenInDbTest tests.
+     *
+     * @return product from product repository and quantity
+     * which should be added to ordered products quantity.
+     */
     @DataProvider
     public Object[][] fifthProductData() {
         return new Object[][] {
@@ -156,6 +218,15 @@ public class ProductListTest extends ATestRunner {
         };
     }
 
+    /**
+     * This test checks if it is possible to add more
+     * items to the cart than it is in stock.
+     *
+     * Add more products to cart than you have in the database.
+     *
+     * @param product product from product repository.
+     * @param addition quantity which should be added.
+     */
     @Description("This test checks if it is possible to add more items to the cart than it is in stock")
     @Severity(SeverityLevel.BLOCKER)
     @Story("Add more products to cart than you have in the database")

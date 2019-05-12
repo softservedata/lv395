@@ -16,10 +16,20 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
+/**
+ * This class includes test cases for some
+ * other functionality of product cart.
+ */
 @Epic("Functional Testing")
 @Feature("OtherFunctionalTest")
 public class OtherFunctionalTest extends ATestRunner {
 
+    /**
+     * Data provider for checkPriceTextButton test.
+     *
+     * @return product from product repository
+     * and expected test result.
+     */
     @DataProvider // (parallel = true)
     public Object[][] validData() {
         return new Object[][]{
@@ -27,6 +37,14 @@ public class OtherFunctionalTest extends ATestRunner {
         };
     }
 
+    /**
+     * This test check does the info about products displayed on Cart Button.
+     *
+     * Add product to cart and check that the info about products displayed on Cart Button.
+     *
+     * @param product product from product repository.
+     * @param text expected test result.
+     */
     @Description("Test Description: This test check does the info about products displayed on Cart Button")
     @Severity(SeverityLevel.NORMAL)
     @Story("Add product to cart and check that the info about products displayed on Cart Button")
@@ -46,6 +64,11 @@ public class OtherFunctionalTest extends ATestRunner {
         log.debug("checkPriceTextButton test finished");
     }
 
+    /**
+     * Data provider for logoutUserCartTest test.
+     *
+     * @return User and product from repositories.
+     */
     @DataProvider // (parallel = true)
     public Object[][] validUsers() {
         return new Object[][]{
@@ -53,6 +76,16 @@ public class OtherFunctionalTest extends ATestRunner {
         };
     }
 
+    /**
+     * This test checks whether goods in the cart
+     * are stored when the user leaves the profile.
+     *
+     * Add the item to the cart under the logged-in
+     * user and exit the profile.
+     *
+     * @param user product from product repository
+     * @param product product from repository.
+     */
     @Description("Test Description: This test checks whether goods in the cart are stored " +
             "when the user leaves the profile")
     @Severity(SeverityLevel.NORMAL)
@@ -84,6 +117,11 @@ public class OtherFunctionalTest extends ATestRunner {
         log.debug("logoutUserCartTest test finished");
     }
 
+    /**
+     * Data provider for differentLoggedUsersCartTest test.
+     *
+     * @return User and product from repositories.
+     */
     @DataProvider // (parallel = true)
     public Object[][] validDifferentUsers() {
         return new Object[][]{
@@ -92,6 +130,16 @@ public class OtherFunctionalTest extends ATestRunner {
         };
     }
 
+    /**
+     *This test checks whether goods in the cart
+     * are not saved when user changes.
+     *
+     * Add the item to the cart under the
+     * logged-in user and change profile.
+     *
+     * @param user product from product repository
+     * @param product product from repository.
+     */
     @Description("Test Description: This test checks whether goods in the cart are not saved when user changes")
     @Severity(SeverityLevel.BLOCKER)
     @Story("Add the item to the cart under the logged-in user and change profile")

@@ -5,10 +5,18 @@ import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+/**
+ * This class includes just a smoke test.
+ */
 @Epic("Smoke Test")
 @Feature("SmokeTest")
 public class SmokeTest extends ATestRunner {
 
+    /**
+     * This test check does the cart open when we click on Cart Button.
+     *
+     * Click Cart Button and check that cart is opened.
+     */
     @Description("Test Description: This test check does the cart open when we click on Cart Button")
     @Severity(SeverityLevel.BLOCKER)
     @Story("Click Cart Button and check that cart is opened")
