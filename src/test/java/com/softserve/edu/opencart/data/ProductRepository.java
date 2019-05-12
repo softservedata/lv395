@@ -73,6 +73,10 @@ public final class ProductRepository {
     public static IProduct getIPhone3(){
         return Product.get().setName("iPhone 3")
                 .setPriceDollarExTax("101.00")
+                .setSubTotal(new BigDecimal(101.00))
+                .setEcoTax(new BigDecimal(2.00))
+                .setVat(new BigDecimal(20.20))
+                .setTotalPrice(new BigDecimal(123.20))
                 .build();
     }
 

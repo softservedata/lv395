@@ -11,6 +11,16 @@ public final class PriceUtils {
     private static final String PRICE_PARSER_PATTERN = "\\d+\\.\\d{1,2}";
     private static final String CURRENCY_PRICE_PARSER_PATTERN = "[\\$£€]{1}";
 
+    private static BigDecimal itemCost  = BigDecimal.ZERO;
+    private static BigDecimal totalCost = BigDecimal.ZERO;
+
+    public static BigDecimal calculateProductTotal(int itemQuantity, BigDecimal itemPrice)
+    {
+        itemCost  = itemPrice.multiply(new BigDecimal(itemQuantity));
+        totalCost = totalCost.add(itemCost);
+        return totalCost;
+    }
+
     public static BigDecimal getPrice(String price) {
         Matcher matcher = Pattern.compile(PRICE_PARSER_PATTERN).matcher(price.replaceAll(",",""));
         matcher.find();
