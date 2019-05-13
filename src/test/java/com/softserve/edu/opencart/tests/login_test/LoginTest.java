@@ -16,6 +16,7 @@ public class LoginTest extends ATestRunner {
     public Object[][] validUsers() {
         return new Object[][]{
                 {UserRepository.get().johnWick()},
+                {UserRepository.get().johnWick()},
         };
     }
 
