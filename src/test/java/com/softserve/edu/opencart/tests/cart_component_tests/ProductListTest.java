@@ -233,16 +233,20 @@ public class ProductListTest extends ATestRunner {
     @Test(dataProvider = "fifthProductData", description = "Add more items then in DB test")
     // Steps
     public void addMoreItemsThenInDbTest(IProduct product, int addition) {
+        DataBaseUtils dbUtils = new DataBaseUtils();
+
         log.debug("addMoreItemsThenInDbTest test started");
         CartProductContainer cartProductContainer = loadApplication()
                 .clickProductName(product)
-                .setQuantity(DataBaseUtils
+                .setQuantity(dbUtils
                         .getProductQuantityFromDb(product) + addition)
                 .addProductToCart()
                 .gotoHomePage()
                 .openCartProductContainer();
         List<CartProductComponent> cartProductComponents = cartProductContainer
                 .getCartProductComponents();
+
+        dbUtils.closeConnection();
         // Check
         Assert.assertTrue(cartProductComponents.size() == 0);
         // Steps
