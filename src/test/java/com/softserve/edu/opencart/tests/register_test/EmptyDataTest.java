@@ -6,7 +6,7 @@ import com.softserve.edu.opencart.pages.account.UnsuccessfullyRegisterPage;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class EmptyDataATest extends ATestRunner {
+public class EmptyDataTest extends ATestRunner {
 
     @DataProvider
     public Object[][] emptyUser() {

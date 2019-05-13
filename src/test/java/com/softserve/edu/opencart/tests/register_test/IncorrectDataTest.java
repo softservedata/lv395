@@ -6,7 +6,7 @@ import com.softserve.edu.opencart.pages.account.UnsuccessfullyRegisterPage;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class IncorrectDataATest extends ATestRunner {
+public class IncorrectDataTest extends ATestRunner {
 
     @DataProvider
     public Object[][] invalidValuesUser() {

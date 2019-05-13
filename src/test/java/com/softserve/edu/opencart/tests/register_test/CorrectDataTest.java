@@ -4,11 +4,14 @@ import com.softserve.edu.opencart.data.IUser;
 import com.softserve.edu.opencart.data.UserRepository;
 import com.softserve.edu.opencart.pages.account.AccountLogoutPage;
 import com.softserve.edu.opencart.pages.account.SuccessfullyRegisterPage;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class CorrectDataATest extends ATestRunner {
+@Epic("Functional Testings")
+@Feature("Register with correct data")
+public class CorrectDataTest extends ATestRunner {
 
     @DataProvider
     public Object[][] validMinValuesUser() {
@@ -18,12 +21,17 @@ public class CorrectDataATest extends ATestRunner {
         };
     }
 
-    @Test(dataProvider = "validMinValuesUser")
+    @Description("Run two tests with correct boundary user values")
+    @Severity(SeverityLevel.MINOR)
+    @Story("Go to RegisterPage, fill field with correct user data")
+    @Test(dataProvider = "validMinValuesUser", description = "CheckValidRegister")
     public void checkValidRegister(IUser user) {
+        log.debug("checkValidRegister start");
         //Steps
         SuccessfullyRegisterPage sc = loadApplication()
                 .gotoRegisterPage()
                 .successfullyRegisterUser(user);
+        saveImageAttach("Actualresult");
 
         //Check
         Assert.assertTrue(sc.getExpectedSuccessMessage().
@@ -33,6 +41,7 @@ public class CorrectDataATest extends ATestRunner {
         //Check
         Assert.assertTrue(accountLogoutPage.getActualAccountLogoutMessage()
                 .equals(accountLogoutPage.EXPECTED_ACCOUNT_MESSAGE));
+        log.debug("checkValidRegister end");
     }
 
     //TODO if 2 users had been created delete them, if not throw exception

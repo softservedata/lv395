@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="RegisterTestSuite">
+
+    <test name="RegisterTests">
+        <classes>
+            <class name="com.softserve.edu.opencart.tests.register_test.CorrectDataTest" />
+            <class name="com.softserve.edu.opencart.tests.register_test.EmptyDataTest" />
+            <class name="com.softserve.edu.opencart.tests.register_test.IncorrectDataTest" />
+            <class name="com.softserve.edu.opencart.tests.register_test.WithoutPrivacyPolicyTest" />
+        </classes>
+    </test> <!-- Test -->
+
+</suite> <!-- Suite -->

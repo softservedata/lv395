@@ -346,7 +346,7 @@ public abstract class AHeaderPart {
         clickUnloggedMyAccountByPartialName(UnloggedMyAccount.LOGIN);
         return new LoginPage(driver);
     }
-
+     @Step("Go to register page")
     public RegisterPage gotoRegisterPage() {
         clickUnloggedMyAccountByPartialName(UnloggedMyAccount.REGISTER);
         return new RegisterPage(driver);
