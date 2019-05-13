@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SearchFieldTestSuit">
+
+    <test name="SearchField">
+        <classes>
+            <class name="com.softserve.edu.opencart.tests.search_field_tests.SearchFieldTest">
+                <methods>
+                    <include name="searchFieldPositiveTest" />
+                    <include name="searchFieldNegativeTest" />
+                    <include name="findAllProductsTest" />
+                    <include name="stressSearchFieldTest" />
+                </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.search_field_tests.SearchInProductDescriptionTest">
+                <methods>
+                    <include name="searchInProductDescriptionPositiveTest" />
+                    <include name="searchInProductDescriptionNegativeTest" />
+                </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.search_field_tests.ChooseCategoryTest">
+                <methods>
+                    <include name="chooseCategoryPositiveTest" />
+                    <include name="chooseCategoryNegativeTest" />
+                </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.search_field_tests.SearchInSubCategoriesTest">
+                <methods>
+                    <include name="searchInSubCategoryPositiveTest" />
+                    <include name="searchInSubCategoryNegativeTest" />
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- Test -->
+
+</suite> <!-- Suite -->

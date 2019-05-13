@@ -104,7 +104,7 @@ public class SearchInProductDescriptionTest extends ATestRunner {
      *                             find/to use does not exist
      */
     @Test(dataProvider = "dataForFindCanon")
-    public void searchCanonTest(String productWeWantToFind, SearchFilter searchFilterWeUse) throws PageDoesNotExistException {
+    public void searchInProductDescriptionPositiveTest(String productWeWantToFind, SearchFilter searchFilterWeUse) throws PageDoesNotExistException {
         ProductsContainerComponent productsOnThePage=loadApplication()
                 .gotoSearchPageWithFilters()
                 .searchProductsByFilter(searchFilterWeUse)
@@ -124,7 +124,7 @@ public class SearchInProductDescriptionTest extends ATestRunner {
      *                                  find/to use does not exist
      */
     @Test
-    public void negativeTestSearchCanonTest() throws PageDoesNotExistException {
+    public void searchInProductDescriptionNegativeTest() throws PageDoesNotExistException {
         ProductsContainerComponent productsOnThePage=loadApplication()
                 .searchProducts(ProductRepository.getCanonEOS5D().getName())
                 .searchProductsByFilter(SearchFilterRepository.getCanonIncorrectData())

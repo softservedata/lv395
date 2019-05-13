@@ -52,7 +52,7 @@ public class SearchFieldTest extends ATestRunner {
      *                                 do not exist this exception will be thrown
      */
     @Test(dataProvider = "searchPositiveData")
-    public void positiveTest(String searchData) throws PageDoesNotExistException{
+    public void searchFieldPositiveTest(String searchData) throws PageDoesNotExistException{
         //Steps
         SuccessfulSearchPage successfulSearchPage = loadApplication().
                 searchProducts(searchData);
@@ -115,7 +115,7 @@ public class SearchFieldTest extends ATestRunner {
      *                                  do not exist this exception will be thrown
      */
     @Test
-    public void findAllProducts() throws  PageDoesNotExistException, ElementDoNotExistException {
+    public void findAllProductsTest() throws  PageDoesNotExistException, ElementDoNotExistException {
         SuccessfulSearchPage successfulSearchPage = loadApplication().searchProducts("%");
         List<String> productComponents = successfulSearchPage
                 .getSearchCriteriaComponent()
@@ -129,7 +129,6 @@ public class SearchFieldTest extends ATestRunner {
             productComponents.addAll(productFromSecondPage);
         }
         for (IProduct product : ProductRepository.getAllProducts()) {
-            System.out.println(product.getName());
             Assert.assertTrue(productComponents.contains(product.getName()));
         }
 

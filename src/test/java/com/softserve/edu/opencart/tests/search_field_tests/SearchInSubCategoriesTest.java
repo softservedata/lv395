@@ -69,7 +69,7 @@ public class SearchInSubCategoriesTest extends ATestRunner {
      */
 
     @Test(dataProvider = "dataForPositiveTest")
-    public void findSonyPositiveTest(SearchFilter searchFilterData, String productName) throws PageDoesNotExistException {
+    public void searchInSubCategoryPositiveTest(SearchFilter searchFilterData, String productName) throws PageDoesNotExistException {
         SuccessfulSearchPage successfulSearchPage=loadApplication()
                 .gotoSearchPageWithFilters()
                 .searchProductsByFilter(searchFilterData);
@@ -117,7 +117,7 @@ public class SearchInSubCategoriesTest extends ATestRunner {
      *                                   we want to see/to use doesnot exist
      */
     @Test(dataProvider = "dataForNegativeTest")
-    public void findSonyNegativeTest(SearchFilter searchFilterData, String productName) throws PageDoesNotExistException {
+    public void searchInSubCategoryNegativeTest(SearchFilter searchFilterData, String productName) throws PageDoesNotExistException {
         SuccessfulSearchPage successfulSearchPage=loadApplication()
                 .gotoSearchPageWithFilters()
                 .searchProductsByFilter(searchFilterData);
