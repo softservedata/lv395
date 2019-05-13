@@ -644,6 +644,11 @@ public class RegisterPage extends ARightLogoutPart {
         fillRegistrationForm(userConsistsDigits);
         return new SuccessfullyRegisterPage(driver);
     }
+
+//    public String getActualPolicyErrorText() {
+//        return driver.findElement(By
+//                .cssSelector("div[class*='alert']")).getText();
+//    }
 }
 
 

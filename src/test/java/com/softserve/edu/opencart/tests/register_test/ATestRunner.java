@@ -14,7 +14,7 @@ import org.testng.annotations.BeforeMethod;
 import com.softserve.edu.opencart.pages.common.HomePage;
 import com.softserve.edu.opencart.tools.LeaveUtils;
 
-public class TestRunner {
+public abstract class ATestRunner {
     private final String DRIVER_ERROR = "ERROR: Chromedriver not Found";
     // private final String SERVER_URL = "http://taqc-opencart.epizy.com";
     private final String SERVER_URL = "http://192.168.11.129/opencart/upload/";

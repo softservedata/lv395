@@ -47,7 +47,7 @@ public class SuccessfullyRegisterPage extends ARightMenuPart {
         return getSuccessMessage().getText();
     }
 
-    //TODO logout button for CorrectDataTest
+    //TODO logout button for CorrectDataATest
 
     public WebElement getLogOutButton() {
         return logOutButton;

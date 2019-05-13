@@ -16,7 +16,7 @@ public class UnsuccessfullyRegisterPage extends ARightMenuPart {
     public static final String EXPECTED_WARNING_CITY = "City must be between 2 and 128 characters!";
     public static final String EXPECTED_WARNING_REGION = "Please select a region / state!";
     public static final String EXPECTED_WARNING_PASSWORD = "Password must be between 4 and 20 characters!";
-    public static final String EXPECTED_WARNING_POLICY = "Warning: You must agree to the Privacy Policy!";
+//    public static final String EXPECTED_WARNING_POLICY = "Warning: You must agree to the Privacy Policy!";
 
     private WebElement actualFirstNameError;
     private WebElement actualLastNameError;
@@ -132,7 +132,7 @@ public class UnsuccessfullyRegisterPage extends ARightMenuPart {
         Assert.assertEquals(EXPECTED_WARNING_PASSWORD, getActualPasswordError());
     }
 
-    public void checkPolicyError() {
-        Assert.assertEquals(EXPECTED_WARNING_POLICY, getActualPolicyErrorText());
-    }
+//    public void checkPolicyError() {
+//        Assert.assertEquals(EXPECTED_WARNING_POLICY, getActualPolicyErrorText());
+//    }
 }

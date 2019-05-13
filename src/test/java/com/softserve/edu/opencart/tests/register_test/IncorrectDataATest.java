@@ -6,7 +6,7 @@ import com.softserve.edu.opencart.pages.account.UnsuccessfullyRegisterPage;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class IncorrectDataTest extends TestRunner {
+public class IncorrectDataATest extends ATestRunner {
 
     @DataProvider
     public Object[][] invalidValuesUser() {
@@ -26,5 +26,7 @@ public class IncorrectDataTest extends TestRunner {
         //Check
         unsuccessRegisterPage.checkErrorMessages();
     }
+    //Todo if user has been created delete and throw exception
 
+    //Todo test login without PrivacyPolicy
 }
