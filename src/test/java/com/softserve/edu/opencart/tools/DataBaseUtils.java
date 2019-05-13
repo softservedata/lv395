@@ -22,7 +22,7 @@ import java.util.List;
 public final class DataBaseUtils {
 
     /*
-     * We don't need no static fields and methods here.
+     * We don't need static fields and methods here.
      * JDBC Connection creates on '= new DataBaseUtils()'
      * Don'r forget to close connection after using class
      */
@@ -218,5 +218,4 @@ public final class DataBaseUtils {
         runShellScript(RESTORE_DATABASE);
         remoteServerDisconnect();
     }
-
 }
