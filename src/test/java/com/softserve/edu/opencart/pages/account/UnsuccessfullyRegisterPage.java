@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-public class UnsuccessfullyRegisterPage extends ARightMenuPart {
+public class UnsuccessfullyRegisterPage extends AUnsuccessfullyRegisterPage {
 
 
     public static final String EXPECTED_WARNING_FIRST_NAME = "First Name must be between 1 and 32 characters!";
@@ -33,26 +33,26 @@ public class UnsuccessfullyRegisterPage extends ARightMenuPart {
         initElements();
     }
 
-    private void initElements() {
+    void initElements() {
         //TODO valid selectors and privacy
-        actualFirstNameError = driver.findElement(By.cssSelector("#account "
-                + "> div:nth-child(3) > div > div"));
-        actualLastNameError = driver.findElement(By.cssSelector("#account "
-                + "> div:nth-child(4) > div > div"));
-        actualEmailError = driver.findElement(By.cssSelector("#account "
-                + "> div:nth-child(5) > div > div"));
-        actualTelephoneError = driver.findElement(By.cssSelector("#account "
-                + "> div:nth-child(6) > div > div"));
-        actualAddressError = driver.findElement(By.cssSelector("#address "
-                + "> div:nth-child(3) > div > div"));
-        actualCityError = driver.findElement(By.cssSelector("#address "
-                + "> div:nth-child(5) > div > div"));
-        actualRegionError = driver.findElement(By.cssSelector("#address"
-                + " > div:nth-child(8) > div > div"));
-        actualPasswordError = driver.findElement(By.cssSelector("#content >"
-                + " form > fieldset:nth-child(3) >"
-                + " div.form-group.required.has-error >"
-                + " div > div"));
+            actualFirstNameError = driver.findElement(By.cssSelector("#account "
+                    + "> div:nth-child(3) > div > div"));
+            actualLastNameError = driver.findElement(By.cssSelector("#account "
+                    + "> div:nth-child(4) > div > div"));
+            actualEmailError = driver.findElement(By.cssSelector("#account "
+                    + "> div:nth-child(5) > div > div"));
+            actualTelephoneError = driver.findElement(By.cssSelector("#account "
+                    + "> div:nth-child(6) > div > div"));
+            actualAddressError = driver.findElement(By.cssSelector("#address "
+                    + "> div:nth-child(3) > div > div"));
+            actualCityError = driver.findElement(By.cssSelector("#address "
+                    + "> div:nth-child(5) > div > div"));
+            actualRegionError = driver.findElement(By.cssSelector("#address"
+                    + " > div:nth-child(8) > div > div"));
+            actualPasswordError = driver.findElement(By.cssSelector("#content >"
+                    + " form > fieldset:nth-child(3) >"
+                    + " div.form-group.required.has-error >"
+                    + " div > div"));
     }
 
     /**

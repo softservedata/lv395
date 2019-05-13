@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 
 public class RegisterPage extends ARightLogoutPart {
 
@@ -603,12 +602,6 @@ public class RegisterPage extends ARightLogoutPart {
         return new SuccessfullyRegisterPage(driver);
     }
 
-//    //checkcorrectdata
-//    public SuccessfullyRegisterPage successfullyRegisterUser2(IUser validBoundaryUser2) {
-//        fillRegistrationForm(validBoundaryUser2);
-//        return new SuccessfullyRegisterPage(driver);
-//    }
-
     //checkincorrectdata
     public UnsuccessfullyRegisterPage userWithBadData(IUser invalidBoundaryUser) {
         fillRegistrationForm(invalidBoundaryUser);
@@ -627,16 +620,10 @@ public class RegisterPage extends ARightLogoutPart {
         return new UnsuccessfullyRegisterPage(driver);
     }
 
-
-//    public UnsuccessfullyRegisterPage userBoundary(IUser userBoundaryValues) {
-//        fillRegistrationForm(userBoundaryValues);
-//        return new UnsuccessfullyRegisterPage(driver);
-//    }
-
     //without privacyPolicy
-    public UnsuccessfullyRegisterPage userWithNoPrivacyPolicy(IUser validUser) {
+    public PrivacyPolicyMessagePage userWithNoPrivacyPolicy(IUser validUser) {
         fillRegistrationFormWithNoPrivacyPolicy(validUser);
-        return new UnsuccessfullyRegisterPage(driver);
+        return new PrivacyPolicyMessagePage(driver);
     }
 
     //fields consist digits
@@ -645,10 +632,6 @@ public class RegisterPage extends ARightLogoutPart {
         return new SuccessfullyRegisterPage(driver);
     }
 
-//    public String getActualPolicyErrorText() {
-//        return driver.findElement(By
-//                .cssSelector("div[class*='alert']")).getText();
-//    }
 }
 
 

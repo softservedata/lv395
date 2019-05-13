@@ -2,10 +2,7 @@ package com.softserve.edu.opencart.tests.register_test;
 
 import com.softserve.edu.opencart.data.IUser;
 import com.softserve.edu.opencart.data.UserRepository;
-import com.softserve.edu.opencart.pages.account.AccountLogoutPage;
-import com.softserve.edu.opencart.pages.account.PrivacyPolicyMessageComponent;
-import com.softserve.edu.opencart.pages.account.SuccessfullyRegisterPage;
-import com.softserve.edu.opencart.pages.account.UnsuccessfullyRegisterPage;
+import com.softserve.edu.opencart.pages.account.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -18,27 +15,12 @@ public class WithoutPrivacyPolicyTest extends ATestRunner {
         };
     }
 
-//    @DataProvider
-//    public Object[][] validMaxValuesUser() {
-//        return new Object[][]{
-//                {UserRepository.get().validUserWithBoundaryValues2()},
-//        };
-//    }
-
     @Test(dataProvider = "validValuesUser")
     public void checkValidRegister(IUser user) {
-        //Steps
-//        UnsuccessfullyRegisterPage sc = loadApplication()
-//                .gotoRegisterPage()
-//                .userWithNoPrivacyPolicy(user);
-//        //Check
-////        Assert.assertTrue(sc.getActualPolicyErrorText().
-////                equals(sc.EXPECTED_WARNING_POLICY));
-//        sc.checkPolicyError();
-        UnsuccessfullyRegisterPage sc = loadApplication()
+        PrivacyPolicyMessagePage pp = loadApplication()
                 .gotoRegisterPage()
                 .userWithNoPrivacyPolicy(user);
-//        PrivacyPolicyMessageComponent pr = new PrivacyPolicyMessageComponent();
-        Assert.assertEquals(PrivacyPolicyMessageComponent.getActualPolicyErrorText(), PrivacyPolicyMessageComponent.EXPECTED_WARNING_POLICY);
+        Assert.assertEquals(pp.getActualPolicyErrorText(),
+                pp.EXPECTED_WARNING_POLICY);
     }
 }

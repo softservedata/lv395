@@ -18,13 +18,6 @@ public class CorrectDataATest extends ATestRunner {
         };
     }
 
-//    @DataProvider
-//    public Object[][] validMaxValuesUser() {
-//        return new Object[][]{
-//                {UserRepository.get().validUserWithBoundaryValues2()},
-//        };
-//    }
-
     @Test(dataProvider = "validMinValuesUser")
     public void checkValidRegister(IUser user) {
         //Steps
@@ -36,24 +29,12 @@ public class CorrectDataATest extends ATestRunner {
         Assert.assertTrue(sc.getExpectedSuccessMessage().
                 equals(sc.EXPECTED_SUCCESS_MESSAGE));
         //Step
-        AccountLogoutPage accountLogoutPage = sc
-                .logOut();
+        AccountLogoutPage accountLogoutPage = sc.logOut();
         //Check
         Assert.assertTrue(accountLogoutPage.getActualAccountLogoutMessage()
                 .equals(accountLogoutPage.EXPECTED_ACCOUNT_MESSAGE));
     }
 
-//    @Test(dataProvider = "validMaxValuesUser")
-//    public void checkValidRegister2(IUser user) {
-//        //Steps
-//        SuccessfullyRegisterPage sc = loadApplication()
-//                .gotoRegisterPage()
-//                .successfullyRegisterUser(user);
-//
-//        //Check
-//        Assert.assertTrue(sc.getExpectedSuccessMessage().
-//                equals(sc.EXPECTED_SUCCESS_MESSAGE));
-//    }
     //TODO if 2 users had been created delete them, if not throw exception
 }
 
