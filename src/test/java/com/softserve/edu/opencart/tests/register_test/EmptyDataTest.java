@@ -3,6 +3,8 @@ package com.softserve.edu.opencart.tests.register_test;
 import com.softserve.edu.opencart.data.IUser;
 import com.softserve.edu.opencart.data.UserRepository;
 import com.softserve.edu.opencart.pages.account.UnsuccessfullyRegisterPage;
+import com.softserve.edu.opencart.tools.DataBaseUtils;
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -28,8 +30,9 @@ public class EmptyDataTest extends ATestRunner {
                 .userWithNoData(emptyUser);
     //Todo
         unsuccessfullyRegisterPage.checkErrorMessages();
-    }
+        DataBaseUtils db = new DataBaseUtils();
 
-    //Todo if user has been created delete and throw exception
+        Assert.assertFalse(db.isEmailInDb(emptyUser));
+    }
 
 }

@@ -13,6 +13,7 @@ import com.jcraft.jsch.Session;
 import com.softserve.edu.opencart.data.IProduct;
 import com.softserve.edu.opencart.data.IUser;
 import com.softserve.edu.opencart.data.UserRepository;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -49,10 +50,12 @@ public final class DataBaseUtils {
     private final String SET_ATTEMPTS_TO_NULL = "TRUNCATE opencart.oc_customer_login;";
     private final String RETRIVE_DATA_FROM_TABLE = "SELECT firstname, lastname, email, telephone, fax  FROM opencart.oc_customer where email = ?;";
     private final String SELECT_FIRST_USER = "SELECT * FROM opencart.oc_customer WHERE email LIKE ?;";
+    private final String CLEAR_USER_QUERY = "DELETE  FROM opencart.oc_customer WHERE email NOT LIKE 'baksnaz@gmail.com';";
     //
     private Connection connection;
     private JSch jsch = new JSch();
     private Session session;
+    private Logger log = Logger.getLogger(DataBaseUtils.class);
     //
     private List<String> userInfo;
 
@@ -133,22 +136,30 @@ public final class DataBaseUtils {
     public boolean isEmailInDb(IUser user) {
         ResultSet rs = null;
         boolean inDb = false;
-        try (PreparedStatement ps = connection.prepareStatement(SELECT_FIRST_USER, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+        try (PreparedStatement ps = connection.prepareStatement(SELECT_FIRST_USER)) {
             ps.setString(1, user.getEmail());
             rs = ps.executeQuery();
-            while (rs.next()) {
+            while (rs.next())
                 if (rs.getString(7).equals(user.getEmail())) {
                     inDb = true;
                 }
-                rs.absolute(1);
-                rs.deleteRow();
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeConnection();
         }
         return inDb;
+    }
+
+    public void userClear() {
+        openConnection();
+        try (Statement st = connection.createStatement()) {
+            st.executeUpdate(CLEAR_USER_QUERY);
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+        } finally {
+            closeConnection();
+        }
     }
 
     /**

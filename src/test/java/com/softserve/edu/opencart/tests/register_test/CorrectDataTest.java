@@ -43,6 +43,7 @@ public class CorrectDataTest extends ATestRunner {
         Assert.assertTrue(accountLogoutPage.getActualAccountLogoutMessage()
                 .equals(accountLogoutPage.EXPECTED_ACCOUNT_MESSAGE));
         Assert.assertTrue(db.isEmailInDb(user));
+        db.userClear();
         log.debug("checkValidRegister end");
     }
 
