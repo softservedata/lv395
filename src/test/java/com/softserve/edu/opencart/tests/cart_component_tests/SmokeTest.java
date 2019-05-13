@@ -27,6 +27,7 @@ public class SmokeTest extends ATestRunner {
         EmptyCartComponent emptyCartComponent  = loadApplication()
                 .openCartProductContainer()
                 .openEmptyCart();
+        saveImageAttach("smoke");
         // Check
         Assert.assertTrue(emptyCartComponent.getCartContainer().isEnabled());
         log.debug("smokeTest test finished");

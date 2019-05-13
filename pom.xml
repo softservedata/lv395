@@ -294,7 +294,7 @@
                         </selenium.version>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
-                        <suiteXmlFile>testng3.xml</suiteXmlFile>
+                        <suiteXmlFile>CartTestSuite.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <reportsDirectory>${testng.reports.directory}</reportsDirectory>
                     <argLine>

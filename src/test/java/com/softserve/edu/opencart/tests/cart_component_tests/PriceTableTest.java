@@ -50,6 +50,7 @@ public class PriceTableTest extends ATestRunner {
                 .gotoHomePage()
                 .openCartProductContainer()
                 .getTotalPriceTableComponent();
+        saveImageAttach("prise_table");
         // Check
         Assert.assertEquals(totalPriceTableComponent.getSubTotalValue(),
                 product.getSubTotal());

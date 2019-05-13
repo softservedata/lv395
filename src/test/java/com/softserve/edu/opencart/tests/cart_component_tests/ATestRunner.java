@@ -36,6 +36,7 @@ public abstract class ATestRunner {
     /**
      * Method loads Selenium WebDriver.
      */
+    @Step("Start browser")
     @BeforeClass
     public void beforeClass() {
         log.info("Test suite start!");
@@ -53,6 +54,7 @@ public abstract class ATestRunner {
     /**
      * Close web-driver after test run.
      */
+    @Step("Browser TearDown")
     @AfterClass(alwaysRun = true)
     public void afterClass() {
         if (driver != null) {
@@ -64,6 +66,7 @@ public abstract class ATestRunner {
     /**
      * Method loads web-site.
      */
+    @Step("Load application")
     @BeforeMethod
     public void beforeMethod() {
         driver.get(SERVER_URL);
@@ -106,6 +109,7 @@ public abstract class ATestRunner {
      *
      * @return byte array containing the bytes read from the file
      */
+    @Step("Save attached screenshot")
     @Attachment(value = "{0}", type = "image/png")
     public byte[] saveImageAttach(String attachName) {
         byte[] result = null;
@@ -114,6 +118,7 @@ public abstract class ATestRunner {
             result = Files.readAllBytes(scrFile.toPath());
         } catch (IOException e) {
             e.printStackTrace();
+            log.error("Attachment taken failure!");
         }
         return result;
     }
@@ -121,7 +126,7 @@ public abstract class ATestRunner {
     /**
      * Make screenshot of page
      */
-    @Step("ScreenShot of Cart STEP")
+    @Step("Take screenshot")
     private void takeScreenShot() throws IOException {
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(scrFile, new File("img/screenshot.png"));
