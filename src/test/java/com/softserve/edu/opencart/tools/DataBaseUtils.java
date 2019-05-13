@@ -4,12 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 import com.softserve.edu.opencart.data.IProduct;
+import com.softserve.edu.opencart.data.IUser;
+import com.softserve.edu.opencart.data.UserRepository;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -27,7 +30,8 @@ public final class DataBaseUtils {
      * Don'r forget to close connection after using class
      */
     // private static final String DATABASE_PARTIAL_URL = "192.168.227.130:3306";
-    private final String DATABASE_PARTIAL_URL = "192.168.239.128:3306";
+    // private final String DATABASE_PARTIAL_URL = "192.168.239.128:3306";
+    private final String DATABASE_PARTIAL_URL = "192.168.11.129:3306";
     private final String DB_URL = "jdbc:mysql://" + DATABASE_PARTIAL_URL + "/opencart?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnect=true&useSSL=false";
     private final String PRODUCT_QUANTITY_STATEMENT = "select oc_product.quantity as quantity from oc_product " +
             "inner join oc_product_description on oc_product.product_id = oc_product_description.product_id" +
@@ -35,7 +39,7 @@ public final class DataBaseUtils {
     //
     private final String HOST = "192.168.239.128";  // IP-adress of remote server.
     private final int PORT = 22;                    // Remote server port.
-    private  final String NAME = "root";             // Linux profile name.
+    private final String NAME = "root";             // Linux profile name.
     private final String PASSWORD = "root";         // Linux password.
     //
     private final String DUMP_DATABASE = "/home/backupdb.sh";       // Script for dumping DB.
@@ -44,6 +48,7 @@ public final class DataBaseUtils {
 
     private final String SET_ATTEMPTS_TO_NULL = "TRUNCATE opencart.oc_customer_login;";
     private final String RETRIVE_DATA_FROM_TABLE = "SELECT firstname, lastname, email, telephone, fax  FROM opencart.oc_customer where email = ?;";
+    private final String SELECT_FIRST_USER = "SELECT * FROM opencart.oc_customer WHERE email LIKE ?;";
     //
     private Connection connection;
     private JSch jsch = new JSch();
@@ -106,6 +111,7 @@ public final class DataBaseUtils {
         return userInfo;
     }
 
+    /////////////
     public int getProductQuantityFromDb(IProduct product) {
         ResultSet resultSet = null;
         int productQuantity = 0;
@@ -121,6 +127,28 @@ public final class DataBaseUtils {
             closeConnection();
         }
         return productQuantity;
+    }
+/////////////
+
+    public boolean isEmailInDb(IUser user) {
+        ResultSet rs = null;
+        boolean inDb = false;
+        try (PreparedStatement ps = connection.prepareStatement(SELECT_FIRST_USER, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+            ps.setString(1, user.getEmail());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                if (rs.getString(7).equals(user.getEmail())) {
+                    inDb = true;
+                }
+                rs.absolute(1);
+                rs.deleteRow();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return inDb;
     }
 
     /**
@@ -141,7 +169,7 @@ public final class DataBaseUtils {
             session.setPassword(PASSWORD);
             session.connect();
 
-            if(session.isConnected()) {
+            if (session.isConnected()) {
                 System.out.println("Connected to remote server is successful!");
             }
         } catch (JSchException e) {
@@ -190,7 +218,7 @@ public final class DataBaseUtils {
     public void remoteServerDisconnect() {
         //Disconnect the Session
         session.disconnect();
-        if(!session.isConnected()) {
+        if (!session.isConnected()) {
             System.out.println("Disconnected from remote server is successful!");
         }
     }

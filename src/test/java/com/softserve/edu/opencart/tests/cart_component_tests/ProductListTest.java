@@ -244,7 +244,6 @@ public class ProductListTest extends ATestRunner {
                 .openCartProductContainer();
         List<CartProductComponent> cartProductComponents = cartProductContainer
                 .getCartProductComponents();
-        dbUtils.closeConnection();
         // Check
         Assert.assertTrue(cartProductComponents.size() == 0);
         // Steps

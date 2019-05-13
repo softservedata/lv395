@@ -4,6 +4,7 @@ import com.softserve.edu.opencart.data.IUser;
 import com.softserve.edu.opencart.data.UserRepository;
 import com.softserve.edu.opencart.pages.account.AccountLogoutPage;
 import com.softserve.edu.opencart.pages.account.SuccessfullyRegisterPage;
+import com.softserve.edu.opencart.tools.DataBaseUtils;
 import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -32,7 +33,7 @@ public class CorrectDataTest extends ATestRunner {
                 .gotoRegisterPage()
                 .successfullyRegisterUser(user);
         saveImageAttach("Actualresult");
-
+        DataBaseUtils db = new DataBaseUtils();
         //Check
         Assert.assertTrue(sc.getExpectedSuccessMessage().
                 equals(sc.EXPECTED_SUCCESS_MESSAGE));
@@ -41,6 +42,7 @@ public class CorrectDataTest extends ATestRunner {
         //Check
         Assert.assertTrue(accountLogoutPage.getActualAccountLogoutMessage()
                 .equals(accountLogoutPage.EXPECTED_ACCOUNT_MESSAGE));
+        Assert.assertTrue(db.isEmailInDb(user));
         log.debug("checkValidRegister end");
     }
 

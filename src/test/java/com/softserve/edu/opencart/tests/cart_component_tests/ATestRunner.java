@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class ATestRunner {
     private final String DRIVER_ERROR = "ERROR: Chromedriver not Found";
     // private final String SERVER_URL = "http://taqc-opencart.epizy.com";
-    private final String SERVER_URL = "http://192.168.239.128/opencart/upload/";
+    private final String SERVER_URL = "http://192.168.11.129/opencart/upload/";
     protected final Logger log = Logger.getLogger(this.getClass());
     private WebDriver driver;
 
