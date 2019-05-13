@@ -21,6 +21,11 @@ import java.util.List;
  */
 public final class DataBaseUtils {
 
+    /*
+     * We don't need no static fields and methods here.
+     * JDBC Connection creates on '= new DataBaseUtils()'
+     * Don'r forget to close connection after using class
+     */
     // private static final String DATABASE_PARTIAL_URL = "192.168.227.130:3306";
     private final String DATABASE_PARTIAL_URL = "192.168.239.128:3306";
     private final String DB_URL = "jdbc:mysql://" + DATABASE_PARTIAL_URL + "/opencart?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnect=true&useSSL=false";
