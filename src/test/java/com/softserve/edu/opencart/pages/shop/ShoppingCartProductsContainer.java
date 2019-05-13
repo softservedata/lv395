@@ -1,6 +1,6 @@
 package com.softserve.edu.opencart.pages.shop;
 
-import com.softserve.edu.opencart.data.Product;
+import com.softserve.edu.opencart.data.IProduct;
 import com.softserve.edu.opencart.tools.PriceUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -33,6 +33,7 @@ public class ShoppingCartProductsContainer {
 
     // productComponents
     public List<ShoppingCartProductComponent> getShoppingCartComponents() {
+        initElements();
         return productComponents;
     }
 
@@ -54,31 +55,36 @@ public class ShoppingCartProductsContainer {
         return result;
     }
 
-    public String getNameByProduct(Product product) {
+    public String getNameByProduct(IProduct product) {
     	return getShoppingCartComponentByName(product.getName()).getProductNameText();
     }
     
-    public BigDecimal getUnitPriceByName(Product product){
+    public BigDecimal getUnitPriceByName(IProduct product){
         return PriceUtils.getPrice(getShoppingCartComponentByName(product.getName()).getUnitPriceText());
     }
 
-    public BigDecimal getTotalPriceByName(Product product){
+    public BigDecimal getTotalPriceByName(IProduct product){
         return PriceUtils.getPrice(getShoppingCartComponentByName(product.getName()).getTotalPriceText());
     }
 
-    public String getCurrencyByProduct(Product product){
+    public String getCurrencyByProduct(IProduct product){
         return PriceUtils.getCurrencySymbol(getShoppingCartComponentByName(product.getName()).getTotalPriceText());
     }
 
-    public String getModelByName(Product product){
+    public String getModelByName(IProduct product){
         return getShoppingCartComponentByName(product.getName()).getProductModelText();
     }
 
-    public void quantityProductsByName(Product product, String quantity){
+    public void quantityProductsByName(IProduct product, String quantity){
         getShoppingCartComponentByName(product.getName()).setQuantity(quantity);
     }
 
-    public void removeProductFromShoppingCartByName(Product product){
+    public ShoppingCartPage removeProductFromShoppingCartByName(IProduct product){
+        getShoppingCartComponentByName(product.getName()).clickRemoveFromShoppingCartButton();
+        return new ShoppingCartPage(driver);
+    }
+
+    public void removeProductByName(IProduct product){
         getShoppingCartComponentByName(product.getName()).clickRemoveFromShoppingCartButton();
     }
 

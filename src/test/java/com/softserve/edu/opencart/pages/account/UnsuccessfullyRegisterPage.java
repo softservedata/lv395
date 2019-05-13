@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-public class UnsuccessfullyRegisterPage extends RegisterPage {
+public class UnsuccessfullyRegisterPage extends ARightMenuPart {
 
 
     public static final String EXPECTED_WARNING_FIRST_NAME = "First Name must be between 1 and 32 characters!";
@@ -53,8 +53,6 @@ public class UnsuccessfullyRegisterPage extends RegisterPage {
                 + " form > fieldset:nth-child(3) >"
                 + " div.form-group.required.has-error >"
                 + " div > div"));
-        actualPolicyError = driver.findElement(By.
-                cssSelector("div[class*='alert']"));
     }
 
     /**
@@ -116,24 +114,25 @@ public class UnsuccessfullyRegisterPage extends RegisterPage {
     /**
      * @return actualPolicyError.
      */
-    public String getActualPolicyError() {
-        return actualPolicyError.getText();
+    public String getActualPolicyErrorText() {
+        return driver.findElement(By
+                .cssSelector("div[class*='alert']")).getText();
     }
 
     //Business Logic
 
     public void checkErrorMessages() {
-        Assert.assertEquals(EXPECTED_WARNING_FIRST_NAME, actualFirstNameError);
-        Assert.assertEquals(EXPECTED_WARNING_LAST_NAME, actualLastNameError);
-        Assert.assertEquals(EXPECTED_WARNING_EMAIL, actualEmailError);
-        Assert.assertEquals(EXPECTED_WARNING_TELEPHONE, actualTelephoneError);
-        Assert.assertEquals(EXPECTED_WARNING_ADDRESS1, actualAddressError);
-        Assert.assertEquals(EXPECTED_WARNING_CITY, actualCityError);
-        Assert.assertEquals(EXPECTED_WARNING_REGION, actualRegionError);
-        Assert.assertEquals(EXPECTED_WARNING_PASSWORD, actualPasswordError);
+        Assert.assertEquals(EXPECTED_WARNING_FIRST_NAME, getActualFirstNameError());
+        Assert.assertEquals(EXPECTED_WARNING_LAST_NAME, getActualLastNameError());
+        Assert.assertEquals(EXPECTED_WARNING_EMAIL, getActualEmailError());
+        Assert.assertEquals(EXPECTED_WARNING_TELEPHONE, getActualTelephoneError());
+        Assert.assertEquals(EXPECTED_WARNING_ADDRESS1, getActualAddressError());
+        Assert.assertEquals(EXPECTED_WARNING_CITY, getActualCityError());
+        Assert.assertEquals(EXPECTED_WARNING_REGION, getActualRegionError());
+        Assert.assertEquals(EXPECTED_WARNING_PASSWORD, getActualPasswordError());
     }
 
     public void checkPolicyError() {
-        Assert.assertEquals(EXPECTED_WARNING_POLICY, actualPolicyError);
+        Assert.assertEquals(EXPECTED_WARNING_POLICY, getActualPolicyErrorText());
     }
 }

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 
 public class EmptyCartComponent extends ACartComponent {
 
-    private WebElement emptyCart;
+    private WebElement emptyCartMessage;
 
     public EmptyCartComponent(WebDriver driver) {
         super(driver);
@@ -14,13 +14,13 @@ public class EmptyCartComponent extends ACartComponent {
     }
 
     public void initElements() {
-        emptyCart = driver.findElement(By.xpath("//div[@id='cart']//p"));
+        emptyCartMessage = driver.findElement(By.cssSelector("#cart li > p"));
     }
 
     // Page Object
 
     public WebElement getEmptyCartMessage() {
-        return emptyCart;
+        return emptyCartMessage;
     }
 
     public String getEmptyCartMessageText() {

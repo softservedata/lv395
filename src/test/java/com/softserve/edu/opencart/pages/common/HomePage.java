@@ -3,6 +3,7 @@ package com.softserve.edu.opencart.pages.common;
 import com.softserve.edu.opencart.data.IProduct;
 import com.softserve.edu.opencart.pages.shop.ProductPage;
 import com.softserve.edu.opencart.pages.shop.ProductsContainerComponent;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -55,12 +56,14 @@ public class HomePage extends AHeaderPart {
 
     // Functional
 
+    @Step("Add product to the cart")
     public HomePage addProductToCart(IProduct product) {
         getProductsContainerComponent()
                 .clickProductComponentAddToCartButtonByName(product.getName());
         return new HomePage(driver);
     }
 
+    @Step("Click on product name")
     public ProductPage clickProductName(IProduct product) {
         getProductsContainerComponent()
                 .clickProductComponentName(product.getName());

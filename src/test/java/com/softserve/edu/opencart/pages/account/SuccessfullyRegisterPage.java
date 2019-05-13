@@ -6,10 +6,11 @@ import org.openqa.selenium.WebElement;
 
 public class SuccessfullyRegisterPage extends ARightMenuPart {
 
-    public static final String EXPECTED_SUCCESS_MESSAGE = "Your Account Has Been Created!";
+    public final String EXPECTED_SUCCESS_MESSAGE = "Your Account Has Been Created!";
 
     private WebElement continueButton;
-    private static WebElement successMessage;
+    private WebElement logOutButton;
+    private WebElement successMessage;
 
     public SuccessfullyRegisterPage(WebDriver driver) {
         super(driver);
@@ -19,6 +20,7 @@ public class SuccessfullyRegisterPage extends ARightMenuPart {
     private void initElements() {
         continueButton = driver.findElement(By.cssSelector("a.btn.btn-primary"));
         successMessage = driver.findElement(By.cssSelector("div[id='content'] > h1"));
+        logOutButton = driver.findElement(By.xpath("//*[@id=\"column-right\"]/div/a[13]"));
     }
 
     // Page Object
@@ -37,21 +39,37 @@ public class SuccessfullyRegisterPage extends ARightMenuPart {
     }
 
     //
-    public static WebElement getSuccessMessage() {
+    public WebElement getSuccessMessage() {
         return successMessage;
     }
 
-    public static String getExpectedSuccessMessage() {
+    public String getExpectedSuccessMessage() {
         return getSuccessMessage().getText();
     }
 
     //TODO logout button for CorrectDataTest
+
+    public WebElement getLogOutButton() {
+        return logOutButton;
+    }
+
+    public void clickLogOutButton() {
+        getLogOutButton().click();
+    }
+
+
+
 
     // Business Logic
 //    public MyAccountPage continueMyAccountPage() {
 //        clickContinueButton();
 //        return new MyAccountPage(driver);
 //    }
+
+    public AccountLogoutPage logOut() {
+        clickLogOutButton();
+        return new AccountLogoutPage(driver);
+    }
 
     public AccountLogoutPage continueAccountLogoutPage() {
         clickContinueButton();

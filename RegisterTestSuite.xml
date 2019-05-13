@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="CartTestSuite">
+
+    <test name="CartComponentTest">
+        <classes>
+            <class name="com.softserve.edu.opencart.tests.cart_component_tests.ProductListTest">
+            <methods>
+                <include name="checkAddToCartButton" />
+                <include name="increaseQuantityOfItemsTest" />
+                <include name="addSameItemMultipleTimesTest" />
+                <include name="addProductFromProductPageTest" />
+                <include name="addMoreItemsThenInDbTest" />
+            </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.cart_component_tests.PriceTableTest">
+                <methods>
+                    <include name="checkTotalPriceTable" />
+                </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.cart_component_tests.CartFunctionalTest">
+                <methods>
+                    <include name="checkViewCartButton" />
+                    <include name="checkCheckoutButton" />
+                    <include name="checkRemoveButton" />
+                    <include name="checkClickOnItem" />
+                </methods>
+            </class>
+            <class name="com.softserve.edu.opencart.tests.cart_component_tests.OtherFunctionalTest">
+                <methods>
+                    <include name="checkPriceTextButton" />
+                    <include name="logoutUserCartTest" />
+                    <include name="differentLoggedUsersCartTest" />
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- Test -->
+
+</suite> <!-- Suite -->

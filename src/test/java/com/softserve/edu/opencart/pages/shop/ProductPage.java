@@ -3,6 +3,7 @@ package com.softserve.edu.opencart.pages.shop;
 import com.softserve.edu.opencart.pages.common.AStatusPart;
 import com.softserve.edu.opencart.pages.common.HomePage;
 import com.softserve.edu.opencart.pages.common.SuccessfulSearchPage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -104,6 +105,7 @@ public class ProductPage extends AStatusPart {
         return product;
     }
 
+    @Step("Set quantity of items")
     public ProductPage setQuantity(int quantity) {
         getRightMenu().clickQuantityField();
         getRightMenu().clearQuantityField();
@@ -111,6 +113,7 @@ public class ProductPage extends AStatusPart {
         return new ProductPage(driver);
     }
 
+    @Step("Add product to cart")
     public ProductPage addProductToCart() {
         getRightMenu().clickAddToCartButton();
         return new ProductPage(driver);

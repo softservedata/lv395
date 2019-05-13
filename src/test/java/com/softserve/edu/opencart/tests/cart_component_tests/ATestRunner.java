@@ -1,17 +1,11 @@
-package com.softserve.edu.opencart.tests;
+package com.softserve.edu.opencart.tests.cart_component_tests;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.util.concurrent.TimeUnit;
-
+import com.softserve.edu.opencart.pages.common.HomePage;
+import com.softserve.edu.opencart.tools.LeaveUtils;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -22,50 +16,88 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
-import com.softserve.edu.opencart.pages.common.HomePage;
-import com.softserve.edu.opencart.tools.LeaveUtils;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.util.concurrent.TimeUnit;
 
+/**
+ * Class for main Selenium WebDriver operations
+ * and test functional.
+ */
 public abstract class ATestRunner {
     private final String DRIVER_ERROR = "ERROR: Chromedriver not Found";
     // private final String SERVER_URL = "http://taqc-opencart.epizy.com";
-    private final String SERVER_URL = "http://192.168.36.134/opencart/upload/";
-    protected WebDriver driver;
+    private final String SERVER_URL = "http://192.168.239.128/opencart/upload/";
+    protected final Logger log = Logger.getLogger(this.getClass());
+    private WebDriver driver;
 
+    /**
+     * Method loads Selenium WebDriver.
+     */
     @BeforeClass
     public void beforeClass() {
+        log.info("Test suite start!");
         URL url = this.getClass().getResource("/chromedriver-windows-32bit.exe");
         LeaveUtils.castExceptionByCondition(url == null, DRIVER_ERROR);
         System.setProperty("webdriver.chrome.driver", url.getPath());
         // this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath().substring(1));
         driver = new ChromeDriver();
+        log.info("ChromeDriver loaded!");
         LeaveUtils.castExceptionByCondition(driver == null, DRIVER_ERROR);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
+    /**
+     * Close web-driver after test run.
+     */
     @AfterClass(alwaysRun = true)
     public void afterClass() {
         if (driver != null) {
             driver.quit();
         }
+        log.info("ChromeDriver quite!");
     }
 
+    /**
+     * Method loads web-site.
+     */
     @BeforeMethod
     public void beforeMethod() {
         driver.get(SERVER_URL);
+        log.info("Web Application loaded!");
     }
 
+    /**
+     * If something in tests goes wrong -
+     * take a screenshot and load web-site again.
+     *
+     * @param testResult results of test running.
+     */
     @AfterMethod
     public void afterMethod(ITestResult testResult) {
         if (!testResult.isSuccess()) {
-            // TODO Add to Loggers
-            //saveImageAttach(prepareImageName());
+            log.error("Test failed!");
+            try {
+                takeScreenShot();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            log.info("Web Application loaded!");
             driver.get(SERVER_URL);
         }
     }
 
+    /**
+     * Method for loading Home Page of our application.
+     *
+     * @return opencart Home Page.
+     */
+    @Step("Load HomePage")
     public HomePage loadApplication() {
-        // logger.debug("loadApplication() start");
+        log.debug("loadApplication() start");
         return new HomePage(driver);
     }
 
@@ -92,13 +124,8 @@ public abstract class ATestRunner {
     @Step("ScreenShot of Cart STEP")
     private void takeScreenShot() throws IOException {
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(scrFile, new File("/home/milnik/Pictures/cartscreenshot.png"));
+        FileUtils.copyFile(scrFile, new File("img/screenshot.png"));
+        log.info("Screenshot was taken");
     }
 
-    public void takeScreenshot(String name) throws IOException {
-        TakesScreenshot ts = (TakesScreenshot) driver;
-        File source = ts.getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(source, new
-                File("./Screenshots/"+name+".png"));
-    }
 }

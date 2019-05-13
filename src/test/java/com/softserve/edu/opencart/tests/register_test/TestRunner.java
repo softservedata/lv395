@@ -1,19 +1,8 @@
-package com.softserve.edu.opencart.tests;
+package com.softserve.edu.opencart.tests.register_test;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.util.concurrent.TimeUnit;
 
-import io.qameta.allure.Attachment;
-import io.qameta.allure.Step;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.ITestResult;
@@ -25,11 +14,13 @@ import org.testng.annotations.BeforeMethod;
 import com.softserve.edu.opencart.pages.common.HomePage;
 import com.softserve.edu.opencart.tools.LeaveUtils;
 
-public abstract class ATestRunner {
+public class TestRunner {
     private final String DRIVER_ERROR = "ERROR: Chromedriver not Found";
     // private final String SERVER_URL = "http://taqc-opencart.epizy.com";
-    private final String SERVER_URL = "http://192.168.36.134/opencart/upload/";
-    protected WebDriver driver;
+    private final String SERVER_URL = "http://192.168.11.129/opencart/upload/";
+    private WebDriver driver;
+
+    //todo some shit with db
 
     @BeforeClass
     public void beforeClass() {
@@ -69,36 +60,4 @@ public abstract class ATestRunner {
         return new HomePage(driver);
     }
 
-    /**
-     * Save image that will be copied and shown in the report as a attachment
-     *
-     * @return byte array containing the bytes read from the file
-     */
-    @Attachment(value = "{0}", type = "image/png")
-    public byte[] saveImageAttach(String attachName) {
-        byte[] result = null;
-        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        try {
-            result = Files.readAllBytes(scrFile.toPath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    /**
-     * Make screenshot of page
-     */
-    @Step("ScreenShot of Cart STEP")
-    private void takeScreenShot() throws IOException {
-        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(scrFile, new File("/home/milnik/Pictures/cartscreenshot.png"));
-    }
-
-    public void takeScreenshot(String name) throws IOException {
-        TakesScreenshot ts = (TakesScreenshot) driver;
-        File source = ts.getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(source, new
-                File("./Screenshots/"+name+".png"));
-    }
 }

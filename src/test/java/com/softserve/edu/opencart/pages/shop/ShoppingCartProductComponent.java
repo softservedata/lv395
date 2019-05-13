@@ -4,11 +4,14 @@ package com.softserve.edu.opencart.pages.shop;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.math.BigDecimal;
+
 public class ShoppingCartProductComponent {
 
     // some constant selectors
 
-    private final String COLUMN_NAME_CSSSELECTOR = "td:nth-child(2)>a";
+    //private final String COLUMN_NAME_XPATHSELECTOR = "//*[@id='content']/form/div/table/tbody/tr/td[2]/a";
+    private final String COLUMN_NAME_CSSSELECTOR = "form>div>table>tbody>tr>td:nth-child(2)>a";//"td:nth-child(2)>a";
     private final String COLUMN_MODEL_CSSSELECTOR = "td:nth-child(3)";
     private final String COLUMN_QUANTITY_FIELD_CSSSELECTOR = "input";
     private final String COLUMN_QUANTITY_UPDATE_CSSSELECTOR = "button[data-original-title='Update']";
@@ -19,12 +22,12 @@ public class ShoppingCartProductComponent {
 
     WebElement product;
 
-    protected ShoppingCartProductComponent(WebElement product){
+    public ShoppingCartProductComponent(WebElement product){
         this.product = product;
     }
 
     //product
-    public WebElement getProduct(){return product;}
+    public WebElement getProduct() { return product; }
 
     //productName
     public WebElement getProductName(){
@@ -53,6 +56,10 @@ public class ShoppingCartProductComponent {
         return product.findElement(By.cssSelector(COLUMN_QUANTITY_FIELD_CSSSELECTOR));
     }
 
+    public Integer getQuantityFieldValue(){
+        return Integer.parseInt(getQuantityField().getAttribute("Value"));
+    }
+
     public void clearQuantityField(){
         getQuantityField().clear();
     }
@@ -73,7 +80,7 @@ public class ShoppingCartProductComponent {
         return product.findElement(By.cssSelector(COLUMN_QUANTITY_REMOVE_CSSSELECTOR));
     }
 
-    public void clickRemoveFromShoppingCartButton(){
+    public void clickRemoveFromShoppingCartButton() {
         getRemoveFromShoppingCartButton().click();
     }
 

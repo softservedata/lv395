@@ -1,6 +1,7 @@
 package com.softserve.edu.opencart.pages.common;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.softserve.edu.opencart.data.SearchFilter;
 import com.softserve.edu.opencart.pages.account.AccountLogoutPage;
@@ -8,6 +9,11 @@ import com.softserve.edu.opencart.pages.account.LoginPage;
 import com.softserve.edu.opencart.pages.account.RegisterPage;
 import com.softserve.edu.opencart.pages.shop.CartProductContainer;
 import com.softserve.edu.opencart.pages.shop.EmptyCartComponent;
+import com.softserve.edu.opencart.pages.shop.ShoppingCartPage;
+import com.softserve.edu.opencart.pages.shop.ShoppingCartProductsContainer;
+
+import com.softserve.edu.opencart.tools.utils_for_search_field.PageDoesNotExistException;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,6 +22,8 @@ import com.softserve.edu.opencart.data.Currencies;
 import com.softserve.edu.opencart.data.LoggedMyAccount;
 import com.softserve.edu.opencart.data.UnloggedMyAccount;
 import com.softserve.edu.opencart.tools.LeaveUtils;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class AHeaderPart {
 
@@ -29,6 +37,7 @@ public abstract class AHeaderPart {
     protected final String DROPDOWN_MYACCOUNT_CSSSELECTOR = ".dropdown-menu-right li";
     //
     protected WebDriver driver;
+    protected WebDriverWait wait;
     //
     private WebElement currency;
     private WebElement myAccount;
@@ -44,6 +53,7 @@ public abstract class AHeaderPart {
 
     protected AHeaderPart(WebDriver driver) {
         this.driver = driver;
+        waitElements();
         initElements();
     }
 
@@ -53,10 +63,18 @@ public abstract class AHeaderPart {
         wishList = driver.findElement(By.id("wishlist-total"));
         shoppingCart = driver.findElement(By.cssSelector("a[title='Shopping Cart']"));
         checkout = driver.findElement(By.cssSelector("a[title='Checkout']"));
-        logo = driver.findElement(By.id("logo"));
+        logo = driver.findElement(By.cssSelector("#logo a"));
         searchField = driver.findElement(By.name("search"));
         searchButton = driver.findElement(By.cssSelector("button.btn.btn-default"));
         cartButton = driver.findElement(By.cssSelector("#cart > button"));
+    }
+
+    private void waitElements() {
+        wait = new WebDriverWait(driver, 10);
+        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#logo a")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#cart > button")));
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     // Page Object
@@ -263,40 +281,67 @@ public abstract class AHeaderPart {
         clickSearchButton();
     }
 
-
+    @Step("Go to HomePage")
     public HomePage gotoHomePage() {
         clickLogo();
         return new HomePage(driver);
     }
 
-    public SuccessfulSearchPage searchProducts(SearchFilter searchItems) {
-        fillSearchField(searchItems.getProductSearchName());
-        clickSearchButton();
-        return new SuccessfulSearchPage(driver);
+    public SuccessfulSearchPage searchProducts(SearchFilter searchItems) throws PageDoesNotExistException {
+        try {
+            fillSearchField(searchItems.getProductSearchName());
+            clickSearchButton();
+            return new SuccessfulSearchPage(driver);
+        } catch (Exception e) {
+            throw new PageDoesNotExistException("Page do not exist!!!");
+        }
     }
 
-    public SuccessfulSearchPage searchProducts(String searchItem) {
-        fillSearchField(searchItem);
-        clickSearchButton();
-        return new SuccessfulSearchPage(driver);
-    }
-    public UnsuccessfulSearchPage gotoSearchPageWithFilters() {
-        fillSearchField("");
-        clickSearchButton();
-        return new UnsuccessfulSearchPage(driver);
-    }
-
-
-    public UnsuccessfulSearchPage unsuccessfulSearch(String text) {
-        fillSearchField(text);
-        clickSearchButton();
-        return new UnsuccessfulSearchPage(driver);
+    public SuccessfulSearchPage searchProducts(String searchItem) throws PageDoesNotExistException {
+        try {
+            fillSearchField(searchItem);
+            clickSearchButton();
+            return new SuccessfulSearchPage(driver);
+        } catch (Exception e) {
+            throw new PageDoesNotExistException("Page do not exist!!!");
+        }
     }
 
-    public UnsuccessfulSearchPage unsuccessfulSearch(SearchFilter invalidSearchItems) {
-        return unsuccessfulSearch(invalidSearchItems.getProductSearchName());
+    public UnsuccessfulSearchPage gotoSearchPageWithFilters() throws PageDoesNotExistException {
+        try {
+            fillSearchField("");
+            clickSearchButton();
+            return new UnsuccessfulSearchPage(driver);
+        } catch (Exception e) {
+            throw new PageDoesNotExistException("Page do not exist!!!");
+        }
     }
 
+
+    public UnsuccessfulSearchPage unsuccessfulSearch(String text) throws PageDoesNotExistException {
+        try {
+            fillSearchField(text);
+            clickSearchButton();
+            return new UnsuccessfulSearchPage(driver);
+        } catch (Exception e) {
+            throw new PageDoesNotExistException("Page do not exist!!!");
+        }
+    }
+
+    public UnsuccessfulSearchPage unsuccessfulSearch(SearchFilter invalidSearchItems) throws PageDoesNotExistException {
+        try {
+            return unsuccessfulSearch(invalidSearchItems.getProductSearchName());
+        } catch (Exception e) {
+            throw new PageDoesNotExistException("Page do not exist!!!");
+        }
+    }
+
+    public ShoppingCartPage gotoShoppingCartPage() {
+        clickShoppingCart();
+        return new ShoppingCartPage(driver);
+    }
+
+    @Step("Go to LoginPage")
     public LoginPage gotoLoginPage() {
         clickUnloggedMyAccountByPartialName(UnloggedMyAccount.LOGIN);
         return new LoginPage(driver);
@@ -312,14 +357,23 @@ public abstract class AHeaderPart {
         return new AccountLogoutPage(driver);
     }
 
+    @Step("Open Cart")
     public CartProductContainer openCartProductContainer() {
         clickCartButton();
         return new CartProductContainer(driver);
     }
 
+    @Step("Open empty cart")
     public EmptyCartComponent openEmptyCart() {
         clickCartButton();
         return new EmptyCartComponent(driver);
+    }
+
+    // ShoppingCart
+
+    public ShoppingCartProductsContainer openShoppingCartProductsContainer() {
+        clickShoppingCart();
+        return new ShoppingCartProductsContainer(driver);
     }
 
     public HomePage refresh() {

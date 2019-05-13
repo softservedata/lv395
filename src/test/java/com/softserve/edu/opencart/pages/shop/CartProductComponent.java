@@ -5,16 +5,33 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class CartProductComponent {
+
     WebElement cartProductLayout;
+    WebElement cartProductImg;
+    WebElement cartProductName;
+    WebElement cartProductQuantity;
+    WebElement cartProductPrice;
+    WebElement removeButton;
+    WebElement checkoutButton;
 
     protected CartProductComponent(WebElement cartProductLayout) {
         this.cartProductLayout = cartProductLayout;
+        initElements();
+    }
+
+    private void initElements() {
+        cartProductImg = cartProductLayout.findElement(By.cssSelector(".img-thumbnail"));
+        cartProductName = cartProductLayout.findElement(By.cssSelector("td:nth-child(2)>a"));
+        cartProductQuantity = cartProductLayout.findElement(By.cssSelector("td:nth-child(3)"));
+        cartProductPrice = cartProductLayout.findElement(By.cssSelector("td:nth-child(4)"));
+        removeButton = cartProductLayout.findElement(By.xpath(".//td[@class='text-center']/button"));
+        checkoutButton = cartProductLayout.findElement(By.xpath("//a[2]/strong"));
     }
 
     // cartProductImg
 
     public WebElement getCartProductImg() {
-        return cartProductLayout.findElement(By.cssSelector(".img-thumbnail"));
+        return cartProductImg;
     }
 
     public void clickCartProductImg() {
@@ -23,7 +40,7 @@ public class CartProductComponent {
 
     // cartProductName
     public WebElement getCartProductName() {
-        return cartProductLayout.findElement(By.cssSelector("td:nth-child(2)>a"));
+        return cartProductName;
     }
 
     public String getCartProductNameText() {
@@ -36,7 +53,7 @@ public class CartProductComponent {
 
     // cartProductQuantity
     public WebElement getCartProductQuantity() {
-        return cartProductLayout.findElement(By.cssSelector("td:nth-child(3)"));
+        return cartProductQuantity;
     }
 
     public String getCartProductQuantityText() {
@@ -45,7 +62,7 @@ public class CartProductComponent {
 
     // cartProductPrice
     public WebElement getCartProductPrice() {
-        return cartProductLayout.findElement(By.cssSelector("td:nth-child(4)"));
+        return cartProductPrice;
     }
 
     public String getCartProductPriceText() {
@@ -54,7 +71,7 @@ public class CartProductComponent {
 
     // removeButton
     public WebElement getRemoveButton() {
-        return cartProductLayout.findElement(By.xpath(".//td[@class='text-center']/button"));
+        return removeButton;
     }
 
     public void clickRemoveButton() {
@@ -72,7 +89,7 @@ public class CartProductComponent {
 
     // checkoutButton
     public WebElement getCheckoutButton() {
-        return cartProductLayout.findElement(By.xpath("//a[2]/strong"));
+        return checkoutButton;
     }
 
     public void clickCheckoutButton() {

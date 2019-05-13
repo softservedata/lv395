@@ -2,6 +2,8 @@ package com.softserve.edu.opencart.pages.shop;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProductComponent {
 
@@ -23,7 +25,7 @@ public class ProductComponent {
         name = productLayout.findElement(By.cssSelector("h4 a"));
         partialDescription = productLayout.findElement(By.cssSelector("h4 + p"));
         price = productLayout.findElement(By.cssSelector(".price"));
-        addToCartButton = productLayout.findElement(By.cssSelector(".fa.fa-shopping-cart"));
+        addToCartButton = productLayout.findElement(By.cssSelector("button[onclick*='cart.add']"));
         addToWishButton = productLayout.findElement(By.cssSelector(".fa.fa-heart"));
         addToCompareButton = productLayout.findElement(By.cssSelector(".fa.fa-exchange"));
     }

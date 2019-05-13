@@ -3,19 +3,27 @@ package com.softserve.edu.opencart.tests.cart_component_tests;
 import com.softserve.edu.opencart.data.IProduct;
 import com.softserve.edu.opencart.data.ProductRepository;
 import com.softserve.edu.opencart.pages.common.*;
-import com.softserve.edu.opencart.pages.shop.CartProductComponent;
-import com.softserve.edu.opencart.pages.shop.CartProductContainer;
-import com.softserve.edu.opencart.pages.shop.ProductPage;
-import com.softserve.edu.opencart.pages.shop.ShoppingCartPage;
-import com.softserve.edu.opencart.tests.ATestRunner;
+import com.softserve.edu.opencart.pages.shop.*;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
+/**
+ * This class includes test cases for main functionality
+ * of product cart. (Mainly it's about buttons)
+ */
+@Epic("Functional Testing")
+@Feature("CartFunctionalTest")
 public class CartFunctionalTest extends ATestRunner {
 
+    /**
+     * Data provider for CartFunctional test.
+     *
+     * @return product from product repository.
+     */
     @DataProvider
     public Object[][] productData() {
         return new Object[][] {
@@ -23,8 +31,19 @@ public class CartFunctionalTest extends ATestRunner {
         };
     }
 
-    @Test(dataProvider = "productData")
+    /**
+     * This test check does the 'View Cart' button works
+     *
+     * Clicks 'View Cart' and checks did we go to the cart page
+     *
+     * @param product the product with which the text will be made.
+     */
+    @Description("Test Description: This test check does the 'View Cart' button works")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Click 'View Cart' and check did we go to the cart page")
+    @Test(dataProvider = "productData", description = "Check 'View cart' button test")
     public void checkViewCartButton(IProduct product) {
+        log.debug("checkViewCartButton test started");
         // Steps
         ShoppingCartPage shoppingCartPage = loadApplication()
                 .addProductToCart(product)
@@ -39,10 +58,22 @@ public class CartFunctionalTest extends ATestRunner {
                 .gotoHomePage()
                 .openCartProductContainer()
                 .removeProductByName(product);
+        log.debug("checkViewCartButton test finished");
     }
 
-    @Test(dataProvider = "productData")
+    /**
+     * This test check does the 'Checkout' button works"
+     *
+     * Clicks 'Checkout' and checks did we go to the checkout page
+     *
+     * @param product the product with which the text will be made.
+     */
+    @Description("Test Description: This test check does the 'Checkout' button works")
+    @Severity(SeverityLevel.NORMAL)
+    @Story("Click 'Checkout' and check did we go to the checkout page")
+    @Test(dataProvider = "productData", description = "Check 'Checkout' button test")
     public void checkCheckoutButton(IProduct product) {
+        log.debug("checkCheckoutButton test started");
         // Steps
         CheckoutPage checkoutPage = loadApplication()
                 .addProductToCart(product)
@@ -57,10 +88,22 @@ public class CartFunctionalTest extends ATestRunner {
                 .gotoHomePage()
                 .openCartProductContainer()
                 .removeProductByName(product);
+        log.debug("checkCheckoutButton test finished");
     }
 
-    @Test(dataProvider = "productData")
+    /**
+     * This test check does the 'Remove' button works
+     *
+     * Clicks 'Checkout' and checks is the product removed from the cart
+     *
+     * @param product the product with which the text will be made.
+     */
+    @Description("Test Description: This test check does the 'Remove' button works")
+    @Severity(SeverityLevel.BLOCKER)
+    @Story("Click 'Checkout' and check is the product removed from the cart")
+    @Test(dataProvider = "productData", description = "Check 'Remove' button test")
     public void checkRemoveButton(IProduct product) {
+        log.debug("checkRemoveButton test started");
         // Steps
         CartProductContainer cartProductContainer = loadApplication()
                 .addProductToCart(product)
@@ -72,16 +115,28 @@ public class CartFunctionalTest extends ATestRunner {
         Assert.assertEquals(cartProductComponents.get(0).getCartProductNameText(),
                 product.getName());
         // Steps
-        cartProductContainer
+        EmptyCartComponent emptyCartComponent = cartProductContainer
                 .removeProductByName(product)
                 .gotoHomePage()
-                .openCartProductContainer();
+                .openEmptyCart();
         // Check
-       Assert.assertTrue(cartProductContainer.isCartEmpty());
+       Assert.assertTrue(emptyCartComponent.isCartEmpty());
+        log.debug("checkRemoveButton test finished");
     }
 
-    @Test(dataProvider = "productData")
+    /**
+     * Test Description: This test check clicking on item name in cart
+     *
+     * Clicks on product name and checks did we go to the product page
+     *
+     * @param product the product with which the text will be made.
+     */
+    @Description("Test Description: This test check clicking on item name in cart")
+    @Severity(SeverityLevel.CRITICAL)
+    @Story("Click on product name and check did we go to the product page")
+    @Test(dataProvider = "productData", description = "Check clicking on item name test")
     public void checkClickOnItem(IProduct product) {
+        log.debug("checkClickOnItem test started");
         // Steps
         CartProductContainer cartProductContainer = loadApplication()
                 .addProductToCart(product)
@@ -98,6 +153,7 @@ public class CartFunctionalTest extends ATestRunner {
         // Check
         Assert.assertTrue(productPage.getDescriptionText()
                 .contains(product.getDescription()));
+        log.debug("checkClickOnItem test finished");
     }
 
 }

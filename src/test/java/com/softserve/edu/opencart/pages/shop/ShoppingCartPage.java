@@ -3,6 +3,8 @@ package com.softserve.edu.opencart.pages.shop;
 import com.softserve.edu.opencart.data.Currencies;
 import com.softserve.edu.opencart.data.Product;
 import com.softserve.edu.opencart.pages.common.AStatusPart;
+import com.softserve.edu.opencart.pages.common.CheckoutPage;
+import com.softserve.edu.opencart.pages.common.HomePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,8 +16,12 @@ public class ShoppingCartPage extends AStatusPart {
     public static final String SHOPPING_CART_LABEL_TEXT = "Shopping Cart";
     private static final String PRICE_TABLE_CSSSELECTOR = ".col-sm-4.col-sm-offset-8 .table.table-bordered";
     private ShoppingCartProductsContainer shoppingCartProductsContainer;
+    private TotalPriceTableComponent totalPriceTableComponent;
+
     //
     WebElement shoppingCartLabel;
+    WebElement continueButton;
+    WebElement checkoutButton;
 
     public ShoppingCartPage(WebDriver driver) {
         super(driver);
@@ -25,12 +31,34 @@ public class ShoppingCartPage extends AStatusPart {
     public void initElements() {
         shoppingCartLabel = driver.findElement(By.cssSelector(".col-sm-12 > h1"));
         shoppingCartProductsContainer = new ShoppingCartProductsContainer(driver);
+        continueButton = driver.findElement(By.xpath("//*[@class='pull-left']/a"));
+        checkoutButton = driver.findElement(By.xpath("//*[@class='pull-right']/a"));
     }
 
     // Page Object
 
     public ShoppingCartProductsContainer getShoppingCartProductsContainer() {
         return shoppingCartProductsContainer;
+    }
+
+    public TotalPriceTableComponent getTotalPriceTableComponent(){
+        return new TotalPriceTableComponent(driver.findElement(By.cssSelector(PRICE_TABLE_CSSSELECTOR)));
+    }
+
+    public WebElement getContinueButton () {
+        return continueButton;
+    }
+
+    public void clickContinueButton() {
+        getContinueButton().click();
+    }
+
+    public WebElement getCheckoutButton () {
+        return checkoutButton;
+    }
+
+    public void clickCheckoutButton() {
+        getCheckoutButton().click();
     }
 
     public WebElement getShoppingCartLabel() {
@@ -40,6 +68,8 @@ public class ShoppingCartPage extends AStatusPart {
     public String getShoppingCartLabelText() {
         return getShoppingCartLabel().getText();
     }
+
+
 
     // Functional
 
@@ -58,6 +88,8 @@ public class ShoppingCartPage extends AStatusPart {
         return new ShoppingCartPage(driver);
     }
 
+
+
     public BigDecimal getUnitProductPriceByCurrency(Currencies currency, Product product) {
         return chooseCurrency(currency).getShoppingCartProductsContainer().getUnitPriceByName(product);
     }
@@ -70,9 +102,9 @@ public class ShoppingCartPage extends AStatusPart {
         return getShoppingCartProductsContainer().getCurrencyByProduct(product);
     }
 
-    public TotalPriceTableComponent getTotalPriceTableComponent() {
+   /* public TotalPriceTableComponent getTotalPriceTableComponent() {
         return new TotalPriceTableComponent(driver.findElement(By.cssSelector(PRICE_TABLE_CSSSELECTOR)));
-    }
+    }*/
 
     public BigDecimal getTableSubTotalByCurrency(Currencies currency) {
         return chooseCurrency(currency).getTotalPriceTableComponent().getSubTotalValue();
@@ -91,5 +123,15 @@ public class ShoppingCartPage extends AStatusPart {
     }
 
     // Business Logic
+
+    public HomePage gotoHomePageByContinueButton() {
+        clickContinueButton();
+        return new HomePage(driver);
+    }
+
+    public CheckoutPage gotoCheckoutPageByCheckoutButton() {
+        clickCheckoutButton();
+        return new CheckoutPage(driver);
+    }
 
 }
