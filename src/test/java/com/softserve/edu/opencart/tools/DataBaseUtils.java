@@ -114,7 +114,6 @@ public final class DataBaseUtils {
         return userInfo;
     }
 
-    /////////////
     public int getProductQuantityFromDb(IProduct product) {
         ResultSet resultSet = null;
         int productQuantity = 0;
@@ -131,7 +130,6 @@ public final class DataBaseUtils {
         }
         return productQuantity;
     }
-/////////////
 
     public boolean isEmailInDb(IUser user) {
         ResultSet rs = null;

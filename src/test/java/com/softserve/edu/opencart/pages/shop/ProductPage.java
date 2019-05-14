@@ -119,6 +119,7 @@ public class ProductPage extends AStatusPart {
         return new ProductPage(driver);
     }
 
+    @Step("Go to HomePage")
     public HomePage gotoHomePage() {
         clickLogo();
         return new HomePage(driver);

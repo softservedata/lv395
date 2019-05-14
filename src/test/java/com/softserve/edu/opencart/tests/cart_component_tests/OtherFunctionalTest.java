@@ -107,8 +107,7 @@ public class OtherFunctionalTest extends ATestRunner {
         Assert.assertEquals(cartProductComponents.get(0).getCartProductNameText(),
                 product.getName());
         // Steps
-        EmptyCartComponent emptyCartComponent = myAccountPage
-                .refresh()
+        EmptyCartComponent emptyCartComponent = cartProductContainer
                 .logout()
                 .continueHomePage()
                 .openEmptyCart();
@@ -152,9 +151,7 @@ public class OtherFunctionalTest extends ATestRunner {
                 .successLogin(user);
         CartProductContainer cartProductContainer = myAccountPage
                 .gotoHomePage()
-                .refresh()
                 .addProductToCart(product)
-                .refresh()
                 .openCartProductContainer();
         List<CartProductComponent> cartProductComponents = cartProductContainer
                 .getCartProductComponents();
@@ -163,8 +160,7 @@ public class OtherFunctionalTest extends ATestRunner {
                 product.getName());
         // Steps
         cartProductComponents.clear();
-        myAccountPage
-                .refresh()
+        cartProductContainer
                 .gotoHomePage()
                 .openCartProductContainer()
                 .removeProductByName(product)

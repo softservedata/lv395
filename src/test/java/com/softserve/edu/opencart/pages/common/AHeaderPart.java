@@ -371,13 +371,15 @@ public abstract class AHeaderPart {
 
     // ShoppingCart
 
+    @Step("Open cart")
     public ShoppingCartProductsContainer openShoppingCartProductsContainer() {
         clickShoppingCart();
         return new ShoppingCartProductsContainer(driver);
     }
 
-    public HomePage refresh() {
-        driver.navigate().refresh();
+    @Step("Close cart")
+    public HomePage closeCartProductsContainer() {
+        clickShoppingCart();
         return new HomePage(driver);
     }
 
