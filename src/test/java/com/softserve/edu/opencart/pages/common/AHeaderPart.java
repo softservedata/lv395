@@ -29,6 +29,7 @@ public abstract class AHeaderPart {
 
     protected final String OPTION_NULL_MESSAGE = "DropdownOption is null";
     protected final String OPTION_NOT_FOUND_MESSAGE = "Option %s not found in %s";
+    protected final String PAGE_DO_NOT_EXIST="Page do not exist!!!";
     //
     protected final String TAG_ATTRIBUTE_VALUE = "value";
     protected final String TAG_ATTRIBUTE_SRC = "src";
@@ -39,6 +40,7 @@ public abstract class AHeaderPart {
     protected WebDriver driver;
     protected WebDriverWait wait;
     //
+
     private WebElement currency;
     private WebElement myAccount;
     private WebElement wishList;
@@ -287,52 +289,54 @@ public abstract class AHeaderPart {
         return new HomePage(driver);
     }
 
-    public SuccessfulSearchPage searchProducts(SearchFilter searchItems) throws PageDoesNotExistException {
+    public SuccessfulSearchPage searchProducts(SearchFilter searchItems) {
         try {
             fillSearchField(searchItems.getProductSearchName());
             clickSearchButton();
             return new SuccessfulSearchPage(driver);
         } catch (Exception e) {
-            throw new PageDoesNotExistException("Page do not exist!!!");
+            throw new PageDoesNotExistException(PAGE_DO_NOT_EXIST);
         }
     }
 
-    public SuccessfulSearchPage searchProducts(String searchItem) throws PageDoesNotExistException {
+    @Step("Step: search some product")
+    public SuccessfulSearchPage searchProducts(String searchItem) {
         try {
             fillSearchField(searchItem);
             clickSearchButton();
             return new SuccessfulSearchPage(driver);
         } catch (Exception e) {
-            throw new PageDoesNotExistException("Page do not exist!!!");
+            throw new PageDoesNotExistException(PAGE_DO_NOT_EXIST);
         }
     }
 
-    public UnsuccessfulSearchPage gotoSearchPageWithFilters() throws PageDoesNotExistException {
+    @Step("Step: goto search page")
+    public UnsuccessfulSearchPage gotoSearchPageWithFilters() {
         try {
             fillSearchField("");
             clickSearchButton();
             return new UnsuccessfulSearchPage(driver);
         } catch (Exception e) {
-            throw new PageDoesNotExistException("Page do not exist!!!");
+            throw new PageDoesNotExistException(PAGE_DO_NOT_EXIST);
         }
     }
 
-
-    public UnsuccessfulSearchPage unsuccessfulSearch(String text) throws PageDoesNotExistException {
+    @Step("Step: search some incorrect thing")
+    public UnsuccessfulSearchPage unsuccessfulSearch(String text){
         try {
             fillSearchField(text);
             clickSearchButton();
             return new UnsuccessfulSearchPage(driver);
         } catch (Exception e) {
-            throw new PageDoesNotExistException("Page do not exist!!!");
+            throw new PageDoesNotExistException(PAGE_DO_NOT_EXIST);
         }
     }
 
-    public UnsuccessfulSearchPage unsuccessfulSearch(SearchFilter invalidSearchItems) throws PageDoesNotExistException {
+    public UnsuccessfulSearchPage unsuccessfulSearch(SearchFilter invalidSearchItems)  {
         try {
             return unsuccessfulSearch(invalidSearchItems.getProductSearchName());
         } catch (Exception e) {
-            throw new PageDoesNotExistException("Page do not exist!!!");
+            throw new PageDoesNotExistException(PAGE_DO_NOT_EXIST);
         }
     }
 
@@ -346,7 +350,8 @@ public abstract class AHeaderPart {
         clickUnloggedMyAccountByPartialName(UnloggedMyAccount.LOGIN);
         return new LoginPage(driver);
     }
-     @Step("Go to register page")
+
+    @Step("Go to register page")
     public RegisterPage gotoRegisterPage() {
         clickUnloggedMyAccountByPartialName(UnloggedMyAccount.REGISTER);
         return new RegisterPage(driver);

@@ -1,18 +1,11 @@
-package com.softserve.edu.opencart.tests;
+package com.softserve.edu.opencart.tests.search_field_tests;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.util.concurrent.TimeUnit;
-
+import com.softserve.edu.opencart.pages.common.HomePage;
+import com.softserve.edu.opencart.tools.LeaveUtils;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -23,17 +16,19 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
-import com.softserve.edu.opencart.pages.common.HomePage;
-import com.softserve.edu.opencart.tools.LeaveUtils;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.util.concurrent.TimeUnit;
 
-public abstract class ATestRunner {
+abstract class ATestRunner {
     private final String DRIVER_ERROR = "ERROR: Chromedriver not Found";
     protected final Logger log = Logger.getLogger(this.getClass());
-    // private final String SERVER_URL = "http://taqc-opencart.epizy.com";
     private final String SERVER_URL = "http://192.168.36.134/opencart/upload/";
     protected WebDriver driver;
 
-    @Step("@Step startBrowser")
+    @Step("Step: startBrowser")
     @BeforeClass
     public void beforeClass() {
         URL url = this.getClass().getResource("/chromedriver-windows-32bit.exe");
@@ -94,15 +89,6 @@ public abstract class ATestRunner {
     }
 
     /**
-     * Make screenshot of page
-     */
-    @Step("ScreenShot of Cart STEP")
-    private void takeScreenShot() throws IOException {
-        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(scrFile, new File("/home/milnik/Pictures/cartscreenshot.png"));
-    }
-
-    /**
      * Give name to screenshot
      *
      * @param name
@@ -117,7 +103,6 @@ public abstract class ATestRunner {
      * Make screenshot
      *
      * @param name - screenshot`s name
-     * @throws IOException
      */
     @Step("Step: screenshot of page")
     public void takeScreenshot(String name)  {
@@ -126,8 +111,10 @@ public abstract class ATestRunner {
         try {
             FileUtils.copyFile(source, new
                     File(getFileName(name)));
+            log.error("File hasn`t been created");
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }

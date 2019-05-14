@@ -1,16 +1,11 @@
 package com.softserve.edu.opencart.tests.search_field_tests;
 
-import com.softserve.edu.opencart.data.Product;
 import com.softserve.edu.opencart.data.ProductRepository;
 import com.softserve.edu.opencart.data.SearchFilter;
 import com.softserve.edu.opencart.data.SearchFilterRepository;
-import com.softserve.edu.opencart.pages.shop.ProductComponent;
-import com.softserve.edu.opencart.pages.shop.ProductPage;
+
 import com.softserve.edu.opencart.pages.shop.ProductsContainerComponent;
-import com.softserve.edu.opencart.pages.common.SuccessfulSearchPage;
-import com.softserve.edu.opencart.pages.common.UnsuccessfulSearchPage;
-import com.softserve.edu.opencart.tests.ATestRunner;
-import com.softserve.edu.opencart.tools.utils_for_search_field.PageDoesNotExistException;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -21,6 +16,8 @@ import java.util.List;
  * Tests for using "search in product description" checkbox
  * @author Ratushniak Iryna
  */
+@Epic("Search Testing")
+@Feature("SearchInProductDescriptionTest")
 public class SearchInProductDescriptionTest extends ATestRunner {
 //    @DataProvider
 //    public Object[][] searchFilterData() {
@@ -99,12 +96,17 @@ public class SearchInProductDescriptionTest extends ATestRunner {
      * @param productWeWantToFind- Canon
      * @param searchFilterWeUse - search filter,
      *                         that we use for finding canon
-     * @throws PageDoesNotExistException - it is possible,
-     *                             that page that we want to
-     *                             find/to use does not exist
      */
     @Test(dataProvider = "dataForFindCanon")
-    public void searchInProductDescriptionPositiveTest(String productWeWantToFind, SearchFilter searchFilterWeUse) throws PageDoesNotExistException {
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Positive test for finding Canon." +
+            "Here we input name/partial name"+
+            "in the search field and we are using" +
+            "check in product description checkbox." +
+            "We are expecting to see product ,that" +
+            "we are looking for on the page")
+    @Story("Valid data for searching")
+    public void searchInProductDescriptionPositiveTest(String productWeWantToFind, SearchFilter searchFilterWeUse){
         ProductsContainerComponent productsOnThePage=loadApplication()
                 .gotoSearchPageWithFilters()
                 .searchProductsByFilter(searchFilterWeUse)
@@ -119,21 +121,25 @@ public class SearchInProductDescriptionTest extends ATestRunner {
      * product searching
      * we expect that product won`t be shown
      * on the page
-     * @throws PageDoesNotExistException -it is possible,
-     *                                  that page that we want to
-     *                                  find/to use does not exist
      */
     @Test
-    public void searchInProductDescriptionNegativeTest() throws PageDoesNotExistException {
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Here we have negative test." +
+            "If we use some  incorrect data for" +
+            "product searching" +
+            "we expect that product won`t be shown" +
+            "on the page")
+    @Story("Invalid data for searching")
+    public void searchInProductDescriptionNegativeTest()  {
         ProductsContainerComponent productsOnThePage=loadApplication()
                 .searchProducts(ProductRepository.getCanonEOS5D().getName())
                 .searchProductsByFilter(SearchFilterRepository.getCanonIncorrectData())
                 .getSearchCriteriaComponent()
                 .getProductsContainerComponent();
-        Assert.assertTrue(productsOnThePage
+        Assert.assertFalse(productsOnThePage
                 .isProductOnThePage(ProductRepository
                         .getCanonEOS5D()
-                        .getName())==false);
+                        .getName()));
     }
 
 

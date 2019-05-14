@@ -3,6 +3,7 @@ package com.softserve.edu.opencart.pages.common;
 import java.util.List;
 
 import com.softserve.edu.opencart.pages.shop.ProductsContainerComponent;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -61,7 +62,7 @@ public class SearchCriteriaComponent {
     public WebElement getSortDropdownAsWebElement() {
         return getSortDropdown().getWrappedElement();
     }
-    
+
     public List<WebElement> getSortDropdownOptions() {
         return getSortDropdown().getOptions();
     }
@@ -86,7 +87,7 @@ public class SearchCriteriaComponent {
     public WebElement getLimitDropdownAsWebElement() {
         return getLimitDropdown().getWrappedElement();
     }
-    
+
     public List<WebElement> getLimitDropdownOptions() {
         return getLimitDropdown().getOptions();
     }
@@ -123,12 +124,13 @@ public class SearchCriteriaComponent {
         }
         return isSelected;
     }
-    
+
     // productsContainerComponent
+    @Step("Step: get products")
     public ProductsContainerComponent getProductsContainerComponent() {
         return productsContainerComponent;
     }
-    
+
     // limitDropdown
     public void selectLimitDropdownByName(String name) {
         clickLimitDropdown();
@@ -148,6 +150,6 @@ public class SearchCriteriaComponent {
         return isSelected;
     }
 
-    
+
     // Business Logic
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.softserve.edu.opencart.data.IProduct;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -38,9 +39,11 @@ public class ProductsContainerComponent {
     // Page Object
 
     // productComponents
+    @Step("Step: get products")
     public List<ProductComponent> getProductComponents() {
         return productComponents;
     }
+    @Step("Step: get product name")
     public List<String> getProductComponentsName() {
         List<String> productComponentsNames =new ArrayList<>();
         for (ProductComponent productComponent:productComponents){
@@ -50,6 +53,7 @@ public class ProductsContainerComponent {
     }
     
     // Functional
+    @Step("Step: check is product on the page or isn't")
     public Boolean isProductOnThePage(String productName){
         return getProductComponentNames().contains(productName);
 

@@ -3,7 +3,8 @@ package com.softserve.edu.opencart.pages.common;
 import com.softserve.edu.opencart.pages.shop.ProductComponent;
 import com.softserve.edu.opencart.pages.shop.ProductPage;
 import com.softserve.edu.opencart.tools.utils_for_search_field.ElementDoNotExistException;
-import com.softserve.edu.opencart.tools.utils_for_search_field.PageDoesNotExistException;
+
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -16,6 +17,7 @@ public class SuccessfulSearchPage extends ASearchPart {
 
     private SearchCriteriaComponent searchCriteriaComponent;
     private WebElement secondPage;
+    private final String PAGINATION_IS_NOT_PRESENT_ON_THE_PAGE="Pagination is not present on the page!!!!";
 
 
     public SuccessfulSearchPage(WebDriver driver) {
@@ -28,25 +30,30 @@ public class SuccessfulSearchPage extends ASearchPart {
     }
 
     // Page Object
-    public List<WebElement> findPagination(){
+    public List<WebElement> findPagination() {
         return driver.findElements(By.cssSelector("ul.pagination li a"));
     }
-    public void clickPaginationIfOnFirstPageGotoNext ()throws ElementDoNotExistException {
-        try{findPagination().get(1).click();}
-        catch (Exception e){
-            throw new ElementDoNotExistException("Pagination is not present on the page!!!!");
+
+    public void clickPaginationIfOnFirstPageGotoNext() {
+        try {
+            findPagination().get(1).click();
+        } catch (Exception e) {
+            throw new ElementDoNotExistException(PAGINATION_IS_NOT_PRESENT_ON_THE_PAGE);
         }
+
     }
-    public void clickPaginationIfOnSecondPageGotoPreviou() throws ElementDoNotExistException{
+
+    public void clickPaginationIfOnSecondPageGotoPreviou() {
         findPagination().get(1).click();
     }
+
     // searchCriteriaComponent
-    public SearchCriteriaComponent getSearchCriteriaComponent(){
+
+    public SearchCriteriaComponent getSearchCriteriaComponent() {
         return searchCriteriaComponent;
     }
 
     // Functional
-
 
 
     // Business Logic
@@ -55,23 +62,23 @@ public class SuccessfulSearchPage extends ASearchPart {
         return new ProductPage(driver, product);
     }
 
-    public SuccessfulSearchPage gotoNextPage() throws PageDoesNotExistException, ElementDoNotExistException {
-       clickPaginationIfOnFirstPageGotoNext();
+    @Step("Step: goto next page with products")
+    public SuccessfulSearchPage gotoNextPage() {
+        clickPaginationIfOnFirstPageGotoNext();
         return new SuccessfulSearchPage(driver);
     }
 
-    public SuccessfulSearchPage gotoPreviousPage() throws PageDoesNotExistException, ElementDoNotExistException {
-       clickPaginationIfOnSecondPageGotoPreviou();
+    public SuccessfulSearchPage gotoPreviousPage() {
+        clickPaginationIfOnSecondPageGotoPreviou();
         return new SuccessfulSearchPage(driver);
     }
 
     public boolean isThereMoreThenOnePage() {
-        try {
-            driver.findElements(By.cssSelector("ul.pagination li a"));
-        } catch (Exception e) {
+        if (driver.findElements(By.cssSelector("ul.pagination li a")).size() > 0) {
+            return true;
+        } else {
             return false;
         }
-        return true;
     }
 
     public SuccessfulSearchPage chooseCurrency(Currencies currency) {

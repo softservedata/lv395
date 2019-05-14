@@ -3,6 +3,7 @@ package com.softserve.edu.opencart.pages.common;
 import java.util.List;
 
 import com.softserve.edu.opencart.data.ISearchFilter;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,7 +15,7 @@ import com.softserve.edu.opencart.tools.LeaveUtils;
 public abstract class ASearchPart extends AStatusPart {
 
     public final String ALL_CATEGORIES = "All Categories";
-    private final String SUBCATEGORY_NOT_SELECTED = "SubCategory is not selected";
+    private final String SUB_CATEGORY_NOT_SELECTED = "SubCategory is not selected";
     //
     private WebElement searchCriteriaField;
     private WebElement descriptionCheckbox;
@@ -99,7 +100,7 @@ public abstract class ASearchPart extends AStatusPart {
 
     private void clickSubcategoryCheckbox() {
         LeaveUtils.castExceptionByCondition(getCategoryDropdownSelectedOptionText().equals(ALL_CATEGORIES),
-                SUBCATEGORY_NOT_SELECTED);
+                SUB_CATEGORY_NOT_SELECTED);
         getSubcategoryCheckbox().click();
     }
 
@@ -149,12 +150,12 @@ public abstract class ASearchPart extends AStatusPart {
         if (selectCategoryDropdownByPartialName(categoryName)) {
             getSubcategoryCheckbox().click();
         } else {
-            LeaveUtils.castExceptionByCondition(true, SUBCATEGORY_NOT_SELECTED);
+            LeaveUtils.castExceptionByCondition(true, SUB_CATEGORY_NOT_SELECTED);
         }
     }
 
     // Business Logic
-    
+    @Step("Step: goto page with products")
     public SuccessfulSearchPage searchProductsByFilter(ISearchFilter searchItems) {
         fillSearchCriteriaField(searchItems.getProductSearchName());
         if (searchItems.isUseDescription()) {

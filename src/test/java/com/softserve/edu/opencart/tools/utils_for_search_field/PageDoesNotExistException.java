@@ -6,7 +6,7 @@ package com.softserve.edu.opencart.tools.utils_for_search_field;
  *
  * @author Iryna Ratushniak
  */
-public class PageDoesNotExistException extends Exception {
+public class PageDoesNotExistException extends RuntimeException{
 
 
     /**
