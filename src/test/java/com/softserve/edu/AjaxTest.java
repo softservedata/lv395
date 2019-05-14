@@ -25,7 +25,7 @@ public class AjaxTest {
         driver.get("https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/paging/");
         //
         // Move to Element by JavaScript Injection
-        WebElement position = driver.findElement(By.id("using-paging-with-other-data-processing-plugins"));
+        WebElement position = driver.findElement(By.id("use-paging-with-other-data-processing-plugins"));
         // WebElement position =
         // driver.findElement(By.cssSelector("#using-paging-with-other-data-processing-plugins"));
         JavascriptExecutor js = (JavascriptExecutor) driver;

@@ -48,7 +48,7 @@ public abstract class AHeaderPart {
         wishList = driver.findElement(By.id("wishlist-total"));
         shoppingCart = driver.findElement(By.cssSelector("a[title='Shopping Cart']"));
         checkout = driver.findElement(By.cssSelector("a[title='Checkout']"));
-        logo = driver.findElement(By.id("logo"));
+        logo = driver.findElement(By.id("logo")); // "a[href*='common/home']" // "#logo a"
         searchField = driver.findElement(By.name("search"));
         searchButton = driver.findElement(By.cssSelector("button.btn.btn-default"));
         cartButton = driver.findElement(By.cssSelector("#cart > button"));
