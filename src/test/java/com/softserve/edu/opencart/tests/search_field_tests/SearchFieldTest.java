@@ -178,9 +178,6 @@ public class SearchFieldTest extends ATestRunner {
         //Steps
         String dataForField = new LongString().createLongString(9000);
         loadApplication().unsuccessfulSearch(dataForField);
-        String screenshotName = getFileName("search_field_stress_test");
-        takeScreenshot(screenshotName);
-        saveImageAttach(screenshotName);
         log.debug("stressSearchFieldTest finished");
     }
 

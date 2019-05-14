@@ -14,6 +14,7 @@ import com.softserve.edu.opencart.pages.shop.ShoppingCartProductsContainer;
 
 import com.softserve.edu.opencart.tools.utils_for_search_field.PageDoesNotExistException;
 import io.qameta.allure.Step;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,7 +27,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class AHeaderPart {
-
+    protected final Logger log = Logger.getLogger(this.getClass());
     protected final String OPTION_NULL_MESSAGE = "DropdownOption is null";
     protected final String OPTION_NOT_FOUND_MESSAGE = "Option %s not found in %s";
     protected final String PAGE_DO_NOT_EXIST="Page do not exist!!!";
@@ -295,6 +296,7 @@ public abstract class AHeaderPart {
             clickSearchButton();
             return new SuccessfulSearchPage(driver);
         } catch (Exception e) {
+            log.error(PAGE_DO_NOT_EXIST);
             throw new PageDoesNotExistException(PAGE_DO_NOT_EXIST);
         }
     }
@@ -306,6 +308,7 @@ public abstract class AHeaderPart {
             clickSearchButton();
             return new SuccessfulSearchPage(driver);
         } catch (Exception e) {
+            log.error(PAGE_DO_NOT_EXIST);
             throw new PageDoesNotExistException(PAGE_DO_NOT_EXIST);
         }
     }
@@ -317,6 +320,7 @@ public abstract class AHeaderPart {
             clickSearchButton();
             return new UnsuccessfulSearchPage(driver);
         } catch (Exception e) {
+            log.error(PAGE_DO_NOT_EXIST);
             throw new PageDoesNotExistException(PAGE_DO_NOT_EXIST);
         }
     }
@@ -328,6 +332,7 @@ public abstract class AHeaderPart {
             clickSearchButton();
             return new UnsuccessfulSearchPage(driver);
         } catch (Exception e) {
+            log.error(PAGE_DO_NOT_EXIST);
             throw new PageDoesNotExistException(PAGE_DO_NOT_EXIST);
         }
     }
@@ -336,6 +341,7 @@ public abstract class AHeaderPart {
         try {
             return unsuccessfulSearch(invalidSearchItems.getProductSearchName());
         } catch (Exception e) {
+            log.error(PAGE_DO_NOT_EXIST);
             throw new PageDoesNotExistException(PAGE_DO_NOT_EXIST);
         }
     }

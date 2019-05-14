@@ -5,6 +5,7 @@ import com.softserve.edu.opencart.pages.shop.ProductPage;
 import com.softserve.edu.opencart.tools.utils_for_search_field.ElementDoNotExistException;
 
 import io.qameta.allure.Step;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -14,10 +15,10 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class SuccessfulSearchPage extends ASearchPart {
-
+    protected final Logger log = Logger.getLogger(this.getClass());
     private SearchCriteriaComponent searchCriteriaComponent;
     private WebElement secondPage;
-    private final String PAGINATION_IS_NOT_PRESENT_ON_THE_PAGE="Pagination is not present on the page!!!!";
+    private final String PAGINATION_IS_NOT_PRESENT_ON_THE_PAGE = "Pagination is not present on the page!!!!";
 
 
     public SuccessfulSearchPage(WebDriver driver) {
@@ -38,6 +39,7 @@ public class SuccessfulSearchPage extends ASearchPart {
         try {
             findPagination().get(1).click();
         } catch (Exception e) {
+            log.error(PAGINATION_IS_NOT_PRESENT_ON_THE_PAGE);
             throw new ElementDoNotExistException(PAGINATION_IS_NOT_PRESENT_ON_THE_PAGE);
         }
 

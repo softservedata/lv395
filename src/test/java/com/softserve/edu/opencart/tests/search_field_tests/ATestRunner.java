@@ -24,18 +24,22 @@ import java.util.concurrent.TimeUnit;
 
 abstract class ATestRunner {
     private final String DRIVER_ERROR = "ERROR: Chromedriver not Found";
-    protected final Logger log = Logger.getLogger(this.getClass());
     private final String SERVER_URL = "http://192.168.36.134/opencart/upload/";
+    private final String FILE_HAS_NOT_BEEN_CREATED = "File hasn`t been created";
+    protected final Logger log = Logger.getLogger(this.getClass());
     protected WebDriver driver;
+
 
     @Step("Step: startBrowser")
     @BeforeClass
     public void beforeClass() {
+        log.info("Test suite started.");
         URL url = this.getClass().getResource("/chromedriver-windows-32bit.exe");
         LeaveUtils.castExceptionByCondition(url == null, DRIVER_ERROR);
         System.setProperty("webdriver.chrome.driver", url.getPath());
         // this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath().substring(1));
         driver = new ChromeDriver();
+        log.info("ChromeDriver loaded.");
         LeaveUtils.castExceptionByCondition(driver == null, DRIVER_ERROR);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -46,6 +50,7 @@ abstract class ATestRunner {
     public void afterClass() {
         if (driver != null) {
             driver.quit();
+            log.info("Driver quite.");
         }
     }
 
@@ -53,6 +58,7 @@ abstract class ATestRunner {
     @BeforeMethod
     public void beforeMethod() {
         driver.get(SERVER_URL);
+        log.info("Application loaded.");
     }
 
     @AfterMethod
@@ -61,13 +67,20 @@ abstract class ATestRunner {
             // TODO Add to Loggers
             //saveImageAttach(prepareImageName());
             driver.get(SERVER_URL);
+            log.info("Application loaded.");
+
+        }
+        if(testResult.getName() == "stressSearchFieldTest") {
+            String fileName=getFileName("stress_test_result_page");
+            takeScreenshot(fileName);
+            saveImageAttach(fileName);
         }
     }
 
     @Step("Step: goto home page")
     public HomePage loadApplication() {
-        // logger.debug("loadApplication() start");
         return new HomePage(driver);
+
     }
 
     /**
@@ -94,9 +107,8 @@ abstract class ATestRunner {
      * @param name
      * @return - screenshot`s full name
      */
-    @Step("Step:give name to screenshot")
     public String getFileName(String name) {
-        return "./Screenshots/" + name + ".png";
+        return "./screenshots/" + name + ".png";
     }
 
     /**
@@ -104,15 +116,17 @@ abstract class ATestRunner {
      *
      * @param name - screenshot`s name
      */
-    @Step("Step: screenshot of page")
-    public void takeScreenshot(String name)  {
+
+    @Step("Step: take screenshot")
+    public void takeScreenshot(String name) {
         TakesScreenshot ts = (TakesScreenshot) driver;
         File source = ts.getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(source, new
                     File(getFileName(name)));
-            log.error("File hasn`t been created");
+            log.info("Screenshot was taken.");
         } catch (IOException e) {
+            log.error(FILE_HAS_NOT_BEEN_CREATED);
             e.printStackTrace();
         }
 
