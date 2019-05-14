@@ -2,12 +2,17 @@ package com.softserve.edu.opencart.tests.shopping_cart_tests;
 
 import com.softserve.edu.opencart.data.IProduct;
 import com.softserve.edu.opencart.data.ProductRepository;
-import com.softserve.edu.opencart.pages.common.CheckoutPage;
-import com.softserve.edu.opencart.pages.common.HomePage;
-import com.softserve.edu.opencart.tests.cart_component_tests.ATestRunner;
+import com.softserve.edu.opencart.pages.common.*;
+import com.softserve.edu.opencart.pages.shop.*;
+import com.softserve.edu.opencart.tools.DataBaseUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import static com.softserve.edu.opencart.pages.common.CheckoutPage.CHECKOUT_LABEL_TEXT;
+
 
 public class CheckoutClickTest extends ATestRunner {
 
@@ -27,20 +32,39 @@ public class CheckoutClickTest extends ATestRunner {
                 .gotoShoppingCartPage()
                 .gotoCheckoutPageByCheckoutButton();
         Assert.assertTrue(checkoutPage.getCheckoutLabelText()
-                .contains(checkoutPage.CHECKOUT_LABEL_TEXT));
+                .contains(CHECKOUT_LABEL_TEXT));
     }
-    // TODO negative test
+
+
     @Test(dataProvider = "productData")
     public void negativeCheckGotoCheckoutPage(IProduct product) {
         // Steps
-        CheckoutPage checkoutPage = loadApplication()
-                .addProductToCart(product)
+        DataBaseUtils dbUtils = new DataBaseUtils();
+        int maxQuantity = dbUtils.getProductQuantityFromDb(product);
+        ShoppingCartPage shoppingCartPage = loadApplication()
+                .clickProductName(product)
+                .setQuantity(maxQuantity)
+                .addProductToCart()
                 .gotoHomePage()
-                .gotoShoppingCartPage()
-                .gotoCheckoutPageByCheckoutButton();
-        Assert.assertFalse(checkoutPage.getCheckoutLabelText()
-                .contains(checkoutPage.CHECKOUT_LABEL_TEXT));
+                .gotoShoppingCartPage();
+        Assert.assertTrue(shoppingCartPage
+                .getErrorQuantityLabel()
+                .contains(shoppingCartPage.SHOPPING_CART_ERROR_QUANTITY_TEXT));
     }
 
+    @Test(dataProvider = "productData")
+    public void checkGotoCheckoutPage(IProduct product) {
+        DataBaseUtils dbUtils = new DataBaseUtils();
+        int maxQuantity = dbUtils.getProductQuantityFromDb(product);
+        CheckoutPage checkoutPage = loadApplication()
+                .clickProductName(product)
+                .setQuantity(maxQuantity)
+                .addProductToCart()
+                .gotoShoppingCartPage()
+                .setQuantityProductsByName(product, String.valueOf(maxQuantity-5))
+                .gotoCheckoutPageByCheckoutButton();
+        Assert.assertTrue(checkoutPage.getCheckoutLabelText()
+                .contains(CHECKOUT_LABEL_TEXT));
+    }
 
 }

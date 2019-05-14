@@ -1,11 +1,12 @@
 package com.softserve.edu.opencart.pages.shop;
 
 import com.softserve.edu.opencart.data.Currencies;
-import com.softserve.edu.opencart.data.Product;
+import com.softserve.edu.opencart.data.IProduct;
 import com.softserve.edu.opencart.pages.common.AStatusPart;
 import com.softserve.edu.opencart.pages.common.CheckoutPage;
 import com.softserve.edu.opencart.pages.common.HomePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -14,14 +15,16 @@ import java.math.BigDecimal;
 public class ShoppingCartPage extends AStatusPart {
 
     public static final String SHOPPING_CART_LABEL_TEXT = "Shopping Cart";
+    public static final String SHOPPING_CART_ERROR_QUANTITY_TEXT = "not available";
     private static final String PRICE_TABLE_CSSSELECTOR = ".col-sm-4.col-sm-offset-8 .table.table-bordered";
     private ShoppingCartProductsContainer shoppingCartProductsContainer;
     private TotalPriceTableComponent totalPriceTableComponent;
 
     //
-    WebElement shoppingCartLabel;
-    WebElement continueButton;
-    WebElement checkoutButton;
+    public WebElement shoppingCartLabel;
+    public WebElement continueButton;
+    public WebElement checkoutButton;
+    public WebElement errorLabel;
 
     public ShoppingCartPage(WebDriver driver) {
         super(driver);
@@ -57,7 +60,7 @@ public class ShoppingCartPage extends AStatusPart {
         return checkoutButton;
     }
 
-    public void clickCheckoutButton() {
+    public void clickCheckoutButton1() {
         getCheckoutButton().click();
     }
 
@@ -69,16 +72,29 @@ public class ShoppingCartPage extends AStatusPart {
         return getShoppingCartLabel().getText();
     }
 
+    private void initErrorLabel(){
+        errorLabel = driver.findElement(By.xpath("//*[@class='alert alert-danger']"));
+    }
+
+    public String getErrorQuantityLabel(){
+        try {
+            initErrorLabel();
+            return errorLabel.getText();
+        }  catch (Exception e) {
+            throw new NotFoundException("Page do not exist!!!");
+        }
+    }
+
 
 
     // Functional
 
-    public ShoppingCartPage setQuantityProductsByName(Product product, String quantity) {
+    public ShoppingCartPage setQuantityProductsByName(IProduct product, String quantity) {
         getShoppingCartProductsContainer().quantityProductsByName(product, quantity);
         return new ShoppingCartPage(driver);
     }
 
-    public ShoppingCartPage removeProductByName(Product product) {
+    public ShoppingCartPage removeProductByName(IProduct product) {
         getShoppingCartProductsContainer().removeProductFromShoppingCartByName(product);
         return new ShoppingCartPage(driver);
     }
@@ -90,15 +106,15 @@ public class ShoppingCartPage extends AStatusPart {
 
 
 
-    public BigDecimal getUnitProductPriceByCurrency(Currencies currency, Product product) {
+    public BigDecimal getUnitProductPriceByCurrency(Currencies currency, IProduct product) {
         return chooseCurrency(currency).getShoppingCartProductsContainer().getUnitPriceByName(product);
     }
 
-    public BigDecimal getTotalProductPriceByCurrency(Currencies currency, Product product) {
+    public BigDecimal getTotalProductPriceByCurrency(Currencies currency, IProduct product) {
         return chooseCurrency(currency).getShoppingCartProductsContainer().getTotalPriceByName(product);
     }
 
-    public String getShoppingCartCurrencySymbol(Product product) {
+    public String getShoppingCartCurrencySymbol(IProduct product) {
         return getShoppingCartProductsContainer().getCurrencyByProduct(product);
     }
 
@@ -130,7 +146,7 @@ public class ShoppingCartPage extends AStatusPart {
     }
 
     public CheckoutPage gotoCheckoutPageByCheckoutButton() {
-        clickCheckoutButton();
+        clickCheckoutButton1();
         return new CheckoutPage(driver);
     }
 
