@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ShoppingCartTestSuite">
+
+    <test name="ShoppingCartTest">
+        <classes>
+           <!-- <class name="com.softserve.edu.opencart.tests.shopping_cart_tests.SmokeTest">
+                <methods>
+                    <include name="smokeTest" />
+                </methods>
+            </class> -->
+            <class name="com.softserve.edu.opencart.tests.shopping_cart_tests.ShoppingCartRemoveItemTest">
+                <methods>
+                    <include name="checkRemoveButtonTest" />
+                </methods>
+    <!--    </class>
+       <class name="com.softserve.edu.opencart.tests.cart_component_tests.PriceTableTest">
+           <methods>
+               <include name="checkTotalPriceTable" />
+           </methods>
+       </class>
+       <class name="com.softserve.edu.opencart.tests.cart_component_tests.CartFunctionalTest">
+           <methods>
+               <include name="checkViewCartButton" />
+               <include name="checkCheckoutButton" />
+               <include name="checkRemoveButton" />
+               <include name="checkClickOnItem" />
+           </methods>
+       </class>
+       <class name="com.softserve.edu.opencart.tests.cart_component_tests.OtherFunctionalTest">
+           <methods>
+               <include name="checkPriceTextButton" />
+               <include name="logoutUserCartTest" />
+               <include name="differentLoggedUsersCartTest" />
+           </methods> -->
+       </class>
+   </classes>
+</test> <!-- Test -->
+
+</suite> <!-- Suite -->
