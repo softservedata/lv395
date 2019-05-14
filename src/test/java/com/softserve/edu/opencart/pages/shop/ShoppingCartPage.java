@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 
 import java.math.BigDecimal;
 
-public class ShoppingCartPage extends AStatusPart {
+public class ShoppingCartPage extends AShoppingCartPage {
 
     public static final String SHOPPING_CART_LABEL_TEXT = "Shopping Cart";
     public static final String SHOPPING_CART_ERROR_QUANTITY_TEXT = "not available";
@@ -76,12 +76,13 @@ public class ShoppingCartPage extends AStatusPart {
         errorLabel = driver.findElement(By.xpath("//*[@class='alert alert-danger']"));
     }
 
-    public String getErrorQuantityLabel(){
+    public String getErrorQuantityLabel() {
         try {
-            initErrorLabel();
+            initErrorLabel(); //driver.findElements(By.xpath("//*[@class='alert alert-danger']")).size()>0;
             return errorLabel.getText();
         }  catch (Exception e) {
-            throw new NotFoundException("Page do not exist!!!");
+            // TODO Exception!
+            throw new RuntimeException("Page do not exist!!!");
         }
     }
 

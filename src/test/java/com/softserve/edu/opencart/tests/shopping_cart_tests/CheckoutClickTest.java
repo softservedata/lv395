@@ -23,7 +23,7 @@ public class CheckoutClickTest extends ATestRunner {
         };
     }
 
-    @Test(dataProvider = "productData")
+    @Test(dataProvider = "productData", priority = 1)
     public void positiveCheckGotoCheckoutPage(IProduct product) {
         // Steps
         CheckoutPage checkoutPage = loadApplication()
@@ -36,7 +36,7 @@ public class CheckoutClickTest extends ATestRunner {
     }
 
 
-    @Test(dataProvider = "productData")
+    @Test(dataProvider = "productData", priority = 2)
     public void negativeCheckGotoCheckoutPage(IProduct product) {
         // Steps
         DataBaseUtils dbUtils = new DataBaseUtils();
@@ -52,7 +52,7 @@ public class CheckoutClickTest extends ATestRunner {
                 .contains(shoppingCartPage.SHOPPING_CART_ERROR_QUANTITY_TEXT));
     }
 
-    @Test(dataProvider = "productData")
+    @Test(dataProvider = "productData", priority = 3)
     public void checkGotoCheckoutPage(IProduct product) {
         DataBaseUtils dbUtils = new DataBaseUtils();
         int maxQuantity = dbUtils.getProductQuantityFromDb(product);

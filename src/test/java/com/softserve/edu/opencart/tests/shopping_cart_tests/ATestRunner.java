@@ -30,43 +30,74 @@ public abstract class ATestRunner {
     protected final Logger log = Logger.getLogger(this.getClass());
     private WebDriver driver;
 
+    /**
+     * BeforeClass method.
+     */
+    @Step("Start browser")
     @BeforeClass
     public void beforeClass() {
-        /*URL url = this.getClass().getResource("/chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver", "lib/chromedriver.exe");
+        log.info("ShoppingCart test suite start!");
+        URL url = this.getClass().getResource("/chromedriver.exe");
         LeaveUtils.castExceptionByCondition(url == null, DRIVER_ERROR);
-        System.setProperty("webdriver.chrome.driver", url.getPath());*/
-        System.setProperty("webdriver.chrome.driver", "lib/chromedriver.exe");
-        //System.setProperty("webdriver.chrome.driver", "lib/chromedriver2.exe");
-        // this.getClass().getResource("/chromedriver-windows-32bit.exe").getPath().substring(1));
+        System.setProperty("webdriver.chrome.driver", url.getPath());
         driver = new ChromeDriver();
         LeaveUtils.castExceptionByCondition(driver == null, DRIVER_ERROR);
+        log.info("ChromeDriver loaded!");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
+    /**
+     * AfterClass method for closing web-browser.
+     */
+    @Step("Browser TearDown")
     @AfterClass(alwaysRun = true)
     public void afterClass() {
         if (driver != null) {
             driver.quit();
         }
+        log.info("ChromeDriver quit!");
     }
 
+    /**
+     * BeforeMethod for loading web-site on Home page.
+     */
+    @Step("Load application")
     @BeforeMethod
     public void beforeMethod() {
         driver.get(SERVER_URL);
+        log.info("Web-site loaded!");
     }
 
+
+    /**
+     * If something in tests goes wrong -
+     * take a screenshot and load web-site again.
+     * @param testResult results of test running.
+     */
     @AfterMethod
     public void afterMethod(ITestResult testResult) {
         if (!testResult.isSuccess()) {
-            // TODO Add to Loggers
-            //saveImageAttach(prepareImageName());
+            log.error("Test not passed!");
+            try {
+                takeScreenShot();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             driver.get(SERVER_URL);
+            log.info("Web-site loaded!");
         }
     }
 
+
+    /**
+     * Method for loading Home Page of our application.
+     * @return Web-site on Home page.
+     */
+    @Step("Load HomePage")
     public HomePage loadApplication() {
-        // logger.debug("loadApplication() start");
+        log.debug("loadApplication() start");
         return new HomePage(driver);
     }
 
@@ -90,7 +121,7 @@ public abstract class ATestRunner {
     /**
      * Make screenshot of page
      */
-    @Step("ScreenShot of Cart STEP")
+    @Step("ScreenShot of Shopping Cart STEP")
     private void takeScreenShot() throws IOException {
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(scrFile, new File("/home/milnik/Pictures/cartscreenshot.png"));
