@@ -13,22 +13,20 @@ import com.jcraft.jsch.Session;
 import com.softserve.edu.opencart.data.IProduct;
 import com.softserve.edu.opencart.data.IUser;
 import com.softserve.edu.opencart.data.UserRepository;
+import io.qameta.allure.Step;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Yurii Antokhiv
- * @version 1.0
- */
+
 public final class DataBaseUtils {
 
     /*
      * We don't need static fields and methods here.
      * JDBC Connection creates on '= new DataBaseUtils()'
-     * Don'r forget to close connection after using class
+     * Don't forget to close connection after using class
      */
     // private static final String DATABASE_PARTIAL_URL = "192.168.227.130:3306";
     // private final String DATABASE_PARTIAL_URL = "192.168.239.128:3306";
@@ -131,6 +129,8 @@ public final class DataBaseUtils {
         return productQuantity;
     }
 
+    /////////////
+    @Step("Check if user is in DB")
     public boolean isEmailInDb(IUser user) {
         ResultSet rs = null;
         boolean inDb = false;
@@ -149,6 +149,7 @@ public final class DataBaseUtils {
         return inDb;
     }
 
+    @Step("Delete User from DB")
     public void userClear() {
         openConnection();
         try (Statement st = connection.createStatement()) {

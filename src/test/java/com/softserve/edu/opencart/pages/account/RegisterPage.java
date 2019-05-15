@@ -1,6 +1,7 @@
 package com.softserve.edu.opencart.pages.account;
 
 import com.softserve.edu.opencart.data.IUser;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -449,7 +450,6 @@ public class RegisterPage extends ARightLogoutPart {
         getContinueButton().click();
     }
 
-    //TODO Methods
     //functional
 
     public void fillFirstName(IUser user) {
@@ -553,6 +553,7 @@ public class RegisterPage extends ARightLogoutPart {
         }
     }
 
+    @Step("Fill Registration Form")
     private void fillRegistrationForm(IUser user) {
         fillFirstName(user);
         fillLastName(user);
@@ -573,6 +574,7 @@ public class RegisterPage extends ARightLogoutPart {
         clickContinueButton();
     }
 
+    @Step("Fill Registration Form without PrivacyPolicy")
     private void fillRegistrationFormWithNoPrivacyPolicy(IUser user) {
         fillFirstName(user);
         fillLastName(user);
@@ -596,6 +598,7 @@ public class RegisterPage extends ARightLogoutPart {
     //Business Logic
 
     //checkcorrectdata
+    @Step("Correct User")
     public SuccessfullyRegisterPage successfullyRegisterUser(IUser validBoundaryUser) {
         //valid registration
         fillRegistrationForm(validBoundaryUser);
@@ -603,24 +606,21 @@ public class RegisterPage extends ARightLogoutPart {
     }
 
     //checkincorrectdata
+    @Step("InCorrect User")
     public UnsuccessfullyRegisterPage userWithBadData(IUser invalidBoundaryUser) {
         fillRegistrationForm(invalidBoundaryUser);
         return new UnsuccessfullyRegisterPage(driver);
     }
 
-    //checkincorrectdata
-    public UnsuccessfullyRegisterPage userWithBadData2(IUser invalidBoundaryUser2) {
-        fillRegistrationForm(invalidBoundaryUser2);
-        return new UnsuccessfullyRegisterPage(driver);
-    }
-
     //empty user
+    @Step("Empty User")
     public UnsuccessfullyRegisterPage userWithNoData(IUser emptyFieldsUser) {
         fillRegistrationForm(emptyFieldsUser);
         return new UnsuccessfullyRegisterPage(driver);
     }
 
     //without privacyPolicy
+    @Step("Without PrivacyPolicy User")
     public PrivacyPolicyMessagePage userWithNoPrivacyPolicy(IUser validUser) {
         fillRegistrationFormWithNoPrivacyPolicy(validUser);
         return new PrivacyPolicyMessagePage(driver);

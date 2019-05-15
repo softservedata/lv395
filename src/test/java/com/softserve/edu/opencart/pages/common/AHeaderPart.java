@@ -363,6 +363,7 @@ public abstract class AHeaderPart {
         return new RegisterPage(driver);
     }
 
+    @Step("Logout")
     public AccountLogoutPage logout() {
         clickLoggedMyAccountByPartialName(LoggedMyAccount.LOGOUT);
         return new AccountLogoutPage(driver);
