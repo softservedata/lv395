@@ -10,7 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-@Epic("Functional Testings")
+@Epic("Functional Test")
 @Feature("Register with correct data")
 public class CorrectDataTest extends ATestRunner {
 
@@ -23,7 +23,7 @@ public class CorrectDataTest extends ATestRunner {
     }
 
     @Description("Run two tests with correct boundary user values")
-    @Severity(SeverityLevel.MINOR)
+    @Severity(SeverityLevel.NORMAL)
     @Story("Go to RegisterPage, fill field with correct user data")
     @Test(dataProvider = "validMinValuesUser", description = "CheckValidRegister")
     public void checkValidRegister(IUser user) {
@@ -33,16 +33,20 @@ public class CorrectDataTest extends ATestRunner {
                 .gotoRegisterPage()
                 .successfullyRegisterUser(user);
         saveImageAttach("Actualresult");
+
         DataBaseUtils db = new DataBaseUtils();
         //Check
         Assert.assertTrue(sc.getExpectedSuccessMessage().
                 equals(sc.EXPECTED_SUCCESS_MESSAGE));
+
         //Step
         AccountLogoutPage accountLogoutPage = sc.logOut();
+
         //Check
         Assert.assertTrue(accountLogoutPage.getActualAccountLogoutMessage()
                 .equals(accountLogoutPage.EXPECTED_ACCOUNT_MESSAGE));
         Assert.assertTrue(db.isEmailInDb(user));
+
         db.userClear();
         log.debug("checkValidRegister end");
     }
