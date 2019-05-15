@@ -55,7 +55,7 @@ public class WishListProductsListComponent {
     }
 
     public void removeProductFromWishListByPartialName(String partialProductName) {
-        System.out.println("removeProductFromWishListByPartialName+++++++++++++++wishListMessagePage.getAlertMessageText()");
+        System.out.println("Item was removed !");
         getWishListProductComponentByPartialName(partialProductName)
                 .clickremoveFromWishListButton();
     }

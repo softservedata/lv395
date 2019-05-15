@@ -66,7 +66,7 @@ public class WishListProductComponent {
     }
 
     public void clickremoveFromWishListButton() {
-        System.out.println("removeProductFromWishListByPartialName+++++++++++++++wishListMessagePage.getAlertMessageText()");
+        System.out.println("Item was removed !");
         getremoveFromWishListButton().click();
     }
 }

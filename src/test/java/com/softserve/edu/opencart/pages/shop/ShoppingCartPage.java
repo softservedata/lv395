@@ -5,6 +5,7 @@ import com.softserve.edu.opencart.data.IProduct;
 import com.softserve.edu.opencart.pages.common.AStatusPart;
 import com.softserve.edu.opencart.pages.common.CheckoutPage;
 import com.softserve.edu.opencart.pages.common.HomePage;
+import com.softserve.edu.opencart.pages.shop.ProductsListComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
@@ -19,6 +20,8 @@ public class ShoppingCartPage extends AShoppingCartPage {
     private static final String PRICE_TABLE_CSSSELECTOR = ".col-sm-4.col-sm-offset-8 .table.table-bordered";
     private ShoppingCartProductsContainer shoppingCartProductsContainer;
     private TotalPriceTableComponent totalPriceTableComponent;
+    private ProductsListComponent productsListComponent;
+
 
     //
     public WebElement shoppingCartLabel;
@@ -43,6 +46,8 @@ public class ShoppingCartPage extends AShoppingCartPage {
     public ShoppingCartProductsContainer getShoppingCartProductsContainer() {
         return shoppingCartProductsContainer;
     }
+    public ProductsListComponent getProductsCartListComponent() {return productsListComponent;}
+
 
     public TotalPriceTableComponent getTotalPriceTableComponent(){
         return new TotalPriceTableComponent(driver.findElement(By.cssSelector(PRICE_TABLE_CSSSELECTOR)));
@@ -151,4 +156,21 @@ public class ShoppingCartPage extends AShoppingCartPage {
         return new CheckoutPage(driver);
     }
 
+    public ShoppingCartPage updateProductQuantityByPartialName(String partialProductCartName, String numOfItems) {
+        getProductsCartListComponent().clickQuantityProductCartByPartialName(partialProductCartName);
+        getProductsCartListComponent().clearQuantityProductCartByPartialName(partialProductCartName);
+        getProductsCartListComponent().setQuantityProductCartByPartialName(partialProductCartName, numOfItems);
+        getProductsCartListComponent().updateProductCartByPartialName(partialProductCartName);
+        return new ShoppingCartPage(driver);
+    }
+
+    public void clickProductQuantityByPartialName(String partialProductName) {
+        getProductsCartListComponent().clickQuantityProductCartByPartialName(partialProductName);
+    }
+
+    public void removeProductQuantityByPartialName(String partialProductName) {
+        getProductsCartListComponent().removeProductCartByPartialName(partialProductName);
+    }
+
+    public ProductsListComponent gotoProductsListCartComponent() {return new ProductsListComponent(driver);}
 }
