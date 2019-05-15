@@ -7,9 +7,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+/**
+ * RegisterPage.
+ */
 public class RegisterPage extends ARightLogoutPart {
 
-    //fields
+    /**
+     * Fields.
+     */
     private WebElement firstNameField;
     private WebElement lastNameField;
     private WebElement emailField;
@@ -24,12 +29,21 @@ public class RegisterPage extends ARightLogoutPart {
     private WebElement confirmPasswordField;
     private WebElement subscribeYes;
     private WebElement subscribeNo;
-    //drop downs
+
+    /**
+     * Dropdowns.
+     */
     private Select countryField;
     private Select regionField;
-    //Button
+
+    /**
+     * Button.
+     */
     private WebElement continueButton;
-    //CheckBox
+
+    /**
+     * CheckBox.
+     */
     private WebElement privacyPolicy;
 
     public RegisterPage(WebDriver driver) {
@@ -452,30 +466,50 @@ public class RegisterPage extends ARightLogoutPart {
 
     //functional
 
+    /**
+     * Fill FirstName.
+     * @param user user.
+     */
     public void fillFirstName(IUser user) {
         clickFirstNameField();
         clearFirstNameField();
         setFirstNameField(user.getFirstname());
     }
 
+    /**
+     * Fill LastName.
+     * @param user user.
+     */
     public void fillLastName(IUser user) {
         clickLastNameField();
         clearLastNameField();
         setLastNameField(user.getLastname());
     }
 
+    /**
+     * Fill Email.
+     * @param user user.
+     */
     public void fillEmail(IUser user) {
         clickEmailField();
         clearEmailField();
         setEmailField(user.getEmail());
     }
 
+    /**
+     * Fill Telephone.
+     * @param user user.
+     */
     public void fillTelephone(IUser user) {
         clickTelephoneNumberField();
         clearTelephoneNumberField();
         setTelephoneNumberField(user.getTelephone());
     }
 
+    /**
+     * Fill Fax.
+     * @param user user.
+     */
     public void fillFax(IUser user) {
         clickFaxField();
         clearFaxField();
@@ -484,6 +518,10 @@ public class RegisterPage extends ARightLogoutPart {
         }
     }
 
+    /**
+     * Fill Company.
+     * @param user user.
+     */
     public void fillCompany(IUser user) {
         clickCompanyField();
         clearCompanyField();
@@ -492,12 +530,20 @@ public class RegisterPage extends ARightLogoutPart {
         }
     }
 
+    /**
+     * Fill Adress1.
+     * @param user user.
+     */
     public void fillAddress1(IUser user) {
         clickAddress1Field();
         clearAddress1Field();
         setAddress1Field(user.getAddress1());
     }
 
+    /**
+     * Fill Adress2.
+     * @param user user.
+     */
     public void fillAddress2(IUser user) {
         clickAddress2Field();
         clearAddress2Field();
@@ -506,45 +552,73 @@ public class RegisterPage extends ARightLogoutPart {
         }
     }
 
+    /**
+     * Fill City.
+     * @param user user.
+     */
     public void fillCity(IUser user) {
         clickCityField();
         clearCityField();
         setCityField(user.getCity());
     }
 
+    /**
+     * Fill Postcode.
+     * @param user user.
+     */
     public void fillPostcode(IUser user) {
         clickPostcodeField();
         clearPostcodeField();
         setPostcodeField(user.getPostcode());
     }
 
+    /**
+     * Fill Country.
+     * @param user user.
+     */
     public void fillCountry(IUser user) {
         clickCountry();
         setCountry(user.getCountry());//?
     }
 
-    public void fillRegion (IUser user) {
+    /**
+     * Fill Region.
+     * @param user user.
+     */
+    public void fillRegion(IUser user) {
         clickRegion();
         setRegion(user.getRegion());//?
     }
 
+    /**
+     * Fill Password.
+     * @param user user.
+     */
     public void fillPassword(IUser user) {
         clickPasswordField();
         clearPasswordField();
         setPasswordField(user.getPassword());
     }
 
+    /**
+     * Fill Confirm password.
+     * @param user user.
+     */
     public void fillConfirmPassword(IUser user) {
         clickConfirmPasswordField();
         clearConfirmPasswordField();
-        if (user.getPassword() != null//?
+        if (user.getPassword() != null
                 && user.getPassword().trim().length() > 0) {
             setConfirmPasswordField(user.getPassword());
         } else {
             setConfirmPasswordField(user.getPassword());
-        }//?
+        }
     }
 
+    /**
+     * Subscribe user.
+     * @param user user.
+     */
     public void subscribe(IUser user) {
         if (user.isSubscribe()) {
             clickSubscribeYes();
@@ -553,6 +627,10 @@ public class RegisterPage extends ARightLogoutPart {
         }
     }
 
+    /**
+     * Fill Registration form.
+     * @param user
+     */
     @Step("Fill Registration Form")
     private void fillRegistrationForm(IUser user) {
         fillFirstName(user);
@@ -574,6 +652,10 @@ public class RegisterPage extends ARightLogoutPart {
         clickContinueButton();
     }
 
+    /**
+     * Fill registration form without PrivacyPolicy.
+     * @param user user.
+     */
     @Step("Fill Registration Form without PrivacyPolicy")
     private void fillRegistrationFormWithNoPrivacyPolicy(IUser user) {
         fillFirstName(user);
@@ -597,36 +679,56 @@ public class RegisterPage extends ARightLogoutPart {
 
     //Business Logic
 
-    //checkcorrectdata
+    /**
+     * Successful registration.
+     * @param validBoundaryUser validBoundaryUser.
+     * @return SuccessfullyRegisterPage.
+     */
     @Step("Correct User")
     public SuccessfullyRegisterPage successfullyRegisterUser(IUser validBoundaryUser) {
-        //valid registration
         fillRegistrationForm(validBoundaryUser);
         return new SuccessfullyRegisterPage(driver);
     }
 
-    //checkincorrectdata
-    @Step("InCorrect User")
-    public UnsuccessfullyRegisterPage userWithBadData(IUser invalidBoundaryUser) {
-        fillRegistrationForm(invalidBoundaryUser);
-        return new UnsuccessfullyRegisterPage(driver);
-    }
-
-    //empty user
+    /**
+     * Unsuccessful registration(with empty user).
+     * @param emptyFieldsUser emptyFieldsUser.
+     * @return UnsuccessfullyRegisterPage.
+     */
     @Step("Empty User")
     public UnsuccessfullyRegisterPage userWithNoData(IUser emptyFieldsUser) {
         fillRegistrationForm(emptyFieldsUser);
         return new UnsuccessfullyRegisterPage(driver);
     }
 
-    //without privacyPolicy
+    /**
+     * Unsuccessful registration(with invalid user).
+     * @param invalidBoundaryUser invalidBoundaryUser.
+     * @return UnsuccessfullyRegisterPage.
+     */
+    @Step("InCorrect User")
+    public UnsuccessfullyRegisterPage userWithBadData(IUser invalidBoundaryUser) {
+        fillRegistrationForm(invalidBoundaryUser);
+        return new UnsuccessfullyRegisterPage(driver);
+    }
+
+    /**
+     * Unsuccessful registration(with invalid user).
+     * @param validUser validUser.
+     * @return PrivacyPolicyMessagePage.
+     */
     @Step("Without PrivacyPolicy User")
     public PrivacyPolicyMessagePage userWithNoPrivacyPolicy(IUser validUser) {
         fillRegistrationFormWithNoPrivacyPolicy(validUser);
         return new PrivacyPolicyMessagePage(driver);
     }
 
-    //fields consist digits
+
+    /**
+     * Successful registration(user data with special symbols).
+     * @param userConsistsDigits userConsistsDigits.
+     * @return SuccessfullyRegisterPage.
+     */
     public SuccessfullyRegisterPage userWithConsistsDigits(IUser userConsistsDigits) {
         fillRegistrationForm(userConsistsDigits);
         return new SuccessfullyRegisterPage(driver);

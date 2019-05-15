@@ -52,5 +52,4 @@ public class EmptyDataTest extends ATestRunner {
 
         log.debug("checkIfCanRegisterWithNoDataEntered ends");
     }
-
 }

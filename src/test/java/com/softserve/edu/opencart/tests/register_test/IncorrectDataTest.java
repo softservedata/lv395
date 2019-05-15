@@ -8,8 +8,8 @@ import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import static com.softserve.edu.opencart.pages.account.UnsuccessfullyRegisterPage.*;
 
+import static com.softserve.edu.opencart.pages.account.UnsuccessfullyRegisterPage.*;
 
 @Epic("Functional Test")
 @Feature("Register with incorrect data")
@@ -50,5 +50,4 @@ public class IncorrectDataTest extends ATestRunner {
 
         log.debug("CheckInvalidRegister ends");
     }
-    //Todo if user has been created delete and throw exception
 }

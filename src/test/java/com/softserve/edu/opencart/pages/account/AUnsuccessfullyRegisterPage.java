@@ -10,5 +10,4 @@ public abstract class AUnsuccessfullyRegisterPage extends AStatusPart {
     }
 
     abstract void initElements();
-
 }
