@@ -1,6 +1,5 @@
 package com.softserve.edu.opencart.data;
 
-import java.util.List;
 
 interface IProductSearchName {
     IProductSearchBuild setProductSearchName(String productSearchName);
@@ -22,30 +21,6 @@ public class SearchFilter implements IProductSearchName,IProductSearchBuild,ISea
     private String categoryName;
     private boolean useSubcategory;
 
-//    public SearchFilter(String productSearchName, boolean useDescription, String categoryName, boolean useSubcategory) {
-//        this.productSearchName = productSearchName;
-//        this.useDescription = useDescription;
-//        this.categoryName = categoryName;
-//        this.useSubcategory = useSubcategory;
-//    }
-//
-//    // setters
-//
-//    public void setProductSearchName(String productSearchName) {
-//        this.productSearchName = productSearchName;
-//    }
-//
-//    public void setUseDescription(boolean useDescription) {
-//        this.useDescription = useDescription;
-//    }
-//
-//    public void setCategoryName(String categoryName) {
-//        this.categoryName = categoryName;
-//    }
-//
-//    public void setUseSubcategory(boolean useSubcategory) {
-//        this.useSubcategory = useSubcategory;
-//    }
 
     public static IProductSearchName get() {
         return new SearchFilter();

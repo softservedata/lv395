@@ -1,5 +1,6 @@
 package com.softserve.edu.opencart.tests.search_field_tests;
 
+import com.google.common.base.FinalizablePhantomReference;
 import com.softserve.edu.opencart.data.IProduct;
 import com.softserve.edu.opencart.data.ProductRepository;
 import com.softserve.edu.opencart.data.SearchFilter;
@@ -23,6 +24,8 @@ import java.util.List;
 @Epic("Search Testing")
 @Feature("SearchFieldTest")
 public class SearchFieldTest extends ATestRunner {
+    private final String FIND_ALL_PRODUCTS="%";
+    private final int QUANTITY_OF_CHARACTERS_FOR_STRESS_TEST=9000;
     /**
      * Here we have possible ata for positive testing search field
      *
@@ -138,8 +141,8 @@ public class SearchFieldTest extends ATestRunner {
     public void findAllProductsTest() {
         log.debug("searchNegativeData started");
         //Steps
-        SuccessfulSearchPage successfulSearchPage = loadApplication().searchProducts("%");
-        List<String> productComponents = successfulSearchPage
+        SuccessfulSearchPage successfulSearchPage = loadApplication().searchProducts(FIND_ALL_PRODUCTS);
+        List<String> productNames = successfulSearchPage
                 .getSearchCriteriaComponent()
                 .getProductsContainerComponent()
                 .getProductComponentsName();
@@ -148,11 +151,11 @@ public class SearchFieldTest extends ATestRunner {
                     .getSearchCriteriaComponent()
                     .getProductsContainerComponent()
                     .getProductComponentsName();
-            productComponents.addAll(productFromSecondPage);
+            productNames.addAll(productFromSecondPage);
         }
         //Check
         for (IProduct product : ProductRepository.getAllProducts()) {
-            Assert.assertTrue(productComponents.contains(product.getName()));
+            Assert.assertTrue(productNames.contains(product.getName()));
         }
         log.debug("searchNegativeData finished");
 
@@ -176,7 +179,7 @@ public class SearchFieldTest extends ATestRunner {
     public void stressSearchFieldTest() {
         log.debug("stressSearchFieldTest started");
         //Steps
-        String dataForField = new LongString().createLongString(9000);
+        String dataForField = new LongString().createLongString(QUANTITY_OF_CHARACTERS_FOR_STRESS_TEST);
         loadApplication().unsuccessfulSearch(dataForField);
         log.debug("stressSearchFieldTest finished");
     }
