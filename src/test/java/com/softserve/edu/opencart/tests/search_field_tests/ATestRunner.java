@@ -64,11 +64,11 @@ abstract class ATestRunner {
     @AfterMethod
     public void afterMethod(ITestResult testResult) {
         if (!testResult.isSuccess()) {
-            // TODO Add to Loggers
-            //saveImageAttach(prepareImageName());
             driver.get(SERVER_URL);
             log.info("Application loaded.");
-
+            String fileName=getFileName(testResult.getName());
+            takeScreenshot(fileName);
+            saveImageAttach(fileName);
         }
         if(testResult.getName() == "stressSearchFieldTest") {
             String fileName=getFileName("stress_test_result_page");

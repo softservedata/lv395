@@ -46,7 +46,12 @@ public class SuccessfulSearchPage extends ASearchPart {
     }
 
     public void clickPaginationIfOnSecondPageGotoPreviou() {
-        findPagination().get(1).click();
+        try {
+            findPagination().get(1).click();
+        } catch (Exception e) {
+            log.error(PAGINATION_IS_NOT_PRESENT_ON_THE_PAGE);
+            throw new ElementDoNotExistException(PAGINATION_IS_NOT_PRESENT_ON_THE_PAGE);
+        }
     }
 
     // searchCriteriaComponent
@@ -76,7 +81,7 @@ public class SuccessfulSearchPage extends ASearchPart {
     }
 
     public boolean isThereMoreThenOnePage() {
-        if (driver.findElements(By.cssSelector("ul.pagination li a")).size() > 0) {
+        if (findPagination().size() > 0) {
             return true;
         } else {
             return false;
