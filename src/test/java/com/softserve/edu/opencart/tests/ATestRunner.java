@@ -30,7 +30,7 @@ public abstract class ATestRunner {
     private final String DRIVER_ERROR = "ERROR: Chromedriver not Found";
     protected final Logger log = Logger.getLogger(this.getClass());
     // private final String SERVER_URL = "http://taqc-opencart.epizy.com";
-    private final String SERVER_URL = "http://192.168.36.134/opencart/upload/";
+    private final String SERVER_URL = "https://mail.google.com/mail/u/0/";
     protected WebDriver driver;
 
     @Step("@Step startBrowser")
