@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 @Epic("Functional Test")
 @Feature("Register without PrivacyPolicy")
 public class WithoutPrivacyPolicyTest extends ATestRunner {
+
     @DataProvider
     public Object[][] validValuesUser() {
         return new Object[][]{

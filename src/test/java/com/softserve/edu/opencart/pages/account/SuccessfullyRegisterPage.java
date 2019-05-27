@@ -5,10 +5,19 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+/**
+ * SuccessfullyRegisterPage.
+ */
 public class SuccessfullyRegisterPage extends ARightMenuPart {
 
+    /**
+     * Expected success message.
+     */
     public final String EXPECTED_SUCCESS_MESSAGE = "Your Account Has Been Created!";
 
+    /**
+     * WebElements of page.
+     */
     private WebElement continueButton;
     private WebElement logOutButton;
     private WebElement successMessage;
@@ -19,14 +28,19 @@ public class SuccessfullyRegisterPage extends ARightMenuPart {
     }
 
     private void initElements() {
-        continueButton = driver.findElement(By.cssSelector("a.btn.btn-primary"));
-        successMessage = driver.findElement(By.cssSelector("div[id='content'] > h1"));
-        logOutButton = driver.findElement(By.xpath("//*[@id=\"column-right\"]/div/a[13]"));
+        continueButton = driver.findElement(By
+                .cssSelector("a.btn.btn-primary"));
+        successMessage = driver.findElement(By
+                .cssSelector("div[id='content'] > h1"));
+        logOutButton = driver.findElement(By
+                .xpath("//*[@id=\"column-right\"]/div/a[13]"));
     }
 
     // Page Object
 
-    // continueButton
+    /**
+     * @return continueButton.
+     */
     public WebElement getContinueButton() {
         return continueButton;
     }
@@ -39,7 +53,9 @@ public class SuccessfullyRegisterPage extends ARightMenuPart {
         getContinueButton().click();
     }
 
-    //
+    /**
+     * @return successMessage.
+     */
     public WebElement getSuccessMessage() {
         return successMessage;
     }
@@ -47,8 +63,6 @@ public class SuccessfullyRegisterPage extends ARightMenuPart {
     public String getExpectedSuccessMessage() {
         return getSuccessMessage().getText();
     }
-
-    //TODO logout button for CorrectDataTest
 
     public WebElement getLogOutButton() {
         return logOutButton;
@@ -58,12 +72,18 @@ public class SuccessfullyRegisterPage extends ARightMenuPart {
         getLogOutButton().click();
     }
 
+    /**
+     * Logout.
+     */
     @Step("Logout")
     public AccountLogoutPage logOut() {
         clickLogOutButton();
         return new AccountLogoutPage(driver);
     }
 
+    /**
+     * @return AccountLogoutPage;
+     */
     public AccountLogoutPage continueAccountLogoutPage() {
         clickContinueButton();
         return new AccountLogoutPage(driver);

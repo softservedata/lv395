@@ -223,6 +223,25 @@ public final class UserRepository {
                 .build();
     }
 
+    public IUser wishUser() {
+        return User.get()
+                .setFirstname("8_firstname")
+                .setLastname("8_lastname")
+                .setEmail("garasym@gmail.com")
+                .setTelephone("8_telephone")
+                .setAddress1("8_address1")
+                .setCity("8_city")
+                .setPostcode("8_postcode")
+                .setCountry("8_country")
+                .setRegion("8_region")
+                .setPassword("qwerty")
+                .setSubscribe(true)
+                .setFax("")
+                .setCompany("8_company")
+                .setAddress2("8_address2")
+                .build();
+    }
+
     // TODO
     //public List<IUser> fromExcel() {}
     //public List<IUser> fromDB() { create class, read, max 5-7 lines}

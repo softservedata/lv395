@@ -30,7 +30,7 @@ public final class DataBaseUtils {
      */
     // private static final String DATABASE_PARTIAL_URL = "192.168.227.130:3306";
     // private final String DATABASE_PARTIAL_URL = "192.168.239.128:3306";
-    private final String DATABASE_PARTIAL_URL = "192.168.11.129:3306";
+    private final String DATABASE_PARTIAL_URL = "192.168.239.128";
     private final String DB_URL = "jdbc:mysql://" + DATABASE_PARTIAL_URL + "/opencart?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnect=true&useSSL=false";
     private final String PRODUCT_QUANTITY_STATEMENT = "select oc_product.quantity as quantity from oc_product " +
             "inner join oc_product_description on oc_product.product_id = oc_product_description.product_id" +

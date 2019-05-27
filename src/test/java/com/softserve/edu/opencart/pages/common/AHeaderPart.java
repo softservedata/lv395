@@ -4,14 +4,13 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import com.softserve.edu.opencart.data.SearchFilter;
-import com.softserve.edu.opencart.pages.account.AccountLogoutPage;
-import com.softserve.edu.opencart.pages.account.LoginPage;
-import com.softserve.edu.opencart.pages.account.RegisterPage;
+import com.softserve.edu.opencart.pages.account.*;
 import com.softserve.edu.opencart.pages.shop.CartProductContainer;
 import com.softserve.edu.opencart.pages.shop.EmptyCartComponent;
 import com.softserve.edu.opencart.pages.shop.ShoppingCartPage;
 import com.softserve.edu.opencart.pages.shop.ShoppingCartProductsContainer;
 
+import com.softserve.edu.opencart.tools.StringHandler;
 import com.softserve.edu.opencart.tools.utils_for_search_field.PageDoesNotExistException;
 import io.qameta.allure.Step;
 import org.apache.log4j.Logger;
@@ -119,6 +118,10 @@ public abstract class AHeaderPart {
 
     public void clickWishList() {
         getWishList().click();
+    }
+
+    public int getWishListNumber() {
+        return StringHandler.extractFirstNumber(getWishListText());
     }
 
     // shoppingCart;
@@ -278,6 +281,14 @@ public abstract class AHeaderPart {
 //        }
 //        return weAreOnHomePage;
 //    }
+
+    public WishListPage gotoWishListPage() {
+        return new WishListPage(driver);
+    }
+
+    public WishListEmptyPage gotoEmptyWishListPage() {
+        return new WishListEmptyPage(driver);
+    }
 //
     public void fillField(String text) {
         fillSearchField(text);
