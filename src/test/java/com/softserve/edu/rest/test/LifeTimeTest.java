@@ -1,6 +1,7 @@
 package com.softserve.edu.rest.test;
 
 
+import org.powermock.api.mockito.PowerMockito;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -9,6 +10,9 @@ import com.softserve.edu.rest.data.Lifetime;
 import com.softserve.edu.rest.data.LifetimeRepository;
 import com.softserve.edu.rest.data.User;
 import com.softserve.edu.rest.data.UserRepository;
+import com.softserve.edu.rest.engine.LoginResource;
+import com.softserve.edu.rest.engine.TokenlifetimeResource;
+import com.softserve.edu.rest.entity.SimpleEntity;
 import com.softserve.edu.rest.service.AdminService;
 import com.softserve.edu.rest.service.GuestService;
 
@@ -21,7 +25,7 @@ public class LifeTimeTest {
         };
     }
 
-    @Test(dataProvider = "updateLifeTime")
+    //@Test(dataProvider = "updateLifeTime")
     public void checkLoginReport(User adminUser, Lifetime lifetime) {
         //
         // Steps
@@ -52,5 +56,28 @@ public class LifeTimeTest {
         guestService = adminService.LogoutUser();
         //System.out.println("adminUser.getToken() = " + adminUser.getToken());
         Assert.assertTrue(adminUser.getToken().isEmpty());
+    }
+    
+    @Test(dataProvider = "updateLifeTime")
+    public void checkLoginMock(User adminUser, Lifetime lifetime) throws Exception {
+        //
+        // Mock Object
+        LoginResource loginResource = PowerMockito.mock(LoginResource.class);
+        //
+        TokenlifetimeResource tokenlifetimeResource = PowerMockito.mock(TokenlifetimeResource.class);
+        PowerMockito.when(tokenlifetimeResource.httpGetAsEntity(null, null))
+                .thenReturn(new SimpleEntity(LifetimeRepository.DEFAULT_TOKEN_LIFETIME));
+        // TODO
+        //PowerMockito.whenNew(TokenlifetimeResource.class).withNoArguments().thenReturn(tokenlifetimeResource);
+        //
+        // Steps
+        //GuestService guestService = new GuestService();
+        GuestService guestService = new GuestService(loginResource, tokenlifetimeResource);
+        Lifetime currentLifetime = guestService.getCurrentLifetime();
+        System.out.println("\tStarted currentLifetime = " + currentLifetime);
+        Assert.assertEquals(currentLifetime.getTimeAsString(),
+                LifetimeRepository.DEFAULT_TOKEN_LIFETIME);
+        //
+        //PowerMockito.verify(tokenlifetimeResource).getPriceBySku(SKU);
     }
 }

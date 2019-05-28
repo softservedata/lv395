@@ -7,6 +7,7 @@ public class TokenlifetimeResource extends RestQueries<SimpleEntity> {
 
     public TokenlifetimeResource() {
         super(RestUrlRepository.getTokenLifetime(), SimpleEntity.class);
+        System.out.println("***** public TokenlifetimeResource()");
     }
 
 }
