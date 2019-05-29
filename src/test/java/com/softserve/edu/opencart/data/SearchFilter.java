@@ -14,7 +14,8 @@ interface IProductSearchBuild{
 
     ISearchFilter build();
 }
-public class SearchFilter implements IProductSearchName,IProductSearchBuild,ISearchFilter{
+public class SearchFilter implements IProductSearchName,IProductSearchBuild,
+        ISearchFilter{
 
     private String productSearchName;
     private boolean useDescription;

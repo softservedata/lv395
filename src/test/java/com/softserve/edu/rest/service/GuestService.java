@@ -42,9 +42,16 @@ public class GuestService {
 //    {
 //    }
 //
-//    public void SuccessfulUserLogin(IUser user)
-//    {
-//    }
+    public UserService SuccessfulUserLogin(User user) {
+        RestParameters bodyParameters=new RestParameters()
+                .addParameter("name", user.getName())
+                .addParameter("password",user.getPassword());
+        SimpleEntity simpleEntity = loginResource
+                .httpPostAsEntity(null, null, bodyParameters);
+        checkEntity(simpleEntity, "Error Login");
+        user.setToken(simpleEntity.getContent());
+        return new UserService(user);
+    }
 
     public AdminService SuccessfulAdminLogin(User adminUser) {
         RestParameters bodyParameters = new RestParameters()

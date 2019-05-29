@@ -17,7 +17,6 @@ import java.util.List;
 public class SuccessfulSearchPage extends ASearchPart {
     protected final Logger log = Logger.getLogger(this.getClass());
     private SearchCriteriaComponent searchCriteriaComponent;
-    private WebElement secondPage;
     private final String PAGINATION_IS_NOT_PRESENT_ON_THE_PAGE = "Pagination is not present on the page!!!!";
 
 

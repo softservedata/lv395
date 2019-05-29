@@ -302,9 +302,9 @@ public abstract class AHeaderPart {
     }
 
     public SuccessfulSearchPage searchProducts(SearchFilter searchItems) {
+        fillSearchField(searchItems.getProductSearchName());
+        clickSearchButton();
         try {
-            fillSearchField(searchItems.getProductSearchName());
-            clickSearchButton();
             return new SuccessfulSearchPage(driver);
         } catch (Exception e) {
             log.error(PAGE_DO_NOT_EXIST);
@@ -314,9 +314,9 @@ public abstract class AHeaderPart {
 
     @Step("Step: search some product")
     public SuccessfulSearchPage searchProducts(String searchItem) {
+        fillSearchField(searchItem);
+        clickSearchButton();
         try {
-            fillSearchField(searchItem);
-            clickSearchButton();
             return new SuccessfulSearchPage(driver);
         } catch (Exception e) {
             log.error(PAGE_DO_NOT_EXIST);
@@ -326,9 +326,9 @@ public abstract class AHeaderPart {
 
     @Step("Step: goto search page")
     public UnsuccessfulSearchPage gotoSearchPageWithFilters() {
+        fillSearchField("");
+        clickSearchButton();
         try {
-            fillSearchField("");
-            clickSearchButton();
             return new UnsuccessfulSearchPage(driver);
         } catch (Exception e) {
             log.error(PAGE_DO_NOT_EXIST);
@@ -338,9 +338,9 @@ public abstract class AHeaderPart {
 
     @Step("Step: search some incorrect thing")
     public UnsuccessfulSearchPage unsuccessfulSearch(String text){
+        fillSearchField(text);
+        clickSearchButton();
         try {
-            fillSearchField(text);
-            clickSearchButton();
             return new UnsuccessfulSearchPage(driver);
         } catch (Exception e) {
             log.error(PAGE_DO_NOT_EXIST);
@@ -348,14 +348,6 @@ public abstract class AHeaderPart {
         }
     }
 
-    public UnsuccessfulSearchPage unsuccessfulSearch(SearchFilter invalidSearchItems)  {
-        try {
-            return unsuccessfulSearch(invalidSearchItems.getProductSearchName());
-        } catch (Exception e) {
-            log.error(PAGE_DO_NOT_EXIST);
-            throw new PageDoesNotExistException(PAGE_DO_NOT_EXIST);
-        }
-    }
 
     public ShoppingCartPage gotoShoppingCartPage() {
         clickShoppingCart();

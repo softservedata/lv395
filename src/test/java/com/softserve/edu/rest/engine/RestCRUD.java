@@ -30,6 +30,8 @@ public abstract class RestCRUD {
 
     private String prepareUrlParameters(String urlTemplate, RestParameters urlParameters) {
         String url = urlTemplate;
+       //System.out.println(urlParameters.getAllParameters().size());
+        System.out.println(urlParameters==null);
         if (urlParameters != null) {
             boolean isFirstParameter = true;
             for (String currentKey : urlParameters.getAllParameters().keySet()) {

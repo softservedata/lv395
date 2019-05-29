@@ -15,6 +15,7 @@ public final class RestUrlRepository {
         RestUrlRepository.server = server;
     }
 
+
     // Resource Loggined User
     public static RestUrl getLogin() {
         return new RestUrl()
@@ -43,5 +44,22 @@ public final class RestUrlRepository {
                 .addUriPut("tokenlifetime/")
                 .addUriDelete("");
     }
+    public static RestUrl getUser(){
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriGet("user/")
+                .addUriPost("user/")
+                .addUriPut("user/")
+                .addUriDelete("user/");
+    }
+
+//    public static RestUrl getAdmin(){
+//        return new RestUrl()
+//                .addUrlServer(server)
+//                .addUriGet("user/")
+//                .addUriPost("user/")
+//                .addUriPut("user/")
+//                .addUriDelete("user/");
+//    }
 
 }

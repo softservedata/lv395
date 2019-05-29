@@ -9,6 +9,8 @@ public abstract class RestQueries<T> extends RestCRUD {
     private Class<T> clazz;
     private Gson gson;
 
+
+
     protected RestQueries(RestUrl restUrl, Class<T> clazz) {
         super(restUrl);
         this.clazz = clazz;  // TODO Get Class<T> from <T>

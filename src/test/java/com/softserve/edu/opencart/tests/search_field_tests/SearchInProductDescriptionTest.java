@@ -106,12 +106,16 @@ public class SearchInProductDescriptionTest extends ATestRunner {
             "We are expecting to see product ,that" +
             "we are looking for on the page")
     @Story("Valid data for searching")
-    public void searchInProductDescriptionPositiveTest(String productWeWantToFind, SearchFilter searchFilterWeUse){
+    public void searchInProductDescriptionPositiveTest(String productWeWantToFind,
+                                                       SearchFilter searchFilterWeUse){
+        //Steps
         ProductsContainerComponent productsOnThePage=loadApplication()
                 .gotoSearchPageWithFilters()
                 .searchProductsByFilter(searchFilterWeUse)
                 .getSearchCriteriaComponent()
                 .getProductsContainerComponent();
+
+        //Check
         Assert.assertTrue(productsOnThePage.isProductOnThePage(productWeWantToFind));
     }
 
@@ -132,8 +136,9 @@ public class SearchInProductDescriptionTest extends ATestRunner {
     @Story("Invalid data for searching")
     public void searchInProductDescriptionNegativeTest()  {
         ProductsContainerComponent productsOnThePage=loadApplication()
-                .searchProducts(ProductRepository.getCanonEOS5D().getName())
-                .searchProductsByFilter(SearchFilterRepository.getCanonIncorrectData())
+                .gotoSearchPageWithFilters()
+                .searchProductsByFilter(SearchFilterRepository
+                        .getCanonIncorrectData())
                 .getSearchCriteriaComponent()
                 .getProductsContainerComponent();
         Assert.assertFalse(productsOnThePage

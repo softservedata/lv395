@@ -7,7 +7,7 @@ public class RestParameters {
     private Map<String, String> parameters;
 
     public RestParameters() {
-        parameters = new HashMap<>();
+        parameters = new HashMap<> ();
     }
 
     public RestParameters addParameter(String key, String value) {

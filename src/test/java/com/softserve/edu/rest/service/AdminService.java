@@ -30,5 +30,16 @@ public class AdminService extends UserService {
         checkEntity(simpleEntity, "Error Update Tokenlifetime");
         return this;
     }
+    public String getAdminName() {
+        RestParameters urlParameters = new RestParameters()
+                .addParameter("token",user.getToken());
+        SimpleEntity simpleEntity = userResource
+                .httpGetAsEntity(null, urlParameters);
+        checkEntity(simpleEntity, user.getName());
+        return simpleEntity.getContent();
+    }
+    public void createUser(){
+
+    }
 
 }

@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 abstract class ATestRunner {
     private final String DRIVER_ERROR = "ERROR: Chromedriver not Found";
-    private final String SERVER_URL = "http://192.168.36.134/opencart/upload/";
+    private final String SERVER_URL = "http://192.168.36.132/opencart/upload/";
     private final String FILE_HAS_NOT_BEEN_CREATED = "File hasn`t been created";
     protected final Logger log = Logger.getLogger(this.getClass());
     protected WebDriver driver;

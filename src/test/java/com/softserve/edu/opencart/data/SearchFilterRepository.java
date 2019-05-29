@@ -83,14 +83,16 @@ public final class SearchFilterRepository {
 
     //some elements
     public static ISearchFilter getBySomeElement() {
-        return SearchFilter.get().setProductSearchName("\uF04A").isUseDescription(true).build();
+        return SearchFilter.get().setProductSearchName("\uF04A")
+                .isUseDescription(true).build();
     }
 
 
     //-----------------------------------------------data for search in product description---------------------------
 
     public static ISearchFilter getCanonFromName() {
-        return SearchFilter.get().setProductSearchName("Canon").isUseDescription(true).build();
+        return SearchFilter.get().setProductSearchName("Canon")
+                .isUseDescription(true).build();
     }
     public static ISearchFilter getCanonFromDescription(){
         return SearchFilter.get().
@@ -99,7 +101,8 @@ public final class SearchFilterRepository {
                 isUseDescription(true).build();
     }
     public static ISearchFilter getCanonIncorrectData(){
-        return SearchFilter.get().setProductSearchName("iphone").isUseDescription(true).build();
+        return SearchFilter.get().setProductSearchName("iphone")
+                .isUseDescription(true).build();
     }
 
 
@@ -107,15 +110,21 @@ public final class SearchFilterRepository {
 
 
     public static ISearchFilter getMacSimple() {
-        return SearchFilter.get().setProductSearchName("mac").isUseDescription(false).setCategoryName(new String()).isUseSubcategory(false).build();
+        return SearchFilter.get().setProductSearchName("mac")
+                .isUseDescription(false).setCategoryName(new String())
+                .isUseSubcategory(false).build();
     }
 
     public static ISearchFilter getMacWithFilter() {
-        return SearchFilter.get().setProductSearchName("mac").isUseDescription(true).setCategoryName("Desktops").isUseSubcategory(true).build();
+        return SearchFilter.get().setProductSearchName("mac")
+                .isUseDescription(true).setCategoryName("Desktops")
+                .isUseSubcategory(true).build();
     }
 
     public static ISearchFilter getFromDescription() {
-        return SearchFilter.get().setProductSearchName("i").isUseDescription(true).setCategoryName(new String()).isUseSubcategory(false).build();
+        return SearchFilter.get().setProductSearchName("i")
+                .isUseDescription(true).setCategoryName(new String())
+                .isUseSubcategory(false).build();
     }
 
 

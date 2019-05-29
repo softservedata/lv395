@@ -53,13 +53,17 @@ public final class ProductRepository {
 
     public static IProduct getAppleCinema() {
         return Product.get().setName("Apple Cinema 30\"")
-                .setDescription("The 30-inch Apple Cinema HD Display delivers an amazing 2560 x 1600 pixel resolution. Designed sp..")
+                .setDescription("The 30-inch Apple Cinema HD Display " +
+                        "delivers an amazing 2560 x 1600 pixel resolution." +
+                        " Designed sp..")
                 .setPriceDollarExTax("110.00")
                 .build();
     }
     public static IProduct getCanonEOS5D(){
         return Product.get().setName("Canon EOS 5D")
-                .setDescription("Canon's press material for the EOS 5D states that it 'defines (a) new D-SLR category', while we'r..")
+                .setDescription("Canon's press material for the" +
+                        " EOS 5D states that it 'defines (a) new " +
+                        "D-SLR category', while we'r..")
                 .setPriceDollarExTax("98.00")
                 .build();
     }
@@ -85,7 +89,9 @@ public final class ProductRepository {
             categories.add("Laptops & Notebooks");
             categories.add(" Desktops");
         return Product.get().setName("Sony VAIO")
-                .setDescription("Unprecedented power. The next generation of processing technology has arrived. Built into the new..")
+                .setDescription("Unprecedented power. The next" +
+                        " generation of processing technology has" +
+                        " arrived. Built into the new..")
                 .setPriceDollarExTax("1,202.00")
                 .setCategories(categories)
                 .build();

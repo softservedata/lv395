@@ -1,6 +1,6 @@
 package com.softserve.edu.rest.data;
 
-public final class UserRepository {
+public final class  UserRepository {
 
     private UserRepository() {
     }
@@ -9,4 +9,5 @@ public final class UserRepository {
         return new User("admin", "qwerty")
                 .addItem(new Item(0, "My data"));
     }
+
 }
