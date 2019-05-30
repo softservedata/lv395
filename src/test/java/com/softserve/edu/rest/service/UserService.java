@@ -59,6 +59,11 @@ public class UserService extends GuestService {
 //                .httpPutAsEntity(null, null, bodyParameters);
 //        //checkEntity(simpleEntity, user.getPassword());
 //        return simpleEntity.getContent();
+
+
+//    public String changePassword(){
+//        RestParameters urlParameters = new RestParameters()
+//                .addParameter("token",user.getToken());
 //    }
 
 

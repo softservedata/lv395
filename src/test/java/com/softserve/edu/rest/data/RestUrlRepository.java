@@ -58,6 +58,12 @@ public final class RestUrlRepository {
                 .addUriGet("users/");
     }
 
+    public static RestUrl getCooldownTime(){
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriGet("/cooldowntime")
+                .addUriPut("/cooldowntime");
+    }
     public static RestUrl getLockedAdmins() {
         return new RestUrl()
                 .addUrlServer(server)
@@ -70,38 +76,22 @@ public final class RestUrlRepository {
                 .addUriGet("locked/users");
     }
 
-    public static RestUrl lockUser() {
+    public static RestUrl lockUnlockUser() {
         return new RestUrl()
                 .addUrlServer(server)
-                .addUriPost("locked/user/");
+                .addUriPost("locked/user/")
+                .addUriPut("locked/user/");
     }
 
-    public static RestUrl unlockUser() {
+    /*public static RestUrl unlockUser() {
         return new RestUrl()
                 .addUrlServer(server)
                 .addUriPut("locked/user/");
-    }
+    }*/
 
     public static RestUrl unlockAllUsers() {
         return new RestUrl()
                 .addUrlServer(server)
                 .addUriPut("/locked/reset");
-    }
-
-    public static RestUrl getAdmins(){
-        return new RestUrl()
-                .addUrlServer(server)
-                .addUriGet("/admins");
-    }
-    public static RestUrl getLoginAdmins(){
-        return new RestUrl()
-                .addUrlServer(server)
-                .addUriGet("login/admins");
-    }
-
-    public static RestUrl getLoggedUsers(){
-        return new RestUrl()
-                .addUrlServer(server)
-                .addUriGet("/login/users");
     }
 }
