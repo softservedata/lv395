@@ -10,6 +10,7 @@ public class User {
     private String password;
     private String token;
     private List<Item> items;
+    private boolean adminRights;
 
     // TODO Develop Builder
     public User(String name, String password) {
@@ -19,6 +20,11 @@ public class User {
     }
 
     // setters
+
+    public User setAdminRights(boolean adminRights) {
+        this.adminRights = adminRights;
+        return this;
+    }
 
     public User setToken(String token) {
         this.token = token;
@@ -44,13 +50,22 @@ public class User {
         return token;
     }
 
+    public boolean isAdminRights() {
+        return adminRights;
+    }
+
     public List<Item> getItems() {
         return items;
     }
 
     @Override
     public String toString() {
-        return "User [name=" + name + ", password=" + password + ", token=" + token + "]";
+        return "User{" +
+                "name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", token='" + token + '\'' +
+                ", items=" + items +
+                ", adminRights=" + adminRights +
+                '}';
     }
-
 }

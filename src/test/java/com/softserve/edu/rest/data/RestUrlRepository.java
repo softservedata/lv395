@@ -52,6 +52,11 @@ public final class RestUrlRepository {
                 .addUriPut("user/")
                 .addUriDelete("user/");
     }
+    public static RestUrl getUsers(){
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriGet("users/");
+    }
 
 //    public static RestUrl getAdmin(){
 //        return new RestUrl()

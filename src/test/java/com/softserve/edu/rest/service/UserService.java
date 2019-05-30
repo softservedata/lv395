@@ -1,11 +1,8 @@
 package com.softserve.edu.rest.service;
 
 import com.softserve.edu.rest.data.User;
-import com.softserve.edu.rest.engine.LoginResource;
-import com.softserve.edu.rest.engine.LogoutResource;
-import com.softserve.edu.rest.engine.TokenlifetimeResource;
+import com.softserve.edu.rest.engine.*;
 
-import com.softserve.edu.rest.engine.UserResource;
 import com.softserve.edu.rest.entity.RestParameters;
 import com.softserve.edu.rest.entity.SimpleEntity;
 
@@ -14,11 +11,13 @@ public class UserService extends GuestService {
     protected LogoutResource logoutResource;
     protected UserResource userResource;
     protected User user;
+    protected UsersResourse usersResourse;
 
     public UserService(User user) {
         // super(); // by default
         logoutResource = new LogoutResource();
         userResource = new UserResource();
+        usersResourse = new UsersResourse();
         this.user = user;
     }
 
@@ -50,6 +49,10 @@ public class UserService extends GuestService {
         checkEntity(simpleEntity, user.getName());
         return simpleEntity.getContent();
     }
+//    public String changePassword(){
+//        RestParameters urlParameters = new RestParameters()
+//                .addParameter("token",user.getToken());
+//    }
 
 
 }
