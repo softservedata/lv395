@@ -64,5 +64,33 @@ public final class RestUrlRepository {
                 .addUriGet("/cooldowntime")
                 .addUriPut("/cooldowntime");
     }
+    public static RestUrl getLockedAdmins() {
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriGet("locked/admins");
+    }
 
+    public static RestUrl getLockedUsers() {
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriGet("locked/users");
+    }
+
+    public static RestUrl lockUser() {
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriPost("locked/user/");
+    }
+
+    public static RestUrl unlockUser() {
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriPut("locked/user/");
+    }
+
+    public static RestUrl unlockAllUsers() {
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriPut("/locked/reset");
+    }
 }
