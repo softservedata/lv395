@@ -58,13 +58,11 @@ public final class RestUrlRepository {
                 .addUriGet("users/");
     }
 
-//    public static RestUrl getAdmin(){
-//        return new RestUrl()
-//                .addUrlServer(server)
-//                .addUriGet("user/")
-//                .addUriPost("user/")
-//                .addUriPut("user/")
-//                .addUriDelete("user/");
-//    }
+    public static RestUrl getCooldownTime(){
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriGet("/cooldowntime")
+                .addUriPut("/cooldowntime");
+    }
 
 }
