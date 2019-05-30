@@ -25,7 +25,7 @@ public class loginTest {
         UserService userService=guestService.SuccessfulUserLogin(user);
 
         //Check
-        Assert.assertNotEquals(user.getToken(),"");
+        Assert.assertTrue(user.isLogin());
     }
 
     @DataProvider // (parallel = true)
@@ -43,7 +43,7 @@ public class loginTest {
         UserService userService=guestService.SuccessfulUserLogin(user);
         System.out.println(user.getToken());
         //Check
-        Assert.assertFalse(user.checkToken());
+        Assert.assertFalse(user.isLogin());
     }
 //    @DataProvider // (parallel = true)
 //    public Object[][] loginDataForUsers() {

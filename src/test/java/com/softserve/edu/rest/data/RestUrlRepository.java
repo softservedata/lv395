@@ -94,4 +94,22 @@ public final class RestUrlRepository {
                 .addUrlServer(server)
                 .addUriPut("/locked/reset");
     }
+    public static RestUrl getAdmins() {
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriPut("/admins");
+    }
+
+
+    public static RestUrl getLoginAdmins() {
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriPut("login/admins");
+    }
+    public static RestUrl getLoggedUsers() {
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriPut("login/users");
+    }
 }
+

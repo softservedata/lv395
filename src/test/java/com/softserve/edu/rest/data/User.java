@@ -20,15 +20,15 @@ public class User {
         adminRights = false;
     }
 
-    public boolean checkToken() {
-        if (this.token.equals("ERROR, user locked") ||
-                this.token.equals("ERROR, user not found")||
+
+    public boolean isLogin() {
+        if (this.getToken().equals("ERROR, user locked") ||
+                this.getToken().equals("ERROR, user not found") ||
                 this.getToken().equals("")) {
             return false;
         }
         return true;
     }
-
     // setters
 
     public User setAdminRights(boolean adminRights) {
