@@ -2,22 +2,27 @@ package com.softserve.edu.rest.service;
 
 import com.softserve.edu.rest.data.Lifetime;
 import com.softserve.edu.rest.data.User;
-import com.softserve.edu.rest.engine.LoginResource;
-import com.softserve.edu.rest.engine.TokenlifetimeResource;
-import com.softserve.edu.rest.engine.UserResource;
+import com.softserve.edu.rest.engine.*;
 import com.softserve.edu.rest.entity.RestParameters;
+import com.softserve.edu.rest.entity.SimpleArrayEntity;
 import com.softserve.edu.rest.entity.SimpleEntity;
 
 public class AdminService extends UserService {
 
+    private AdminsResource adminsResource;
+    private LoggedAdminsResource loggedAdminsResource;
+    private LoggedUsersResource loggedUsersResource;
 
     public AdminService(User user) {
         super(user);
+        adminsResource=new AdminsResource();
+        loggedAdminsResource=new LoggedAdminsResource();
+        loggedUsersResource=new LoggedUsersResource();
     }
 
     public AdminService(LoginResource loginResource,
-            TokenlifetimeResource tokenlifetimeResource,
-            User user) {
+                        TokenlifetimeResource tokenlifetimeResource,
+                        User user) {
         super(loginResource, tokenlifetimeResource, user);
     }
 
@@ -32,7 +37,8 @@ public class AdminService extends UserService {
         checkEntity(simpleEntity, "Error Update Tokenlifetime");
         return this;
     }
-//    public String getAdminName() {
+
+    //    public String getAdminName() {
 //        RestParameters urlParameters = new RestParameters()
 //                .addParameter("token",user.getToken());
 //        SimpleEntity simpleEntity = userResource
@@ -40,23 +46,50 @@ public class AdminService extends UserService {
 //        checkEntity(simpleEntity, user.getName());
 //        return simpleEntity.getContent();
 //    }
-    public String createUser(String name, String password){
+    public String createUser(String name, String password) {
         RestParameters bodyParameters = new RestParameters()
-                .addParameter("token",user.getToken())
-                .addParameter("name",name)
-                .addParameter("password",password);
+                .addParameter("token", user.getToken())
+                .addParameter("name", name)
+                .addParameter("password", password);
         SimpleEntity simpleEntity = userResource.
-                httpPostAsEntity(null,null,bodyParameters);
+                httpPostAsEntity(null, null, bodyParameters);
 
-        checkEntity(simpleEntity,"true");
+        checkEntity(simpleEntity, "true");
         return simpleEntity.getContent();
 
     }
-    public String getAllUsers(){
+
+    public String getAllUsers() {
         RestParameters urlParameters = new RestParameters()
-                .addParameter("token",user.getToken());
+                .addParameter("token", user.getToken());
         SimpleEntity simpleEntity = usersResourse.httpGetAsEntity(null, urlParameters);
         return simpleEntity.getContent();
     }
 
+    public String removeUser(String removedName) {
+        RestParameters urlParameters = new RestParameters()
+                .addParameter("token", user.getToken())
+                .addParameter("name", removedName);
+        SimpleEntity simpleEntity = userResource.httpDeleteAsEntity(null, urlParameters, null);
+        return simpleEntity.getContent();
+    }
+    public String getAllAdmins() {
+        RestParameters urlParameters = new RestParameters()
+                .addParameter("token", user.getToken());
+        SimpleEntity simpleEntity = adminsResource.httpGetAsEntity(null, urlParameters);
+        return simpleEntity.getContent();
+    }
+
+    public String getAllLoggedAdmins() {
+        RestParameters urlParameters = new RestParameters()
+                .addParameter("token", user.getToken());
+        SimpleEntity simpleEntity = loggedAdminsResource.httpGetAsEntity(null, urlParameters);
+        return simpleEntity.getContent();
+    }
+    public String getAllLoggedUsers() {
+        RestParameters urlParameters = new RestParameters()
+                .addParameter("token", user.getToken());
+        SimpleEntity simpleEntity = loggedUsersResource.httpGetAsEntity(null, urlParameters);
+        return simpleEntity.getContent();
+    }
 }

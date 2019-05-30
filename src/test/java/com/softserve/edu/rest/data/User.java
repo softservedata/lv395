@@ -17,6 +17,16 @@ public class User {
         this.name = name;
         this.password = password;
         items = new ArrayList<>();
+        adminRights = false;
+    }
+
+    public boolean checkToken() {
+        if (this.token.equals("ERROR, user locked") ||
+                this.token.equals("ERROR, user not found")||
+                this.getToken().equals("")) {
+            return false;
+        }
+        return true;
     }
 
     // setters
@@ -57,6 +67,7 @@ public class User {
     public List<Item> getItems() {
         return items;
     }
+
 
     @Override
     public String toString() {

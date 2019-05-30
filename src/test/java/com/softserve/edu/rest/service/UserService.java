@@ -43,15 +43,22 @@ public class UserService extends GuestService {
 
     public String getUserName() {
         RestParameters urlParameters = new RestParameters()
-                .addParameter("token",user.getToken());
+                .addParameter("token", user.getToken());
         SimpleEntity simpleEntity = userResource
                 .httpGetAsEntity(null, urlParameters);
         checkEntity(simpleEntity, user.getName());
         return simpleEntity.getContent();
     }
-//    public String changePassword(){
-//        RestParameters urlParameters = new RestParameters()
-//                .addParameter("token",user.getToken());
+
+//    public String changePassword(String newPassword) {
+//        RestParameters bodyParameters = new RestParameters()
+//                .addParameter("token", user.getToken())
+//                .addParameter("oldpassword", user.getPassword())
+//                .addParameter("newpassword", newPassword);
+//        SimpleEntity simpleEntity = userResource
+//                .httpPutAsEntity(null, null, bodyParameters);
+//        //checkEntity(simpleEntity, user.getPassword());
+//        return simpleEntity.getContent();
 //    }
 
 

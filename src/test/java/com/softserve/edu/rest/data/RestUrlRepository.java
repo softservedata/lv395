@@ -88,13 +88,20 @@ public final class RestUrlRepository {
                 .addUriPut("/locked/reset");
     }
 
-//    public static RestUrl getAdmin(){
-//        return new RestUrl()
-//                .addUrlServer(server)
-//                .addUriGet("user/")
-//                .addUriPost("user/")
-//                .addUriPut("user/")
-//                .addUriDelete("user/");
-//    }
+    public static RestUrl getAdmins(){
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriGet("/admins");
+    }
+    public static RestUrl getLoginAdmins(){
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriGet("login/admins");
+    }
 
+    public static RestUrl getLoggedUsers(){
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriGet("/login/users");
+    }
 }
