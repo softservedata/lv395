@@ -11,6 +11,8 @@ public class User {
     private String token;
     private List<Item> items;
     private boolean adminRights;
+    private final String ERROR_USER_LOCKED="ERROR, user locked";
+    private final String ERROR_USER_NOT_FOUND="ERROR, user not found";
 
     // TODO Develop Builder
     public User(String name, String password) {
@@ -21,9 +23,9 @@ public class User {
     }
 
 
-    public boolean isLogin() {
-        if (this.getToken().equals("ERROR, user locked") ||
-                this.getToken().equals("ERROR, user not found") ||
+    public boolean isUserLogined() {
+        if (this.getToken().equals(ERROR_USER_LOCKED) ||
+                this.getToken().equals(ERROR_USER_NOT_FOUND) ||
                 this.getToken().equals("")) {
             return false;
         }
