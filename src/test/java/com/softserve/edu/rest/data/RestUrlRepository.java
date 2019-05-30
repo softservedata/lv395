@@ -76,17 +76,18 @@ public final class RestUrlRepository {
                 .addUriGet("locked/users");
     }
 
-    public static RestUrl lockUser() {
+    public static RestUrl lockUnlockUser() {
         return new RestUrl()
                 .addUrlServer(server)
-                .addUriPost("locked/user/");
+                .addUriPost("locked/user/")
+                .addUriPut("locked/user/");
     }
 
-    public static RestUrl unlockUser() {
+    /*public static RestUrl unlockUser() {
         return new RestUrl()
                 .addUrlServer(server)
                 .addUriPut("locked/user/");
-    }
+    }*/
 
     public static RestUrl unlockAllUsers() {
         return new RestUrl()
