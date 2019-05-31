@@ -23,14 +23,6 @@ public class User {
     }
 
 
-    public boolean isUserLogined() {
-        if (this.getToken().equals(ERROR_USER_LOCKED) ||
-                this.getToken().equals(ERROR_USER_NOT_FOUND) ||
-                this.getToken().equals("")) {
-            return false;
-        }
-        return true;
-    }
     // setters
 
     public User setAdminRights(boolean adminRights) {

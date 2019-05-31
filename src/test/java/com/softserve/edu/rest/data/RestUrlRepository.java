@@ -97,19 +97,19 @@ public final class RestUrlRepository {
     public static RestUrl getAdmins() {
         return new RestUrl()
                 .addUrlServer(server)
-                .addUriPut("/admins");
+                .addUriGet("/admins");
     }
 
 
     public static RestUrl getLoginAdmins() {
         return new RestUrl()
                 .addUrlServer(server)
-                .addUriPut("login/admins");
+                .addUriGet("login/admins");
     }
     public static RestUrl getLoggedUsers() {
         return new RestUrl()
                 .addUrlServer(server)
-                .addUriPut("login/users");
+                .addUriGet("login/users");
     }
 }
 

@@ -42,7 +42,7 @@ public class GuestService {
 //    {
 //    }
 //
-    public UserService SuccessfulUserLogin(User user) {
+    public synchronized UserService SuccessfulUserLogin(User user) {
         RestParameters bodyParameters=new RestParameters()
                 .addParameter("name", user.getName())
                 .addParameter("password",user.getPassword());

@@ -51,6 +51,7 @@ public class UserService extends GuestService {
     }
 
 
+
 //    public String changePassword(String newPassword) {
 //        RestParameters bodyParameters = new RestParameters()
 //                .addParameter("token", user.getToken())

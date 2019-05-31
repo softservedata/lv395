@@ -15,9 +15,9 @@ public class AdminService extends UserService {
 
     public AdminService(User user) {
         super(user);
-        adminsResource=new AdminsResource();
-        loggedAdminsResource=new LoggedAdminsResource();
-        loggedUsersResource=new LoggedUsersResource();
+        adminsResource = new AdminsResource();
+        loggedAdminsResource = new LoggedAdminsResource();
+        loggedUsersResource = new LoggedUsersResource();
     }
 
     public AdminService(LoginResource loginResource,
@@ -46,16 +46,22 @@ public class AdminService extends UserService {
 //        checkEntity(simpleEntity, user.getName());
 //        return simpleEntity.getContent();
 //    }
-    public String createUser(String name, String password) {
+    public Boolean createUser(User newUser) {
         RestParameters bodyParameters = new RestParameters()
                 .addParameter("token", user.getToken())
-                .addParameter("name", name)
-                .addParameter("password", password);
+                .addParameter("name", newUser.getName())
+                .addParameter("password", newUser.getPassword())
+                .addParameter("rights", newUser.isAdminRights() + "");
+
         SimpleEntity simpleEntity = userResource.
                 httpPostAsEntity(null, null, bodyParameters);
 
         checkEntity(simpleEntity, "true");
-        return simpleEntity.getContent();
+        if (simpleEntity.getContent().equals("true")) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
@@ -66,13 +72,20 @@ public class AdminService extends UserService {
         return simpleEntity.getContent();
     }
 
-    public String removeUser(String removedName) {
+    public Boolean removeUser(String removedName) {
         RestParameters urlParameters = new RestParameters()
                 .addParameter("token", user.getToken())
                 .addParameter("name", removedName);
         SimpleEntity simpleEntity = userResource.httpDeleteAsEntity(null, urlParameters, null);
-        return simpleEntity.getContent();
+        checkEntity(simpleEntity, "true");
+        if (simpleEntity.getContent().equals("true")) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
+
     public String getAllAdmins() {
         RestParameters urlParameters = new RestParameters()
                 .addParameter("token", user.getToken());
@@ -86,10 +99,21 @@ public class AdminService extends UserService {
         SimpleEntity simpleEntity = loggedAdminsResource.httpGetAsEntity(null, urlParameters);
         return simpleEntity.getContent();
     }
+
     public String getAllLoggedUsers() {
         RestParameters urlParameters = new RestParameters()
                 .addParameter("token", user.getToken());
         SimpleEntity simpleEntity = loggedUsersResource.httpGetAsEntity(null, urlParameters);
         return simpleEntity.getContent();
+    }
+
+    public boolean isUserLogged(User user) {
+
+        if (getAllLoggedUsers().contains(user.getName())) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

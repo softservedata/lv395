@@ -10,20 +10,40 @@ public final class  UserRepository {
                 .setAdminRights(true)
                 .addItem(new Item(0, "My data"));
     }
-    public static User getOtlumtc(){
+    public static User getUser1(){
         return new User("otlumtc","qwerty")
                 .addItem(new Item(0,"My data"));
     }
-    public static User getAdminWrongLogin(){
+    public static User getUserWrongLogin(){
         return new User("hahaha","qwerty")
                 .addItem(new Item(0,"My data"));
     }
-    public static User getAdminWrongPassword(){
-        return new User("admin","hahaha")
+    public static User getUserWrongPassword(){
+        return new User("otlumtc","hahaha")
                 .addItem(new Item(0,"My data"));
     }
-    public static User getAdminWrongPasswordAndLogin(){
+    public static User getUserWrongPasswordAndLogin(){
         return new User("hahaha","hahaha")
                 .addItem(new Item(0,"My data"));
     }
+    public static User getUser2(){
+        return new User("vbudktc","qwerty")
+                .addItem(new Item(0,"My data"));
+    }
+    public static User newUserWithoutAdminRihts(){
+        return new User("Ivan","qwerty")
+                .addItem(new Item(0,"My data"));
+    }
+    public static User newUserWithAdminRihts(){
+        return new User("Petro","qwerty")
+                .addItem(new Item(0,"My data"))
+                .setAdminRights(true);
+    }
+    public static User notExistingUser(){
+        return new User("Anna","qwerty")
+                .addItem(new Item(0,"My data"))
+                .setAdminRights(true);
+    }
+
+
 }
