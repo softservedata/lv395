@@ -5,7 +5,8 @@
 	<test name="Test1">
 		<classes>
 			<class name="com.softserve.edu.AppTest" />
-			<class name="com.softserve.edu.SimpleTest" />
+<!-- 			<class name="com.softserve.edu.SimpleTest" /> -->
+<!-- 			<class name="com.softserve.edu.rest.test.LifeTimeTest" /> -->
 		</classes>
 	</test> <!-- Test -->
 
