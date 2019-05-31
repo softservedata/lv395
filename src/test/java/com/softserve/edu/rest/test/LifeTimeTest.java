@@ -25,7 +25,7 @@ public class LifeTimeTest {
         };
     }
 
-    //@Test(dataProvider = "updateLifeTime")
+    @Test(dataProvider = "updateLifeTime")
     public void checkLoginReport(User adminUser, Lifetime lifetime) {
         //
         // Steps
@@ -58,7 +58,7 @@ public class LifeTimeTest {
         Assert.assertTrue(adminUser.getToken().isEmpty());
     }
     
-    @Test(dataProvider = "updateLifeTime")
+    //@Test(dataProvider = "updateLifeTime")
     public void checkLoginMock(User adminUser, Lifetime lifetime) throws Exception {
         //
         // Mock Object
