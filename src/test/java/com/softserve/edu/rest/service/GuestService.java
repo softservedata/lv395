@@ -1,7 +1,9 @@
 package com.softserve.edu.rest.service;
 
+import com.softserve.edu.rest.data.Cooldown;
 import com.softserve.edu.rest.data.Lifetime;
 import com.softserve.edu.rest.data.User;
+import com.softserve.edu.rest.engine.CooldownResource;
 import com.softserve.edu.rest.engine.LoginResource;
 import com.softserve.edu.rest.engine.TokenlifetimeResource;
 import com.softserve.edu.rest.entity.RestParameters;
@@ -11,10 +13,12 @@ public class GuestService {
 
     protected LoginResource loginResource;
     protected TokenlifetimeResource tokenlifetimeResource;
+    protected CooldownResource cooldownResource;
 
     public GuestService() {
         loginResource = new LoginResource();
         tokenlifetimeResource = new TokenlifetimeResource();
+        cooldownResource = new CooldownResource();
     }
 
     public GuestService(LoginResource loginResource, TokenlifetimeResource tokenlifetimeResource) {
@@ -35,6 +39,11 @@ public class GuestService {
     public Lifetime getCurrentLifetime() {
         SimpleEntity simpleEntity = tokenlifetimeResource.httpGetAsEntity(null, null);
         return new Lifetime(simpleEntity.getContent());
+    }
+
+    public Cooldown getCurrentCooldown() {
+        SimpleEntity simpleEntity = cooldownResource.httpGetAsEntity(null, null);
+        return new Cooldown(simpleEntity.getContent());
     }
 
     // TODO
@@ -62,6 +71,21 @@ public class GuestService {
         checkEntity(simpleEntity, "Error Login");
         adminUser.setToken(simpleEntity.getContent());
         return new AdminService(adminUser);
+    }
+
+    public AdminService ChangeCurrentPassword(User adminUser) {
+        String pass = "1111";
+        RestParameters bodyParameters = new RestParameters()
+                .addParameter("token", adminUser.getToken())
+                .addParameter("oldpassword", adminUser.getPassword())
+                .addParameter("newpassword",pass);
+        SimpleEntity simpleEntity = loginResource
+                .httpPostAsEntity(null, null, bodyParameters);
+        checkEntity(simpleEntity, "Error Login");
+        adminUser.setToken(simpleEntity.getContent());
+        return new AdminService(adminUser);
+
+
     }
 
 }

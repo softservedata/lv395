@@ -52,16 +52,25 @@ public class UserService extends GuestService {
 
 
 
-//    public String changePassword(String newPassword) {
-//        RestParameters bodyParameters = new RestParameters()
-//                .addParameter("token", user.getToken())
-//                .addParameter("oldpassword", user.getPassword())
-//                .addParameter("newpassword", newPassword);
-//        SimpleEntity simpleEntity = userResource
-//                .httpPutAsEntity(null, null, bodyParameters);
-//        //checkEntity(simpleEntity, user.getPassword());
-//        return simpleEntity.getContent();
-
+    public String changePassword(String newPassword) {
+        RestParameters bodyParameters = new RestParameters()
+                .addParameter("token", user.getToken())
+                .addParameter("oldpassword", user.getPassword())
+                .addParameter("newpassword", newPassword);
+        SimpleEntity simpleEntity = userResource
+                .httpPutAsEntity(null, null, bodyParameters);
+        checkEntity(simpleEntity, user.getPassword());
+        return simpleEntity.getContent();
+    }
+        public String changeCooldown(String newCooldown){
+            RestParameters bodyParameters = new RestParameters()
+                    .addParameter("token", user.getToken())
+                    .addParameter("time", "9999");
+            SimpleEntity simpleEntity = userResource
+                    .httpPutAsEntity(null, null, bodyParameters);
+            //checkEntity(simpleEntity, user.getPassword());
+            return simpleEntity.getContent();
+        }
 
 //    public String changePassword(){
 //        RestParameters urlParameters = new RestParameters()

@@ -24,9 +24,13 @@ public class CDtest {
         AdminService userService = guestService
                 .SuccessfulAdminLogin(adminUser);
         Assert.assertTrue(adminUser.getToken() != null);
-        guestService.getCurrentLifetime();
+        guestService.getCurrentCooldown();
+        //userService.changePassword("3333");
+        userService.changeCooldown("9999");
+        guestService.getCurrentCooldown();
 
-        Lifetime testLifeTime = new Lifetime("8888") ;
+
+        //Lifetime testLifeTime = new Lifetime("8888") ;
         //userService.UpdateTokenlifetime(Lifetime, testLifeTime);
     }
 

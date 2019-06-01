@@ -39,6 +39,11 @@ public class User {
         items.add(item);
         return this;
     }
+    public User setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
 
     // getters
 
