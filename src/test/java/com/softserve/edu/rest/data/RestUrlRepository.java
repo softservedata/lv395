@@ -69,13 +69,11 @@ public final class RestUrlRepository {
                 .addUrlServer(server)
                 .addUriGet("locked/admins");
     }
-
     public static RestUrl getLockedUsers() {
         return new RestUrl()
                 .addUrlServer(server)
                 .addUriGet("locked/users");
     }
-
     public static RestUrl lockUnlockUser() {
         return new RestUrl()
                 .addUrlServer(server)
@@ -99,8 +97,6 @@ public final class RestUrlRepository {
                 .addUrlServer(server)
                 .addUriGet("/admins");
     }
-
-
     public static RestUrl getLoginAdmins() {
         return new RestUrl()
                 .addUrlServer(server)
@@ -111,5 +107,17 @@ public final class RestUrlRepository {
                 .addUrlServer(server)
                 .addUriGet("login/users");
     }
+
+    public static RestUrl getActiveTokens() {
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriGet("/login/tockens");
+    }
+    public static RestUrl getChangePassword() {
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriPut("/user");
+    }
+
 }
 
