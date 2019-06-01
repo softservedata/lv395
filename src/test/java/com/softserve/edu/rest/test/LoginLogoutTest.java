@@ -5,13 +5,16 @@ import com.softserve.edu.rest.service.AdminService;
 import com.softserve.edu.rest.service.GuestService;
 import com.softserve.edu.rest.service.UserService;
 import com.softserve.edu.rest.tools.LoginUserThread;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class loginLogoutTest {
+@Epic("Ira`s tests")
+@Feature("Login and logout tests")
+public class LoginLogoutTest {
     private AdminService adminService;
 
     @BeforeClass
@@ -27,13 +30,23 @@ public class loginLogoutTest {
 
 
     @DataProvider
-    public Object[][] correctLoginData() {
+    public Object[][] correctUser() {
         return new Object[][]{
                 {UserRepository.getUser1()},
         };
     }
 
-    @Test(dataProvider = "correctLoginData")
+    /**
+     * Test for login(correct data).
+     * Expected result: user will be logged
+     *
+     * @param user - user that we want to login
+     */
+    @Test(dataProvider = "correctUser")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test for login(correct data). \n" +
+            "Expected result: user will be logged")
+    @Story("Login")
     public void loginPositiveTest(User user) {
         //Steps
         GuestService guestService = new GuestService();
@@ -53,7 +66,17 @@ public class loginLogoutTest {
         };
     }
 
+    /**
+     * Test for login.(incorrect data)
+     * Expected result: user won`t be logged
+     *
+     * @param user - user that we want to login
+     */
     @Test(dataProvider = "wrongLoginData")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test for login(incorrect data). \n" +
+            "Expected result: user won`t be logged")
+    @Story("Login")
     public void loginNegativeTest(User user) {
         //Steps
         GuestService guestService = new GuestService();
@@ -63,7 +86,17 @@ public class loginLogoutTest {
         Assert.assertFalse(adminService.isUserLogged(user));
     }
 
-    @Test(dataProvider = "correctLoginData")
+    /**
+     * Test for logout
+     * Expected result: user will logout
+     *
+     * @param user - user that we want to logout
+     */
+    @Test(dataProvider = "correctUser")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test for logout. \n" +
+            "Expected result: user will logout")
+    @Story("Logout")
     public void logoutTest(User user) {
         //steps
         GuestService guestService = new GuestService();
@@ -76,7 +109,21 @@ public class loginLogoutTest {
         Assert.assertFalse(adminService.isUserLogged(user));
     }
 
-    @Test(dataProvider = "correctLoginData",
+    /**
+     * Test for logout
+     * User`s data are correct, but we are changing token
+     * to incorrect.
+     * Expected result: exception
+     *
+     * @param user - user we want to logout
+     */
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test for logout. \n" +
+            "Token is invalid \n" +
+            "Expected result: user won`t logout")
+    @Story("logout")
+
+    @Test(dataProvider = "correctUser",
             expectedExceptions = RuntimeException.class)
     public void logoutNegativeTest(User user) {
         //steps
@@ -99,6 +146,12 @@ public class loginLogoutTest {
      * @throws InterruptedException - because of using threads
      */
     @Test()
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test for login. \n" +
+            "Two users are trying to login at the same time \n" +
+            "both have correct data \n" +
+            "Expected result: both users will be logged")
+    @Story("Two users trying to login")
     public void loginTwoUsers1() throws InterruptedException {
         User user1 = UserRepository.getUser1();
         User user2 = UserRepository.getUser2();
@@ -143,6 +196,14 @@ public class loginLogoutTest {
      * @throws InterruptedException - because of using threads
      */
     @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test for login. \n" +
+            "Two users are trying to login at the same time \n" +
+            "one of them has correct data and another has \n" +
+            " incorrect data. \n" +
+            "Expected result: user with correct data will be \n"+
+            " logged and user with incorrect data ")
+    @Story("Two users trying to login")
     public void loginTwoUsers2() throws InterruptedException {
         //Steps
         User user = UserRepository.getUser1();
@@ -171,12 +232,19 @@ public class loginLogoutTest {
 
     /**
      * Two users are trying to login at the same time
-     * both have incorrect dat
+     * both have incorrect data
      * Expected result: both users won`t be logged
      *
      * @throws InterruptedException - because of using threads
      */
+
     @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test for login. \n" +
+            "Two users are trying to login at the same time \n" +
+            "both have incorrect data \n" +
+            "Expected result: both users won`t be logged ")
+    @Story("Two users trying to login")
     public void loginTwoUsers3() throws InterruptedException {
         //Steps
         User incorrectUser1 = UserRepository.getUserWrongPassword();
