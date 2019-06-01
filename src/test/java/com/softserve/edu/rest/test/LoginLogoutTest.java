@@ -44,7 +44,7 @@ public class LoginLogoutTest {
      */
     @Test(dataProvider = "correctUser")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Test for login(correct data)." +
+    @Description("Test for login(correct data). \n" +
             "Expected result: user will be logged")
     @Story("Login")
     public void loginPositiveTest(User user) {
@@ -74,7 +74,7 @@ public class LoginLogoutTest {
      */
     @Test(dataProvider = "wrongLoginData")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Test for login(incorrect data)." +
+    @Description("Test for login(incorrect data). \n" +
             "Expected result: user won`t be logged")
     @Story("Login")
     public void loginNegativeTest(User user) {
@@ -94,7 +94,7 @@ public class LoginLogoutTest {
      */
     @Test(dataProvider = "correctUser")
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Test for logout." +
+    @Description("Test for logout. \n" +
             "Expected result: user will logout")
     @Story("Logout")
     public void logoutTest(User user) {
@@ -118,8 +118,8 @@ public class LoginLogoutTest {
      * @param user - user we want to logout
      */
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Test for logout." +
-            "Token is invalid" +
+    @Description("Test for logout. \n" +
+            "Token is invalid \n" +
             "Expected result: user won`t logout")
     @Story("logout")
 
@@ -147,9 +147,9 @@ public class LoginLogoutTest {
      */
     @Test()
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Test for login." +
-            "Two users are trying to login at the same time" +
-            "both have correct data" +
+    @Description("Test for login. \n" +
+            "Two users are trying to login at the same time \n" +
+            "both have correct data \n" +
             "Expected result: both users will be logged")
     @Story("Two users trying to login")
     public void loginTwoUsers1() throws InterruptedException {
@@ -197,12 +197,12 @@ public class LoginLogoutTest {
      */
     @Test
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Test for login." +
-            "Two users are trying to login at the same time" +
-            "one of them has correct data and another has" +
-            " incorrect data." +
-            "Expected result: user with correct data will be"+
-            " logged and user with incorrect data")
+    @Description("Test for login. \n" +
+            "Two users are trying to login at the same time \n" +
+            "one of them has correct data and another has \n" +
+            " incorrect data. \n" +
+            "Expected result: user with correct data will be \n"+
+            " logged and user with incorrect data ")
     @Story("Two users trying to login")
     public void loginTwoUsers2() throws InterruptedException {
         //Steps
@@ -240,10 +240,10 @@ public class LoginLogoutTest {
 
     @Test
     @Severity(SeverityLevel.CRITICAL)
-    @Description("Test for login." +
-            "Two users are trying to login at the same time" +
-            "both have incorrect data" +
-            "Expected result: both users won`t be logged")
+    @Description("Test for login. \n" +
+            "Two users are trying to login at the same time \n" +
+            "both have incorrect data \n" +
+            "Expected result: both users won`t be logged ")
     @Story("Two users trying to login")
     public void loginTwoUsers3() throws InterruptedException {
         //Steps
