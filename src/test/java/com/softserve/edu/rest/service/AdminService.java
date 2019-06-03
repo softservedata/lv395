@@ -12,12 +12,16 @@ public class AdminService extends UserService {
     private AdminsResource adminsResource;
     private LoggedAdminsResource loggedAdminsResource;
     private LoggedUsersResource loggedUsersResource;
+    private LockedUsersResource lockedUsersResource;
+    private UnlockAllUsersResource unlockAllUsersResource;
 
     public AdminService(User user) {
         super(user);
         adminsResource = new AdminsResource();
         loggedAdminsResource = new LoggedAdminsResource();
         loggedUsersResource = new LoggedUsersResource();
+        lockedUsersResource = new LockedUsersResource();
+        unlockAllUsersResource = new UnlockAllUsersResource();
     }
 
     public AdminService(LoginResource loginResource,
@@ -107,9 +111,31 @@ public class AdminService extends UserService {
         return simpleEntity.getContent();
     }
 
+    public String getLockedUsers() {
+        RestParameters urlParameters = new RestParameters()
+                .addParameter("token", user.getToken());
+        SimpleEntity simpleEntity = lockedUsersResource.httpGetAsEntity(null, urlParameters);
+        return simpleEntity.getContent();
+    }
+
     public boolean isUserLogged(User user) {
 
         if (getAllLoggedUsers().contains(user.getName())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String unlockAllUsers() {
+        RestParameters bodyParameters = new RestParameters()
+                .addParameter("token", user.getToken());
+        SimpleEntity simpleEntity = unlockAllUsersResource.httpPutAsEntity(null, null, bodyParameters);
+        return simpleEntity.getContent();
+    }
+
+    public boolean isUserLocked(User user){
+        if (getLockedUsers().contains(user.getName())) {
             return true;
         } else {
             return false;

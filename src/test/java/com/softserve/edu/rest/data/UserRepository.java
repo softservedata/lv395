@@ -39,6 +39,11 @@ public final class  UserRepository {
                 .addItem(new Item(0,"My data"))
                 .setAdminRights(true);
     }
+    public static User getAdminWrongPassword(){
+        return new User("Petro","hahaha")
+                .addItem(new Item(0,"My data"))
+                .setAdminRights(true);
+    }
     public static User notExistingUser(){
         return new User("Anna","qwerty")
                 .addItem(new Item(0,"My data"))
