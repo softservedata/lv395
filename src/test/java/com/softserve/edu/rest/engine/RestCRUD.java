@@ -1,6 +1,7 @@
 package com.softserve.edu.rest.engine;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import com.softserve.edu.rest.data.RestUrl;
 import com.softserve.edu.rest.entity.RestParameters;
@@ -50,7 +51,7 @@ public abstract class RestCRUD {
             for (String currentKey : pathVariables.getAllParameters().keySet()) {
                 searchVariable = "{" + currentKey + "}";
                 if (url.contains(searchVariable)) {
-                    url = url.replaceFirst(searchVariable, pathVariables.getParameter(currentKey));
+                    url = url.replaceFirst(Pattern.quote(searchVariable), pathVariables.getParameter(currentKey));
                 }
             }
         }
@@ -81,6 +82,7 @@ public abstract class RestCRUD {
         }
         String url = preparePathVariables(requestUrl, pathVariables);
         url = prepareUrlParameters(url, urlParameters);
+        System.out.println("URL: " + url);
         return new Request.Builder().url(url);
     }
 

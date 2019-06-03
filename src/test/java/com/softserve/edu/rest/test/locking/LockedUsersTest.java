@@ -1,4 +1,4 @@
-package com.softserve.edu.rest.test;
+package com.softserve.edu.rest.test.locking;
 
 
 import com.softserve.edu.rest.data.User;
@@ -9,24 +9,7 @@ import com.softserve.edu.rest.service.UserService;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-public class LockedUsersTest {
-    private AdminService adminService;
-
-    @BeforeClass
-    public void beforeClass() {
-        GuestService guestService = new GuestService();
-        adminService = guestService.SuccessfulAdminLogin(UserRepository.getAdmin());
-    }
-
-    @AfterMethod
-    public void afterMethod() {
-        adminService.unlockAllUsers();
-    }
-
-    @AfterClass
-    public void afterClass() {
-        adminService.unlockAllUsers();
-    }
+public class LockedUsersTest extends ATestRunner {
 
     @DataProvider
     public Object[][] wrongPasswordData() {

@@ -84,8 +84,6 @@ public class GuestService {
         checkEntity(simpleEntity, "Error Login");
         adminUser.setToken(simpleEntity.getContent());
         return new AdminService(adminUser);
-
-
     }
 
 }

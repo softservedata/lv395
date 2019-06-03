@@ -4,7 +4,6 @@ import com.softserve.edu.rest.data.Lifetime;
 import com.softserve.edu.rest.data.User;
 import com.softserve.edu.rest.engine.*;
 import com.softserve.edu.rest.entity.RestParameters;
-import com.softserve.edu.rest.entity.SimpleArrayEntity;
 import com.softserve.edu.rest.entity.SimpleEntity;
 
 public class AdminService extends UserService {
@@ -14,6 +13,7 @@ public class AdminService extends UserService {
     private LoggedUsersResource loggedUsersResource;
     private LockedUsersResource lockedUsersResource;
     private UnlockAllUsersResource unlockAllUsersResource;
+    private LockUnlockUserResource lockUnlockUserResource;
 
     public AdminService(User user) {
         super(user);
@@ -22,6 +22,7 @@ public class AdminService extends UserService {
         loggedUsersResource = new LoggedUsersResource();
         lockedUsersResource = new LockedUsersResource();
         unlockAllUsersResource = new UnlockAllUsersResource();
+        lockUnlockUserResource = new LockUnlockUserResource();
     }
 
     public AdminService(LoginResource loginResource,
@@ -109,6 +110,42 @@ public class AdminService extends UserService {
                 .addParameter("token", user.getToken());
         SimpleEntity simpleEntity = loggedUsersResource.httpGetAsEntity(null, urlParameters);
         return simpleEntity.getContent();
+    }
+
+    public Boolean unlockUser(User unlockingUser) {
+        RestParameters bodyParameters = new RestParameters()
+                .addParameter("token", user.getToken())
+                .addParameter("name", unlockingUser.getName());
+        RestParameters pathVariable = new RestParameters()
+                .addParameter("lockName", unlockingUser.getName());
+
+        SimpleEntity simpleEntity = lockUnlockUserResource.
+                httpPutAsEntity(pathVariable, null, bodyParameters);
+
+        checkEntity(simpleEntity, "true");
+        if (simpleEntity.getContent().equals("true")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Boolean lockUser(User lockingUser) {
+        RestParameters bodyParameters = new RestParameters()
+                .addParameter("token", user.getToken())
+                .addParameter("name", lockingUser.getName());
+        RestParameters pathVariable = new RestParameters()
+                .addParameter("lockName", lockingUser.getName());
+
+        SimpleEntity simpleEntity = lockUnlockUserResource.
+                httpPostAsEntity(pathVariable, null, bodyParameters);
+
+        checkEntity(simpleEntity, "true");
+        if (simpleEntity.getContent().equals("true")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public String getLockedUsers() {
