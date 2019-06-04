@@ -80,7 +80,7 @@ public class LoginLogoutTest {
     public void loginNegativeTest(User user) {
         //Steps
         GuestService guestService = new GuestService();
-        UserService userService = guestService.SuccessfulUserLogin(user);
+        guestService.SuccessfulUserLogin(user);
         System.out.println(user.getToken());
         //Check
         Assert.assertFalse(adminService.isUserLogged(user));
@@ -121,7 +121,7 @@ public class LoginLogoutTest {
     @Description("Test for logout. \n" +
             "Token is invalid \n" +
             "Expected result: user won`t logout")
-    @Story("logout")
+    @Story("Logout")
 
     @Test(dataProvider = "correctUser",
             expectedExceptions = RuntimeException.class)
@@ -156,15 +156,15 @@ public class LoginLogoutTest {
         User user1 = UserRepository.getUser1();
         User user2 = UserRepository.getUser2();
         //first thread start
-        LoginUserThread loginUserThread = new LoginUserThread(user1);
-        Thread t = new Thread(loginUserThread);
-        t.start();
+        LoginUserThread loginUserThread1 = new LoginUserThread(user1);
+        Thread threadForUserCreating1 = new Thread(loginUserThread1);
+        threadForUserCreating1.start();
         //second thread start
-        LoginUserThread loginUserThread1 = new LoginUserThread(user2);
-        Thread t1 = new Thread(loginUserThread1);
-        t1.start();
-        t.join();
-        t1.join();
+        LoginUserThread loginUserThread2 = new LoginUserThread(user2);
+        Thread threadForUserCreating2 = new Thread(loginUserThread2);
+        threadForUserCreating2.start();
+        threadForUserCreating1.join();
+        threadForUserCreating2.join();
         //check users are logined
         Assert.assertTrue(adminService.isUserLogged(user1));
         Assert.assertTrue(adminService.isUserLogged(user2));
@@ -175,8 +175,8 @@ public class LoginLogoutTest {
         UserService userService1 = new UserService(user1);
         UserService userService2 = new UserService(user2);
         //check names
-        Assert.assertTrue(user1.getName().equals(userService1.getUserName()));
-        Assert.assertTrue(user2.getName().equals(userService2.getUserName()));
+        Assert.assertEquals(user1.getName(),userService1.getUserName());
+        Assert.assertEquals(user2.getName(),userService2.getUserName());
         //logout user1
         userService1.LogoutUser();
         Assert.assertFalse(adminService.isUserLogged(user1));
@@ -209,22 +209,22 @@ public class LoginLogoutTest {
         User user = UserRepository.getUser1();
         User incorrectUser = UserRepository.getUserWrongLogin();
         //first thread start
-        LoginUserThread loginUserThread = new LoginUserThread(user);
-        Thread t = new Thread(loginUserThread);
-        t.start();
+        LoginUserThread loginUserThread1 = new LoginUserThread(user);
+        Thread threadForUserCreating1 = new Thread(loginUserThread1);
+        threadForUserCreating1.start();
         //second thread start
-        LoginUserThread loginUserThread1 = new LoginUserThread(incorrectUser);
-        Thread t1 = new Thread(loginUserThread1);
-        t1.start();
-        t.join();
-        t1.join();
+        LoginUserThread loginUserThread2 = new LoginUserThread(incorrectUser);
+        Thread threadForUserCreating2 = new Thread(loginUserThread2);
+        threadForUserCreating2.start();
+        threadForUserCreating1.join();
+        threadForUserCreating2.join();
         //check users are logged
         Assert.assertTrue(adminService.isUserLogged(user));
         Assert.assertFalse(adminService.isUserLogged(incorrectUser));
         //Step
         UserService userService = new UserService(user);
         //check name
-        Assert.assertTrue(user.getName().equals(userService.getUserName()));
+        Assert.assertEquals(user.getName(),userService.getUserName());
         //logout user1
         userService.LogoutUser();
         Assert.assertFalse(adminService.isUserLogged(user));
@@ -250,15 +250,15 @@ public class LoginLogoutTest {
         User incorrectUser1 = UserRepository.getUserWrongPassword();
         User incorrectUser2 = UserRepository.getUserWrongLogin();
         //first thread start
-        LoginUserThread loginUserThread = new LoginUserThread(incorrectUser1);
-        Thread t = new Thread(loginUserThread);
-        t.start();
+        LoginUserThread loginUserThread1 = new LoginUserThread(incorrectUser1);
+        Thread threadForUserCreating1 = new Thread(loginUserThread1);
+        threadForUserCreating1.start();
         //second thread start
-        LoginUserThread loginUserThread1 = new LoginUserThread(incorrectUser2);
-        Thread t1 = new Thread(loginUserThread1);
-        t1.start();
-        t.join();
-        t1.join();
+        LoginUserThread loginUserThread2 = new LoginUserThread(incorrectUser2);
+        Thread threadForUserCreating2 = new Thread(loginUserThread2);
+        threadForUserCreating2.start();
+        threadForUserCreating1.join();
+        threadForUserCreating2.join();
         //check users are logged
         Assert.assertFalse(adminService.isUserLogged(incorrectUser1));
         Assert.assertFalse(adminService.isUserLogged(incorrectUser2));

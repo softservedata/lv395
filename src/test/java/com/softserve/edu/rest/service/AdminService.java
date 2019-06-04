@@ -187,4 +187,12 @@ public class AdminService extends UserService {
         }
 
     }
+    public boolean isUserAdmin(User user) {
+        if (getAllAdmins().contains(user.getName())) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }
