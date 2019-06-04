@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SearchFieldTestSuit">
+
+    <test name="Smoke Test">
+        <classes>
+            <class name="com.softserve.edu.rest.test.SmokeTest">
+                <methods>
+                    <include name="loginAndLogoutAdmin"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Login and logout">
+    <classes>
+        <class name="com.softserve.edu.rest.test.LoginLogoutTest">
+            <methods>
+                <include name="loginPositiveTest"/>
+                <include name="loginNegativeTest"/>
+                <include name="logoutTest"/>
+                <include name="logoutNegativeTest"/>
+                <include name="loginTwoUsers1"/>
+                <include name="loginTwoUsers2"/>
+                <include name="loginTwoUsers3"/>
+            </methods>
+        </class>
+    </classes>
+    </test> <!-- Test -->
+    <test name="Create And Delete User Test">
+        <classes>
+            <class name="com.softserve.edu.rest.test.CreateAndDeleteUserTest">
+                <methods>
+                    <include name="createUserTest"/>
+                    <include name="createAdminTest"/>
+                    <include name="createExistingUserTest"/>
+                    <include name="createUserWithMockTest"/>
+                    <include name="deleteUserTest"/>
+                    <include name="deleteNotExistingUserTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- Test -->
+
+</suite> <!-- Suite -->
