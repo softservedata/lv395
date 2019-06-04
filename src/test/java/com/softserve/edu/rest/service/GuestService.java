@@ -8,6 +8,7 @@ import com.softserve.edu.rest.engine.LoginResource;
 import com.softserve.edu.rest.engine.TokenlifetimeResource;
 import com.softserve.edu.rest.entity.RestParameters;
 import com.softserve.edu.rest.entity.SimpleEntity;
+import io.qameta.allure.Step;
 
 public class GuestService {
 
@@ -51,10 +52,11 @@ public class GuestService {
 //    {
 //    }
 //
+    @Step("Login user")
     public synchronized UserService SuccessfulUserLogin(User user) {
-        RestParameters bodyParameters=new RestParameters()
+        RestParameters bodyParameters = new RestParameters()
                 .addParameter("name", user.getName())
-                .addParameter("password",user.getPassword());
+                .addParameter("password", user.getPassword());
         SimpleEntity simpleEntity = loginResource
                 .httpPostAsEntity(null, null, bodyParameters);
         checkEntity(simpleEntity, "Error Login");
@@ -62,6 +64,7 @@ public class GuestService {
         return new UserService(user);
     }
 
+    @Step("Login admin")
     public AdminService SuccessfulAdminLogin(User adminUser) {
         RestParameters bodyParameters = new RestParameters()
                 .addParameter("name", adminUser.getName())
@@ -78,7 +81,7 @@ public class GuestService {
         RestParameters bodyParameters = new RestParameters()
                 .addParameter("token", adminUser.getToken())
                 .addParameter("oldpassword", adminUser.getPassword())
-                .addParameter("newpassword",pass);
+                .addParameter("newpassword", pass);
         SimpleEntity simpleEntity = loginResource
                 .httpPostAsEntity(null, null, bodyParameters);
         checkEntity(simpleEntity, "Error Login");

@@ -1,5 +1,7 @@
 package com.softserve.edu.rest.data;
 
+import io.qameta.allure.Step;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +13,8 @@ public class User {
     private String token;
     private List<Item> items;
     private boolean adminRights;
-    private final String ERROR_USER_LOCKED="ERROR, user locked";
-    private final String ERROR_USER_NOT_FOUND="ERROR, user not found";
+    private final String ERROR_USER_LOCKED = "ERROR, user locked";
+    private final String ERROR_USER_NOT_FOUND = "ERROR, user not found";
 
     // TODO Develop Builder
     public User(String name, String password) {
@@ -30,6 +32,7 @@ public class User {
         return this;
     }
 
+    @Step("Change token")
     public User setToken(String token) {
         this.token = token;
         return this;
@@ -39,6 +42,7 @@ public class User {
         items.add(item);
         return this;
     }
+
     public User setPassword(String password) {
         this.password = password;
         return this;

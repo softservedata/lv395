@@ -44,7 +44,7 @@ public class CreateAndDeleteUserTest {
         Assert.assertTrue(adminService.isUserLogged(newUser));
         //check that this is not admin
         Assert.assertFalse(adminService.getAllAdmins().contains(newUser.getName()));
-        userService.LogoutUser();
+        userService.logoutUser();
         Assert.assertFalse(adminService.isUserLogged(newUser));
 
     }
@@ -67,7 +67,7 @@ public class CreateAndDeleteUserTest {
         AdminService adminService1 = guestService.SuccessfulAdminLogin(newAdmin);
         //check, that this is really admin
         Assert.assertTrue(adminService.isUserLogged(newAdmin));
-        adminService1.LogoutUser();
+        adminService1.logoutUser();
         Assert.assertFalse(adminService.isUserLogged(newAdmin));
     }
 
@@ -82,8 +82,9 @@ public class CreateAndDeleteUserTest {
     @Story("Create user")
     public void createExistingUserTest() {
         User user = UserRepository.getUser1();
+        Boolean userIsCreated=adminService.createUser(user);
         //Check user won`t be created
-        Assert.assertFalse(adminService.getAllUsers().contains(user.getName()));
+        Assert.assertFalse(userIsCreated);
 
     }
 
@@ -148,7 +149,7 @@ public class CreateAndDeleteUserTest {
         //try to login new user
         UserService userService = guestService.SuccessfulUserLogin(newUser);
         Assert.assertTrue(adminService1.isUserLogged(newUser));
-        userService.LogoutUser();
+        userService.logoutUser();
 
     }
 

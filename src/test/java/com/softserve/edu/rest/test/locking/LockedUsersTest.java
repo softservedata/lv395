@@ -3,7 +3,6 @@ package com.softserve.edu.rest.test.locking;
 
 import com.softserve.edu.rest.data.User;
 import com.softserve.edu.rest.data.UserRepository;
-import com.softserve.edu.rest.service.AdminService;
 import com.softserve.edu.rest.service.GuestService;
 import com.softserve.edu.rest.service.UserService;
 import org.testng.Assert;
@@ -56,7 +55,7 @@ public class LockedUsersTest extends ATestRunner {
         UserService userService = guestService.SuccessfulUserLogin(userCorrectPW);
         System.out.println("Getting all logged users");
         Assert.assertTrue(adminService.isUserLogged(userCorrectPW));
-        userService.LogoutUser();
+        userService.logoutUser();
     }
 
 

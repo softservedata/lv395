@@ -5,6 +5,7 @@ import com.softserve.edu.rest.data.User;
 import com.softserve.edu.rest.engine.*;
 import com.softserve.edu.rest.entity.RestParameters;
 import com.softserve.edu.rest.entity.SimpleEntity;
+import io.qameta.allure.Step;
 
 public class AdminService extends UserService {
 
@@ -51,6 +52,7 @@ public class AdminService extends UserService {
 //        checkEntity(simpleEntity, user.getName());
 //        return simpleEntity.getContent();
 //    }
+    @Step("Create user")
     public Boolean createUser(User newUser) {
         RestParameters bodyParameters = new RestParameters()
                 .addParameter("token", user.getToken())
@@ -60,8 +62,6 @@ public class AdminService extends UserService {
 
         SimpleEntity simpleEntity = userResource.
                 httpPostAsEntity(null, null, bodyParameters);
-
-        checkEntity(simpleEntity, "true");
         if (simpleEntity.getContent().equals("true")) {
             return true;
         } else {
@@ -76,7 +76,7 @@ public class AdminService extends UserService {
         SimpleEntity simpleEntity = usersResourse.httpGetAsEntity(null, urlParameters);
         return simpleEntity.getContent();
     }
-
+@Step("Delete user")
     public Boolean removeUser(String removedName) {
         RestParameters urlParameters = new RestParameters()
                 .addParameter("token", user.getToken())

@@ -25,7 +25,7 @@ public class LoginLogoutTest {
 
     @AfterClass
     public void afterClass() {
-        adminService.LogoutUser();
+        adminService.logoutUser();
     }
 
 
@@ -54,7 +54,7 @@ public class LoginLogoutTest {
         //Check
         Assert.assertTrue(adminService.isUserLogged(user));
         //Step
-        userService.LogoutUser();
+        userService.logoutUser();
     }
 
     @DataProvider
@@ -81,7 +81,6 @@ public class LoginLogoutTest {
         //Steps
         GuestService guestService = new GuestService();
         guestService.SuccessfulUserLogin(user);
-        System.out.println(user.getToken());
         //Check
         Assert.assertFalse(adminService.isUserLogged(user));
     }
@@ -104,7 +103,7 @@ public class LoginLogoutTest {
         //check that user is logged
         Assert.assertTrue(adminService.isUserLogged(user));
         //step
-        userService.LogoutUser();
+        userService.logoutUser();
         //check user is logout
         Assert.assertFalse(adminService.isUserLogged(user));
     }
@@ -134,7 +133,7 @@ public class LoginLogoutTest {
         //step(wrong token)
         user.setToken("111");
         //here we are expecting for exception
-        userService.LogoutUser();
+        userService.logoutUser();
     }
 
 
@@ -169,8 +168,6 @@ public class LoginLogoutTest {
         Assert.assertTrue(adminService.isUserLogged(user1));
         Assert.assertTrue(adminService.isUserLogged(user2));
         //check tokens
-        System.out.println(user1.getToken());
-        System.out.println(user2.getToken());
         Assert.assertNotEquals(user1.getToken(), user2.getToken());
         UserService userService1 = new UserService(user1);
         UserService userService2 = new UserService(user2);
@@ -178,9 +175,9 @@ public class LoginLogoutTest {
         Assert.assertEquals(user1.getName(),userService1.getUserName());
         Assert.assertEquals(user2.getName(),userService2.getUserName());
         //logout user1
-        userService1.LogoutUser();
+        userService1.logoutUser();
         Assert.assertFalse(adminService.isUserLogged(user1));
-        userService2.LogoutUser();
+        userService2.logoutUser();
         //logout user2
         Assert.assertFalse(adminService.isUserLogged(user2));
     }
@@ -226,7 +223,7 @@ public class LoginLogoutTest {
         //check name
         Assert.assertEquals(user.getName(),userService.getUserName());
         //logout user1
-        userService.LogoutUser();
+        userService.logoutUser();
         Assert.assertFalse(adminService.isUserLogged(user));
     }
 

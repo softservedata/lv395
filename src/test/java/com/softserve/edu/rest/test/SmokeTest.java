@@ -25,7 +25,7 @@ public class SmokeTest {
         //Check
         Assert.assertTrue(adminService.getUserName().contains(UserRepository.getAdmin().getName()));
         //Step
-        adminService.LogoutUser();
+        adminService.logoutUser();
         //Check
         Assert.assertNull(UserRepository.getAdmin().getToken());
 

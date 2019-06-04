@@ -49,7 +49,7 @@ public class LifeTimeTest {
                 LifetimeRepository.DEFAULT_TOKEN_LIFETIME);
         //
         //System.out.println("LogoutUser");
-        guestService = adminService.LogoutUser();
+        guestService = adminService.logoutUser();
         //System.out.println("adminUser.getToken() = " + adminUser.getToken());
         Assert.assertTrue(adminUser.getToken().isEmpty());
     }
