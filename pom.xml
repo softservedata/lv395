@@ -291,17 +291,18 @@
 					</systemPropertyVariables>
 					<suiteXmlFiles>
 						<suiteXmlFile>testng1.xml</suiteXmlFile>
+<!-- 						<suiteXmlFile>testng2.xml</suiteXmlFile> -->
 					</suiteXmlFiles>
 					<reportsDirectory>${testng.reports.directory}</reportsDirectory>
-					<!-- <argLine> -->
-					<!-- -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar" -->
-					<!-- </argLine> -->
-					<!-- <systemProperties> -->
-					<!-- <property> -->
-					<!-- <name>allure.results.directory</name> -->
-					<!-- <value>${allure.results.directory}</value> -->
-					<!-- </property> -->
-					<!-- </systemProperties> -->
+					<argLine>
+						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+					</argLine>
+					<systemProperties>
+						<property>
+							<name>allure.results.directory</name>
+							<value>${allure.results.directory}</value>
+						</property>
+					</systemProperties>
 				</configuration>
 			</plugin>
 

@@ -7,6 +7,8 @@ import com.softserve.edu.rest.engine.TokenlifetimeResource;
 import com.softserve.edu.rest.entity.RestParameters;
 import com.softserve.edu.rest.entity.SimpleEntity;
 
+import io.qameta.allure.Step;
+
 public class GuestService {
 
     protected LoginResource loginResource;
@@ -32,6 +34,7 @@ public class GuestService {
         }
     }
 
+    @Step("getCurrentLifetime() STEP")
     public Lifetime getCurrentLifetime() {
         SimpleEntity simpleEntity = tokenlifetimeResource.httpGetAsEntity(null, null);
         return new Lifetime(simpleEntity.getContent());
@@ -46,6 +49,7 @@ public class GuestService {
 //    {
 //    }
 
+    @Step("SuccessfulAdminLogin() STEP")
     public AdminService SuccessfulAdminLogin(User adminUser) {
         RestParameters bodyParameters = new RestParameters()
                 .addParameter("name", adminUser.getName())

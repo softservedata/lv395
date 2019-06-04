@@ -7,6 +7,8 @@ import com.softserve.edu.rest.engine.TokenlifetimeResource;
 import com.softserve.edu.rest.entity.RestParameters;
 import com.softserve.edu.rest.entity.SimpleEntity;
 
+import io.qameta.allure.Step;
+
 public class UserService extends GuestService {
 
     protected LogoutResource logoutResource;
@@ -25,6 +27,7 @@ public class UserService extends GuestService {
         this.user = user;
     }
 
+    @Step("LogoutUser() STEP")
     public GuestService LogoutUser() {
         RestParameters bodyParameters = new RestParameters()
                 .addParameter("name", user.getName())

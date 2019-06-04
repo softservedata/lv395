@@ -16,6 +16,11 @@ import com.softserve.edu.rest.entity.SimpleEntity;
 import com.softserve.edu.rest.service.AdminService;
 import com.softserve.edu.rest.service.GuestService;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
+
 public class LifeTimeTest {
 
     @DataProvider // (parallel = true)
@@ -25,6 +30,9 @@ public class LifeTimeTest {
         };
     }
 
+    @Description("Test Description: class LifeTimeTest; checkLoginReport(...)")
+    @Severity(SeverityLevel.BLOCKER)
+    @Story("checkLoginReport STORY")
     @Test(dataProvider = "updateLifeTime")
     public void checkLoginReport(User adminUser, Lifetime lifetime) {
         //

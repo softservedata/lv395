@@ -7,6 +7,8 @@ import com.softserve.edu.rest.engine.TokenlifetimeResource;
 import com.softserve.edu.rest.entity.RestParameters;
 import com.softserve.edu.rest.entity.SimpleEntity;
 
+import io.qameta.allure.Step;
+
 public class AdminService extends UserService {
 
     public AdminService(User user) {
@@ -19,6 +21,7 @@ public class AdminService extends UserService {
         super(loginResource, tokenlifetimeResource, user);
     }
 
+    @Step("UpdateTokenlifetime() STEP")
     public AdminService UpdateTokenlifetime(Lifetime lifetime) {
         // System.out.println("lifetime = " + lifetime.getTimeAsString() + " User = " +
         // user);
