@@ -295,7 +295,7 @@
                         </selenium.version>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/suites/${suiteXml}</suiteXmlFile>
+                        <suiteXmlFile>RestSuite.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <reportsDirectory>${testng.reports.directory}</reportsDirectory>
                     <argLine>
