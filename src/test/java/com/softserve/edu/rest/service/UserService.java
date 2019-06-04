@@ -5,6 +5,7 @@ import com.softserve.edu.rest.engine.*;
 
 import com.softserve.edu.rest.entity.RestParameters;
 import com.softserve.edu.rest.entity.SimpleEntity;
+import io.qameta.allure.Step;
 
 public class UserService extends GuestService {
 
@@ -28,7 +29,8 @@ public class UserService extends GuestService {
         this.user = user;
     }
 
-    public GuestService LogoutUser() {
+    @Step("Logout user")
+    public GuestService logoutUser() {
         RestParameters bodyParameters = new RestParameters()
                 .addParameter("name", user.getName())
                 .addParameter("token", user.getToken());
@@ -51,7 +53,6 @@ public class UserService extends GuestService {
     }
 
 
-
     public String changePassword(String newPassword) {
         RestParameters bodyParameters = new RestParameters()
                 .addParameter("token", user.getToken())
@@ -63,11 +64,13 @@ public class UserService extends GuestService {
         return simpleEntity.getContent();
     }
 
-
-//    public String changePassword(){
-//        RestParameters urlParameters = new RestParameters()
-//                .addParameter("token",user.getToken());
-//    }
-
+    public String changeCooldown(String newCooldown) {
+        RestParameters bodyParameters = new RestParameters()
+                .addParameter("token", user.getToken())
+                .addParameter("time", "9999");
+        SimpleEntity simpleEntity = userResource
+                .httpPutAsEntity(null, null, bodyParameters);
+        return simpleEntity.getContent();
+    }
 
 }

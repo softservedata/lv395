@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="SearchFieldTestSuit">
+<suite name="Ira`s tests">
 
     <test name="Smoke Test">
         <classes>
@@ -35,7 +35,10 @@
                     <include name="createExistingUserTest"/>
                     <include name="createUserWithMockTest"/>
                     <include name="deleteUserTest"/>
+                    <include name="deleteAdminTest"/>
                     <include name="deleteNotExistingUserTest"/>
+                    <include name="createAdminThenCreateUserTest"/>
+                    <include name="createUserThenCreateAdminTest"/>
                 </methods>
             </class>
         </classes>

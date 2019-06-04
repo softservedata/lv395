@@ -15,8 +15,8 @@ import static org.mockito.Mockito.*;
 @Epic("Ira`s tests")
 @Feature("Create and delete Test")
 public class CreateAndDeleteUserTest {
-    GuestService guestService;
-    AdminService adminService;
+    private GuestService guestService;
+    private AdminService adminService;
 
     @BeforeMethod
     public void beforeClass() {
@@ -29,22 +29,22 @@ public class CreateAndDeleteUserTest {
      * Test for creating new user without admin rights
      * Expected result: user will be created
      */
-    @Test()
     @Severity(SeverityLevel.CRITICAL)
     @Description(" Test for creating new user without admin rights \n" +
             "Expected result: user will be created")
     @Story("Create user")
+    @Test()
     public void createUserTest() {
         User newUser = UserRepository.newUserWithoutAdminRihts();
         adminService.createUser(newUser);
         //Check user is created
-        Assert.assertTrue(adminService.getAllUsers().contains(newUser.getName()));
+        Assert.assertTrue(adminService.isUserCreated(newUser));
         //try to login new user
         UserService userService = guestService.SuccessfulUserLogin(newUser);
         Assert.assertTrue(adminService.isUserLogged(newUser));
         //check that this is not admin
         Assert.assertFalse(adminService.getAllAdmins().contains(newUser.getName()));
-        userService.LogoutUser();
+        userService.logoutUser();
         Assert.assertFalse(adminService.isUserLogged(newUser));
 
     }
@@ -62,12 +62,13 @@ public class CreateAndDeleteUserTest {
         User newAdmin = UserRepository.newUserWithAdminRihts();
         adminService.createUser(newAdmin);
         //Check user is created
+        Assert.assertTrue(adminService.isUserCreated(newAdmin));
         Assert.assertTrue(adminService.getAllAdmins().contains(newAdmin.getName()));
         //try to login new user
         AdminService adminService1 = guestService.SuccessfulAdminLogin(newAdmin);
         //check, that this is really admin
         Assert.assertTrue(adminService.isUserLogged(newAdmin));
-        adminService1.LogoutUser();
+        adminService1.logoutUser();
         Assert.assertFalse(adminService.isUserLogged(newAdmin));
     }
 
@@ -82,31 +83,40 @@ public class CreateAndDeleteUserTest {
     @Story("Create user")
     public void createExistingUserTest() {
         User user = UserRepository.getUser1();
+        Boolean userIsCreated=adminService.createUser(user);
         //Check user won`t be created
-        Assert.assertFalse(adminService.getAllUsers().contains(user.getName()));
+        Assert.assertFalse(userIsCreated);
 
     }
 
-    @DataProvider
-    public Object[][] usersWeWantToRemove() {
-        return new Object[][]{
-                {UserRepository.newUserWithoutAdminRihts()},
-                {UserRepository.newUserWithAdminRihts()}
-        };
-    }
 
     /**
      * Delete user.
      * Expected result: user will be deleted.
      */
-    @Test(dataProvider = "usersWeWantToRemove")
+    @Test(dependsOnMethods = "createUserTest")
     @Severity(SeverityLevel.CRITICAL)
     @Description(" Delete user without admin rights \n" +
             "Expected result: user will be deleted.")
     @Story("Delete user")
-    public void deleteUserTest(User userWeWantToRemove) {
-        adminService.removeUser(userWeWantToRemove.getName());
-        Assert.assertFalse(adminService.getAllUsers().contains(userWeWantToRemove.getName()));
+    public void deleteUserTest() {
+        User user=UserRepository.newUserWithoutAdminRihts();
+        adminService.removeUser(user.getName());
+        Assert.assertFalse(adminService.getAllUsers().contains(user.getName()));
+    }
+    /**
+     * Delete admin.
+     * Expected result: admin will be deleted.
+     */
+    @Test(dependsOnMethods = "createAdminTest")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description(" Delete user with admin rights \n" +
+            "Expected result: user will be deleted.")
+    @Story("Delete user")
+    public void deleteAdminTest() {
+        User admin=UserRepository.newUserWithAdminRihts();
+        adminService.removeUser(admin.getName());
+        Assert.assertFalse(adminService.getAllUsers().contains(admin.getName()));
     }
 
     /**
@@ -115,13 +125,13 @@ public class CreateAndDeleteUserTest {
      */
     @Test()
     @Severity(SeverityLevel.CRITICAL)
-    @Description(" Delete user with admin rights \n" +
+    @Description(" Delete not existing user \n" +
             "Expected result: user will be deleted.")
     @Story("Delete user")
     public void deleteNotExistingUserTest() {
         User notExistingUser = UserRepository.notExistingUser();
-        Boolean userIsDeleted = adminService.removeUser(notExistingUser.getName());
-        Assert.assertTrue(userIsDeleted);
+        Boolean isUserDeleted = adminService.removeUser(notExistingUser.getName());
+        Assert.assertTrue(isUserDeleted);
     }
 
     /**
@@ -148,9 +158,79 @@ public class CreateAndDeleteUserTest {
         //try to login new user
         UserService userService = guestService.SuccessfulUserLogin(newUser);
         Assert.assertTrue(adminService1.isUserLogged(newUser));
-        userService.LogoutUser();
+        userService.logoutUser();
 
     }
 
+    /**
+     * 1.Create user with admin rights.
+     * 2.Delete this user.
+     * 3.Change user`s admin rights.
+     * 4.Create user, but this time without admin rights.
+     * Expected result: user will be created without admin rights.
+     */
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("1.Create user with admin rights.\n" +
+            " 2.Delete this user.\n" +
+            " 3.Change user`s admin rights.\n" +
+            " 4.Create user, but this time without admin rights.\n" +
+            " Expected result: user will be created without admin rights.")
+    @Story("Create user")
+    @Test
+    public void createAdminThenCreateUserTest(){
+        //Steps
+        User user=UserRepository.newUserWithAdminRihts();
+        //create admin user
+        adminService.createUser(user);
+        //check
+        Assert.assertTrue(adminService.isUserCreated(user));
+        Assert.assertTrue(adminService.isUserAdmin(user));
+        //delete user
+        adminService.removeUser(user.getName());
+        Assert.assertFalse(adminService.isUserCreated(user));
+        //change user`s admin rights
+        user.setAdminRights(false);
+        //create user without admin rights
+        adminService.createUser(user);
+        //check, that user is without admin rights
+        Assert.assertTrue(adminService.isUserCreated(user));
+        Assert.assertFalse(adminService.isUserAdmin(user));
+
+    }
+    /**
+     * 1.Create user without admin rights.
+     * 2.Delete this user.
+     * 3.Change user`s admin rights.
+     * 4.Create user, but this time with admin rights.
+     * Expected result: user will be created with admin rights.
+     */
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("1.Create user without admin rights.\n" +
+            " 2.Delete this user.\n" +
+            " 3.Change user`s admin rights.\n" +
+            " 4.Create user, but this time with admin rights.\n" +
+            " Expected result: user will be created with admin rights.")
+    @Story("Create user")
+    @Test
+    public void createUserThenCreateAdminTest(){
+        //Steps
+        User user=UserRepository.newUserWithoutAdminRihts();
+        //create user without admin rights
+        adminService.createUser(user);
+        //check that user is with admin rights
+        Assert.assertTrue(adminService.isUserCreated(user));
+        Assert.assertFalse(adminService.isUserAdmin(user));
+        //delete user
+        adminService.removeUser(user.getName());
+        Assert.assertFalse(adminService.isUserCreated(user));
+        //change user`s admin rights
+        user.setAdminRights(true);
+        //create user with admin rights
+        adminService.createUser(user);
+        //check, that user is with admin rights
+        Assert.assertTrue(adminService.isUserCreated(user));
+        Assert.assertTrue(adminService.isUserAdmin(user));
+
+    }
 
 }
