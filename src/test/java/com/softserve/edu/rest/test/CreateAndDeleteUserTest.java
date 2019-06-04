@@ -29,16 +29,16 @@ public class CreateAndDeleteUserTest {
      * Test for creating new user without admin rights
      * Expected result: user will be created
      */
-    @Test()
     @Severity(SeverityLevel.CRITICAL)
     @Description(" Test for creating new user without admin rights \n" +
             "Expected result: user will be created")
     @Story("Create user")
+    @Test()
     public void createUserTest() {
         User newUser = UserRepository.newUserWithoutAdminRihts();
         adminService.createUser(newUser);
         //Check user is created
-        Assert.assertTrue(adminService.getAllUsers().contains(newUser.getName()));
+        Assert.assertTrue(adminService.isUserCreated(newUser));
         //try to login new user
         UserService userService = guestService.SuccessfulUserLogin(newUser);
         Assert.assertTrue(adminService.isUserLogged(newUser));
@@ -62,6 +62,7 @@ public class CreateAndDeleteUserTest {
         User newAdmin = UserRepository.newUserWithAdminRihts();
         adminService.createUser(newAdmin);
         //Check user is created
+        Assert.assertTrue(adminService.isUserCreated(newAdmin));
         Assert.assertTrue(adminService.getAllAdmins().contains(newAdmin.getName()));
         //try to login new user
         AdminService adminService1 = guestService.SuccessfulAdminLogin(newAdmin);
@@ -88,26 +89,34 @@ public class CreateAndDeleteUserTest {
 
     }
 
-    @DataProvider
-    public Object[][] usersWeWantToRemove() {
-        return new Object[][]{
-                {UserRepository.newUserWithoutAdminRihts()},
-                {UserRepository.newUserWithAdminRihts()}
-        };
-    }
 
     /**
      * Delete user.
      * Expected result: user will be deleted.
      */
-    @Test(dataProvider = "usersWeWantToRemove")
+    @Test(dependsOnMethods = "createUserTest")
     @Severity(SeverityLevel.CRITICAL)
     @Description(" Delete user without admin rights \n" +
             "Expected result: user will be deleted.")
     @Story("Delete user")
-    public void deleteUserTest(User userWeWantToRemove) {
-        adminService.removeUser(userWeWantToRemove.getName());
-        Assert.assertFalse(adminService.getAllUsers().contains(userWeWantToRemove.getName()));
+    public void deleteUserTest() {
+        User user=UserRepository.newUserWithoutAdminRihts();
+        adminService.removeUser(user.getName());
+        Assert.assertFalse(adminService.getAllUsers().contains(user.getName()));
+    }
+    /**
+     * Delete admin.
+     * Expected result: admin will be deleted.
+     */
+    @Test(dependsOnMethods = "createAdminTest")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description(" Delete user with admin rights \n" +
+            "Expected result: user will be deleted.")
+    @Story("Delete user")
+    public void deleteAdminTest() {
+        User admin=UserRepository.newUserWithAdminRihts();
+        adminService.removeUser(admin.getName());
+        Assert.assertFalse(adminService.getAllUsers().contains(admin.getName()));
     }
 
     /**
@@ -116,7 +125,7 @@ public class CreateAndDeleteUserTest {
      */
     @Test()
     @Severity(SeverityLevel.CRITICAL)
-    @Description(" Delete user with admin rights \n" +
+    @Description(" Delete not existing user \n" +
             "Expected result: user will be deleted.")
     @Story("Delete user")
     public void deleteNotExistingUserTest() {
