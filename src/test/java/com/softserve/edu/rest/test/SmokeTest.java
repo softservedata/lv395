@@ -28,9 +28,11 @@ public class SmokeTest {
         //Check
         Assert.assertTrue(adminService.getUserName().contains(UserRepository.getAdmin().getName()));
         //Step
-        adminService.LogoutUser();
-        //Check
-        Assert.assertEquals(UserRepository.getAdmin().getToken(),null);
+        //adminService.changeCooldown("2000");
+        //adminService.getCurrentCooldown();
+//        adminService.LogoutUser();
+//        //Check
+//        Assert.assertEquals(UserRepository.getAdmin().getToken(),null);
 
     }
 

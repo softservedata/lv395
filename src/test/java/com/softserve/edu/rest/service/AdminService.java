@@ -14,6 +14,7 @@ public class AdminService extends UserService {
     private LockedUsersResource lockedUsersResource;
     private UnlockAllUsersResource unlockAllUsersResource;
     private LockUnlockUserResource lockUnlockUserResource;
+    //protected CooldownResource cooldownResource;
 
     public AdminService(User user) {
         super(user);
@@ -23,7 +24,7 @@ public class AdminService extends UserService {
         lockedUsersResource = new LockedUsersResource();
         unlockAllUsersResource = new UnlockAllUsersResource();
         lockUnlockUserResource = new LockUnlockUserResource();
-    }
+        cooldownResource = new CooldownResource();}
 
     public AdminService(LoginResource loginResource,
                         TokenlifetimeResource tokenlifetimeResource,
@@ -69,6 +70,26 @@ public class AdminService extends UserService {
         }
 
     }
+
+    public Boolean setCooldownTime(User adminUser) {
+        RestParameters bodyParameters = new RestParameters()
+                .addParameter("token", user.getToken())
+//                .addParameter("time", adminUser.getTime())
+                .addParameter("time", "3333" )
+                ;
+
+        SimpleEntity simpleEntity = userResource.
+                httpPutAsEntity(null, bodyParameters, null);
+
+        checkEntity(simpleEntity, "true");
+        if (simpleEntity.getContent().equals("true")) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 
     public String getAllUsers() {
         RestParameters urlParameters = new RestParameters()
@@ -187,4 +208,14 @@ public class AdminService extends UserService {
         }
 
     }
-}
+
+    public String changeCooldown(){
+        RestParameters bodyParameters = new RestParameters()
+                .addParameter("token", user.getToken())
+                .addParameter("time", "9999");
+        SimpleEntity simpleEntity = cooldownResource
+                .httpPutAsEntity(null, null, bodyParameters);
+        //checkEntity(simpleEntity, user.getPassword());
+        return simpleEntity.getContent();
+    }
+    }

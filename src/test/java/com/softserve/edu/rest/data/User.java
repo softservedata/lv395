@@ -9,6 +9,7 @@ public class User {
     private String name;
     private String password;
     private String token;
+    private String time;
     private List<Item> items;
     private boolean adminRights;
     private final String ERROR_USER_LOCKED="ERROR, user locked";
@@ -35,6 +36,11 @@ public class User {
         return this;
     }
 
+    public User setTime(String time) {
+        this.time = time;
+        return this;
+    }
+
     public User addItem(Item item) {
         items.add(item);
         return this;
@@ -57,6 +63,10 @@ public class User {
 
     public String getToken() {
         return token;
+    }
+
+    public String getTime() {
+        return time;
     }
 
     public boolean isAdminRights() {
