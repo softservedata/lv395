@@ -33,7 +33,7 @@
                     <include name="createUserTest"/>
                     <include name="createAdminTest"/>
                     <include name="createExistingUserTest"/>
-                    <include name="createUserWithMockTest"/>
+
                     <include name="deleteUserTest"/>
                     <include name="deleteAdminTest"/>
                     <include name="deleteNotExistingUserTest"/>
@@ -43,6 +43,12 @@
                 <methods>
                     <include name="createUserThenCreateAdminTest"/>
                     <include name="createAdminThenCreateUserTest"/>
+                </methods>
+            </class>
+
+            <class name="com.softserve.edu.rest.test.createAndDelete.CreateUserUseMockTest">
+                <methods>
+                    <include name="createUserWithMockTest"/>
                 </methods>
             </class>
 
