@@ -15,6 +15,11 @@ public final class RestUrlRepository {
         RestUrlRepository.server = server;
     }
 
+    public static RestUrl resetServiceToInitialState() {
+        return new RestUrl()
+                .addUrlServer(server)
+                .addUriGet("reset");
+    }
 
     // Resource Loggined User
     public static RestUrl getLogin() {
@@ -80,12 +85,6 @@ public final class RestUrlRepository {
                 .addUriPost("locked/user/{lockName}")
                 .addUriPut("locked/user/{lockName}");
     }
-
-    /*public static RestUrl unlockUser() {
-        return new RestUrl()
-                .addUrlServer(server)
-                .addUriPut("locked/user/");
-    }*/
 
     public static RestUrl unlockAllUsers() {
         return new RestUrl()

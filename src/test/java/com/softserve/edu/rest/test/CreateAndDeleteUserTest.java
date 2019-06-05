@@ -35,7 +35,7 @@ public class CreateAndDeleteUserTest {
     @Story("Create user")
     @Test()
     public void createUserTest() {
-        User newUser = UserRepository.newUserWithoutAdminRihts();
+        User newUser = UserRepository.newUserWithoutAdminRights();
         adminService.createUser(newUser);
         //Check user is created
         Assert.assertTrue(adminService.isUserCreated(newUser));
@@ -59,7 +59,7 @@ public class CreateAndDeleteUserTest {
             "Expected result: user will be created")
     @Story("Create user")
     public void createAdminTest() {
-        User newAdmin = UserRepository.newUserWithAdminRihts();
+        User newAdmin = UserRepository.newUserWithAdminRights();
         adminService.createUser(newAdmin);
         //Check user is created
         Assert.assertTrue(adminService.isUserCreated(newAdmin));
@@ -100,7 +100,7 @@ public class CreateAndDeleteUserTest {
             "Expected result: user will be deleted.")
     @Story("Delete user")
     public void deleteUserTest() {
-        User user=UserRepository.newUserWithoutAdminRihts();
+        User user=UserRepository.newUserWithoutAdminRights();
         adminService.removeUser(user.getName());
         Assert.assertFalse(adminService.getAllUsers().contains(user.getName()));
     }
@@ -114,7 +114,7 @@ public class CreateAndDeleteUserTest {
             "Expected result: user will be deleted.")
     @Story("Delete user")
     public void deleteAdminTest() {
-        User admin=UserRepository.newUserWithAdminRihts();
+        User admin=UserRepository.newUserWithAdminRights();
         adminService.removeUser(admin.getName());
         Assert.assertFalse(adminService.getAllUsers().contains(admin.getName()));
     }
@@ -145,7 +145,7 @@ public class CreateAndDeleteUserTest {
     @Story("Create user")
     public void createUserWithMockTest() {
         AdminService adminService1 = guestService.SuccessfulAdminLogin(UserRepository.getAdmin());
-        User newUser = UserRepository.newUserWithoutAdminRihts();
+        User newUser = UserRepository.newUserWithoutAdminRights();
 
         AdminService spy = spy(adminService1);
         Boolean createUser = adminService1.createUser(newUser);
@@ -179,7 +179,7 @@ public class CreateAndDeleteUserTest {
     @Test
     public void createAdminThenCreateUserTest(){
         //Steps
-        User user=UserRepository.newUserWithAdminRihts();
+        User user=UserRepository.newUserWithAdminRights();
         //create admin user
         adminService.createUser(user);
         //check
@@ -214,7 +214,7 @@ public class CreateAndDeleteUserTest {
     @Test
     public void createUserThenCreateAdminTest(){
         //Steps
-        User user=UserRepository.newUserWithoutAdminRihts();
+        User user=UserRepository.newUserWithoutAdminRights();
         //create user without admin rights
         adminService.createUser(user);
         //check that user is with admin rights

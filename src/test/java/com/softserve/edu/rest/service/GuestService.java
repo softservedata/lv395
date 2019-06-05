@@ -5,6 +5,7 @@ import com.softserve.edu.rest.data.Lifetime;
 import com.softserve.edu.rest.data.User;
 import com.softserve.edu.rest.engine.CooldownResource;
 import com.softserve.edu.rest.engine.LoginResource;
+import com.softserve.edu.rest.engine.ResetApiResource;
 import com.softserve.edu.rest.engine.TokenlifetimeResource;
 import com.softserve.edu.rest.entity.RestParameters;
 import com.softserve.edu.rest.entity.SimpleEntity;
@@ -15,17 +16,23 @@ public class GuestService {
     protected LoginResource loginResource;
     protected TokenlifetimeResource tokenlifetimeResource;
     protected CooldownResource cooldownResource;
+    private ResetApiResource resetApiResource;
     private final String USER_WAS_LOCKED = "ERROR, user locked";
 
     public GuestService() {
         loginResource = new LoginResource();
         tokenlifetimeResource = new TokenlifetimeResource();
         cooldownResource = new CooldownResource();
+        resetApiResource = new ResetApiResource();
     }
 
     public GuestService(LoginResource loginResource, TokenlifetimeResource tokenlifetimeResource) {
         this.loginResource = loginResource;
         this.tokenlifetimeResource = tokenlifetimeResource;
+    }
+
+    public void resetServiceToInitialState() {
+        resetApiResource.httpGetAsEntity(null, null);
     }
 
     protected void checkEntity(SimpleEntity simpleEntity, String message) {
@@ -38,7 +45,7 @@ public class GuestService {
         }
     }
 
-    public Boolean isUserLockedAfterTryToLogin(User user){
+    public boolean isUserLockedAfterTryToLogin(User user){
         RestParameters bodyParameters=new RestParameters()
                 .addParameter("name", user.getName())
                 .addParameter("password",user.getPassword());

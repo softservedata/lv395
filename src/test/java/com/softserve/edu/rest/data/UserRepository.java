@@ -30,12 +30,12 @@ public final class  UserRepository {
         return new User("vbudktc","qwerty")
                 .addItem(new Item(0,"My data"));
     }
-    public static User newUserWithoutAdminRihts(){
+    public static User newUserWithoutAdminRights(){
         return new User("Ivan","qwerty")
                 .addItem(new Item(0,"My data"))
                 .setAdminRights(false);
     }
-    public static User newUserWithAdminRihts(){
+    public static User newUserWithAdminRights(){
         return new User("Petro","qwerty")
                 .addItem(new Item(0,"My data"))
                 .setAdminRights(true);
