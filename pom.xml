@@ -296,6 +296,7 @@
                     </systemPropertyVariables>
                     <suiteXmlFiles>
                         <suiteXmlFile>RestSuite.xml</suiteXmlFile>
+                        <suiteXmlFile>LockingTestRestSuite.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <reportsDirectory>${testng.reports.directory}</reportsDirectory>
                     <argLine>

@@ -6,6 +6,7 @@ import com.softserve.edu.rest.service.GuestService;
 import com.softserve.edu.rest.service.UserService;
 import com.softserve.edu.rest.tools.LoginUserThread;
 import io.qameta.allure.*;
+import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -16,7 +17,7 @@ import org.testng.annotations.Test;
 @Feature("Login and logout tests")
 public class LoginLogoutTest {
     private AdminService adminService;
-
+    private final Logger log = Logger.getLogger(this.getClass());
     @BeforeClass
     public void beforeClass() {
         GuestService guestService = new GuestService();
@@ -26,6 +27,8 @@ public class LoginLogoutTest {
     @AfterClass
     public void afterClass() {
         adminService.logoutUser();
+        adminService.resetServiceToInitialState();
+        adminService.resetServiceToInitialState();
     }
 
 
@@ -48,6 +51,7 @@ public class LoginLogoutTest {
             "Expected result: user will be logged")
     @Story("Login")
     public void loginPositiveTest(User user) {
+        log.debug("loginPositiveTest started!");
         //Steps
         GuestService guestService = new GuestService();
         UserService userService = guestService.SuccessfulUserLogin(user);
@@ -55,8 +59,13 @@ public class LoginLogoutTest {
         Assert.assertTrue(adminService.isUserLogged(user));
         //Step
         userService.logoutUser();
+        log.debug("loginPositiveTest finished!");
     }
 
+    /**
+     * Here we have negative data fot login
+     * @return data for login
+     */
     @DataProvider
     public Object[][] wrongLoginData() {
         return new Object[][]{
@@ -78,11 +87,13 @@ public class LoginLogoutTest {
             "Expected result: user won`t be logged")
     @Story("Login")
     public void loginNegativeTest(User user) {
+        log.debug("loginNegativeTest started!");
         //Steps
         GuestService guestService = new GuestService();
         guestService.SuccessfulUserLogin(user);
         //Check
         Assert.assertFalse(adminService.isUserLogged(user));
+        log.debug("loginNegativeTest finished!");
     }
 
     /**
@@ -97,6 +108,7 @@ public class LoginLogoutTest {
             "Expected result: user will logout")
     @Story("Logout")
     public void logoutTest(User user) {
+        log.debug("logoutTest started!");
         //steps
         GuestService guestService = new GuestService();
         UserService userService = guestService.SuccessfulUserLogin(user);
@@ -106,6 +118,7 @@ public class LoginLogoutTest {
         userService.logoutUser();
         //check user is logout
         Assert.assertFalse(adminService.isUserLogged(user));
+        log.debug("logoutTest finished!");
     }
 
     /**
@@ -125,6 +138,7 @@ public class LoginLogoutTest {
     @Test(dataProvider = "correctUser",
             expectedExceptions = RuntimeException.class)
     public void logoutNegativeTest(User user) {
+        log.debug("logoutNegativeTest started!");
         //steps
         GuestService guestService = new GuestService();
         UserService userService = guestService.SuccessfulUserLogin(user);
@@ -134,6 +148,7 @@ public class LoginLogoutTest {
         user.setToken("111");
         //here we are expecting for exception
         userService.logoutUser();
+        log.debug("logoutNegativeTest finished!");
     }
 
 
@@ -152,6 +167,7 @@ public class LoginLogoutTest {
             "Expected result: both users will be logged")
     @Story("Two users trying to login")
     public void loginTwoUsers1() throws InterruptedException {
+        log.debug("loginTwoUsers1 started!");
         User user1 = UserRepository.getUser1();
         User user2 = UserRepository.getUser2();
         //first thread start
@@ -172,14 +188,15 @@ public class LoginLogoutTest {
         UserService userService1 = new UserService(user1);
         UserService userService2 = new UserService(user2);
         //check names
-        Assert.assertEquals(user1.getName(),userService1.getUserName());
-        Assert.assertEquals(user2.getName(),userService2.getUserName());
+        Assert.assertEquals(user1.getName(), userService1.getUserName());
+        Assert.assertEquals(user2.getName(), userService2.getUserName());
         //logout user1
         userService1.logoutUser();
         Assert.assertFalse(adminService.isUserLogged(user1));
         userService2.logoutUser();
         //logout user2
         Assert.assertFalse(adminService.isUserLogged(user2));
+        log.debug("loginTwoUsers1 finished!");
     }
 
     /**
@@ -198,10 +215,11 @@ public class LoginLogoutTest {
             "Two users are trying to login at the same time \n" +
             "one of them has correct data and another has \n" +
             " incorrect data. \n" +
-            "Expected result: user with correct data will be \n"+
+            "Expected result: user with correct data will be \n" +
             " logged and user with incorrect data ")
     @Story("Two users trying to login")
     public void loginTwoUsers2() throws InterruptedException {
+        log.debug("loginTwoUsers2 started!");
         //Steps
         User user = UserRepository.getUser1();
         User incorrectUser = UserRepository.getUserWrongLogin();
@@ -221,10 +239,11 @@ public class LoginLogoutTest {
         //Step
         UserService userService = new UserService(user);
         //check name
-        Assert.assertEquals(user.getName(),userService.getUserName());
+        Assert.assertEquals(user.getName(), userService.getUserName());
         //logout user1
         userService.logoutUser();
         Assert.assertFalse(adminService.isUserLogged(user));
+        log.debug("loginTwoUsers2 finished!");
     }
 
     /**
@@ -242,7 +261,8 @@ public class LoginLogoutTest {
             "both have incorrect data \n" +
             "Expected result: both users won`t be logged ")
     @Story("Two users trying to login")
-    public void loginTwoUsers3() throws InterruptedException {
+    public void  loginTwoUsers3() throws InterruptedException {
+        log.debug("loginTwoUsers3 started!");
         //Steps
         User incorrectUser1 = UserRepository.getUserWrongPassword();
         User incorrectUser2 = UserRepository.getUserWrongLogin();
@@ -259,6 +279,7 @@ public class LoginLogoutTest {
         //check users are logged
         Assert.assertFalse(adminService.isUserLogged(incorrectUser1));
         Assert.assertFalse(adminService.isUserLogged(incorrectUser2));
+        log.debug("loginTwoUsers3 finished!");
 
     }
 

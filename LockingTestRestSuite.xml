@@ -2,15 +2,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Yurii`s tests">
 
-    <test name="Smoke Test">
-        <classes>
-            <class name="com.softserve.edu.rest.test.SmokeTest">
-                <methods>
-                    <include name="loginAndLogoutAdmin"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
     <test name="Lock functionality Test">
         <classes>
             <class name="com.softserve.edu.rest.test.locking.LockedUsersOnLoginStageTest">

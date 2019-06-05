@@ -108,7 +108,6 @@ public class AdminService extends UserService {
                 .addParameter("token", user.getToken())
                 .addParameter("name", removedName);
         SimpleEntity simpleEntity = userResource.httpDeleteAsEntity(null, urlParameters, null);
-        checkEntity(simpleEntity, "true");
         if (simpleEntity.getContent().equals("true")) {
             return true;
         } else {
