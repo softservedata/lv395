@@ -29,7 +29,7 @@ public class SmokeTest {
         GuestService guestService = new GuestService();
         AdminService adminService = guestService.SuccessfulAdminLogin(UserRepository.getAdmin());
         //Check
-        Assert.assertTrue(adminService.getUserName().contains(UserRepository.getAdmin().getName()));
+        Assert.assertEquals(adminService.getUserName(),UserRepository.getAdmin().getName());
         //Step
         adminService.logoutUser();
         //Check

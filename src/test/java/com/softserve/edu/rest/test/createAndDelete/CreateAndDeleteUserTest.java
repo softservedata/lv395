@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 
 @Epic("Ira`s tests")
 @Feature("Create and delete Test")
-
 public class CreateAndDeleteUserTest {
 
     private GuestService guestService;

@@ -18,6 +18,7 @@ import org.testng.annotations.Test;
 public class LoginLogoutTest {
     private AdminService adminService;
     private final Logger log = Logger.getLogger(this.getClass());
+    private final String INCORRECT_TOKEN="111";
     @BeforeClass
     public void beforeClass() {
         GuestService guestService = new GuestService();
@@ -145,7 +146,7 @@ public class LoginLogoutTest {
         //check that user is logged
         Assert.assertTrue(adminService.isUserLogged(user));
         //step(wrong token)
-        user.setToken("111");
+        user.setToken(INCORRECT_TOKEN);
         //here we are expecting for exception
         userService.logoutUser();
         log.debug("logoutNegativeTest finished!");
@@ -180,7 +181,7 @@ public class LoginLogoutTest {
         threadForUserCreating2.start();
         threadForUserCreating1.join();
         threadForUserCreating2.join();
-        //check users are logined
+        //check users are logged
         Assert.assertTrue(adminService.isUserLogged(user1));
         Assert.assertTrue(adminService.isUserLogged(user2));
         //check tokens
@@ -193,6 +194,7 @@ public class LoginLogoutTest {
         //logout user1
         userService1.logoutUser();
         Assert.assertFalse(adminService.isUserLogged(user1));
+        Assert.assertTrue(adminService.isUserLogged(user2));
         userService2.logoutUser();
         //logout user2
         Assert.assertFalse(adminService.isUserLogged(user2));

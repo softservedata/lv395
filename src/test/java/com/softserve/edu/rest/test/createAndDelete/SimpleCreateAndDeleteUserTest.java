@@ -181,34 +181,7 @@ public class SimpleCreateAndDeleteUserTest {
         log.debug("deleteNotExistingUserTest finished!");
     }
 
-    /**
-     * Test for creating new user
-     * using mock for test
-     */
-    @Test()
-    @Severity(SeverityLevel.CRITICAL)
-    @Description(" Test for creating new \n" +
-            "using mock for test")
-    @Story("Create user")
-    public void createUserWithMockTest() {
-        log.debug("createUserWithMockTest started!");
-        AdminService adminService1 = guestService.SuccessfulAdminLogin(UserRepository.getAdmin());
-        User newUser = UserRepository.newUserWithoutAdminRights();
 
-        AdminService spy = spy(adminService1);
-        Boolean createUser = adminService1.createUser(newUser);
-        when(spy.isUserCreated(newUser)).thenReturn(true);
-        Boolean userIsCreated = adminService1.createUser(newUser);
-        //Check user is created
-        Assert.assertTrue(createUser);
-        Assert.assertTrue(userIsCreated);
-
-        //try to login new user
-        UserService userService = guestService.SuccessfulUserLogin(newUser);
-        Assert.assertTrue(adminService1.isUserLogged(newUser));
-        userService.logoutUser();
-        log.debug("createUserWithMockTest finished!");
-    }
 
 
 }
