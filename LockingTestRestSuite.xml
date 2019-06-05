@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Yurii`s tests">
+
+    <test name="Smoke Test">
+        <classes>
+            <class name="com.softserve.edu.rest.test.SmokeTest">
+                <methods>
+                    <include name="loginAndLogoutAdmin"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Locking in RestApi">
+        <classes>
+            <class name="com.softserve.edu.rest.test.locking.LockedUsersOnLoginStageTest">
+                <methods>
+                    <include name="lockingUserByUnsuccessfulLoginTest"/>
+                    <include name="lockingAdminByUnsuccessfulLoginTest"/>
+                    <include name="loginAfterSecondUnsuccessfulAttemptTest"/>
+                </methods>
+            </class>
+            <class name="com.softserve.edu.rest.test.locking.LockUnlockByAdminTest">
+                <methods>
+                    <include name="checkLockedAdminsListTest"/>
+                    <include name="checkLockedUsersListTest"/>
+                    <include name="lockUserByAdminTest"/>
+                    <include name="unlockUserByAdminTest"/>
+                    <include name="lockAdminByAdminTest"/>
+                    <include name="unlockAdminByAdminTest"/>
+                    <include name="adminLockHimselfTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- Test -->
+
+</suite> <!-- Suite -->

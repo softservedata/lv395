@@ -21,7 +21,8 @@ public class LockedUsersOnLoginStageTest extends ATestRunner {
     private int counter = 1;
 
     /**
-     * DataProvider for lockingUserByUnsuccessfulLoginTest
+     * DataProvider for test below.
+     * @see #lockingUserByUnsuccessfulLoginTest
      * Three wrong data for login in rest-api.
      * Fourth - correct for login in rest-api.
      * @return User - with wrong password,
@@ -49,7 +50,7 @@ public class LockedUsersOnLoginStageTest extends ATestRunner {
     @Test(dataProvider = "userData")
     public void lockingUserByUnsuccessfulLoginTest(final User user,
                                                    final int attempt) {
-        // Steps
+        log.info("Test lockingUserByUnsuccessfulLogin started!");
         GuestService guestService = new GuestService();
         if (attempt == 4) {
             Assert.assertTrue(guestService.isUserLockedAfterTryToLogin(user));
@@ -57,10 +58,12 @@ public class LockedUsersOnLoginStageTest extends ATestRunner {
         } else {
             Assert.assertFalse(guestService.isUserLockedAfterTryToLogin(user));
         }
+        log.info("Test lockingUserByUnsuccessfulLogin finished!\n");
     }
 
     /**
-     * DataProvider for lockingAdminByUnsuccessfulLoginTest
+     * DataProvider for test below.
+     * @see #lockingAdminByUnsuccessfulLoginTest
      * Three wrong data for login in rest-api.
      * Fourth - correct for login in rest-api.
      * @return User - user with admin rights and with wrong password,
@@ -74,7 +77,7 @@ public class LockedUsersOnLoginStageTest extends ATestRunner {
                 {UserRepository.getAdminWrongPassword(), counter++},
                 {UserRepository.getAdminWrongPassword(), counter++},
                 // the same user, but with correct password.
-                {UserRepository.newUserWithAdminRihts(), counter},
+                {UserRepository.newUserWithAdminRights(), counter},
         };
     }
 
@@ -84,10 +87,10 @@ public class LockedUsersOnLoginStageTest extends ATestRunner {
      * @param admin - user with admin rights data for login.
      * @param attempt - for change False on True after 3 attempt.
      */
-    @Test (dataProvider = "adminData")
+    @Test (dataProvider = "adminData", priority = 1)
     public void lockingAdminByUnsuccessfulLoginTest(final User admin,
                                                     final int attempt) {
-        // Steps
+        log.info("Test lockingAdminByUnsuccessfulLogin started!");
         GuestService guestService = new GuestService();
         if (attempt == 4) {
             // Check
@@ -96,15 +99,16 @@ public class LockedUsersOnLoginStageTest extends ATestRunner {
         } else {
             Assert.assertFalse(guestService.isUserLockedAfterTryToLogin(admin));
         }
+        log.info("Test lockingAdminByUnsuccessfulLogin finished!\n");
     }
 
     /**
      * This test checks, that login can successful will be logged
      * after two wrong attempts before.
      */
-    @Test
+    @Test (priority = 2)
     public void loginAfterSecondUnsuccessfulAttemptTest() {
-        // Steps
+        log.info("Test loginAfterSecondUnsuccessfulAttempt started!");
         // Initialize two users with same name
         User userValidPassword = UserRepository.getUser1();
         User userInvalidPassword = UserRepository.getUserWrongPassword();
@@ -118,6 +122,7 @@ public class LockedUsersOnLoginStageTest extends ATestRunner {
         System.out.println(userService.getCurrentLifetime());
         Assert.assertTrue(adminService.isUserLogged(userValidPassword));
         userService.logoutUser();
+        log.info("Test loginAfterSecondUnsuccessfulAttempt finished!\n");
     }
 
 }
