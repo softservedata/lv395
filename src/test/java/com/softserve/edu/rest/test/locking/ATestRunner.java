@@ -4,10 +4,13 @@ import com.softserve.edu.rest.data.User;
 import com.softserve.edu.rest.data.UserRepository;
 import com.softserve.edu.rest.service.AdminService;
 import com.softserve.edu.rest.service.GuestService;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.apache.log4j.Logger;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-
+@Epic("Yuri`s tests")
+@Feature("Lock functionality Test")
 /**
  * This class are related with locking functionality tests
  * The class include BeforeClass and AfterClass
