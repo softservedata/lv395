@@ -87,7 +87,7 @@ public class LockedUsersOnLoginStageTest extends ATestRunner {
      * @param admin - user with admin rights data for login.
      * @param attempt - for change False on True after 3 attempt.
      */
-    @Test (dataProvider = "adminData")
+    @Test (dataProvider = "adminData", priority = 1)
     public void lockingAdminByUnsuccessfulLoginTest(final User admin,
                                                     final int attempt) {
         log.info("Test lockingAdminByUnsuccessfulLogin started!");
@@ -106,7 +106,7 @@ public class LockedUsersOnLoginStageTest extends ATestRunner {
      * This test checks, that login can successful will be logged
      * after two wrong attempts before.
      */
-    @Test
+    @Test (priority = 2)
     public void loginAfterSecondUnsuccessfulAttemptTest() {
         log.info("Test loginAfterSecondUnsuccessfulAttempt started!");
         // Initialize two users with same name

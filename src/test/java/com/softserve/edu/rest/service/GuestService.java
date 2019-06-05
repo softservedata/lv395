@@ -17,7 +17,6 @@ public class GuestService {
     protected TokenlifetimeResource tokenlifetimeResource;
     protected CooldownResource cooldownResource;
     private ResetApiResource resetApiResource;
-    private final String USER_WAS_LOCKED = "ERROR, user locked";
 
     public GuestService() {
         loginResource = new LoginResource();
@@ -52,11 +51,7 @@ public class GuestService {
         SimpleEntity simpleEntity = loginResource
                 .httpPostAsEntity(null, null, bodyParameters);
         checkEntity(simpleEntity, "Error Login");
-        if (simpleEntity.getContent().equals(USER_WAS_LOCKED)) {
-            return true;
-        } else {
-            return false;
-        }
+        return simpleEntity.getContent().equals("ERROR, user locked");
     }
 
     public Lifetime getCurrentLifetime() {

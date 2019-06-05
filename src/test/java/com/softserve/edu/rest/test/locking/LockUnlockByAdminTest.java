@@ -19,7 +19,7 @@ import org.testng.annotations.Test;
 public class LockUnlockByAdminTest extends ATestRunner {
     /**
      * DataProvider, that will be used by two tests.
-     * @see #checkLockedAdminListTest,
+     * @see #checkLockedAdminsListTest,
      * @see #checkLockedUsersListTest
      * @return User with admin rights,
      *         User without admin rights.
@@ -38,8 +38,8 @@ public class LockUnlockByAdminTest extends ATestRunner {
      * @param admin - user with admin rights.
      * @param user - user without admin rights.
      */
-    @Test(dataProvider = "userAndAdminData")
-    public void checkLockedAdminListTest(final User admin, final User user) {
+    @Test(dataProvider = "userAndAdminData", priority = 3)
+    public void checkLockedAdminsListTest(final User admin, final User user) {
         log.info("Test checkLockedAdminList started!");
         // Locking two users.
         adminService.lockUser(admin);
@@ -63,7 +63,7 @@ public class LockUnlockByAdminTest extends ATestRunner {
      * @param admin - user with admin rights.
      * @param user - user without admin rights.
      */
-    @Test(dataProvider = "userAndAdminData")
+    @Test(dataProvider = "userAndAdminData", priority = 4)
     public void checkLockedUsersListTest(final User admin, final User user) {
         log.info("Test checkLockedUsersList started!");
         adminService.lockUser(admin);
@@ -98,7 +98,7 @@ public class LockUnlockByAdminTest extends ATestRunner {
      * Admin locks a user. Than user tries to login.
      * @param user - user without admin rights.
      */
-    @Test (dataProvider = "userData")
+    @Test (dataProvider = "userData", priority = 5)
     public void lockUserByAdminTest(final User user) {
         log.info("Test lockUserByAdmin started!");
         // Admin locks the user.
@@ -117,7 +117,7 @@ public class LockUnlockByAdminTest extends ATestRunner {
      * After unlocking, user tries to login.
      * @param user - user without admin rights.
      */
-    @Test(dataProvider = "userData")
+    @Test(dataProvider = "userData", priority = 6)
     public void unlockUserByAdminTest(final User user) {
         log.info("Test unlockUserByAdmin started!");
         // If user didn't lock, we are locking him.
@@ -154,7 +154,7 @@ public class LockUnlockByAdminTest extends ATestRunner {
      * This test checks, that admin can lock another admin.
      * @param admin - user with admin rights.
      */
-    @Test (dataProvider = "adminData")
+    @Test (dataProvider = "adminData", priority = 7)
     public void lockAdminByAdminTest(final User admin) {
         log.info("Test lockAdminByAdmin started!");
         // Admin locks another admin.
@@ -171,7 +171,7 @@ public class LockUnlockByAdminTest extends ATestRunner {
      * This test checks, that admin can unlock another admin.
      * @param admin - user with admin rights.
      */
-    @Test(dataProvider = "adminData")
+    @Test(dataProvider = "adminData", priority = 8)
     public void unlockAdminByAdminTest(final User admin) {
         log.info("Test unlockAdminByAdmin started!");
         // If user didn't lock, we are locking him.
@@ -189,7 +189,7 @@ public class LockUnlockByAdminTest extends ATestRunner {
      * This test checks, that admin can't lock himself.
      * @param admin - user with admin rights.
      */
-    @Test (dataProvider = "adminData")
+    @Test (dataProvider = "adminData", priority = 9)
     public void adminLockHimselfTest(final User admin) {
         log.info("Test adminLockHimself started!");
         // If admin locked, we are unlocking him.
