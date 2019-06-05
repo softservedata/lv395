@@ -4,6 +4,10 @@ import com.softserve.edu.rest.data.User;
 import com.softserve.edu.rest.data.UserRepository;
 import com.softserve.edu.rest.service.GuestService;
 import com.softserve.edu.rest.service.UserService;
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -47,6 +51,10 @@ public class LockedUsersOnLoginStageTest extends ATestRunner {
      * @param user - user data for login.
      * @param attempt - for change False on True after 3 attempt.
      */
+    @Severity(SeverityLevel.BLOCKER)
+    @Description(" Locking user after three failed login attempts \n" +
+            "Expected result: user will be locked.")
+    @Story("Locking user by system")
     @Test(dataProvider = "userData")
     public void lockingUserByUnsuccessfulLoginTest(final User user,
                                                    final int attempt) {
@@ -87,6 +95,10 @@ public class LockedUsersOnLoginStageTest extends ATestRunner {
      * @param admin - user with admin rights data for login.
      * @param attempt - for change False on True after 3 attempt.
      */
+    @Severity(SeverityLevel.BLOCKER)
+    @Description(" Locking admin after three failed login attempts \n" +
+            "Expected result: user will be locked.")
+    @Story("Locking admin (user with admin rights) by system")
     @Test (dataProvider = "adminData", priority = 1)
     public void lockingAdminByUnsuccessfulLoginTest(final User admin,
                                                     final int attempt) {
@@ -106,6 +118,10 @@ public class LockedUsersOnLoginStageTest extends ATestRunner {
      * This test checks, that login can successful will be logged
      * after two wrong attempts before.
      */
+    @Severity(SeverityLevel.BLOCKER)
+    @Description(" User will not be locked after two failed login attempts \n" +
+            "Expected result: user will not be locked.")
+    @Story("Locking admin (user with admin rights) by system")
     @Test (priority = 2)
     public void loginAfterSecondUnsuccessfulAttemptTest() {
         log.info("Test loginAfterSecondUnsuccessfulAttempt started!");

@@ -11,7 +11,7 @@
             </class>
         </classes>
     </test>
-    <test name="Locking in RestApi">
+    <test name="Lock functionality Test">
         <classes>
             <class name="com.softserve.edu.rest.test.locking.LockedUsersOnLoginStageTest">
                 <methods>
