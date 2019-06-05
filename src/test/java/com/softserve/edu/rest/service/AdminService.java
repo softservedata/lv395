@@ -11,17 +11,21 @@ public class AdminService extends UserService {
 
     private AdminsResource adminsResource;
     private LoggedAdminsResource loggedAdminsResource;
+    // Locked
+    private LockedAdminsResource lockedAdminsResource;
     private LoggedUsersResource loggedUsersResource;
     private LockedUsersResource lockedUsersResource;
     private UnlockAllUsersResource unlockAllUsersResource;
     private LockUnlockUserResource lockUnlockUserResource;
     //protected CooldownResource cooldownResource;
 
+
     public AdminService(User user) {
         super(user);
         adminsResource = new AdminsResource();
         loggedAdminsResource = new LoggedAdminsResource();
         loggedUsersResource = new LoggedUsersResource();
+        lockedAdminsResource = new LockedAdminsResource();
         lockedUsersResource = new LockedUsersResource();
         unlockAllUsersResource = new UnlockAllUsersResource();
         lockUnlockUserResource = new LockUnlockUserResource();
@@ -176,6 +180,13 @@ public class AdminService extends UserService {
         return simpleEntity.getContent();
     }
 
+    public String getLockedAdmins() {
+        RestParameters urlParameters = new RestParameters()
+                .addParameter("token", user.getToken());
+        SimpleEntity simpleEntity = lockedAdminsResource.httpGetAsEntity(null, urlParameters);
+        return simpleEntity.getContent();
+    }
+
     public boolean isUserLogged(User user) {
 
         if (getAllLoggedUsers().contains(user.getName())) {
@@ -192,8 +203,16 @@ public class AdminService extends UserService {
         return simpleEntity.getContent();
     }
 
-    public boolean isUserLocked(User user){
+    public boolean isUserPresentInLockedUsers(User user){
         if (getLockedUsers().contains(user.getName())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isAdminPresentInLockedAdmins(User user){
+        if (getLockedAdmins().contains(user.getName())) {
             return true;
         } else {
             return false;

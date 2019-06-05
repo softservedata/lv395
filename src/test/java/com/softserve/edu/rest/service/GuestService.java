@@ -15,6 +15,7 @@ public class GuestService {
     protected LoginResource loginResource;
     protected TokenlifetimeResource tokenlifetimeResource;
     protected CooldownResource cooldownResource;
+    private final String USER_WAS_LOCKED = "ERROR, user locked";
 
     public GuestService() {
         loginResource = new LoginResource();
@@ -34,6 +35,20 @@ public class GuestService {
                 || (simpleEntity.getContent().toLowerCase().equals("false"))) {
             // TODO Develop Custom Exception
             throw new RuntimeException(message);
+        }
+    }
+
+    public Boolean isUserLockedAfterTryToLogin(User user){
+        RestParameters bodyParameters=new RestParameters()
+                .addParameter("name", user.getName())
+                .addParameter("password",user.getPassword());
+        SimpleEntity simpleEntity = loginResource
+                .httpPostAsEntity(null, null, bodyParameters);
+        checkEntity(simpleEntity, "Error Login");
+        if (simpleEntity.getContent().equals(USER_WAS_LOCKED)) {
+            return true;
+        } else {
+            return false;
         }
     }
 
