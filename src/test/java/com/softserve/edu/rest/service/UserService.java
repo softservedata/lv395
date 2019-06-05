@@ -64,13 +64,13 @@ public class UserService extends GuestService {
         return simpleEntity.getContent();
     }
 
-    public String changeCooldown(String newCooldown) {
-        RestParameters bodyParameters = new RestParameters()
-                .addParameter("token", user.getToken())
-                .addParameter("time", "9999");
-        SimpleEntity simpleEntity = userResource
-                .httpPutAsEntity(null, null, bodyParameters);
-        return simpleEntity.getContent();
-    }
+//    public String changeCooldown(String newCooldown) {
+//        RestParameters bodyParameters = new RestParameters()
+//                .addParameter("token", user.getToken())
+//                .addParameter("time", "2222");
+//        SimpleEntity simpleEntity = userResource
+//                .httpPutAsEntity(null, null, bodyParameters);
+//        return simpleEntity.getContent();
+//    }
 
 }

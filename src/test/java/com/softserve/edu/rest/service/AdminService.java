@@ -228,10 +228,10 @@ public class AdminService extends UserService {
 
     }
 
-    public String changeCooldown(){
+    public String changeCooldown(String newTime){
         RestParameters bodyParameters = new RestParameters()
                 .addParameter("token", user.getToken())
-                .addParameter("time", "9999");
+                .addParameter("time", newTime);
         SimpleEntity simpleEntity = cooldownResource
                 .httpPutAsEntity(null, null, bodyParameters);
         //checkEntity(simpleEntity, user.getPassword());
