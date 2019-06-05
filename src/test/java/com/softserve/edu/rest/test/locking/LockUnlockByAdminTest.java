@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 
 /**
  * This class is used for testing lock/unlock functionality by Admin.
- * And it includes 7 tests.
+ * And class includes 7 tests.
  *
  * @author Yurii Kril
  */
