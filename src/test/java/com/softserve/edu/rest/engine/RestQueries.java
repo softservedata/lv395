@@ -3,12 +3,12 @@ package com.softserve.edu.rest.engine;
 import com.google.gson.Gson;
 import com.softserve.edu.rest.data.RestUrl;
 import com.softserve.edu.rest.entity.RestParameters;
+import org.apache.log4j.Logger;
 
 public abstract class RestQueries<T> extends RestCRUD {
-
+    protected final Logger log = Logger.getLogger(this.getClass());
     private Class<T> clazz;
     private Gson gson;
-
 
 
     protected RestQueries(RestUrl restUrl, Class<T> clazz) {
@@ -27,17 +27,17 @@ public abstract class RestQueries<T> extends RestCRUD {
     }
 
     public T httpPostAsEntity(RestParameters pathVariables, RestParameters urlParameters,
-            RestParameters bodyParameters) {
+                              RestParameters bodyParameters) {
         return ConvertToEntity(httpPostAsText(pathVariables, urlParameters, bodyParameters));
     }
 
     public T httpPutAsEntity(RestParameters pathVariables, RestParameters urlParameters,
-            RestParameters bodyParameters) {
+                             RestParameters bodyParameters) {
         return ConvertToEntity(httpPutAsText(pathVariables, urlParameters, bodyParameters));
     }
 
     public T httpDeleteAsEntity(RestParameters pathVariables, RestParameters urlParameters,
-            RestParameters bodyParameters) {
+                                RestParameters bodyParameters) {
         return ConvertToEntity(httpDeleteAsText(pathVariables, urlParameters, bodyParameters));
     }
 

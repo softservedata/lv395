@@ -6,6 +6,7 @@ import com.softserve.edu.rest.service.AdminService;
 import com.softserve.edu.rest.service.GuestService;
 import com.softserve.edu.rest.service.UserService;
 import io.qameta.allure.*;
+import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -16,6 +17,7 @@ import static org.mockito.Mockito.*;
 public class CreateAndDeleteUserTest {
     private GuestService guestService;
     private AdminService adminService;
+    private final Logger log = Logger.getLogger(this.getClass());
 
     @BeforeClass
     public void beforeClass() {
@@ -23,10 +25,16 @@ public class CreateAndDeleteUserTest {
         adminService = guestService.SuccessfulAdminLogin(UserRepository.getAdmin());
     }
 
-        @AfterClass
-    public void afterClass(){
+    @AfterClass
+    public void afterClass() {
         adminService.resetServiceToInitialState();
     }
+
+    /**
+     * This data is for two tests: "createUserTest",
+     * "deleteUserTest"
+     * @return new user
+     */
     @DataProvider
     public Object[][] newUserData() {
         return new Object[][]{
@@ -44,6 +52,7 @@ public class CreateAndDeleteUserTest {
     @Story("Create user")
     @Test(dataProvider = "newUserData")
     public void createUserTest(User newUser) {
+        log.debug("createUserTest started!");
         adminService.createUser(newUser);
         //Check user is created
         Assert.assertTrue(adminService.isUserCreated(newUser));
@@ -54,9 +63,13 @@ public class CreateAndDeleteUserTest {
         Assert.assertFalse(adminService.getAllAdmins().contains(newUser.getName()));
         userService.logoutUser();
         Assert.assertFalse(adminService.isUserLogged(newUser));
-
+        log.debug("createUserTest finished!");
     }
-
+    /**
+     * This data is for two tests: "createAdminTest",
+     * "deleteAdminTest"
+     * @return new user
+     */
     @DataProvider
     public Object[][] newAdminData() {
         return new Object[][]{
@@ -75,6 +88,7 @@ public class CreateAndDeleteUserTest {
             "Expected result: user will be created")
     @Story("Create user")
     public void createAdminTest(User newAdmin) {
+        log.debug("createAdminTest started!");
         adminService.createUser(newAdmin);
         //Check user is created
         Assert.assertTrue(adminService.isUserCreated(newAdmin));
@@ -85,6 +99,7 @@ public class CreateAndDeleteUserTest {
         Assert.assertTrue(adminService.isUserLogged(newAdmin));
         adminService1.logoutUser();
         Assert.assertFalse(adminService.isUserLogged(newAdmin));
+        log.debug("createAdminTest finished!");
     }
 
     /**
@@ -97,31 +112,41 @@ public class CreateAndDeleteUserTest {
             "Expected result: user won`t be created")
     @Story("Create user")
     public void createExistingUserTest() {
+        log.debug("createExistingUserTest started!");
         User user = UserRepository.getUser1();
         Boolean userIsCreated = adminService.createUser(user);
         //Check user won`t be created
         Assert.assertFalse(userIsCreated);
+        log.debug("createExistingUserTest finished!");
 
     }
 
 
     /**
      * Delete user.
+     * Here we are deleting new user, that has been
+     * created in test "createUserTest", this is why
+     * this test depends on method "createUserTest"
      * Expected result: user will be deleted.
      */
-    @Test(dataProvider = "newUserData",dependsOnMethods = "createUserTest")
+    @Test(dataProvider = "newUserData", dependsOnMethods = "createUserTest")
     @Severity(SeverityLevel.CRITICAL)
     @Description(" Delete user without admin rights \n" +
             "Expected result: user will be deleted.")
     @Story("Delete user")
     public void deleteUserTest(User user) {
+        log.debug("deleteUserTest started!");
         adminService.removeUser(user.getName());
         Assert.assertFalse(adminService.getAllUsers().contains(user.getName()));
+        log.debug("deleteUserTest finished!");
     }
 
     /**
      * Delete admin.
-     * Expected result: admin will be deleted.
+     * Here we are deleting new user, that has been
+     * created in test "createAdminTest", this is why
+     * this test depends on method "createAdminTest"
+     * Expected result: addmin will be deleted.
      */
     @Test(dataProvider = "newAdminData", dependsOnMethods = "createAdminTest")
     @Severity(SeverityLevel.CRITICAL)
@@ -129,8 +154,10 @@ public class CreateAndDeleteUserTest {
             "Expected result: user will be deleted.")
     @Story("Delete user")
     public void deleteAdminTest(User admin) {
+        log.debug("deleteAdminTest started!");
         adminService.removeUser(admin.getName());
         Assert.assertFalse(adminService.getAllUsers().contains(admin.getName()));
+        log.debug("deleteAdminTest finished!");
     }
 
     /**
@@ -143,9 +170,11 @@ public class CreateAndDeleteUserTest {
             "Expected result: user will be deleted.")
     @Story("Delete user")
     public void deleteNotExistingUserTest() {
+        log.debug("deleteNotExistingUserTest started!");
         User notExistingUser = UserRepository.notExistingUser();
         Boolean isUserDeleted = adminService.removeUser(notExistingUser.getName());
         Assert.assertFalse(isUserDeleted);
+        log.debug("deleteNotExistingUserTest finished!");
     }
 
     /**
@@ -158,6 +187,7 @@ public class CreateAndDeleteUserTest {
             "using mock for test")
     @Story("Create user")
     public void createUserWithMockTest() {
+        log.debug("createUserWithMockTest started!");
         AdminService adminService1 = guestService.SuccessfulAdminLogin(UserRepository.getAdmin());
         User newUser = UserRepository.newUserWithoutAdminRights();
 
@@ -173,7 +203,7 @@ public class CreateAndDeleteUserTest {
         UserService userService = guestService.SuccessfulUserLogin(newUser);
         Assert.assertTrue(adminService1.isUserLogged(newUser));
         userService.logoutUser();
-
+        log.debug("createUserWithMockTest finished!");
     }
 
     /**
@@ -192,6 +222,7 @@ public class CreateAndDeleteUserTest {
     @Story("Create user")
     @Test
     public void createAdminThenCreateUserTest() {
+        log.debug("createAdminThenCreateUserTest started");
         //Steps
         User user = UserRepository.newUserWithAdminRights();
         //create admin user
@@ -209,6 +240,7 @@ public class CreateAndDeleteUserTest {
         //check, that user is without admin rights
         Assert.assertTrue(adminService.isUserCreated(user));
         Assert.assertFalse(adminService.isUserAdmin(user));
+        log.debug("createAdminThenCreateUserTest finished!");
     }
 
     /**
@@ -227,6 +259,7 @@ public class CreateAndDeleteUserTest {
     @Story("Create user")
     @Test
     public void createUserThenCreateAdminTest() {
+        log.debug("createAdminThenCreateUserTest started!");
         //Steps
         User user = UserRepository.newUserWithoutAdminRights();
         //create user without admin rights
@@ -244,7 +277,7 @@ public class CreateAndDeleteUserTest {
         //check, that user is with admin rights
         Assert.assertTrue(adminService.isUserCreated(user));
         Assert.assertTrue(adminService.isUserAdmin(user));
-
+        log.debug("createAdminThenCreateUserTest finished!");
     }
 
 }

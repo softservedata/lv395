@@ -15,10 +15,9 @@ import okhttp3.ResponseBody;
 import org.apache.log4j.Logger;
 
 public abstract class RestCRUD {
-
+    protected final Logger log = Logger.getLogger(this.getClass());
     private RestUrl restUrl;
     private OkHttpClient httpClient;
-    protected final Logger log = Logger.getLogger(this.getClass());
 
     protected RestCRUD(RestUrl restUrl) {
         this.restUrl = restUrl;
@@ -26,6 +25,7 @@ public abstract class RestCRUD {
     }
 
     protected void throwException(String message) {
+        log.error("Method not Support");
         // TODO Develop Custom Exception
         throw new RuntimeException(
                 String.format("Method %s not Support for Resource %s", message, this.getClass().getName()));
@@ -33,8 +33,6 @@ public abstract class RestCRUD {
 
     private String prepareUrlParameters(String urlTemplate, RestParameters urlParameters) {
         String url = urlTemplate;
-       //System.out.println(urlParameters.getAllParameters().size());
-        log.info(urlParameters==null);
         if (urlParameters != null) {
             boolean isFirstParameter = true;
             for (String currentKey : urlParameters.getAllParameters().keySet()) {
@@ -75,18 +73,13 @@ public abstract class RestCRUD {
     private Request.Builder prepareRequestBuilder(String requestUrl, RestParameters pathVariables,
             RestParameters urlParameters) {
         if ((requestUrl == null) || (requestUrl.isEmpty())) {
+            log.info("prepareRequestBuilder!");
             StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
             String methodName = stackTrace[2].getMethodName();
-            // TODO User Logger
-            log.info("MethodName = " + methodName);
-            log.info("Method = " + methodName.substring(4).replace("AsResponse", ""));
-            //System.out.println("MethodName = " + methodName);
-            //System.out.println("Method = " + methodName.substring(4).replace("AsResponse", ""));
             throwException(methodName.substring(4).replace("AsResponse", ""));
         }
         String url = preparePathVariables(requestUrl, pathVariables);
         url = prepareUrlParameters(url, urlParameters);
-        log.info("URL: " + url);
         return new Request.Builder().url(url);
     }
 
@@ -95,7 +88,8 @@ public abstract class RestCRUD {
         try {
             result = httpClient.newCall(request).execute();
         } catch (IOException e) {
-            // TODO Develop Custom Exception + Log
+            // TODO Develop Custom Exception
+            log.error("Request Error ");
             throw new RuntimeException("Request Error " + e.toString());
         }
         return result;
@@ -108,6 +102,7 @@ public abstract class RestCRUD {
         } catch (IOException e) {
             // TODO Develop Custom Exception + Log
             // e.printStackTrace();
+            log.error("Error to get text from ResponseBody.");
             throw new RuntimeException("Error to get text from ResponseBody." + e.toString());
         }
         return responseText;
