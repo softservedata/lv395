@@ -52,7 +52,6 @@ public class UserService extends GuestService {
         return simpleEntity.getContent();
     }
 
-
     public String changePassword(String newPassword) {
         RestParameters bodyParameters = new RestParameters()
                 .addParameter("token", user.getToken())
@@ -60,7 +59,7 @@ public class UserService extends GuestService {
                 .addParameter("newpassword", newPassword);
         SimpleEntity simpleEntity = userResource
                 .httpPutAsEntity(null, null, bodyParameters);
-        checkEntity(simpleEntity, user.getPassword());
+        //checkEntity(simpleEntity, user.getPassword());
         return simpleEntity.getContent();
     }
 
@@ -73,5 +72,4 @@ public class UserService extends GuestService {
         //checkEntity(simpleEntity, user.getPassword());
         return simpleEntity.getContent();
     }
-
 }

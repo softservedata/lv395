@@ -5,7 +5,7 @@ public final class CoolDownRepository {
     public static final String DEFAULT_COOLDOWN_TIME = "180000";
     public static final String LONG_COOLDOWN_TIME = "360000";
     public static final String SHORT_COOLDOWN_TIME = "1";
-    public static final String NEGATIVE_COOLDOWN_TIME = "999999";
+    public static final String NEGATIVE_COOLDOWN_TIME = "-999999";
     public static final String SQL_INJECTION_COOLDOWN_TIME = "SELECT * FROM Users WHERE Username='$username' AND Password='$password'";
     public static final String ZERO_COOLDOWN_TIME = "0";
     public static final String EMPTY_COOLDOWN_TIME = "";

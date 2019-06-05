@@ -1,7 +1,8 @@
 package com.softserve.edu.rest.data;
 
-public class Lifetime {
+public final class Lifetime {
 
+    public static final String DEFAULT_LIFETIME = "999999";
     // Use long, etc.
     private String time;
 
@@ -11,6 +12,10 @@ public class Lifetime {
 
     public String getTimeAsString() {
         return time;
+    }
+
+    public static Lifetime getDefaultLifetime() {
+        return new Lifetime(DEFAULT_LIFETIME);
     }
 
     public long getTimeAsLong() {
