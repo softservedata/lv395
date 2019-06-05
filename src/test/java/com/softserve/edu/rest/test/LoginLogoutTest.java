@@ -26,6 +26,8 @@ public class LoginLogoutTest {
     @AfterClass
     public void afterClass() {
         adminService.logoutUser();
+        adminService.resetServiceToInitialState();
+        adminService.resetServiceToInitialState();
     }
 
 
@@ -172,8 +174,8 @@ public class LoginLogoutTest {
         UserService userService1 = new UserService(user1);
         UserService userService2 = new UserService(user2);
         //check names
-        Assert.assertEquals(user1.getName(),userService1.getUserName());
-        Assert.assertEquals(user2.getName(),userService2.getUserName());
+        Assert.assertEquals(user1.getName(), userService1.getUserName());
+        Assert.assertEquals(user2.getName(), userService2.getUserName());
         //logout user1
         userService1.logoutUser();
         Assert.assertFalse(adminService.isUserLogged(user1));
@@ -198,7 +200,7 @@ public class LoginLogoutTest {
             "Two users are trying to login at the same time \n" +
             "one of them has correct data and another has \n" +
             " incorrect data. \n" +
-            "Expected result: user with correct data will be \n"+
+            "Expected result: user with correct data will be \n" +
             " logged and user with incorrect data ")
     @Story("Two users trying to login")
     public void loginTwoUsers2() throws InterruptedException {
@@ -221,7 +223,7 @@ public class LoginLogoutTest {
         //Step
         UserService userService = new UserService(user);
         //check name
-        Assert.assertEquals(user.getName(),userService.getUserName());
+        Assert.assertEquals(user.getName(), userService.getUserName());
         //logout user1
         userService.logoutUser();
         Assert.assertFalse(adminService.isUserLogged(user));
