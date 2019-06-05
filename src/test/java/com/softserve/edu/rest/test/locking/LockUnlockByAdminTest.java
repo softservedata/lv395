@@ -5,6 +5,10 @@ import com.softserve.edu.rest.data.UserRepository;
 import com.softserve.edu.rest.service.AdminService;
 import com.softserve.edu.rest.service.GuestService;
 import com.softserve.edu.rest.service.UserService;
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -38,6 +42,12 @@ public class LockUnlockByAdminTest extends ATestRunner {
      * @param admin - user with admin rights.
      * @param user - user without admin rights.
      */
+    @Severity(SeverityLevel.BLOCKER)
+    @Description(" Admin checks list with all locked admins (user with admin rights)\n" +
+            "Admin locks an user and another admin\n" +
+            "Expected result: user will not be shown in locked admins list." +
+            "And admin will not be shown in locked admins list")
+    @Story("Check locked admins list")
     @Test(dataProvider = "userAndAdminData", priority = 3)
     public void checkLockedAdminsListTest(final User admin, final User user) {
         log.info("Test checkLockedAdminList started!");
@@ -63,6 +73,12 @@ public class LockUnlockByAdminTest extends ATestRunner {
      * @param admin - user with admin rights.
      * @param user - user without admin rights.
      */
+    @Severity(SeverityLevel.BLOCKER)
+    @Description(" Admin checks list with all locked users.\n" +
+            "Admin locks an user and another admin\n" +
+            "Expected result: admin will not be shown in locked users list." +
+            "And user will not be shown in locked users list")
+    @Story("Check locked users list")
     @Test(dataProvider = "userAndAdminData", priority = 4)
     public void checkLockedUsersListTest(final User admin, final User user) {
         log.info("Test checkLockedUsersList started!");
@@ -98,6 +114,10 @@ public class LockUnlockByAdminTest extends ATestRunner {
      * Admin locks a user. Than user tries to login.
      * @param user - user without admin rights.
      */
+    @Severity(SeverityLevel.BLOCKER)
+    @Description(" Admin locks an user.\n" +
+            "Expected result: user will be locked.")
+    @Story("Admin locks user")
     @Test (dataProvider = "userData", priority = 5)
     public void lockUserByAdminTest(final User user) {
         log.info("Test lockUserByAdmin started!");
@@ -117,6 +137,10 @@ public class LockUnlockByAdminTest extends ATestRunner {
      * After unlocking, user tries to login.
      * @param user - user without admin rights.
      */
+    @Severity(SeverityLevel.BLOCKER)
+    @Description(" Admin unlocks an user.\n" +
+            "Expected result: user will be unlocked.")
+    @Story("Admin unlocks user")
     @Test(dataProvider = "userData", priority = 6)
     public void unlockUserByAdminTest(final User user) {
         log.info("Test unlockUserByAdmin started!");
@@ -154,6 +178,10 @@ public class LockUnlockByAdminTest extends ATestRunner {
      * This test checks, that admin can lock another admin.
      * @param admin - user with admin rights.
      */
+    @Severity(SeverityLevel.BLOCKER)
+    @Description(" Admin locks another admin\n" +
+            "Expected result: another admin will be locked.")
+    @Story("Admin locks another admin")
     @Test (dataProvider = "adminData", priority = 7)
     public void lockAdminByAdminTest(final User admin) {
         log.info("Test lockAdminByAdmin started!");
@@ -171,6 +199,10 @@ public class LockUnlockByAdminTest extends ATestRunner {
      * This test checks, that admin can unlock another admin.
      * @param admin - user with admin rights.
      */
+    @Severity(SeverityLevel.BLOCKER)
+    @Description(" Admin unlocks another admin\n" +
+            "Expected result: another admin will be unlocked.")
+    @Story("Admin unlocks another admin")
     @Test(dataProvider = "adminData", priority = 8)
     public void unlockAdminByAdminTest(final User admin) {
         log.info("Test unlockAdminByAdmin started!");
@@ -189,6 +221,10 @@ public class LockUnlockByAdminTest extends ATestRunner {
      * This test checks, that admin can't lock himself.
      * @param admin - user with admin rights.
      */
+    @Severity(SeverityLevel.CRITICAL)
+    @Description(" Admin locks himself\n" +
+            "Expected result: admin will not be locked.")
+    @Story("Admin locks himself")
     @Test (dataProvider = "adminData", priority = 9)
     public void adminLockHimselfTest(final User admin) {
         log.info("Test adminLockHimself started!");
