@@ -261,7 +261,7 @@ public class LoginLogoutTest {
             "both have incorrect data \n" +
             "Expected result: both users won`t be logged ")
     @Story("Two users trying to login")
-    public void loginTwoUsers3() throws InterruptedException {
+    public void  loginTwoUsers3() throws InterruptedException {
         log.debug("loginTwoUsers3 started!");
         //Steps
         User incorrectUser1 = UserRepository.getUserWrongPassword();
