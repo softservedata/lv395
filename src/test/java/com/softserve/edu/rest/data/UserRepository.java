@@ -32,7 +32,8 @@ public final class  UserRepository {
     }
     public static User newUserWithoutAdminRihts(){
         return new User("Ivan","qwerty")
-                .addItem(new Item(0,"My data"));
+                .addItem(new Item(0,"My data"))
+                .setAdminRights(false);
     }
     public static User newUserWithAdminRihts(){
         return new User("Petro","qwerty")

@@ -131,7 +131,7 @@ public class CreateAndDeleteUserTest {
     public void deleteNotExistingUserTest() {
         User notExistingUser = UserRepository.notExistingUser();
         Boolean isUserDeleted = adminService.removeUser(notExistingUser.getName());
-        Assert.assertTrue(isUserDeleted);
+        Assert.assertFalse(isUserDeleted);
     }
 
     /**
