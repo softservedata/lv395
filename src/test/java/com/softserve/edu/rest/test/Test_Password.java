@@ -41,7 +41,7 @@ public class Test_Password {
 
     @Test(dataProvider = "loginData")
     public void Password_Test_1(User adminUser) {
-        adminService.ChangeCurrentPassword(PasswordRepository.LONG_NUMERIC_PASSWORD);
+        adminService.changePassword(PasswordRepository.LONG_NUMERIC_PASSWORD);
 
         //System.out.println(adminUser.getPassword());
         //Assert.assertEquals(adminService.changePassword(PasswordRepository.STRONG_RANDOM_PASSWORD_1),"true");
