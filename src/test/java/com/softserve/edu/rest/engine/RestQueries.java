@@ -18,7 +18,7 @@ public abstract class RestQueries<T> extends RestCRUD {
     }
 
     private T ConvertToEntity(String json) {
-        System.out.println("json: " + json + " clazz: " + clazz.getName());
+        log.info("json: " + json + " clazz: " + clazz.getName());
         return gson.fromJson(json, clazz);
     }
 

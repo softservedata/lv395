@@ -12,11 +12,13 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import org.apache.log4j.Logger;
 
 public abstract class RestCRUD {
 
     private RestUrl restUrl;
     private OkHttpClient httpClient;
+    protected final Logger log = Logger.getLogger(this.getClass());
 
     protected RestCRUD(RestUrl restUrl) {
         this.restUrl = restUrl;
@@ -32,7 +34,7 @@ public abstract class RestCRUD {
     private String prepareUrlParameters(String urlTemplate, RestParameters urlParameters) {
         String url = urlTemplate;
        //System.out.println(urlParameters.getAllParameters().size());
-        System.out.println(urlParameters==null);
+        log.info(urlParameters==null);
         if (urlParameters != null) {
             boolean isFirstParameter = true;
             for (String currentKey : urlParameters.getAllParameters().keySet()) {
@@ -76,13 +78,15 @@ public abstract class RestCRUD {
             StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
             String methodName = stackTrace[2].getMethodName();
             // TODO User Logger
-            System.out.println("MethodName = " + methodName);
-            System.out.println("Method = " + methodName.substring(4).replace("AsResponse", ""));
+            log.info("MethodName = " + methodName);
+            log.info("Method = " + methodName.substring(4).replace("AsResponse", ""));
+            //System.out.println("MethodName = " + methodName);
+            //System.out.println("Method = " + methodName.substring(4).replace("AsResponse", ""));
             throwException(methodName.substring(4).replace("AsResponse", ""));
         }
         String url = preparePathVariables(requestUrl, pathVariables);
         url = prepareUrlParameters(url, urlParameters);
-        System.out.println("URL: " + url);
+        log.info("URL: " + url);
         return new Request.Builder().url(url);
     }
 
