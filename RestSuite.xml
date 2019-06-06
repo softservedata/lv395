@@ -28,19 +28,30 @@
     </test> <!-- Test -->
     <test name="Create And Delete User Test">
         <classes>
-            <class name="com.softserve.edu.rest.test.CreateAndDeleteUserTest">
+            <class name="com.softserve.edu.rest.test.createAndDelete.SimpleCreateAndDeleteUserTest">
                 <methods>
                     <include name="createUserTest"/>
                     <include name="createAdminTest"/>
                     <include name="createExistingUserTest"/>
-                    <include name="createUserWithMockTest"/>
+
                     <include name="deleteUserTest"/>
                     <include name="deleteAdminTest"/>
                     <include name="deleteNotExistingUserTest"/>
-                    <include name="createAdminThenCreateUserTest"/>
-                    <include name="createUserThenCreateAdminTest"/>
                 </methods>
             </class>
+            <class name="com.softserve.edu.rest.test.createAndDelete.CreateAndDeleteUserTest">
+                <methods>
+                    <include name="createUserThenCreateAdminTest"/>
+                    <include name="createAdminThenCreateUserTest"/>
+                </methods>
+            </class>
+
+            <class name="com.softserve.edu.rest.test.createAndDelete.CreateUserUseMockTest">
+                <methods>
+                    <include name="createUserWithMockTest"/>
+                </methods>
+            </class>
+
         </classes>
     </test> <!-- Test -->
 

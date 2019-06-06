@@ -1,4 +1,4 @@
-package com.softserve.edu.rest.test;
+package com.softserve.edu.rest.test.createAndDelete;
 
 import com.softserve.edu.rest.data.User;
 import com.softserve.edu.rest.data.UserRepository;
@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 
 @Epic("Ira`s tests")
 @Feature("Create and delete Test")
-public class CreateAndDeleteUserTest {
+public class SimpleCreateAndDeleteUserTest {
     private GuestService guestService;
     private AdminService adminService;
     private final Logger log = Logger.getLogger(this.getClass());
@@ -33,6 +33,7 @@ public class CreateAndDeleteUserTest {
     /**
      * This data is for two tests: "createUserTest",
      * "deleteUserTest"
+     *
      * @return new user
      */
     @DataProvider
@@ -65,9 +66,11 @@ public class CreateAndDeleteUserTest {
         Assert.assertFalse(adminService.isUserLogged(newUser));
         log.debug("createUserTest finished!");
     }
+
     /**
      * This data is for two tests: "createAdminTest",
      * "deleteAdminTest"
+     *
      * @return new user
      */
     @DataProvider
@@ -120,6 +123,7 @@ public class CreateAndDeleteUserTest {
         log.debug("createExistingUserTest finished!");
 
     }
+
 
 
     /**
@@ -177,107 +181,7 @@ public class CreateAndDeleteUserTest {
         log.debug("deleteNotExistingUserTest finished!");
     }
 
-    /**
-     * Test for creating new user
-     * using mock for test
-     */
-    @Test()
-    @Severity(SeverityLevel.CRITICAL)
-    @Description(" Test for creating new \n" +
-            "using mock for test")
-    @Story("Create user")
-    public void createUserWithMockTest() {
-        log.debug("createUserWithMockTest started!");
-        AdminService adminService1 = guestService.SuccessfulAdminLogin(UserRepository.getAdmin());
-        User newUser = UserRepository.newUserWithoutAdminRights();
 
-        AdminService spy = spy(adminService1);
-        Boolean createUser = adminService1.createUser(newUser);
-        when(spy.isUserCreated(newUser)).thenReturn(true);
-        Boolean userIsCreated = adminService1.createUser(newUser);
-        //Check user is created
-        Assert.assertTrue(createUser);
-        Assert.assertTrue(userIsCreated);
 
-        //try to login new user
-        UserService userService = guestService.SuccessfulUserLogin(newUser);
-        Assert.assertTrue(adminService1.isUserLogged(newUser));
-        userService.logoutUser();
-        log.debug("createUserWithMockTest finished!");
-    }
-
-    /**
-     * 1.Create user with admin rights.
-     * 2.Delete this user.
-     * 3.Change user`s admin rights.
-     * 4.Create user, but this time without admin rights.
-     * Expected result: user will be created without admin rights.
-     */
-    @Severity(SeverityLevel.CRITICAL)
-    @Description("1.Create user with admin rights.\n" +
-            " 2.Delete this user.\n" +
-            " 3.Change user`s admin rights.\n" +
-            " 4.Create user, but this time without admin rights.\n" +
-            " Expected result: user will be created without admin rights.")
-    @Story("Create user")
-    @Test
-    public void createAdminThenCreateUserTest() {
-        log.debug("createAdminThenCreateUserTest started");
-        //Steps
-        User user = UserRepository.newUserWithAdminRights();
-        //create admin user
-        adminService.createUser(user);
-        //check
-        Assert.assertTrue(adminService.isUserCreated(user));
-        Assert.assertTrue(adminService.isUserAdmin(user));
-        //delete user
-        adminService.removeUser(user.getName());
-        Assert.assertFalse(adminService.isUserCreated(user));
-        //change user`s admin rights
-        user.setAdminRights(false);
-        //create user without admin rights
-        adminService.createUser(user);
-        //check, that user is without admin rights
-        Assert.assertTrue(adminService.isUserCreated(user));
-        Assert.assertFalse(adminService.isUserAdmin(user));
-        log.debug("createAdminThenCreateUserTest finished!");
-    }
-
-    /**
-     * 1.Create user without admin rights.
-     * 2.Delete this user.
-     * 3.Change user`s admin rights.
-     * 4.Create user, but this time with admin rights.
-     * Expected result: user will be created with admin rights.
-     */
-    @Severity(SeverityLevel.CRITICAL)
-    @Description("1.Create user without admin rights.\n" +
-            " 2.Delete this user.\n" +
-            " 3.Change user`s admin rights.\n" +
-            " 4.Create user, but this time with admin rights.\n" +
-            " Expected result: user will be created with admin rights.")
-    @Story("Create user")
-    @Test
-    public void createUserThenCreateAdminTest() {
-        log.debug("createAdminThenCreateUserTest started!");
-        //Steps
-        User user = UserRepository.newUserWithoutAdminRights();
-        //create user without admin rights
-        adminService.createUser(user);
-        //check that user is with admin rights
-        Assert.assertTrue(adminService.isUserCreated(user));
-        Assert.assertFalse(adminService.isUserAdmin(user));
-        //delete user
-        adminService.removeUser(user.getName());
-        Assert.assertFalse(adminService.isUserCreated(user));
-        //change user`s admin rights
-        user.setAdminRights(true);
-        //create user with admin rights
-        adminService.createUser(user);
-        //check, that user is with admin rights
-        Assert.assertTrue(adminService.isUserCreated(user));
-        Assert.assertTrue(adminService.isUserAdmin(user));
-        log.debug("createAdminThenCreateUserTest finished!");
-    }
 
 }

@@ -46,7 +46,7 @@ public final class  UserRepository {
                 .setAdminRights(true);
     }
     public static User notExistingUser(){
-        return new User("Anna","qwerty")
+        return new User("Anna","ksjddlfkjddqwerty")
                 .addItem(new Item(0,"My data"))
                 .setAdminRights(true);
     }
