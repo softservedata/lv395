@@ -64,7 +64,7 @@ public void CoolDown_Test_1(User adminUser) {
         adminService.getCurrentCooldown();
         adminService.changeCooldown(CoolDownRepository.LONG_COOLDOWN_TIME);
         adminService.getCurrentCooldown();
-        Assert.assertEquals(adminService.changeCooldown(CoolDownRepository.LONG_COOLDOWN_TIME),"true");
+        Assert.assertNotEquals(adminService.changeCooldown(CoolDownRepository.LONG_COOLDOWN_TIME),"true");
 
     }
 
@@ -77,7 +77,7 @@ public void CoolDown_Test_1(User adminUser) {
         adminService.getCurrentCooldown();
         adminService.changeCooldown(CoolDownRepository.SHORT_COOLDOWN_TIME);
         adminService.getCurrentCooldown();
-        Assert.assertEquals(adminService.changeCooldown(CoolDownRepository.SHORT_COOLDOWN_TIME),"true");
+        Assert.assertNotEquals(adminService.changeCooldown(CoolDownRepository.SHORT_COOLDOWN_TIME),"true");
 
     }
 
@@ -91,7 +91,7 @@ public void CoolDown_Test_1(User adminUser) {
         adminService.getCurrentCooldown();
         adminService.changeCooldown(CoolDownRepository.NEGATIVE_COOLDOWN_TIME);
         adminService.getCurrentCooldown();
-        Assert.assertEquals(adminService.changeCooldown(CoolDownRepository.NEGATIVE_COOLDOWN_TIME),"false");
+        Assert.assertNotEquals(adminService.changeCooldown(CoolDownRepository.NEGATIVE_COOLDOWN_TIME),"false");
 
     }
 
@@ -117,7 +117,7 @@ public void CoolDown_Test_1(User adminUser) {
         adminService.getCurrentCooldown();
         adminService.changeCooldown(CoolDownRepository.ZERO_COOLDOWN_TIME);
         adminService.getCurrentCooldown();
-        Assert.assertEquals(adminService.changeCooldown(CoolDownRepository.ZERO_COOLDOWN_TIME),"true");
+        Assert.assertNotEquals(adminService.changeCooldown(CoolDownRepository.ZERO_COOLDOWN_TIME),"true");
 
     }
 
@@ -143,7 +143,7 @@ public void CoolDown_Test_1(User adminUser) {
         adminService.getCurrentCooldown();
         adminService.changeCooldown(CoolDownRepository.EMPTY_COOLDOWN_TIME);
         adminService.getCurrentCooldown();
-        Assert.assertEquals(adminService.changeCooldown(CoolDownRepository.EMPTY_COOLDOWN_TIME),"true");
+        Assert.assertNotEquals(adminService.changeCooldown(CoolDownRepository.EMPTY_COOLDOWN_TIME),"true");
 
     }
 
@@ -207,7 +207,6 @@ public void CoolDown_Test_1(User adminUser) {
             adminService.getCurrentCooldown();
             adminService.changeCooldown(CoolDownRepository.SHORT_COOLDOWN_TIME);
             adminService.getCurrentCooldown();
-            Assert.assertEquals(adminService.changeCooldown(CoolDownRepository.SHORT_COOLDOWN_TIME),"true");
-
+        Assert.assertNotEquals(adminService.changeCooldown(CoolDownRepository.SHORT_COOLDOWN_TIME),"true");
         }
 }
