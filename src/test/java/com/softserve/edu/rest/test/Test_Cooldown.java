@@ -6,9 +6,9 @@ import com.softserve.edu.rest.entity.RestParameters;
 import com.softserve.edu.rest.service.AdminService;
 import com.softserve.edu.rest.service.GuestService;
 import com.softserve.edu.rest.service.UserService;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -27,35 +27,25 @@ public class Test_Cooldown {
         usersservice = guestService.SuccessfulUserLogin(UserRepository.getUser1());
     }
 
+    @AfterMethod
+    public void afterClass() {
+        adminService.resetServiceToInitialState();
+    }
+
 
     @DataProvider // (parallel = true)
     public Object[][] loginData() {
         return new Object[][]{
                 {UserRepository.getAdmin()},
-                {UserRepository.getUser1()}
+                //{UserRepository.getUser1()}
         };
     }
 
-//    @DataProvider // (parallel = true)
-//    public Object[][] cooldownRepo() {
-//        return new Object[][]{
-//                {CoolDownRepository.getDefault()},
-//                {CoolDownRepository.GetLongTime()},
-//                {CoolDownRepository.GetShortTime()},
-//                {CoolDownRepository.GetNegativeTime()},
-//                {CoolDownRepository.GetSQLITime()},
-//                {CoolDownRepository.GetZeroTime()},
-//                {CoolDownRepository.GetLongestTime()},
-//                {CoolDownRepository.GetEmptyTime()},
-//                {CoolDownRepository.GetUnicodeTime()},
-//                {CoolDownRepository.GetSmileyTime()},
-//                {CoolDownRepository.GetSLoremTime()},
-//                {CoolDownRepository.GetLLoremTime()}
-//        };
-//    }
 
-
-
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test for double assign default cool down time. \n" +
+            "Expected result: time will be changed.")
+    @Story("Default Cooldown")
     @Test(dataProvider = "loginData")
 public void CoolDown_Test_1(User adminUser) {
         adminService.getCurrentCooldown();
@@ -65,6 +55,10 @@ public void CoolDown_Test_1(User adminUser) {
 
 }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test for assign long cool down time. \n" +
+            "Expected result: time will be changed.")
+    @Story("Long Cooldown")
     @Test(dataProvider = "loginData")
     public void CoolDown_Test_2(User adminUser) {
         adminService.getCurrentCooldown();
@@ -74,6 +68,11 @@ public void CoolDown_Test_1(User adminUser) {
 
     }
 
+
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test for assign short cool down time. \n" +
+            "Expected result: time will be changed.")
+    @Story("Short Cooldown")
     @Test(dataProvider = "loginData")
     public void CoolDown_Test_3(User adminUser) {
         adminService.getCurrentCooldown();
@@ -83,15 +82,24 @@ public void CoolDown_Test_1(User adminUser) {
 
     }
 
+
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test to assign negative cool down time. \n" +
+            "Expected result: time will be changed.")
+    @Story("Negative Cooldown")
     @Test(dataProvider = "loginData")
     public void CoolDown_Test_4(User adminUser) {
         adminService.getCurrentCooldown();
         adminService.changeCooldown(CoolDownRepository.NEGATIVE_COOLDOWN_TIME);
         adminService.getCurrentCooldown();
-        Assert.assertEquals(adminService.changeCooldown(CoolDownRepository.NEGATIVE_COOLDOWN_TIME),"true");
+        Assert.assertEquals(adminService.changeCooldown(CoolDownRepository.NEGATIVE_COOLDOWN_TIME),"false");
 
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test to check, if we can make SQL-Injection via cool down time request. \n" +
+            "Expected result: error 400")
+    @Story("Injection Cooldown")
     @Test(dataProvider = "loginData")
     public void CoolDown_Test_5(User adminUser) {
         adminService.getCurrentCooldown();
@@ -101,6 +109,10 @@ public void CoolDown_Test_1(User adminUser) {
 
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test to assign zero cool down time. \n" +
+            "Expected result: time will be changed.")
+    @Story("Zero Cooldown")
     @Test(dataProvider = "loginData")
     public void CoolDown_Test_6(User adminUser) {
         adminService.getCurrentCooldown();
@@ -110,6 +122,10 @@ public void CoolDown_Test_1(User adminUser) {
 
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test to assign 13 digits of cool down time. \n" +
+            "Expected result: time will NOT change")
+    @Story("13 digits time Cooldown")
     @Test(dataProvider = "loginData")
     public void CoolDown_Test_7(User adminUser) {
         adminService.getCurrentCooldown();
@@ -119,6 +135,10 @@ public void CoolDown_Test_1(User adminUser) {
 
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test to assign empty statement of cool down time. \n" +
+            "Expected result: time will NOT change")
+    @Story("Empty Cooldown")
     @Test(dataProvider = "loginData")
     public void CoolDown_Test_8(User adminUser) {
         adminService.getCurrentCooldown();
@@ -128,6 +148,10 @@ public void CoolDown_Test_1(User adminUser) {
 
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test to assign Unicode symbols as statement of cool down time. \n" +
+            "Expected result: time will NOT change")
+    @Story("Unicode Cooldown")
     @Test(dataProvider = "loginData")
     public void CoolDown_Test_9(User adminUser) {
         adminService.getCurrentCooldown();
@@ -137,6 +161,10 @@ public void CoolDown_Test_1(User adminUser) {
 
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test to assign EMOJI symbols code as statement of cool down time. \n" +
+            "Expected result: time will NOT change")
+    @Story("EMOJI Cooldown")
     @Test(dataProvider = "loginData")
     public void CoolDown_Test_10(User adminUser) {
         adminService.getCurrentCooldown();
@@ -146,6 +174,10 @@ public void CoolDown_Test_1(User adminUser) {
 
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test to assign 1 Lorem text paragraph as statement of cool down time. \n" +
+            "Expected result: time will NOT change")
+    @Story("Short Lorem Cooldown")
     @Test(dataProvider = "loginData")
     public void CoolDown_Test_11(User adminUser) {
         adminService.getCurrentCooldown();
@@ -155,20 +187,28 @@ public void CoolDown_Test_1(User adminUser) {
 
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test to assign 5 Lorem text paragraphs as statement of cool down time. \n" +
+            "Expected result: time will NOT change")
+    @Story("Long Lorem Cooldown")
     @Test(dataProvider = "loginData")
     public void CoolDown_Test_12(User adminUser) {
         adminService.getCurrentCooldown();
         adminService.changeCooldown(CoolDownRepository.LONG_LOREM_COOLDOWN_TIME);
         adminService.getCurrentCooldown();
         Assert.assertEquals(adminService.changeCooldown(CoolDownRepository.LONG_LOREM_COOLDOWN_TIME), "true");
-
     }
-        @Test(dataProvider = "loginData")
+
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test for assign short cool down time. \n" +
+            "Expected result: time will be changed.")
+    @Story("Short Cooldown")
+    @Test(dataProvider = "loginData")
         public void CoolDown_Test_13(User adminUser) {
-            usersservice.getCurrentCooldown();
-            usersservice.changeCooldown(CoolDownRepository.SHORT_COOLDOWN_TIME);
-            usersservice.getCurrentCooldown();
-            Assert.assertEquals(usersservice.changeCooldown(CoolDownRepository.SHORT_COOLDOWN_TIME),"true");
+            adminService.getCurrentCooldown();
+            adminService.changeCooldown(CoolDownRepository.SHORT_COOLDOWN_TIME);
+            adminService.getCurrentCooldown();
+            Assert.assertEquals(adminService.changeCooldown(CoolDownRepository.SHORT_COOLDOWN_TIME),"true");
 
         }
 }

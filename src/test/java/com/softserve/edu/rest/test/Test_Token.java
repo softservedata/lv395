@@ -6,8 +6,7 @@ import com.softserve.edu.rest.entity.RestParameters;
 import com.softserve.edu.rest.service.AdminService;
 import com.softserve.edu.rest.service.GuestService;
 import com.softserve.edu.rest.service.UserService;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -36,6 +35,9 @@ public class Test_Token {
         };
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("")
+    @Story("")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_1(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -45,6 +47,9 @@ public class Test_Token {
         Assert.assertNotEquals(adminService.UpdateTokenlifetime(new Lifetime(LifetimeRepository.LONG_TOKEN_LIFETIME)), "false");
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("")
+    @Story("")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_2(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -54,6 +59,9 @@ public class Test_Token {
         Assert.assertNotEquals(adminService.UpdateTokenlifetime(new Lifetime(LifetimeRepository.SHORT_TOKEN_LIFETIME)), "false");
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("")
+    @Story("")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_3(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -63,6 +71,9 @@ public class Test_Token {
         Assert.assertNotEquals(adminService.UpdateTokenlifetime(new Lifetime(LifetimeRepository.NEGATIVE_TOKEN_LIFETIME)), "false");
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("")
+    @Story("")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_4(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -72,6 +83,9 @@ public class Test_Token {
         Assert.assertNotEquals(adminService.UpdateTokenlifetime(new Lifetime(LifetimeRepository.SQL_INJECTION_TOKEN_LIFETIME)), "false");
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("")
+    @Story("")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_5(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -81,6 +95,9 @@ public class Test_Token {
         Assert.assertNotEquals(adminService.UpdateTokenlifetime(new Lifetime(LifetimeRepository.ZERO_TOKEN_LIFETIME)), "false");
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("")
+    @Story("")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_6(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -90,6 +107,9 @@ public class Test_Token {
         Assert.assertNotEquals(adminService.UpdateTokenlifetime(new Lifetime(LifetimeRepository.EMPTY_TOKEN_LIFETIME)), "false");
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("")
+    @Story("")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_7(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -99,6 +119,9 @@ public class Test_Token {
         Assert.assertNotEquals(adminService.UpdateTokenlifetime(new Lifetime(LifetimeRepository.LONGEST_TOKEN_LIFETIME)), "false");
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("")
+    @Story("")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_8(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -108,6 +131,9 @@ public class Test_Token {
         Assert.assertNotEquals(adminService.UpdateTokenlifetime(new Lifetime(LifetimeRepository.LONGEST_TOKEN_LIFETIME)), "false");
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("")
+    @Story("")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_9(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -117,6 +143,9 @@ public class Test_Token {
         Assert.assertNotEquals(adminService.UpdateTokenlifetime(new Lifetime(LifetimeRepository.SPECIALCHARS_TOKEN_LIFETIME)), "false");
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("")
+    @Story("")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_10(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -126,6 +155,9 @@ public class Test_Token {
         Assert.assertNotEquals(adminService.UpdateTokenlifetime(new Lifetime(LifetimeRepository.SHORT_LOREM_TOKEN_LIFETIME)), "false");
     }
 
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("")
+    @Story("")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_11(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
