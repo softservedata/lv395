@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Bohdan's tests">
+
+    <test name="Cooldown, Password and Token Lifetime Test Sets">
+        <classes>
+            <class name="com.softserve.edu.rest.test.Test_Cooldown">
+                <methods>
+                    <include name="CoolDown_Test_1"/>
+                    <include name="CoolDown_Test_2"/>
+                    <include name="CoolDown_Test_3"/>
+                    <include name="CoolDown_Test_4"/>
+                    <include name="CoolDown_Test_5"/>
+                    <include name="CoolDown_Test_6"/>
+                    <include name="CoolDown_Test_7"/>
+                    <include name="CoolDown_Test_8"/>
+                    <include name="CoolDown_Test_9"/>
+                    <include name="CoolDown_Test_10"/>
+                    <include name="CoolDown_Test_11"/>
+                    <include name="CoolDown_Test_12"/>
+                    <include name="CoolDown_Test_13"/>
+                </methods>
+            </class>
+            <class name="com.softserve.edu.rest.test.Test_Password">
+                <methods>
+                    <include name="Password_Test_1"/>
+                    <include name="Password_Test_2"/>
+                    <include name="Password_Test_3"/>
+                    <include name="Password_Test_4"/>
+                    <include name="Password_Test_5"/>
+                    <include name="Password_Test_6"/>
+                    <include name="Password_Test_7"/>
+                    <include name="Password_Test_8"/>
+                    <include name="Password_Test_9"/>
+                    <include name="Password_Test_10"/>
+                    <include name="Password_Test_11"/>
+                    <include name="Password_Test_13"/>
+                    <include name="Password_Test_14"/>
+                    <include name="Password_Test_15"/>
+                    <include name="Password_Test_16"/>
+                    <include name="Password_Test_17"/>
+                    <include name="Password_Test_18"/>
+                    <include name="Password_Test_19"/>
+                </methods>
+            </class>
+            <class name="com.softserve.edu.rest.test.Test_Token">
+                <methods>
+                    <include name="Token_Test_1"/>
+                    <include name="Token_Test_2"/>
+                    <include name="Token_Test_3"/>
+                    <include name="Token_Test_4"/>
+                    <include name="Token_Test_5"/>
+                    <include name="Token_Test_6"/>
+                    <include name="Token_Test_7"/>
+                    <include name="Token_Test_8"/>
+                    <include name="Token_Test_9"/>
+                    <include name="Token_Test_10"/>
+                    <include name="Token_Test_11"/>
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- Test -->
+
+</suite> <!-- Suite -->

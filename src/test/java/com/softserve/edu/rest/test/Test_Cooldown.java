@@ -68,7 +68,6 @@ public void CoolDown_Test_1(User adminUser) {
 
     }
 
-
     @Severity(SeverityLevel.CRITICAL)
     @Description("Test for assign short cool down time. \n" +
             "Expected result: time will be changed.")

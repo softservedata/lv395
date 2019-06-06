@@ -36,8 +36,9 @@ public class Test_Token {
     }
 
     @Severity(SeverityLevel.CRITICAL)
-    @Description("")
-    @Story("")
+    @Description("Test to increase lifetime of token to 800 000 ms. \n" +
+            "Expected result: time will  change")
+    @Story("Long Lifetime")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_1(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -48,8 +49,9 @@ public class Test_Token {
     }
 
     @Severity(SeverityLevel.CRITICAL)
-    @Description("")
-    @Story("")
+    @Description("Test to decrease lifetime of token to 1 ms. \n" +
+            "Expected result: time will change")
+    @Story("Short Lifetime")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_2(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -60,8 +62,9 @@ public class Test_Token {
     }
 
     @Severity(SeverityLevel.CRITICAL)
-    @Description("")
-    @Story("")
+    @Description("Test to assign negative value for lifetime of token. \n" +
+            "Expected result: time will change")
+    @Story("Short Lifetime")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_3(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -72,8 +75,9 @@ public class Test_Token {
     }
 
     @Severity(SeverityLevel.CRITICAL)
-    @Description("")
-    @Story("")
+    @Description("Test to check, if we can make SQL-Injection via token lifetime request. \n" +
+            "Expected result: error 400")
+    @Story("Injection Lifetime")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_4(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -84,8 +88,9 @@ public class Test_Token {
     }
 
     @Severity(SeverityLevel.CRITICAL)
-    @Description("")
-    @Story("")
+    @Description("Test to assign zero token time. \n" +
+            "Expected result: time will be changed.")
+    @Story("Zero Lifetime")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_5(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -96,8 +101,9 @@ public class Test_Token {
     }
 
     @Severity(SeverityLevel.CRITICAL)
-    @Description("")
-    @Story("")
+    @Description("Test to assign empty statement for token lifetime. \n" +
+            "Expected result: time will NOT change")
+    @Story("Empty Lifetime")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_6(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -108,8 +114,9 @@ public class Test_Token {
     }
 
     @Severity(SeverityLevel.CRITICAL)
-    @Description("")
-    @Story("")
+    @Description("Test to assign 13 digits of lifetime. \n" +
+            "Expected result: time will NOT change")
+    @Story("13 digits time Lifetime")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_7(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -120,8 +127,9 @@ public class Test_Token {
     }
 
     @Severity(SeverityLevel.CRITICAL)
-    @Description("")
-    @Story("")
+    @Description("Test to assign Unicode symbols as statement of lifetime. \n" +
+            "Expected result: time will NOT change")
+    @Story("Unicode Lifetime")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_8(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -132,8 +140,9 @@ public class Test_Token {
     }
 
     @Severity(SeverityLevel.CRITICAL)
-    @Description("")
-    @Story("")
+    @Description("Test to assign EMOJI symbols code as lifetime statement . \n" +
+            "Expected result: time will NOT change")
+    @Story("EMOJI Lifetime")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_9(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -144,8 +153,9 @@ public class Test_Token {
     }
 
     @Severity(SeverityLevel.CRITICAL)
-    @Description("")
-    @Story("")
+    @Description("Test to assign 1 Lorem text paragraph as lifetime statement . \n" +
+            "Expected result: time will NOT change")
+    @Story("Short Lorem Lifetime")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_10(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();
@@ -156,8 +166,9 @@ public class Test_Token {
     }
 
     @Severity(SeverityLevel.CRITICAL)
-    @Description("")
-    @Story("")
+    @Description("Test to assign 5 Lorem text paragraph as lifetime statement . \n" +
+            "Expected result: time will NOT change")
+    @Story("Long Lorem Lifetime")
     @Test(dataProvider = "updateLifeTime")
     public void Token_Test_11(User adminUser, Lifetime lifetime) {
         adminService.getCurrentLifetime();

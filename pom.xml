@@ -297,6 +297,7 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>RestSuite.xml</suiteXmlFile>
                         <suiteXmlFile>LockingTestRestSuite.xml</suiteXmlFile>
+                        <suiteXmlFile>Rest_Suite_3.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <reportsDirectory>${testng.reports.directory}</reportsDirectory>
                     <argLine>
