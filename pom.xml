@@ -22,7 +22,7 @@
 		<jdk.compiler.version>1.8</jdk.compiler.version>
 		<maven.compiler.plugin.version>3.8.0</maven.compiler.plugin.version>
 		<!-- - - - - - Test - - - - - -->
-		<org.testng.version>6.14.3</org.testng.version>
+		<org.testng.version>7.5.1</org.testng.version>
 		<maven.surefire.plugin.version>2.22.1</maven.surefire.plugin.version>
 		<!-- - - - - - Automation - - - - - -->
 		<org.seleniumhq.selenium.version>3.141.59</org.seleniumhq.selenium.version>
